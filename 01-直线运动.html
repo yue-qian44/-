@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>运动学知识点与例题课件</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;overflow:hidden;font-family:"PingFang SC","Microsoft YaHei",Arial,sans-serif;background:#081322;color:#eef7ff}
+#snowCanvas{position:fixed;inset:0;z-index:0;background:linear-gradient(180deg,#0f2037 0%, #172c46 52%, #233d5d 100%)}
+#app{position:relative;z-index:1;height:100%;display:flex;flex-direction:column}
+header{height:72px;display:flex;justify-content:space-between;align-items:center;padding:0 28px;background:rgba(7,13,24,.18);border-bottom:1px solid rgba(255,255,255,.10)}
+header .title{font-size:22px;font-weight:800;letter-spacing:.4px;color:#fff}
+header .meta{display:flex;gap:10px;flex-wrap:wrap}
+.pill{padding:7px 12px;border-radius:999px;background:rgba(10,18,31,.38);border:1px solid rgba(255,255,255,.14);font-size:12px;color:#f5fbff}
+main{flex:1;position:relative}
+.slide{display:none;height:100%;padding:18px 20px 82px}
+.slide.active{display:block;animation:fade .18s ease}
+@keyframes fade{from{opacity:.18;transform:translateY(8px)}to{opacity:1;transform:none}}
+.slide-shell{height:100%;display:grid;grid-template-columns:108px 1fr;border-radius:26px;overflow:hidden;border:1px solid rgba(255,255,255,.14);background:transparent;box-shadow:0 10px 38px rgba(0,0,0,.16)}
+.sidebar{background:linear-gradient(180deg, rgba(17,30,49,.78), rgba(13,24,40,.72));border-right:1px solid rgba(255,255,255,.10);padding:22px 16px 18px;display:flex;flex-direction:column;justify-content:space-between}
+.side-top{display:flex;flex-direction:column;gap:12px}
+.side-tag{font-size:12px;letter-spacing:1.6px;text-transform:uppercase;color:#ffffffd6}
+.page-no{font-size:38px;font-weight:900;line-height:1;color:#fff}
+.side-chapter{font-size:13px;line-height:1.55;color:#eef7ff}
+.side-bottom{font-size:12px;line-height:1.6;color:#dbeeff}
+.content{padding:24px 28px 18px;display:flex;flex-direction:column;overflow:hidden;position:relative;background:rgba(9,20,34,.16)}
+.topline{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:16px}
+.eyebrow{font-size:13px;letter-spacing:1.6px;text-transform:uppercase;color:#eef6ff;font-weight:700;margin-bottom:6px}
+.h1{margin:0;font-size:30px;line-height:1.18;font-weight:900;color:#fff;text-shadow:0 2px 10px rgba(0,0,0,.18)}
+.badge{padding:8px 14px;border-radius:999px;background:rgba(10,18,31,.42);border:1px solid rgba(255,255,255,.15);font-size:13px;font-weight:800;white-space:nowrap;color:#fff}
+.cover-wrap{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:10px 20px}
+.cover-wrap h1{margin:0 0 14px;font-size:46px;line-height:1.14;color:#fff}
+.cover-wrap h2{margin:0;font-size:24px;font-weight:700;color:#f3f9ff}
+.stats{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:28px}
+.stat{padding:14px 18px;border-radius:18px;background:rgba(9,20,34,.34);border:1px solid rgba(255,255,255,.14);font-weight:800;color:#fff}
+.dir-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;flex:1;overflow:auto;padding-right:4px}
+.dir-card{border:1px solid rgba(255,255,255,.14);border-radius:18px;padding:14px 16px;background:rgba(9,20,34,.22)}
+.dir-card h3{margin:0 0 8px;font-size:18px;color:#fff}
+.dir-card ul{margin:0;padding-left:18px;line-height:1.72;color:#eff8ff}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px;flex:1;min-height:0}
+.card{border:1px solid rgba(255,255,255,.14);border-radius:20px;padding:18px 20px;overflow:auto;background:rgba(9,20,34,.20)}
+.card h3{margin:0 0 12px;font-size:20px;color:#fff}
+.card ul{margin:0;padding-left:18px;line-height:1.82;color:#f6fbff}
+.card li{margin-bottom:8px}
+.kp-box{margin-top:14px;padding:14px 16px;border-radius:16px;border:1px dashed rgba(255,255,255,.18);color:#f4fbff;line-height:1.8;background:transparent}
+.question-box{display:flex;flex-direction:column;gap:16px;flex:1;min-height:0}
+.qa-card{border:1px solid rgba(255,255,255,.14);border-radius:22px;padding:22px 24px;overflow:auto;background:rgba(9,20,34,.18)}
+.qa-label{font-size:14px;letter-spacing:1.6px;text-transform:uppercase;color:#f7fbff;font-weight:800;margin-bottom:10px}
+.qa-title{font-size:20px;font-weight:800;color:#fff;margin-bottom:12px}
+.qa-question{font-size:22px;line-height:1.7;color:#fff}
+.qa-answer{margin-top:16px;padding:14px 16px;border-radius:16px;border:1px dashed rgba(255,255,255,.18);font-size:17px;line-height:1.8;color:#f5fbff;background:transparent}
+.footer{margin-top:12px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:12px;color:#eef7ff}
+.nav{position:fixed;left:18px;right:18px;bottom:12px;z-index:5;display:flex;align-items:center;gap:14px;padding:12px 16px;border-radius:18px;background:rgba(7,13,24,.40);border:1px solid rgba(255,255,255,.14)}
+.navleft,.navright{display:flex;align-items:center;gap:10px}
+.navbtn{border:none;border-radius:12px;padding:10px 14px;cursor:pointer;background:rgba(255,255,255,.15);color:#fff;font-weight:800}
+#progressWrap{flex:1;height:10px;background:rgba(255,255,255,.12);border-radius:999px;overflow:hidden}
+#progressBar{height:100%;width:0;background:linear-gradient(90deg,#ffffff,#dcebff)}
+#counter{min-width:118px;text-align:center;font-size:13px;color:#fff}
+kbd{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);padding:2px 6px;border-radius:6px;color:#fff}
+.small{font-size:12px;color:#eef7ff}
+@media (max-width:1100px){.slide-shell{grid-template-columns:84px 1fr}.dir-grid,.grid2{grid-template-columns:1fr}.h1{font-size:24px}.cover-wrap h1{font-size:34px}.qa-question{font-size:19px}}
+</style>
+</head>
+<body>
+<canvas id="snowCanvas"></canvas>
+<div id="app">
+  <header>
+    <div class="title">运动学知识点与例题课件</div>
+    <div class="meta">
+      <span class="pill">两页目录</span>
+      <span class="pill">一个视频三页</span>
+      <span class="pill">六瓣雪花</span>
+      <span class="pill" id="timer">00:00</span>
+    </div>
+  </header>
+  <main id="slides"></main>
+</div>
+<div class="nav">
+  <div class="navleft">
+    <button class="navbtn" id="prevBtn">◀ 上一页</button>
+    <button class="navbtn" id="nextBtn">下一页 ▶</button>
+    <button class="navbtn" id="fullBtn">⛶ 全屏</button>
+  </div>
+  <div id="progressWrap"><div id="progressBar"></div></div>
+  <div id="counter"></div>
+  <div class="navright small">快捷键：<kbd>←</kbd> <kbd>→</kbd> <kbd>空格</kbd></div>
+</div>
+<script>
+const videos = [{"code": "01", "title": "运动基本物理量", "points": ["位移、速度、加速度是矢量；路程、速率、时间是标量。", "平均速度对应全过程，瞬时速度对应某时刻或某位置。", "选定正方向后，再判断位移、速度、加速度的正负。"], "examples": [{"title": "例题 1：平均速度", "question": "质点 4 s 内沿直线运动，位移为 24 m，求平均速度。若路程为 30 m，平均速率是多少？", "answer": "平均速度 v̄=Δx/Δt=24/4=6 m/s；平均速率=路程/时间=30/4=7.5 m/s。"}, {"title": "例题 2：加速度判定", "question": "汽车速度由 20 m/s 匀减速到 8 m/s，用时 4 s，求加速度。若取初速度方向为正方向，加速度符号如何表示？", "answer": "a=(8-20)/4=-3 m/s²。负号表示加速度方向与初速度方向相反。"}]}, {"code": "02", "title": "运动学公式", "points": ["匀变速直线运动五个基本关系：v=v0+at，x=v0t+1/2at²，v²-v0²=2ax，x=(v+v0)t/2。", "解题先看已知量与待求量，再选“缺一个量”的公式。", "同一公式中的各物理量必须对应同一过程。"], "examples": [{"title": "例题 1：求时间", "question": "一物体从 1.8 m/s 匀加速到 5.0 m/s，通过位移 8.5 m，求所用时间。", "answer": "由 x=(v+v0)t/2 得 t=2x/(v+v0)=17/6.8=2.5 s。"}, {"title": "例题 2：求加速度", "question": "物体以 4 m/s 初速度做匀加速运动，3 s 后速度变为 10 m/s，求加速度与位移。", "answer": "a=(10-4)/3=2 m/s²；x=v0t+1/2at²=4×3+1/2×2×9=21 m。"}]}, {"code": "03", "title": "平均速度", "points": ["平均速度定义：全过程位移与时间的比值。", "匀变速直线运动中，平均速度等于中间时刻速度，也等于初末速度的平均值。", "分段运动求平均速度时，必须先求总位移与总时间。"], "examples": [{"title": "例题 1：两段等时间", "question": "某物体先以 4 m/s 运动 5 s，再以 8 m/s 运动 5 s，求全过程平均速度。", "answer": "总位移 x=4×5+8×5=60 m，总时间 10 s，平均速度 6 m/s。"}, {"title": "例题 2：匀加速性质", "question": "小车由 2 m/s 匀加速到 10 m/s，求该过程平均速度。", "answer": "匀变速直线运动平均速度 v̄=(v0+v)/2=(2+10)/2=6 m/s。"}]}, {"code": "04", "title": "相邻相等时间间隔", "points": ["匀变速直线运动中，相邻相等时间内的位移差为常量：Δx=aT²。", "纸带问题常借助逐差法求加速度。", "中间时刻速度可由对称点位移或相邻点平均速度求得。"], "examples": [{"title": "例题 1：求加速度", "question": "某纸带相邻相等时间 T=0.2 s 内的位移分别为 2 cm、6 cm、10 cm，求加速度。", "answer": "相邻位移差 Δx=4 cm=0.04 m，a=Δx/T²=0.04/0.04=1 m/s²。"}, {"title": "例题 2：逐差法", "question": "纸带上连续 6 段位移依次为 1.8、3.0、4.2、5.4、6.6、7.8 cm，时间间隔均为 0.1 s，求加速度。", "answer": "相邻位移差均为 1.2 cm=0.012 m，a=Δx/T²=0.012/0.01=1.2 m/s²。"}]}, {"code": "05", "title": "x-t 图", "points": ["x-t 图像的斜率表示速度大小与方向。", "图像越陡，速度绝对值越大；水平线表示静止。", "两图线交点表示同一时刻到达同一位置。"], "examples": [{"title": "例题 1：斜率求速度", "question": "某物体的 x-t 图像为过原点的直线，4 s 时位移为 12 m，求速度。", "answer": "v=Δx/Δt=12/4=3 m/s。"}, {"title": "例题 2：会车问题", "question": "A、B 两物体的 x-t 图像相交于 t=6 s、x=18 m，这表示什么？", "answer": "表示在 6 s 时两物体处于同一位置 18 m 处，即相遇。"}]}, {"code": "06", "title": "v-t 图", "points": ["v-t 图像的斜率表示加速度。", "图像与时间轴围成的面积表示位移。", "速度在时间轴上方表示正向运动，下方表示反向运动。"], "examples": [{"title": "例题 1：面积求位移", "question": "某物体 v-t 图像为底 4 s、高 8 m/s 的三角形，求 0~4 s 内位移。", "answer": "位移等于面积 x=1/2×4×8=16 m。"}, {"title": "例题 2：斜率求加速度", "question": "v-t 图中速度 2 s 内由 5 m/s 增加到 11 m/s，求加速度。", "answer": "a=Δv/Δt=(11-5)/2=3 m/s²。"}]}, {"code": "07", "title": "位移图像与速度图像综合", "points": ["x-t 图与 v-t 图的核心差别：前者斜率看速度，后者面积看位移。", "同一运动可从不同图像中读出不同物理量。", "综合题要先辨认图像类型，再调用对应物理意义。"], "examples": [{"title": "例题 1：图像辨识", "question": "某图像纵轴为位移、横轴为时间，图线是一条斜直线。问该物体是否做匀速直线运动？速度如何确定？", "answer": "是。x-t 图斜率恒定，故速度恒定，速度等于图线斜率。"}, {"title": "例题 2：综合比较", "question": "甲的 x-t 图像斜率为 2，乙的 v-t 图像在 3 s 内与时间轴围成面积为 6，求甲速度和乙位移。", "answer": "甲速度为 2 m/s；乙位移为 6 m。"}]}, {"code": "08", "title": "追及相遇问题", "points": ["追及相遇本质：同一时刻位置相同。", "常用方法：位移关系法、图像法、临界条件法。", "速度相等常对应“最近”或“最远”临界状态。"], "examples": [{"title": "例题 1：同向追及", "question": "甲以 6 m/s 匀速前进，乙在其后方 20 m 处以 10 m/s 匀速追赶，求追上所需时间。", "answer": "相对速度 4 m/s，t=20/4=5 s。"}, {"title": "例题 2：减速追及", "question": "前车以 8 m/s 匀速行驶，后车初速度 14 m/s、加速度大小 2 m/s² 做匀减速运动追赶，求两车最小距离。初始间距为 18 m。", "answer": "当速度相等时距离最小，t=(14-8)/2=3 s。后车位移 14×3-1/2×2×9=33 m，前车位移 24 m，间距变为 18-(33-24)=9 m。"}]}, {"code": "09", "title": "刹车问题", "points": ["刹车问题要先求停止时间，超出停止时间后物体保持静止。", "不能把减速公式机械套用到“停止后”的时间段。", "常见两问：停止前位移、给定时间内位移。"], "examples": [{"title": "例题 1：停止时间", "question": "汽车初速度 20 m/s，刹车加速度大小 5 m/s²，求停止时间与刹车距离。", "answer": "停止时间 t=20/5=4 s；位移 x=v0²/(2a)=400/10=40 m。"}, {"title": "例题 2：给定较长时间", "question": "上述汽车在 6 s 内通过的位移是多少？", "answer": "车在 4 s 时已停下，后 2 s 静止，因此 6 s 内位移仍为 40 m。"}]}, {"code": "10", "title": "匀变速直线运动推论", "points": ["中间时刻速度等于该段平均速度。", "位移中点速度满足 vx/2 > vt/2（加速）或 <（减速）。", "比例法适用于初速度为零的匀加速运动：1:3:5:… 和 1:4:9:…。"], "examples": [{"title": "例题 1：初速度为零比例", "question": "物体由静止开始做匀加速运动，前 3 s 内位移为 18 m，求第 3 s 内位移。", "answer": "各秒位移比为 1:3:5，因此第 3 s 内位移占总位移的 5/(1+3+5)=5/9，总位移 18 m，所以第 3 s 内位移为 10 m。"}, {"title": "例题 2：中间时刻速度", "question": "物体在 4 s 内由 6 m/s 匀加速到 14 m/s，求 2 s 时刻速度。", "answer": "匀变速运动中中间时刻速度等于平均速度，v=(6+14)/2=10 m/s。"}]}, {"code": "11", "title": "基础图像总结", "points": ["基础图像主要包括 x-t 图与 v-t 图。", "x-t 图重点看斜率与交点；v-t 图重点看斜率、面积与时间轴位置。", "图像题先辨“图像类型—物理意义—定量关系”。"], "examples": [{"title": "例题 1：基础图像判断", "question": "某图像是一条平行于时间轴的 x-t 图线，物体处于什么状态？", "answer": "位移不变，物体静止。"}, {"title": "例题 2：v-t 图综合", "question": "物体的 v-t 图像先在时间轴上方，再到下方，面积大小分别为 12 m 和 5 m，求全过程位移。", "answer": "位移为代数和 12-5=7 m。"}]}, {"code": "12", "title": "基础图像特殊问题", "points": ["特殊问题常涉及拐点、折线、分段函数和反向运动。", "v-t 图像过时间轴表示速度变号；x-t 图像斜率变号表示运动方向改变。", "分段图像应分段求位移、速度或加速度。"], "examples": [{"title": "例题 1：方向改变", "question": "某物体的 v-t 图像在 t=3 s 时穿过时间轴，这一时刻表示什么？", "answer": "该时刻速度为零，之后运动方向发生改变。"}, {"title": "例题 2：分段位移", "question": "某 v-t 图像中 0~2 s 内速度恒为 4 m/s，2~5 s 内速度恒为 -2 m/s，求总位移。", "answer": "位移 x=4×2+(-2)×3=2 m。"}]}, {"code": "13", "title": "基础图像练习", "points": ["图像练习重点是“读图—列式—求量”。", "横轴、纵轴单位必须先读清。", "同一图像中可同时考查速度、位移、加速度、相遇时刻。"], "examples": [{"title": "例题 1：相遇时刻", "question": "甲的 x-t 图线与乙的 x-t 图线在 t=5 s 时相交，且此时 x=10 m，写出图像信息。", "answer": "表示甲、乙在 5 s 时相遇，位置在 10 m 处。"}, {"title": "例题 2：图像求加速度", "question": "某 v-t 图线是过点 (0,2) 与 (4,10) 的直线，求加速度。", "answer": "a=(10-2)/4=2 m/s²。"}]}, {"code": "14", "title": "特殊图像总结", "points": ["特殊图像常将非线性图像转化为“斜率含义”或“面积含义”问题。", "图像弯曲时，斜率或面积仍可局部反映速度、加速度等信息。", "题目常配合函数关系、比例关系或几何关系考查。"], "examples": [{"title": "例题 1：曲线 x-t 图", "question": "若 x-t 图像越来越陡，说明物体速度如何变化？", "answer": "图像斜率增大，说明速度不断增大。"}, {"title": "例题 2：图像趋势判断", "question": "若 v-t 图像是一条斜率为负的直线，说明物体做什么运动？", "answer": "说明加速度恒定且为负，物体做匀变速直线运动，若速度为正则为匀减速。"}]}, {"code": "15", "title": "特殊图像练习", "points": ["练习重点是把图像几何特征翻译成物理过程。", "交点、极值点、过轴点常是设问重点。", "特殊图像也应回归基本物理量关系。"], "examples": [{"title": "例题 1：极值含义", "question": "某 x-t 曲线在某点切线水平，这表示什么？", "answer": "该点斜率为零，表示该时刻速度为零。"}, {"title": "例题 2：综合练习", "question": "某 v-t 图像在 0~2 s 为上升直线，2~4 s 为下降直线并在 4 s 回到零，求 0~4 s 位移如何求？", "answer": "把图像与时间轴围成的总面积分成两个三角形面积求和即可。"}]}];
+const slides = [];
+function shell(pageNo, tag, chapter, body){
+  return `<section class="slide"><div class="slide-shell"><aside class="sidebar"><div class="side-top"><div class="side-tag">${tag}</div><div class="page-no">${String(pageNo).padStart(2,'0')}</div><div class="side-chapter">${chapter||''}</div></div><div class="side-bottom">Motion<br>Review</div></aside><div class="content">${body}</div></div></section>`;
+}
+slides.push(shell(1,'封面','',`
+  <div class="cover-wrap">
+    <h1>运动学专题复习</h1>
+    <h2>知识点与例题</h2>
+    <div class="stats">
+      <div class="stat">15 个视频</div>
+      <div class="stat">45 个内容页</div>
+      <div class="stat">1 页知识点 + 2 页例题</div>
+    </div>
+  </div>
+`));
+function dirCard(v,i){
+  const start = 4 + i*3;
+  return `<div class="dir-card"><h3>${i+1}. ${v.title}</h3><ul><li>知识点：第 ${start} 页</li><li>例题：第 ${start+1} - ${start+2} 页</li></ul></div>`;
+}
+slides.push(shell(2,'目录','运动学视频目录',`
+  <div class="topline"><div><div class="eyebrow">Contents</div><h1 class="h1">视频目录（上）</h1></div><div class="badge">目录页 1</div></div>
+  <div class="dir-grid">${videos.slice(0,8).map((v,i)=>dirCard(v,i)).join('')}</div>
+`));
+slides.push(shell(3,'目录','运动学视频目录',`
+  <div class="topline"><div><div class="eyebrow">Contents</div><h1 class="h1">视频目录（下）</h1></div><div class="badge">目录页 2</div></div>
+  <div class="dir-grid">${videos.slice(8).map((v,i)=>dirCard(v,i+8)).join('')}</div>
+`));
+let pageNo = 4;
+videos.forEach((v,idx)=>{
+  slides.push(shell(pageNo++,'知识点',`${String(idx+1).padStart(2,'0')}<br>${v.title}`,`
+    <div class="topline"><div><div class="eyebrow">Knowledge</div><h1 class="h1">${v.title}</h1></div><div class="badge">第 1 / 3 页</div></div>
+    <div class="grid2">
+      <div class="card"><h3>主要知识点</h3><ul>${v.points.map(p=>`<li>${p}</li>`).join('')}</ul></div>
+      <div class="card"><h3>核心结论</h3><div class="kp-box">${v.points.join('<br>')}</div></div>
+    </div>
+    <div class="footer"><span>运动学</span><span>${v.code} ${v.title}</span></div>
+  `));
+  const ex1 = v.examples[0];
+  slides.push(shell(pageNo++,'例题',`${String(idx+1).padStart(2,'0')}<br>${v.title}`,`
+    <div class="topline"><div><div class="eyebrow">Example</div><h1 class="h1">${v.title}</h1></div><div class="badge">第 2 / 3 页</div></div>
+    <div class="question-box">
+      <div class="qa-card">
+        <div class="qa-label">Example 1</div>
+        <div class="qa-title">${ex1.title}</div>
+        <div class="qa-question">${ex1.question}</div>
+        <div class="qa-answer">${ex1.answer}</div>
+      </div>
+    </div>
+    <div class="footer"><span>运动学</span><span>${v.code} ${v.title}</span></div>
+  `));
+  const ex2 = v.examples[1];
+  slides.push(shell(pageNo++,'例题',`${String(idx+1).padStart(2,'0')}<br>${v.title}`,`
+    <div class="topline"><div><div class="eyebrow">Example</div><h1 class="h1">${v.title}</h1></div><div class="badge">第 3 / 3 页</div></div>
+    <div class="question-box">
+      <div class="qa-card">
+        <div class="qa-label">Example 2</div>
+        <div class="qa-title">${ex2.title}</div>
+        <div class="qa-question">${ex2.question}</div>
+        <div class="qa-answer">${ex2.answer}</div>
+      </div>
+    </div>
+    <div class="footer"><span>运动学</span><span>${v.code} ${v.title}</span></div>
+  `));
+});
+slides.push(shell(pageNo,'结束','运动学',`
+  <div class="cover-wrap">
+    <h1>运动学复习完成</h1>
+    <h2>知识点 · 例题 · 图像 · 方法</h2>
+  </div>
+`));
+
+document.getElementById('slides').innerHTML = slides.join('');
+const slideEls = Array.from(document.querySelectorAll('.slide'));
+let current = 0;
+function render(){
+  slideEls.forEach((s,i)=>s.classList.toggle('active', i===current));
+  document.getElementById('counter').textContent = `第 ${current+1} / ${slideEls.length} 页`;
+  document.getElementById('progressBar').style.width = `${current/(slideEls.length-1)*100}%`;
+}
+function next(){ if(current < slideEls.length-1){ current++; render(); }}
+function prev(){ if(current > 0){ current--; render(); }}
+document.getElementById('nextBtn').onclick = next;
+document.getElementById('prevBtn').onclick = prev;
+document.getElementById('fullBtn').onclick = ()=>{ if(!document.fullscreenElement) document.documentElement.requestFullscreen(); else document.exitFullscreen(); };
+document.addEventListener('keydown',e=>{
+  if(['ArrowRight',' ','PageDown'].includes(e.key)){ e.preventDefault(); next(); }
+  if(['ArrowLeft','PageUp'].includes(e.key)){ e.preventDefault(); prev(); }
+  if(e.key.toLowerCase()==='f'){ document.getElementById('fullBtn').click(); }
+});
+render();
+let sec=0; setInterval(()=>{ sec++; const m=String(Math.floor(sec/60)).padStart(2,'0'); const s=String(sec%60).padStart(2,'0'); document.getElementById('timer').textContent=`${m}:${s}`; },1000);
+
+// Six-petal snowflakes
+const canvas = document.getElementById('snowCanvas');
+const ctx = canvas.getContext('2d');
+let flakes = [];
+function resize(){
+  canvas.width = innerWidth * devicePixelRatio;
+  canvas.height = innerHeight * devicePixelRatio;
+  canvas.style.width = innerWidth + 'px';
+  canvas.style.height = innerHeight + 'px';
+  ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);
+  initSnow();
+}
+function initSnow(){
+  flakes = [];
+  const count = Math.min(120, Math.floor(innerWidth*innerHeight/14000));
+  for(let i=0;i<count;i++){
+    flakes.push({
+      x: Math.random()*innerWidth,
+      y: Math.random()*innerHeight,
+      r: Math.random()*8 + 4,
+      vy: Math.random()*0.9 + 0.5,
+      vx: (Math.random()-0.5)*0.45,
+      sway: Math.random()*0.02 + 0.004,
+      phase: Math.random()*Math.PI*2,
+      rot: Math.random()*Math.PI*2,
+      spin: (Math.random()-0.5)*0.01,
+      a: Math.random()*0.35 + 0.5
+    });
+  }
+}
+function drawGlow(){
+  const g1 = ctx.createRadialGradient(innerWidth*0.18, innerHeight*0.2, 0, innerWidth*0.18, innerHeight*0.2, innerWidth*0.34);
+  g1.addColorStop(0,'rgba(255,255,255,0.08)');
+  g1.addColorStop(1,'rgba(255,255,255,0)');
+  const g2 = ctx.createRadialGradient(innerWidth*0.82, innerHeight*0.78, 0, innerWidth*0.82, innerHeight*0.78, innerWidth*0.36);
+  g2.addColorStop(0,'rgba(255,255,255,0.06)');
+  g2.addColorStop(1,'rgba(255,255,255,0)');
+  ctx.fillStyle = g1; ctx.fillRect(0,0,innerWidth,innerHeight);
+  ctx.fillStyle = g2; ctx.fillRect(0,0,innerWidth,innerHeight);
+}
+function drawFlake(f){
+  ctx.save();
+  ctx.translate(f.x, f.y);
+  ctx.rotate(f.rot);
+  ctx.strokeStyle = `rgba(255,255,255,${f.a})`;
+  ctx.lineWidth = 1.2;
+  ctx.lineCap = 'round';
+  for(let i=0;i<6;i++){
+    ctx.rotate(Math.PI/3);
+    ctx.beginPath();
+    ctx.moveTo(0,0);
+    ctx.lineTo(0,-f.r);
+    ctx.stroke();
+    // side branches
+    ctx.beginPath();
+    ctx.moveTo(0,-f.r*0.52);
+    ctx.lineTo(f.r*0.18,-f.r*0.68);
+    ctx.moveTo(0,-f.r*0.52);
+    ctx.lineTo(-f.r*0.18,-f.r*0.68);
+    ctx.moveTo(0,-f.r*0.78);
+    ctx.lineTo(f.r*0.14,-f.r*0.9);
+    ctx.moveTo(0,-f.r*0.78);
+    ctx.lineTo(-f.r*0.14,-f.r*0.9);
+    ctx.stroke();
+  }
+  // center dot glow
+  const g = ctx.createRadialGradient(0,0,0,0,0,f.r*1.6);
+  g.addColorStop(0, `rgba(255,255,255,${Math.min(1,f.a+0.12)})`);
+  g.addColorStop(1, 'rgba(255,255,255,0)');
+  ctx.fillStyle = g;
+  ctx.beginPath(); ctx.arc(0,0,f.r*1.6,0,Math.PI*2); ctx.fill();
+  ctx.restore();
+}
+function loop(){
+  ctx.clearRect(0,0,innerWidth,innerHeight);
+  drawGlow();
+  for(const f of flakes){
+    f.y += f.vy;
+    f.phase += f.sway;
+    f.rot += f.spin;
+    f.x += f.vx + Math.sin(f.phase)*0.28;
+    if(f.y > innerHeight + 18){ f.y = -20; f.x = Math.random()*innerWidth; }
+    if(f.x < -18) f.x = innerWidth + 18;
+    if(f.x > innerWidth + 18) f.x = -18;
+    drawFlake(f);
+  }
+  requestAnimationFrame(loop);
+}
+window.addEventListener('resize', resize);
+resize(); loop();
+</script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"45c2bf8136a245cd97f1c2e9a96c0730"}' crossorigin="anonymous"></script>
+</body>
+</html>

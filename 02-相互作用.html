@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>相互作用专题课件</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;overflow:hidden;background:#061008;font-family:"PingFang SC","Microsoft YaHei",Arial,sans-serif;color:#effaf0}
+#vine{position:fixed;inset:0;z-index:0;background:radial-gradient(circle at center, #17351d 0%, #0d1f11 28%, #071009 68%, #050c06 100%)}
+#app{position:relative;z-index:1;height:100%;display:flex;flex-direction:column}
+header{height:66px;display:flex;align-items:center;justify-content:space-between;padding:0 22px;background:#0b1b0e;border-bottom:1px solid #355a3d}
+header .brand{font-size:21px;font-weight:800;letter-spacing:.4px}
+header .meta{display:flex;gap:8px;flex-wrap:wrap}
+.pill{font-size:12px;padding:6px 11px;border:1px solid #416b49;border-radius:999px;color:#def9e1;background:#0e2212}
+main{flex:1;position:relative}
+.slide{display:none;height:100%;padding:16px 18px 82px}
+.slide.active{display:block;animation:fade .18s ease}
+@keyframes fade{from{opacity:.2;transform:translateY(8px)}to{opacity:1;transform:none}}
+.frame{height:100%;display:grid;grid-template-columns:106px 1fr;border:2px solid #3d6d45;border-radius:24px;overflow:hidden;background:none;box-shadow:none}
+.side{padding:22px 14px 18px;background:#102314;border-right:2px solid #3d6d45;display:flex;flex-direction:column;justify-content:space-between}
+.tag{font-size:12px;letter-spacing:1.5px;color:#ccf5d1}
+.pno{font-size:38px;font-weight:900;margin:12px 0;color:#fff}
+.side-title{font-size:13px;line-height:1.55;color:#e8fce9}
+.side-foot{font-size:11px;line-height:1.55;color:#a8e9b3;letter-spacing:1px}
+.content{padding:20px 26px 16px;display:flex;flex-direction:column;min-width:0;position:relative;overflow:hidden;background:none}
+.top{display:flex;justify-content:space-between;gap:15px;align-items:flex-start;margin-bottom:14px}
+.eyebrow{font-size:12px;letter-spacing:1.6px;color:#91f39f;font-weight:800;margin-bottom:6px}
+.top h1{margin:0;font-size:28px;line-height:1.18;text-shadow:0 2px 10px rgba(0,0,0,.28)}
+.top-badge{padding:8px 13px;border-radius:999px;border:1px solid #4b8555;font-size:13px;font-weight:800;white-space:nowrap;color:#effaf0;background:none}
+.cover{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.cover-kicker{letter-spacing:2.5px;color:#98f1a5;font-size:13px;font-weight:800}
+.cover h1{font-size:46px;margin:14px 0 8px;text-shadow:0 3px 16px rgba(0,0,0,.3)}
+.cover h2{font-size:24px;margin:0;color:#d6f9da}
+.cover-line{width:120px;height:3px;border-radius:99px;background:linear-gradient(90deg,#49dc62,#a1f4ad);margin:24px 0}
+.cover-tags{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.cover-tags span{padding:10px 15px;border-radius:999px;border:1px solid #42754a;color:#eafcec;background:none}
+.dir-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px;flex:1;overflow:auto;padding-right:2px}
+.dir-card{display:grid;grid-template-columns:58px 1fr;gap:12px;align-items:center;border:2px solid #3f7248;border-radius:18px;padding:13px 15px;background:none}
+.dir-num{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;border:2px solid #4d8857;font-weight:900;color:#def9e1;background:none}
+.dir-card h3{margin:0 0 3px;font-size:17px}
+.dir-title{font-size:13px;color:#d5f6da}
+.dir-pages{font-size:11px;color:#94e9a0;margin-top:4px}
+.knowledge-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:16px;flex:1;min-height:0;margin-bottom:14px}
+.knowledge-grid.compact{flex:0 0 auto;min-height:230px}
+.panel{border:2px solid #3f7248;border-radius:20px;padding:18px 20px;overflow:auto;background:none}
+.panel h3{margin:0 0 12px;color:#ecffef;font-size:20px}
+.panel ul{margin:0;padding-left:20px;line-height:1.8;color:#f2fff3}
+.panel li{margin-bottom:8px}
+.source{margin-top:14px;padding-top:12px;border-top:1px dashed #477950}
+.source-k{font-size:12px;color:#98f1a5;letter-spacing:1.4px;font-weight:800;margin-bottom:6px}
+.source-v{font-size:16px;line-height:1.78;color:#e6fbe8}
+.examples{display:grid;grid-template-columns:1fr 1fr;gap:16px;flex:1;min-height:0}
+.examples.bank{flex:1}
+.examples.tall{grid-template-columns:1fr 1fr}
+.example-card{border:2px solid #3f7248;border-radius:20px;padding:18px 18px;overflow:auto;position:relative;background:none}
+.ex-title{font-size:18px;font-weight:900;color:#9ef3ab;margin-bottom:12px}
+.ex-q{font-size:20px;line-height:1.72;color:#f7fff8;margin-bottom:16px}
+.ans-btn{border:1px solid #569161;border-radius:11px;padding:9px 13px;background:#12311a;color:#fff;font-weight:800;cursor:pointer}
+.answer{display:none;margin-top:13px;padding:13px 14px;border-radius:14px;border:1px dashed #4c8056;line-height:1.72;color:#ebffed;background:none}
+.answer.show{display:block}
+.footer{margin-top:12px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:12px;color:#d6f8db}
+.nav{position:fixed;left:16px;right:16px;bottom:11px;z-index:5;display:flex;align-items:center;gap:13px;padding:11px 14px;background:#0b180d;border:1px solid #406f48;border-radius:17px}
+.nav button{border:1px solid #568d5f;border-radius:11px;padding:9px 13px;background:#16391e;color:#fff;font-weight:800;cursor:pointer}
+#progWrap{flex:1;height:9px;border-radius:99px;overflow:hidden;background:#17311c}
+#prog{height:100%;width:0;background:linear-gradient(90deg,#57e06f,#b0f6ba)}
+#count{min-width:110px;text-align:center;font-size:12px;color:#ddfae1}
+.small{font-size:11px;color:#bbefc3} kbd{padding:2px 5px;border-radius:5px;background:#0f2312;border:1px solid #33583b}
+@media(max-width:1100px){.frame{grid-template-columns:84px 1fr}.knowledge-grid,.examples,.dir-grid{grid-template-columns:1fr}.top h1{font-size:24px}.cover h1{font-size:36px}.ex-q{font-size:18px}}
+</style>
+</head>
+<body>
+<canvas id="vine"></canvas>
+<div id="app">
+<header><div class="brand">相互作用专题课件</div><div class="meta"><span class="pill">具体例题</span><span class="pill">更贴近视频 / 高考</span><span class="pill">去透明背景板</span><span class="pill" id="timer">00:00</span></div></header>
+<main id="slides"><section class="slide"><div class="frame"><aside class="side"><div><div class="tag">封面</div><div class="pno">01</div><div class="side-title"></div></div><div class="side-foot">INTERACTION<br>PPT</div></aside><div class="content">
+<div class="cover">
+  <div class="cover-kicker">INTERACTION MODULE</div>
+  <h1>相互作用专题课件</h1>
+  <h2>知识点 · 例题 · 题库</h2>
+  <div class="cover-line"></div>
+  <div class="cover-tags"><span>知识模块：北大学长跳跳</span><span>题库模块：小徐高中物理课堂</span><span>中心藤蔓 + 中央花朵</span></div>
+</div>
+</div></div></section><section class="slide"><div class="frame"><aside class="side"><div><div class="tag">目录</div><div class="pno">02</div><div class="side-title">知识模块</div></div><div class="side-foot">INTERACTION<br>PPT</div></aside><div class="content">
+<div class="top"><div><div class="eyebrow">CONTENTS</div><h1>知识模块目录</h1></div><div class="top-badge">目录 1 / 2</div></div>
+<div class="dir-grid"><div class="dir-card"><div class="dir-num">2.1</div><div><h3>摩擦力常考问题</h3><div class="dir-title">1 页知识点 + 1 页例题</div><div class="dir-pages">P4–P5</div></div></div><div class="dir-card"><div class="dir-num">2.2</div><div><h3>受力分析</h3><div class="dir-title">1 页知识点 + 1 页例题</div><div class="dir-pages">P6–P7</div></div></div><div class="dir-card"><div class="dir-num">2.3</div><div><h3>力的合成与分解</h3><div class="dir-title">1 页知识点 + 1 页例题</div><div class="dir-pages">P8–P9</div></div></div><div class="dir-card"><div class="dir-num">2.4</div><div><h3>共点力平衡问题</h3><div class="dir-title">1 页知识点 + 1 页例题</div><div class="dir-pages">P10–P11</div></div></div></div>
+</div></div></section><section class="slide"><div class="frame"><aside class="side"><div><div class="tag">目录</div><div class="pno">03</div><div class="side-title">题库模块</div></div><div class="side-foot">INTERACTION<br>PPT</div></aside><div class="content">
+<div class="top"><div><div class="eyebrow">CONTENTS</div><h1>题库模块目录</h1></div><div class="top-badge">目录 2 / 2</div></div>
+<div class="dir-grid"><div class="dir-card"><div class="dir-num">01</div><div><h3>题型一｜合力与分力</h3><div class="dir-title">每个题型 2 页题库</div><div class="dir-pages">P12–P13</div></div></div><div class="dir-card"><div class="dir-num">02</div><div><h3>题型二｜弹力方向</h3><div class="dir-title">每个题型 2 页题库</div><div class="dir-pages">P14–P15</div></div></div><div class="dir-card"><div class="dir-num">03</div><div><h3>题型三｜胡克定律</h3><div class="dir-title">每个题型 2 页题库</div><div class="dir-pages">P16–P17</div></div></div><div class="dir-card"><div class="dir-num">04</div><div><h3>题型四｜正交分解</h3><div class="dir-title">每个题型 2 页题库</div><div class="dir-pages">P18–P19</div></div></div><div class="dir-card"><div class="dir-num">05</div><div><h3>题型五｜整体隔离法</h3><div class="dir-title">每个题型 2 页题库</div><div class="dir-pages">P20–P21</div></div></div><div class="dir-card"><div class="dir-num">06</div><div><h3>题型六｜轻杆模型</h3><div class="dir-title">每个题型 2 页题库</div><div class="dir-pages">P22–P23</div></div></div></div>
+</div></div></section><section class="slide"><div class="frame"><aside class="side"><div><div class="tag">知识点</div><div class="pno">04</div><div class="side-title">2.1<br>摩擦力常考问题</div></div><div class="side-foot">INTERACTION<br>PPT</div></aside><div class="content">
+<div class="top"><div><div class="eyebrow">KNOWLEDGE</div><h1>摩擦力常考问题</h1></div><div class="top-badge">知识点页</div></div>
+<div class="knowledge-grid">
+  <div class="panel"><h3>核心知识点</h3><ul><li>滑动摩擦力大小：f=μN，方向与相对运动方向相反。</li><li>静摩擦力大小由运动状态决定，满足 0≤f≤fmax，不能直接写成 μN。</li><li>判断摩擦力方向先看接触面间的相对运动趋势。</li><li>传送带、斜面、水平拉推是高频模型。</li><li>涉及相对滑动时，生热常用 Q=f·s相对。</li></ul></div>
+  <div class="panel"><h3>易错提醒</h3><ul><li>“静止”不代表没有摩擦力。</li><li>“匀速”不代表没有摩擦力，只代表合力为零。</li><li>摩擦力一定沿接触面，不能垂直接触面。</li></ul><div class="source"><div class="source-k">来源</div><div class="source-v">北大学长跳跳｜2.1 摩擦力常考问题-知识点 / 2.1 摩擦力常考问题-题目</div></div></div>
+</div>
+<div class="footer"><span>相互作用模块</span><span>2.1 摩擦力常考问题</span></div>
+</div></div></section><section class="slide"><div class="frame"><aside class="side"><div><div class="tag">例题</div><div class="pno">05</div><div class="side-title">2.1<br>摩擦力常考问题</div></div><div class="side-foot">INTERACTION<br>PPT</div></aside><div class="content">
+<div class="top"><div><div class="eyebrow">EXAMPLES</div><h1>摩擦力常考问题</h1></div><div class="top-badge">例题页</div></div>
+<div class="examples"><div class="example-card"><div class="ex-title">高考风选择题</div><div class="ex-q">质量为 m 的木块静止在倾角为 θ 的粗糙斜面上。现给木块一个沿斜面向上的恒力 F，但木块仍保持静止。下列判断正确的是（  ）<br>A. 木块一定受四个力<br>B. 木块所受摩擦力一定沿斜面向上<br>C. 木块所受摩擦力大小可能等于 mgsinθ-F<br>D. 撤去 F 后，木块一定下滑</div><button class="ans-btn" onclick="toggleAns('k-2.1-0')">查看答案</button><div class="answer" id="k-2.1-0">选 C。木块可能受重力、支持力、摩擦力以及外力 F，共四个力并不一定错误，但若 F=0 时就不是四个力，题干中当前情景下实际上为四个力，最稳妥的核心结论是平衡时沿斜面方向 f+F=mgsinθ 或 F=f+mgsinθ，因此摩擦力大小可能为 |mgsinθ-F|；方向不一定向上；撤去 F 后是否下滑取决于最大静摩擦力。</div></div><div class="example-card"><div class="ex-title">计算题</div><div class="ex-q">质量 2 kg 的物块在水平地面上向右运动，已知滑动摩擦因数 μ=0.2，取 g=10 m/s²。<br>（1）求物块所受滑动摩擦力大小；<br>（2）若此时再施加一个水平向右的 9 N 拉力，求物块的加速度。</div><button class="ans-btn" onclick="toggleAns('k-2.1-1')">查看答案</button><div class="answer" id="k-2.1-1">（1）N=mg=20 N，所以滑动摩擦力 f=μN=0.2×20=4 N。<br>（2）合力 F合=9-4=5 N，所以 a=F合/m=5/2=2.5 m/s²。</div></div></div>
+<div class="footer"><span>相互作用模块</span><span>2.1 摩擦力常考问题</span></div>
+</div></div></section><section class="slide"><div class="frame"><aside class="side"><div><div class="tag">知识点</div><div class="pno">06</div><div class="side-title">2.2<br>受力分析</div></div><div class="side-foot">INTERACTION<br>PPT</div></aside><div class="content">
+<div class="top"><div><div class="eyebrow">KNOWLEDGE</div><h1>受力分析</h1></div><div class="top-badge">知识点页</div></div>
+<div class="knowledge-grid">
+  <div class="panel"><h3>核心知识点</h3><ul><li>受力分析按“重力—弹力—摩擦力—其他力”的顺序最稳妥。</li><li>只分析研究对象受到的力，不分析它施加给别人的力。</li><li>一个接触面上最多考虑弹力和摩擦力两类接触力。</li><li>受力图中不画合力、分力、效果力。</li><li>整体法和隔离法常配合使用。</li></ul></div>
+  <div class="panel"><h3>易错提醒</h3><ul><li>把“合力”画进受力图是典型错误。</li><li>把“下滑趋势”误当成真实运动方向。</li><li>漏重力、漏支持力、错判摩擦力方向最常见。</li></ul><div class="source"><div class="source-k">来源</div><div class="source-v">北大学长跳跳｜2.2 受力分析-知识点 / 2.2 受力分析-题目</div></div></div>
+</div>
+<div class="footer"><span>相互作用模块</span><span>2.2 受力分析</span></div>
+</div></div></section><section class="slide"><div class="frame"><aside class="side"><div><div class="tag">例题</div><div class="pno">07</div><div class="side-title">2.2<br>受力分析</div></div><div class="side-foot">INTERACTION<br>PPT</div></aside><div class="content">
+<div class="top"><div><div class="eyebrow">EXAMPLES</div><h1>受力分析</h1></div><div class="top-badge">例题页</div></div>
+<div class="examples"><div class="example-card"><div class="ex-title">受力图判断题</div><div class="ex-q">如图景常见模型：木块靠在竖直墙面上，受到一个水平向右的推力 F，木块静止。下列说法正确的是（  ）<br>A. 木块只受重力、推力和墙的支持力<br>B. 墙面对木块一定有竖直向上的静摩擦力<br>C. 推力 F 越大，静摩擦力越大<br>D. 若撤去推力，木块仍可能静止</div><button class="ans-btn" onclick="toggleAns('k-2.2-0')">查看答案</button><div class="answer" id="k-2.2-0">选 B。木块静止时竖直方向平衡，墙面对木块一定有竖直向上的静摩擦力，且大小等于重力 mg；静摩擦力与推力大小无直接正比关系，只要仍满足静止即可；撤去推力后木块与墙脱离，不可能静止在原处。</div></div><div class="example-card"><div class="ex-title">分析计算题</div><div class="ex-q">质量分别为 1 kg、2 kg 的 A、B 两物块叠放在粗糙水平地面上，用 6 N 的水平力拉 A，使 A、B 一起向右做匀加速运动。已知 A、B 间摩擦足够大，A 与地面间摩擦忽略。求：<br>（1）系统加速度；<br>（2）B 对 A 的摩擦力大小。</div><button class="ans-btn" onclick="toggleAns('k-2.2-1')">查看答案</button><div class="answer" id="k-2.2-1">（1）把 A、B 看整体：a=F/(mA+mB)=6/3=2 m/s²。<br>（2）隔离 B：使 B 获得加速度的唯一水平力是 A 对 B 的摩擦力，所以 f=mBa=2×2=4 N。由牛顿第三定律，B 对 A 的摩擦力大小也为 4 N，方向向左。</div></div></div>
+<div class="footer"><span>相互作用模块</span><span>2.2 受力分析</span></div>
+</div></div></section><section class="slide"><div class="frame"><aside class="side"><div><div class="tag">知识点</div><div class="pno">08</div><div class="side-title">2.3<br>力的合成与分解</div></div><div class="side-foot">INTERACTION<br>PPT</div></aside><div class="content">
+<div class="top"><div><div class="eyebrow">KNOWLEDGE</div><h1>力的合成与分解</h1></div><div class="top-badge">知识点页</div></div>
+<div class="knowledge-grid">
+  <div class="panel"><h3>核心知识点</h3><ul><li>合力满足平行四边形定则；共线时可直接代数相加减。</li><li>两个共点力合力范围：|F1-F2|≤F≤F1+F2。</li><li>正交分解是最常用的分解方法，尤其适用于斜面和斜拉力模型。</li><li>分力必须与原力等效，不能随意分解。</li><li>三力平衡可用封闭三角形处理。</li></ul></div>
+  <div class="panel"><h3>易错提醒</h3><ul><li>合力不是物体额外多受一个力。</li><li>分力方向必须根据约束或解题需要来定。</li><li>多个力最小合力是否为 0，要看能否首尾相接成封闭图形。</li></ul><div class="source"><div class="source-k">来源</div><div class="source-v">北大学长跳跳｜2.3 力的合成与分解-知识点；小徐高中物理课堂｜题型一 合力与分力</div></div></div>
+</div>
+<div class="footer"><span>相互作用模块</span><span>2.3 力的合成与分解</span></div>
+</div></div></section><section class="slide"><div class="frame"><aside class="side"><div><div class="tag">例题</div><div class="pno">09</div><div class="side-title">2.3<br>力的合成与分解</div></div><div class="side-foot">INTERACTION<br>PPT</div></aside><div class="content">
+<div class="top"><div><div class="eyebrow">EXAMPLES</div><h1>力的合成与分解</h1></div><div class="top-badge">例题页</div></div>
+<div class="examples"><div class="example-card"><div class="ex-title">贴近视频原题</div><div class="ex-q">下列关于分力与合力的说法，正确的是（  ）<br>A. 两个力的合力，可能小于任一个分力<br>B. 5 N、2 N、6 N 三个共点力最大合力为 13 N，最小合力为 0<br>C. 合力的受力物体是分力的施力物体<br>D. 合力的大小总是大于分力的大小</div><button class="ans-btn" onclick="toggleAns('k-2.3-0')">查看答案</button><div class="answer" id="k-2.3-0">选 A、B。两个力方向接近相反时，合力可能小于任一分力；5、2、6 三力最大合力为 13 N，且 6<5+2+? 实际上 6<5+2，能构成封闭三角形，所以最小合力为 0；C 混淆了受力物体和施力物体；D 显然错误。</div></div><div class="example-card"><div class="ex-title">高考计算题</div><div class="ex-q">一个大小为 50 N 的力与水平方向成 37° 角斜向右上方作用在物体上。取 sin37°=0.6，cos37°=0.8。<br>（1）求该力的水平分力和竖直分力；<br>（2）若物体质量为 5 kg，水平面光滑，仅受该力作用，求物体的水平加速度。</div><button class="ans-btn" onclick="toggleAns('k-2.3-1')">查看答案</button><div class="answer" id="k-2.3-1">（1）Fx=Fcos37°=50×0.8=40 N，Fy=Fsin37°=50×0.6=30 N。<br>（2）水平方向合力为 40 N，所以 a=Fx/m=40/5=8 m/s²。</div></div></div>
+<div class="footer"><span>相互作用模块</span><span>2.3 力的合成与分解</span></div>
+</div></div></section><section class="slide"><div class="frame"><aside class="side"><div><div class="tag">知识点</div><div class="pno">10</div><div class="side-title">2.4<br>共点力平衡问题</div></div><div class="side-foot">INTERACTION<br>PPT</div></aside><div class="content">
+<div class="top"><div><div class="eyebrow">KNOWLEDGE</div><h1>共点力平衡问题</h1></div><div class="top-badge">知识点页</div></div>
+<div class="knowledge-grid">
+  <div class="panel"><h3>核心知识点</h3><ul><li>平衡状态包括静止和匀速直线运动；共点力平衡的本质条件是合力为零：ΣF=0。</li><li>二力平衡：两个力必须等大、反向、共线；三力平衡：任意两个力的合力与第三个力等大反向。</li><li>三力平衡中，若其中两个力互相垂直，可先合成这两个力，再与第三个力构成平衡；常结合直角三角形几何关系求解。</li><li>多力平衡优先用正交分解：ΣFx=0、ΣFy=0；坐标轴通常沿已知力、接触面或斜面方向建立。</li><li>同一物体受到多个力平衡时，任意一个力都与其余各力的合力等大反向；这也是“先合成再平衡”的依据。</li></ul></div>
+  <div class="panel"><h3>解题流程与易错提醒</h3><ul><li>先选研究对象，再完整受力分析，最后根据力的个数选择合成法或正交分解法。</li><li>三个非平行力平衡时，可首尾相接形成封闭三角形；出现特殊角时优先利用几何关系。</li><li>平衡力作用在同一物体上；作用力与反作用力作用在不同物体上，两者不能混淆。</li><li>本页只处理静态/匀速共点力平衡；动态平衡属于后续独立题型。</li></ul><div class="source"><div class="source-k">来源</div><div class="source-v">北大学长跳跳｜2025高考真题分类刷：2.4 共点力平衡问题-知识点 / 2.4 共点力平衡问题-题目；一轮复习系统课：2.7 共点力平衡问题</div></div></div>
+</div>
+<div class="footer"><span>相互作用模块</span><span>2.4 共点力平衡问题</span></div>
+</div></div></section><section class="slide"><div class="frame"><aside class="side"><div><div class="tag">例题</div><div class="pno">11</div><div class="side-title">2.4<br>共点力平衡问题</div></div><div class="side-foot">INTERACTION<br>PPT</div></aside><div class="content">
+<div class="top"><div><div class="eyebrow">EXAMPLES</div><h1>共点力平衡问题</h1></div><div class="top-badge">例题页</div></div>
+<div class="examples"><div class="example-card"><div class="ex-title">贴近原视频｜三力平衡</div><div class="ex-q">质量为 m 的小球用两根轻绳悬挂并保持静止。绳 OA 水平向左，绳 OB 与竖直方向成 37° 角斜向右上方。取 sin37°=0.6，cos37°=0.8。求两根绳的张力 T<sub>A</sub>、T<sub>B</sub>。</div><button class="ans-btn" onclick="toggleAns('k-2.4-0')">查看答案</button><div class="answer" id="k-2.4-0">小球受重力 mg、水平绳张力 T<sub>A</sub>、斜绳张力 T<sub>B</sub>，三力平衡。竖直方向：T<sub>B</sub>cos37°=mg，所以 T<sub>B</sub>=mg/0.8=5mg/4。水平方向：T<sub>A</sub>=T<sub>B</sub>sin37°=(5mg/4)×0.6=3mg/4。</div></div><div class="example-card"><div class="ex-title">高考风｜多力平衡</div><div class="ex-q">质量为 5 kg 的物块静止在倾角为 37° 的粗糙斜面上，现对物块施加一个水平向右的恒力 F=20 N。取 g=10 m/s²，sin37°=0.6，cos37°=0.8。求斜面对物块的支持力 N 和静摩擦力 f 的大小与方向。</div><button class="ans-btn" onclick="toggleAns('k-2.4-1')">查看答案</button><div class="answer" id="k-2.4-1">沿斜面向上为正，垂直斜面向外为正。水平力沿斜面分量为 Fcos37°=16 N（沿斜面向上），垂直斜面分量为 Fsin37°=12 N（压向斜面）；重力沿斜面分量 mgsin37°=30 N（向下），垂直斜面分量 mgcos37°=40 N（压向斜面）。垂直方向平衡：N=40+12=52 N。沿斜面方向，若无摩擦则有 30-16=14 N 的下滑趋势，所以静摩擦力应沿斜面向上，大小 f=14 N。</div></div></div>
+<div class="footer"><span>相互作用模块</span><span>2.4 共点力平衡问题</span></div>
+</div></div></section><section class="slide"><div class="frame"><aside class="side"><div><div class="tag">题库</div><div class="pno">12</div><div class="side-title">题型一<br>合力与分力</div></div><div class="side-foot">INTERACTION<br>PPT</div></aside><div class="content">
+<div class="top"><div><div class="eyebrow">QUESTION BANK</div><h1>题型一｜合力与分力</h1></div><div class="top-badge">第 1 / 2 页</div></div>
+<div class="knowledge-grid compact">
+  <div class="panel"><h3>题型特征</h3><ul><li>贴近截图原题：合力与分力概念、多个共点力合力最值。</li><li>进阶：由合力方向反求夹角或分力，结合余弦定理。</li><li>难点：三个及以上共点力的最小合力。</li></ul></div>
+  <div class="panel"><h3>解题提示</h3><div class="source-v">先辨研究对象，再确定是“方向判断、范围判断、分解列式、整体隔离”中的哪一种主方法。</div><div class="source"><div class="source-k">题库来源</div><div class="source-v">小徐高中物理课堂｜相互作用题型整理</div></div></div>
+</div>
+<div class="examples bank"><div class="example-card"><div class="ex-title">视频原题风格</div><div class="ex-q">下列关于分力与合力的说法，正确的是（  ）<br>A. 两个力的合力，可能小于任一个分力<br>B. 5 N、2 N、6 N 三个共点力最大合力为 13 N，最小合力为 0<br>C. 合力的受力物体是分力的施力物体<br>D. 合力的大小总是大于分力的大小</div><button class="ans-btn" onclick="toggleAns('b-0-1-0')">查看答案</button><div class="answer" id="b-0-1-0">A、B 正确。A：两力接近反向时合力可小于任一分力；B：最大合力为 13 N，且最大力 6 N 小于其余两力之和 7 N，三力可组成封闭三角形，因此最小合力为 0。</div></div><div class="example-card"><div class="ex-title">进阶计算</div><div class="ex-q">两个共点力 F1=10 N、F2=6 N，合力大小恰为 8 N。求两力夹角 θ。</div><button class="ans-btn" onclick="toggleAns('b-0-1-1')">查看答案</button><div class="answer" id="b-0-1-1">由余弦定理 F²=F1²+F2²+2F1F2cosθ：64=100+36+120cosθ，得 cosθ=-0.6，因此 θ≈126.9°。</div></div></div>
+<div class="footer"><span>题库模块</span><span>题型一｜合力与分力</span></div>
+</div></div></section><section class="slide"><div class="frame"><aside class="side"><div><div class="tag">题库</div><div class="pno">13</div><div class="side-title">题型一<br>合力与分力</div></div><div class="side-foot">INTERACTION<br>PPT</div></aside><div class="content">
+<div class="top"><div><div class="eyebrow">QUESTION BANK</div><h1>题型一｜合力与分力</h1></div><div class="top-badge">第 2 / 2 页</div></div>
+<div class="examples tall"><div class="example-card"><div class="ex-title">三力最值</div><div class="ex-q">三个共点力大小分别为 4 N、7 N、F。若三力合力的最小值为 0，求 F 的取值范围。</div><button class="ans-btn" onclick="toggleAns('b-0-2-0')">查看答案</button><div class="answer" id="b-0-2-0">要能首尾相接成三角形。需满足 |7-4|≤F≤7+4，即 3 N≤F≤11 N。</div></div><div class="example-card"><div class="ex-title">合力方向</div><div class="ex-q">大小分别为 6 N 和 8 N 的两个共点力互相垂直。若将 8 N 的力沿原方向减小到 3 N，求合力方向相对于 6 N 力方向转过的角度。</div><button class="ans-btn" onclick="toggleAns('b-0-2-1')">查看答案</button><div class="answer" id="b-0-2-1">初始 tanα=8/6=4/3，α≈53.13°；变化后 tanβ=3/6=1/2，β≈26.57°。合力方向转过 α-β≈26.56°。</div></div></div>
+<div class="footer"><span>题库模块</span><span>题型一｜合力与分力</span></div>
+</div></div></section><section class="slide"><div class="frame"><aside class="side"><div><div class="tag">题库</div><div class="pno">14</div><div class="side-title">题型二<br>弹力方向</div></div><div class="side-foot">INTERACTION<br>PPT</div></aside><div class="content">
+<div class="top"><div><div class="eyebrow">QUESTION BANK</div><h1>题型二｜弹力方向</h1></div><div class="top-badge">第 1 / 2 页</div></div>
+<div class="knowledge-grid compact">
+  <div class="panel"><h3>题型特征</h3><ul><li>接触面弹力垂直接触面；绳力沿绳；轻杆力要结合状态判断。</li><li>难点在多接触面、球面/斜面、是否接触的临界判断。</li><li>受力方向判断常与平衡条件联立。</li></ul></div>
+  <div class="panel"><h3>解题提示</h3><div class="source-v">先辨研究对象，再确定是“方向判断、范围判断、分解列式、整体隔离”中的哪一种主方法。</div><div class="source"><div class="source-k">题库来源</div><div class="source-v">小徐高中物理课堂｜相互作用题型整理</div></div></div>
+</div>
+<div class="examples bank"><div class="example-card"><div class="ex-title">多接触面判断</div><div class="ex-q">一个光滑小球静止在竖直墙与倾角为 30° 的光滑斜面之间，同时与墙和斜面接触。画出小球受力图，并写出墙面对球、斜面对球两个弹力的方向。</div><button class="ans-btn" onclick="toggleAns('b-1-1-0')">查看答案</button><div class="answer" id="b-1-1-0">小球受重力 mg、墙的水平向右弹力 N1、斜面垂直斜面向左上方的弹力 N2。N2 与竖直方向夹角为 30°。</div></div><div class="example-card"><div class="ex-title">临界接触</div><div class="ex-q">质量为 m 的小球用细绳悬挂，恰好与光滑竖直墙接触，绳与竖直方向夹角 θ。若缓慢减小 θ，墙面对球的弹力如何变化？当 θ=0 时弹力多大？</div><button class="ans-btn" onclick="toggleAns('b-1-1-1')">查看答案</button><div class="answer" id="b-1-1-1">平衡时水平方向 N=Tsinθ，竖直方向 Tcosθ=mg，因此 N=mg·tanθ。θ 减小时 N 减小；θ=0 时 N=0，墙与球处于临界接触状态。</div></div></div>
+<div class="footer"><span>题库模块</span><span>题型二｜弹力方向</span></div>
+</div></div></section><section class="slide"><div class="frame"><aside class="side"><div><div class="tag">题库</div><div class="pno">15</div><div class="side-title">题型二<br>弹力方向</div></div><div class="side-foot">INTERACTION<br>PPT</div></aside><div class="content">
+<div class="top"><div><div class="eyebrow">QUESTION BANK</div><h1>题型二｜弹力方向</h1></div><div class="top-badge">第 2 / 2 页</div></div>
+<div class="examples tall"><div class="example-card"><div class="ex-title">球面方向</div><div class="ex-q">小球静止在半径为 R 的光滑半球形碗内，球心 O 与小球中心 P 的连线 OP 与竖直方向夹角为 θ。碗对小球的支持力方向如何？若小球还受一水平向右恒力 F 并保持静止，写出支持力方向判定依据。</div><button class="ans-btn" onclick="toggleAns('b-1-2-0')">查看答案</button><div class="answer" id="b-1-2-0">支持力始终沿接触点法线，即沿 OP 方向指向球心一侧。加入水平力后，支持力方向仍由几何接触决定，不因外力而改变；其大小由三力平衡确定。</div></div><div class="example-card"><div class="ex-title">接触判定</div><div class="ex-q">A、B 两光滑小球叠放在光滑水平地面与竖直墙角处。已知 A 在下、B 在上，若 B 仅与 A 接触但不与墙接触，判断 A 对 B 的弹力方向；若计算得到墙对 B 的弹力为负值，应如何解释？</div><button class="ans-btn" onclick="toggleAns('b-1-2-1')">查看答案</button><div class="answer" id="b-1-2-1">A 对 B 的弹力沿两球球心连线。若假设 B 与墙接触后算得墙的弹力为负，说明该接触假设不成立，B 实际与墙分离，墙对 B 的弹力应为 0。</div></div></div>
+<div class="footer"><span>题库模块</span><span>题型二｜弹力方向</span></div>
+</div></div></section><section class="slide"><div class="frame"><aside class="side"><div><div class="tag">题库</div><div class="pno">16</div><div class="side-title">题型三<br>胡克定律</div></div><div class="side-foot">INTERACTION<br>PPT</div></aside><div class="content">
+<div class="top"><div><div class="eyebrow">QUESTION BANK</div><h1>题型三｜胡克定律</h1></div><div class="top-badge">第 1 / 2 页</div></div>
+<div class="knowledge-grid compact">
+  <div class="panel"><h3>题型特征</h3><ul><li>F=kx 在弹性限度内成立。</li><li>难点：双弹簧、初始形变量、剪断/撤力后的瞬时受力。</li><li>F-x 图像斜率为劲度系数，面积可用于后续能量题。</li></ul></div>
+  <div class="panel"><h3>解题提示</h3><div class="source-v">先辨研究对象，再确定是“方向判断、范围判断、分解列式、整体隔离”中的哪一种主方法。</div><div class="source"><div class="source-k">题库来源</div><div class="source-v">小徐高中物理课堂｜相互作用题型整理</div></div></div>
+</div>
+<div class="examples bank"><div class="example-card"><div class="ex-title">双弹簧平衡</div><div class="ex-q">质量为 1 kg 的小物块夹在两根水平轻弹簧之间，左弹簧劲度系数 k1=100 N/m，右弹簧 k2=200 N/m。初始两弹簧均为原长。现将物块向右移动 3 cm 并保持静止。求两弹簧对物块的合力大小和方向。</div><button class="ans-btn" onclick="toggleAns('b-2-1-0')">查看答案</button><div class="answer" id="b-2-1-0">左弹簧被拉长 0.03 m，向左拉力 3 N；右弹簧被压缩 0.03 m，向左弹力 6 N；合力 9 N，方向向左。</div></div><div class="example-card"><div class="ex-title">竖直弹簧进阶</div><div class="ex-q">一质量 m=0.5 kg 的物体挂在劲度系数 k=100 N/m 的竖直弹簧下端静止。现再竖直向下缓慢拉物体，使弹簧比平衡位置再伸长 2 cm。取 g=10 m/s²。求此时手的拉力大小。</div><button class="ans-btn" onclick="toggleAns('b-2-1-1')">查看答案</button><div class="answer" id="b-2-1-1">平衡位置伸长 x0=mg/k=0.05 m；再伸长 0.02 m 后弹簧力为 k(x0+0.02)=7 N。物体仍静止，故向下手力 F=7-5=2 N。</div></div></div>
+<div class="footer"><span>题库模块</span><span>题型三｜胡克定律</span></div>
+</div></div></section><section class="slide"><div class="frame"><aside class="side"><div><div class="tag">题库</div><div class="pno">17</div><div class="side-title">题型三<br>胡克定律</div></div><div class="side-foot">INTERACTION<br>PPT</div></aside><div class="content">
+<div class="top"><div><div class="eyebrow">QUESTION BANK</div><h1>题型三｜胡克定律</h1></div><div class="top-badge">第 2 / 2 页</div></div>
+<div class="examples tall"><div class="example-card"><div class="ex-title">剪断瞬时</div><div class="ex-q">质量为 m 的物块由上下两根竖直轻弹簧连接并处于静止状态。已知此时上弹簧对物块的弹力为 2mg、方向向上，下弹簧对物块的弹力为 mg、方向向下。若瞬间剪断下弹簧，求剪断瞬间物块的加速度大小和方向。</div><button class="ans-btn" onclick="toggleAns('b-2-2-0')">查看答案</button><div class="answer" id="b-2-2-0">剪断瞬间上弹簧形变量来不及改变，仍提供 2mg 向上的弹力；下弹簧弹力立即消失。物块还受重力 mg 向下，因此合力为 mg 向上，故 a=g，方向向上。</div></div><div class="example-card"><div class="ex-title">图像反求</div><div class="ex-q">某轻弹簧在弹性限度内的 F-x 图像经过 (2 cm, 6 N) 和 (5 cm, 15 N) 两点。<br>（1）求劲度系数 k；<br>（2）若弹簧原长 20 cm，在拉力 18 N 作用下弹簧长度是多少？</div><button class="ans-btn" onclick="toggleAns('b-2-2-1')">查看答案</button><div class="answer" id="b-2-2-1">（1）k=F/x=6/0.02=300 N/m。<br>（2）x=18/300=0.06 m=6 cm，所以长度为 26 cm。</div></div></div>
+<div class="footer"><span>题库模块</span><span>题型三｜胡克定律</span></div>
+</div></div></section><section class="slide"><div class="frame"><aside class="side"><div><div class="tag">题库</div><div class="pno">18</div><div class="side-title">题型四<br>正交分解</div></div><div class="side-foot">INTERACTION<br>PPT</div></aside><div class="content">
+<div class="top"><div><div class="eyebrow">QUESTION BANK</div><h1>题型四｜正交分解</h1></div><div class="top-badge">第 1 / 2 页</div></div>
+<div class="knowledge-grid compact">
+  <div class="panel"><h3>题型特征</h3><ul><li>优先沿运动方向/约束方向建立坐标轴。</li><li>难点：斜拉力改变支持力，从而改变摩擦力。</li><li>常与牛顿第二定律、临界条件联立。</li></ul></div>
+  <div class="panel"><h3>解题提示</h3><div class="source-v">先辨研究对象，再确定是“方向判断、范围判断、分解列式、整体隔离”中的哪一种主方法。</div><div class="source"><div class="source-k">题库来源</div><div class="source-v">小徐高中物理课堂｜相互作用题型整理</div></div></div>
+</div>
+<div class="examples bank"><div class="example-card"><div class="ex-title">斜拉摩擦</div><div class="ex-q">质量 m=5 kg 的物块放在粗糙水平面上，滑动摩擦因数 μ=0.25。用大小 F=25 N、与水平方向夹角 37° 的力斜向上拉物块。取 g=10 m/s²，sin37°=0.6，cos37°=0.8。求物块加速度。</div><button class="ans-btn" onclick="toggleAns('b-3-1-0')">查看答案</button><div class="answer" id="b-3-1-0">竖直方向无加速度：N=mg-Fsin37°=50-15=35 N。滑动摩擦力 f=μN=8.75 N。水平方向 Fcos37°-f=ma，即 20-8.75=5a，得 a=2.25 m/s²。</div></div><div class="example-card"><div class="ex-title">斜面水平推力</div><div class="ex-q">质量 m 的物块在倾角 θ 的光滑斜面上，受到水平向右恒力 F。取沿斜面向上为正方向。写出沿斜面方向和垂直斜面方向的分力关系，并给出物块沿斜面的加速度表达式。</div><button class="ans-btn" onclick="toggleAns('b-3-1-1')">查看答案</button><div class="answer" id="b-3-1-1">沿斜面：Fcosθ-mgsinθ=ma；垂直斜面：N=mgcosθ+Fsinθ。因此 a=(Fcosθ-mgsinθ)/m。</div></div></div>
+<div class="footer"><span>题库模块</span><span>题型四｜正交分解</span></div>
+</div></div></section><section class="slide"><div class="frame"><aside class="side"><div><div class="tag">题库</div><div class="pno">19</div><div class="side-title">题型四<br>正交分解</div></div><div class="side-foot">INTERACTION<br>PPT</div></aside><div class="content">
+<div class="top"><div><div class="eyebrow">QUESTION BANK</div><h1>题型四｜正交分解</h1></div><div class="top-badge">第 2 / 2 页</div></div>
+<div class="examples tall"><div class="example-card"><div class="ex-title">临界静摩擦</div><div class="ex-q">质量 m=2 kg 的物块放在水平面上，动摩擦因数 μk=0.20，最大静摩擦力等于 μsN，μs=0.30。现用与水平方向成 37° 角的力 F 斜向上拉物块。取 g=10 m/s²。求使物块恰好开始运动的最小 F。</div><button class="ans-btn" onclick="toggleAns('b-3-2-0')">查看答案</button><div class="answer" id="b-3-2-0">临界时 Fcos37°=μsN，且 N=mg-Fsin37°。代入：0.8F=0.3(20-0.6F)，得 0.98F=6，F≈6.12 N。</div></div><div class="example-card"><div class="ex-title">三力平衡</div><div class="ex-q">一质量为 m 的小球由两根细绳悬挂，两绳与竖直方向夹角分别为 30° 和 60°，小球静止。求两绳张力 T1、T2。</div><button class="ans-btn" onclick="toggleAns('b-3-2-1')">查看答案</button><div class="answer" id="b-3-2-1">设 T1 对应 30°、T2 对应 60°。水平：T1sin30°=T2sin60°，故 T1=√3T2。竖直：T1cos30°+T2cos60°=mg。代入得 3T2/2+T2/2=mg，T2=mg/2，T1=√3mg/2。</div></div></div>
+<div class="footer"><span>题库模块</span><span>题型四｜正交分解</span></div>
+</div></div></section><section class="slide"><div class="frame"><aside class="side"><div><div class="tag">题库</div><div class="pno">20</div><div class="side-title">题型五<br>整体隔离法</div></div><div class="side-foot">INTERACTION<br>PPT</div></aside><div class="content">
+<div class="top"><div><div class="eyebrow">QUESTION BANK</div><h1>题型五｜整体隔离法</h1></div><div class="top-badge">第 1 / 2 页</div></div>
+<div class="knowledge-grid compact">
+  <div class="panel"><h3>题型特征</h3><ul><li>先整体求共同加速度，再隔离求内力。</li><li>难点：有摩擦、多个物体、外力作用位置不同。</li><li>内力会随外力施加对象改变，即使整体加速度相同。</li></ul></div>
+  <div class="panel"><h3>解题提示</h3><div class="source-v">先辨研究对象，再确定是“方向判断、范围判断、分解列式、整体隔离”中的哪一种主方法。</div><div class="source"><div class="source-k">题库来源</div><div class="source-v">小徐高中物理课堂｜相互作用题型整理</div></div></div>
+</div>
+<div class="examples bank"><div class="example-card"><div class="ex-title">三物块连接</div><div class="ex-q">A、B、C 三物块质量分别为 1 kg、2 kg、3 kg，用轻绳依次连接，放在光滑水平面上。现用 24 N 水平力拉 C。求：<br>（1）系统加速度；<br>（2）A、B 间绳张力 T1；<br>（3）B、C 间绳张力 T2。</div><button class="ans-btn" onclick="toggleAns('b-4-1-0')">查看答案</button><div class="answer" id="b-4-1-0">（1）a=24/(1+2+3)=4 m/s²。<br>（2）隔离 A：T1=mAa=4 N。<br>（3）把 A、B 看整体：T2=(mA+mB)a=3×4=12 N。</div></div><div class="example-card"><div class="ex-title">改变施力端</div><div class="ex-q">沿上题，若改为用 24 N 水平力拉 A 向左，系统加速度大小仍为 4 m/s²。此时 A、B 间张力和 B、C 间张力分别是多少？</div><button class="ans-btn" onclick="toggleAns('b-4-1-1')">查看答案</button><div class="answer" id="b-4-1-1">隔离 C：T2'=mCa=12 N；把 B、C 看整体：T1'=(mB+mC)a=5×4=20 N。说明内力随施力位置改变。</div></div></div>
+<div class="footer"><span>题库模块</span><span>题型五｜整体隔离法</span></div>
+</div></div></section><section class="slide"><div class="frame"><aside class="side"><div><div class="tag">题库</div><div class="pno">21</div><div class="side-title">题型五<br>整体隔离法</div></div><div class="side-foot">INTERACTION<br>PPT</div></aside><div class="content">
+<div class="top"><div><div class="eyebrow">QUESTION BANK</div><h1>题型五｜整体隔离法</h1></div><div class="top-badge">第 2 / 2 页</div></div>
+<div class="examples tall"><div class="example-card"><div class="ex-title">有摩擦连接体</div><div class="ex-q">A、B 两物块质量分别为 2 kg、3 kg，用轻绳连接，在水平粗糙地面上向右运动。两物块与地面动摩擦因数均为 0.2，现对 B 施加 25 N 水平拉力。取 g=10 m/s²。求系统加速度和绳张力。</div><button class="ans-btn" onclick="toggleAns('b-4-2-0')">查看答案</button><div class="answer" id="b-4-2-0">总摩擦力 f=μ(mA+mB)g=0.2×5×10=10 N。整体：a=(25-10)/5=3 m/s²。隔离 A：T-μmAg=mAa，即 T-4=6，T=10 N。</div></div><div class="example-card"><div class="ex-title">叠放临界</div><div class="ex-q">质量 m=1 kg 的小物块 A 放在质量 M=3 kg 的长木板 B 上，地面光滑，A、B 间最大静摩擦力为 3 N。现对 B 施加水平恒力 F。要使 A、B 保持相对静止，求 F 的最大值。</div><button class="ans-btn" onclick="toggleAns('b-4-2-1')">查看答案</button><div class="answer" id="b-4-2-1">共同加速度 a=F/(M+m)=F/4。A 的唯一水平力为静摩擦力 f=ma=F/4。要求 f≤3 N，因此 F≤12 N。最大 F=12 N。</div></div></div>
+<div class="footer"><span>题库模块</span><span>题型五｜整体隔离法</span></div>
+</div></div></section><section class="slide"><div class="frame"><aside class="side"><div><div class="tag">题库</div><div class="pno">22</div><div class="side-title">题型六<br>轻杆模型</div></div><div class="side-foot">INTERACTION<br>PPT</div></aside><div class="content">
+<div class="top"><div><div class="eyebrow">QUESTION BANK</div><h1>题型六｜轻杆模型</h1></div><div class="top-badge">第 1 / 2 页</div></div>
+<div class="knowledge-grid compact">
+  <div class="panel"><h3>题型特征</h3><ul><li>轻杆可拉可压，轻绳只能拉。</li><li>高频难点：竖直圆周最高点、最低点杆力方向与大小。</li><li>可与机械能/牛顿第二定律联合。</li></ul></div>
+  <div class="panel"><h3>解题提示</h3><div class="source-v">先辨研究对象，再确定是“方向判断、范围判断、分解列式、整体隔离”中的哪一种主方法。</div><div class="source"><div class="source-k">题库来源</div><div class="source-v">小徐高中物理课堂｜相互作用题型整理</div></div></div>
+</div>
+<div class="examples bank"><div class="example-card"><div class="ex-title">最高点杆力</div><div class="ex-q">质量 m 的小球固定在长度为 R 的轻杆一端，另一端铰接于 O 点，小球在竖直平面内做圆周运动。经过最高点时速度为 v。规定杆对球沿指向 O 的方向为正。求杆力 F杆 的表达式，并判断 v<√(gR) 时杆受拉还是受压。</div><button class="ans-btn" onclick="toggleAns('b-5-1-0')">查看答案</button><div class="answer" id="b-5-1-0">最高点向心方向竖直向下：mg+F杆=mv²/R，所以 F杆=m(v²/R-g)。当 v<√(gR) 时 F杆<0，说明杆对球的作用力实际向上，杆处于受压状态。</div></div><div class="example-card"><div class="ex-title">最低点杆力</div><div class="ex-q">同一小球经过最低点时速度为 v0，求轻杆对小球的作用力大小。</div><button class="ans-btn" onclick="toggleAns('b-5-1-1')">查看答案</button><div class="answer" id="b-5-1-1">最低点向心方向向上：F杆-mg=mv0²/R，所以 F杆=m(g+v0²/R)，方向向上，杆受拉。</div></div></div>
+<div class="footer"><span>题库模块</span><span>题型六｜轻杆模型</span></div>
+</div></div></section><section class="slide"><div class="frame"><aside class="side"><div><div class="tag">题库</div><div class="pno">23</div><div class="side-title">题型六<br>轻杆模型</div></div><div class="side-foot">INTERACTION<br>PPT</div></aside><div class="content">
+<div class="top"><div><div class="eyebrow">QUESTION BANK</div><h1>题型六｜轻杆模型</h1></div><div class="top-badge">第 2 / 2 页</div></div>
+<div class="examples tall"><div class="example-card"><div class="ex-title">机械能+杆力</div><div class="ex-q">小球质量 m，由轻杆连接做竖直圆周运动。若小球在最高点速度为 √(gR)，忽略阻力，求到最低点时速度及轻杆对球的力。</div><button class="ans-btn" onclick="toggleAns('b-5-2-0')">查看答案</button><div class="answer" id="b-5-2-0">从最高点到最低点下降 2R：1/2 mv底²=1/2 m(gR)+2mgR，得 v底²=5gR。最低点 F-mg=mv底²/R=5mg，所以 F=6mg。</div></div><div class="example-card"><div class="ex-title">轻杆轻绳对比</div><div class="ex-q">同样质量 m、半径 R 的小球分别用轻杆和轻绳约束做竖直圆周运动。若都从最高点通过，比较两模型在最高点的最小速度及约束力特点。</div><button class="ans-btn" onclick="toggleAns('b-5-2-1')">查看答案</button><div class="answer" id="b-5-2-1">轻绳只能拉，最高点临界 T=0，最小速度 vmin=√(gR)；轻杆可拉可压，最高点速度可以降到 0，此时杆提供向上的支持力，大小为 mg。</div></div></div>
+<div class="footer"><span>题库模块</span><span>题型六｜轻杆模型</span></div>
+</div></div></section><section class="slide"><div class="frame"><aside class="side"><div><div class="tag">结束</div><div class="pno">24</div><div class="side-title">相互作用</div></div><div class="side-foot">INTERACTION<br>PPT</div></aside><div class="content">
+<div class="cover">
+  <div class="cover-kicker">DONE</div>
+  <h1>相互作用专题完成</h1>
+  <h2>知识点 + 例题 + 题库</h2>
+  <div class="cover-line"></div>
+  <div class="cover-tags"><span>摩擦力</span><span>受力分析</span><span>合成与分解</span><span>共点力平衡</span><span>六类题型</span></div>
+</div>
+</div></div></section></main>
+</div>
+<div class="nav"><button id="prevBtn">◀ 上一页</button><button id="nextBtn">下一页 ▶</button><button id="fullBtn">⛶ 全屏</button><div id="progWrap"><div id="prog"></div></div><div id="count"></div><div class="small">快捷键：<kbd>←</kbd> <kbd>→</kbd> <kbd>空格</kbd></div></div>
+<script>
+const slideEls = Array.from(document.querySelectorAll('.slide'));
+let current = 0;
+function render(){
+  slideEls.forEach((s,i)=>s.classList.toggle('active', i===current));
+  document.getElementById('count').textContent = `第 ${current+1} / ${slideEls.length} 页`;
+  document.getElementById('prog').style.width = `${current/(slideEls.length-1)*100}%`;
+}
+function next(){ if(current < slideEls.length-1){ current++; render(); } }
+function prev(){ if(current > 0){ current--; render(); } }
+document.getElementById('nextBtn').onclick = next;
+document.getElementById('prevBtn').onclick = prev;
+document.getElementById('fullBtn').onclick = ()=>{ if(!document.fullscreenElement) document.documentElement.requestFullscreen(); else document.exitFullscreen(); };
+document.addEventListener('keydown', e=>{ if(['ArrowRight',' ','PageDown'].includes(e.key)){ e.preventDefault(); next(); } if(['ArrowLeft','PageUp'].includes(e.key)){ e.preventDefault(); prev(); } if(e.key.toLowerCase()==='f') document.getElementById('fullBtn').click(); });
+function toggleAns(id){ document.getElementById(id).classList.toggle('show'); }
+window.toggleAns = toggleAns;
+render();
+let sec=0; setInterval(()=>{ sec++; const m=String(Math.floor(sec/60)).padStart(2,'0'); const s=String(sec%60).padStart(2,'0'); document.getElementById('timer').textContent=`${m}:${s}`; },1000);
+
+// Vines radiating from center with a flower at the center
+const canvas = document.getElementById('vine');
+const ctx = canvas.getContext('2d');
+let vines = [], spores = [];
+function resize(){
+  canvas.width = innerWidth * devicePixelRatio;
+  canvas.height = innerHeight * devicePixelRatio;
+  canvas.style.width = innerWidth + 'px';
+  canvas.style.height = innerHeight + 'px';
+  ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);
+  buildScene();
+}
+function buildScene(){
+  vines = []; spores = [];
+  const cx = innerWidth/2, cy = innerHeight/2;
+  const count = 14;
+  for(let i=0;i<count;i++){
+    const ang = (Math.PI*2/count)*i + (Math.random()-0.5)*0.15;
+    vines.push({
+      ang, len: Math.max(innerWidth, innerHeight)*(0.35 + Math.random()*0.32),
+      amp: 22 + Math.random()*26, speed: 0.00015 + Math.random()*0.00012,
+      phase: Math.random()*Math.PI*2, thickness: 1.9 + Math.random()*2.4,
+      leaves: Array.from({length:5+Math.floor(Math.random()*5)}).map((_,j)=>({t:(j+1)/(7+Math.random()*5), side:Math.random()>0.5?1:-1, size:8+Math.random()*12}))
+    });
+  }
+  const m = Math.max(36, Math.floor(innerWidth*innerHeight/32000));
+  for(let i=0;i<m;i++) spores.push({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:1+Math.random()*2.4,vx:(Math.random()-0.5)*0.22,vy:(Math.random()-0.5)*0.18,a:0.10+Math.random()*0.22});
+}
+function ptOnVine(v, t, time){
+  const cx = innerWidth/2, cy = innerHeight/2;
+  const dist = v.len * t;
+  const sway = Math.sin(time*v.speed + v.phase + t*6.5) * v.amp * (1-t*0.3);
+  const bend = Math.sin(time*v.speed*1.3 + v.phase*0.7 + t*4.2) * 0.28;
+  const a = v.ang + bend;
+  const nx = Math.cos(a), ny = Math.sin(a);
+  const px = -ny, py = nx;
+  return { x: cx + nx*dist + px*sway, y: cy + ny*dist + py*sway };
+}
+function drawLeaf(x,y,angle,size,color){
+  ctx.save(); ctx.translate(x,y); ctx.rotate(angle);
+  ctx.strokeStyle = color; ctx.fillStyle = color; ctx.lineWidth = 1.2;
+  ctx.beginPath();
+  ctx.moveTo(0,0);
+  ctx.quadraticCurveTo(size*0.85,-size*0.55,size*1.5,0);
+  ctx.quadraticCurveTo(size*0.85,size*0.55,0,0);
+  ctx.fill();
+  ctx.beginPath(); ctx.moveTo(0,0); ctx.lineTo(size*1.2,0); ctx.stroke();
+  ctx.restore();
+}
+function drawFlower(time){
+  const cx = innerWidth/2, cy = innerHeight/2;
+  const pulse = 1 + 0.03*Math.sin(time*0.001);
+  for(let i=0;i<8;i++){
+    const ang = i*Math.PI/4 + time*0.00003;
+    const px = cx + Math.cos(ang)*18*pulse;
+    const py = cy + Math.sin(ang)*18*pulse;
+    const g = ctx.createRadialGradient(px,py,0,px,py,18);
+    g.addColorStop(0,'rgba(216,255,190,0.95)');
+    g.addColorStop(0.55,'rgba(138,230,116,0.72)');
+    g.addColorStop(1,'rgba(138,230,116,0)');
+    ctx.fillStyle = g;
+    ctx.beginPath(); ctx.ellipse(px,py,14,9,ang,0,Math.PI*2); ctx.fill();
+  }
+  const gc = ctx.createRadialGradient(cx,cy,0,cx,cy,26);
+  gc.addColorStop(0,'rgba(255,245,180,0.95)');
+  gc.addColorStop(1,'rgba(255,245,180,0)');
+  ctx.fillStyle = gc; ctx.beginPath(); ctx.arc(cx,cy,26,0,Math.PI*2); ctx.fill();
+  ctx.fillStyle = '#f8e78a'; ctx.beginPath(); ctx.arc(cx,cy,8.5,0,Math.PI*2); ctx.fill();
+  ctx.strokeStyle = 'rgba(255,255,255,0.35)'; ctx.lineWidth = 1.2; ctx.beginPath(); ctx.arc(cx,cy,30,0,Math.PI*2); ctx.stroke();
+}
+function loop(t){
+  ctx.clearRect(0,0,innerWidth,innerHeight);
+  const glow = ctx.createRadialGradient(innerWidth/2, innerHeight/2, 0, innerWidth/2, innerHeight/2, Math.max(innerWidth,innerHeight)*0.42);
+  glow.addColorStop(0,'rgba(113,255,141,0.11)'); glow.addColorStop(1,'rgba(113,255,141,0)');
+  ctx.fillStyle = glow; ctx.fillRect(0,0,innerWidth,innerHeight);
+
+  // draw vines
+  vines.forEach((v, idx)=>{
+    ctx.strokeStyle = idx%2===0 ? 'rgba(89,212,99,0.58)' : 'rgba(132,242,142,0.42)';
+    ctx.lineWidth = v.thickness;
+    ctx.beginPath();
+    const p0 = ptOnVine(v, 0, t);
+    ctx.moveTo(p0.x, p0.y);
+    for(let i=1;i<=48;i++){
+      const tt = i/48;
+      const p = ptOnVine(v, tt, t);
+      ctx.lineTo(p.x,p.y);
+    }
+    ctx.stroke();
+    v.leaves.forEach((leaf,j)=>{
+      const tt = leaf.t;
+      const p = ptOnVine(v, tt, t);
+      const p2 = ptOnVine(v, Math.min(tt+0.03,1), t);
+      const dx = p2.x-p.x, dy = p2.y-p.y;
+      const baseAng = Math.atan2(dy,dx);
+      const ang = baseAng + leaf.side*(0.8 + 0.04*Math.sin(t*0.00012+j));
+      drawLeaf(p.x, p.y, ang, leaf.size, leaf.side>0 ? 'rgba(112,224,121,0.62)' : 'rgba(82,184,93,0.62)');
+    });
+  });
+  // flower on top of vine roots
+  drawFlower(t);
+  // drifting glow spores
+  spores.forEach(s=>{
+    s.x += s.vx + Math.sin(t*0.00010 + s.y*0.02)*0.04;
+    s.y += s.vy + Math.cos(t*0.00008 + s.x*0.01)*0.025;
+    if(s.x<0) s.x=innerWidth; if(s.x>innerWidth) s.x=0; if(s.y<0) s.y=innerHeight; if(s.y>innerHeight) s.y=0;
+    ctx.fillStyle = `rgba(205,255,210,${s.a})`; ctx.beginPath(); ctx.arc(s.x,s.y,s.r,0,Math.PI*2); ctx.fill();
+  });
+  requestAnimationFrame(loop);
+}
+window.addEventListener('resize', resize); resize(); requestAnimationFrame(loop);
+</script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"45c2bf8136a245cd97f1c2e9a96c0730"}' crossorigin="anonymous"></script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"45c2bf8136a245cd97f1c2e9a96c0730"}' crossorigin="anonymous"></script>
+</body>
+</html>

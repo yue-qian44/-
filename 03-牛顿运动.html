@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>牛二力学专题课件</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;overflow:hidden;background:#0b0606;font-family:"PingFang SC","Microsoft YaHei",Arial,sans-serif;color:#fff4f4}
+#bg{position:fixed;inset:0;z-index:0;background:radial-gradient(circle at center,#2e0808 0%, #180505 36%, #090303 100%)}
+#app{position:relative;z-index:1;height:100%;display:flex;flex-direction:column}
+/* Drifting hexagons are a foreground FX layer: above rectangular panels, below text. */
+#floatHexLayer{position:fixed;inset:0;z-index:2;pointer-events:none;width:100%;height:100%}
+/* Keep text and controls visually above the drifting blocks while panel fills stay below them. */
+.brand,.pill,.tag,.pno,.stitle,.sfoot,.eyebrow,.top h1,.badge,.kicker,.cover h1,.cover h2,
+.tags span,.dir-num,.dir-card h3,.dir-sub,.card h3,.card li,.method-box,.qlabel,.alabel,
+.qtext,.atext,.answer-toggle,.footer,.nav,.nav button,#count,.small,kbd{position:relative;z-index:3}
+header{height:66px;display:flex;align-items:center;justify-content:space-between;padding:0 22px;background:#120707;border-bottom:2px solid #6b1616}
+header .brand{font-size:21px;font-weight:800;letter-spacing:.4px;color:#ffecec}
+header .meta{display:flex;gap:8px;flex-wrap:wrap}
+.pill{font-size:12px;padding:6px 11px;border:1px solid #8b2020;border-radius:999px;color:#ffe8e8;background:#220909}
+main{flex:1;position:relative}
+.slide{display:none;height:100%;padding:16px 18px 82px}
+.slide.active{display:block;animation:fade .18s ease}
+@keyframes fade{from{opacity:.25;transform:translateY(8px)}to{opacity:1;transform:none}}
+.frame{height:100%;display:grid;grid-template-columns:108px 1fr;border:2px solid #7a1c1c;border-radius:24px;overflow:hidden;background:#130707;box-shadow:0 0 0 1px #2a0c0c, 0 0 24px rgba(255,60,60,.12)}
+.side{padding:22px 14px 18px;background:#1a0909;border-right:2px solid #7a1c1c;display:flex;flex-direction:column;justify-content:space-between}
+.tag{font-size:12px;letter-spacing:1.5px;color:#ffb7b7}
+.pno{font-size:38px;font-weight:900;margin:12px 0;color:#fff}
+.stitle{font-size:13px;line-height:1.55;color:#ffe9e9}
+.sfoot{font-size:11px;line-height:1.55;color:#f6a9a9;letter-spacing:1px}
+.content{padding:20px 26px 16px;display:flex;flex-direction:column;min-width:0;position:relative;overflow:hidden;background:#100606}
+.top{display:flex;justify-content:space-between;gap:15px;align-items:flex-start;margin-bottom:14px}
+.eyebrow{font-size:12px;letter-spacing:1.6px;color:#ff8e8e;font-weight:800;margin-bottom:6px}
+.top h1{margin:0;font-size:28px;line-height:1.18;text-shadow:0 0 10px rgba(255,70,70,.18)}
+.badge{padding:8px 13px;border-radius:999px;border:1px solid #8c2020;font-size:13px;font-weight:800;white-space:nowrap;color:#ffecec;background:#200909}
+.cover{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.kicker{letter-spacing:2.5px;color:#ff8e8e;font-size:13px;font-weight:800}
+.cover h1{font-size:46px;margin:14px 0 8px;text-shadow:0 0 18px rgba(255,70,70,.25)}
+.cover h2{font-size:24px;margin:0;color:#ffe3e3}
+.cover-line{width:130px;height:3px;border-radius:99px;background:linear-gradient(90deg,#ff4343,#ff9898);margin:24px 0}
+.tags{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.tags span{padding:10px 15px;border-radius:999px;border:1px solid #8d2323;color:#ffeaea;background:#200909}
+.dir-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px;flex:1;overflow:auto;padding-right:2px}
+.dir-card{display:grid;grid-template-columns:58px 1fr;gap:12px;align-items:center;border:2px solid #812121;border-radius:18px;padding:13px 15px;background:#180808}
+.dir-num{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;border:2px solid #a32b2b;font-weight:900;color:#ffe5e5;background:#260b0b}
+.dir-card h3{margin:0 0 3px;font-size:17px}
+.dir-sub{font-size:13px;color:#ffd7d7;line-height:1.65}
+.cols.two{display:grid;grid-template-columns:1.08fr .92fr;gap:16px;flex:1;min-height:0}
+.card.solid{border:2px solid #8a2323;border-radius:20px;padding:18px 20px;overflow:auto;background:#180808}
+.card h3{margin:0 0 12px;color:#fff0f0;font-size:20px}
+.card ul{margin:0;padding-left:20px;line-height:1.82;color:#fff5f5}
+.card li{margin-bottom:8px}
+.method-box{font-size:17px;line-height:1.85;color:#ffeaea}
+.full{flex:1;min-height:0}
+.qblock,.ablock{margin-top:12px;padding:14px 16px;border:1px solid #7e2020;border-radius:16px;background:#120606}
+.qlabel,.alabel{font-size:13px;font-weight:900;letter-spacing:1.5px;color:#ff9a9a;margin-bottom:8px}
+.qtext{font-size:20px;line-height:1.75;color:#fff7f7}
+.atext{font-size:17px;line-height:1.82;color:#ffecec}
+.answer-toggle-row{margin-top:12px;display:flex;justify-content:flex-start}
+.answer-toggle{border:1px solid #b43a3a;border-radius:999px;padding:9px 15px;background:linear-gradient(90deg,#6f1717,#a72a2a);color:#fff;font-weight:800;cursor:pointer;box-shadow:0 0 14px rgba(255,70,70,.18);transition:.18s ease}
+.answer-toggle:hover{transform:translateY(-1px);box-shadow:0 0 18px rgba(255,80,80,.28)}
+.answer-toggle .arrow{display:inline-block;margin-right:7px;transition:transform .18s ease}
+.answer-toggle.open .arrow{transform:rotate(90deg)}
+.ablock{display:none}
+.ablock.open{display:block;animation:fade .18s ease}
+.footer{margin-top:12px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:12px;color:#ffd7d7}
+.nav{position:fixed;left:16px;right:16px;bottom:11px;z-index:5;display:flex;align-items:center;gap:13px;padding:11px 14px;background:#120707;border:1px solid #7a1c1c;border-radius:17px}
+.nav button{border:1px solid #963030;border-radius:11px;padding:9px 13px;background:#280d0d;color:#fff;font-weight:800;cursor:pointer}
+#progWrap{flex:1;height:9px;border-radius:99px;overflow:hidden;background:#2a1111}
+#prog{height:100%;width:0;background:linear-gradient(90deg,#ff5050,#ffb2b2)}
+#count{min-width:110px;text-align:center;font-size:12px;color:#ffe8e8}
+.small{font-size:11px;color:#ffc9c9} kbd{padding:2px 5px;border-radius:5px;background:#210909;border:1px solid #7a1c1c}
+@media(max-width:1100px){.frame{grid-template-columns:84px 1fr}.cols.two,.dir-grid{grid-template-columns:1fr}.top h1{font-size:24px}.cover h1{font-size:36px}.qtext{font-size:18px}}
+
+
+/* subtle sci-fi HUD polish */
+.frame{box-shadow:0 0 0 1px #2a0c0c,0 0 26px rgba(255,60,60,.10),inset 0 0 34px rgba(255,40,40,.025)}
+.frame::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,transparent 0 49.8%,rgba(255,90,90,.025) 50%,transparent 50.2%),linear-gradient(0deg,transparent 0 49.8%,rgba(255,90,90,.018) 50%,transparent 50.2%);mix-blend-mode:screen}
+header,.nav{box-shadow:0 0 22px rgba(255,40,40,.07)}
+
+</style>
+</head>
+<body>
+<canvas id="bg"></canvas>
+<div id="app">
+<canvas id="floatHexLayer" aria-hidden="true"></canvas>
+<header><div class="brand">牛二力学专题课件</div><div class="meta"><span class="pill">一个视频三页</span><span class="pill">中档题 + 高考进阶</span><span class="pill">红色六边形前景缓慢漂移</span><span class="pill">无透明板</span><span class="pill" id="timer">00:00</span></div></header>
+<main id="slides"><section class="slide"><div class="frame"><aside class="side"><div><div class="tag">封面</div><div class="pno">01</div><div class="stitle"></div></div><div class="sfoot">NII<br/>DYNAMICS</div></aside><div class="content">
+<div class="cover">
+<div class="kicker">ONE ROUND REVIEW</div>
+<h1>牛二力学专题课件</h1>
+<h2>一个视频三页｜知识点 + 中档例题 + 高考进阶例题</h2>
+<div class="cover-line"></div>
+<div class="tags"><span>参照合集格式</span><span>红色六边形前景缓慢漂移</span><span>无透明板</span></div>
+</div>
+</div></div></section><section class="slide"><div class="frame"><aside class="side"><div><div class="tag">目录</div><div class="pno">02</div><div class="stitle">目录（上）</div></div><div class="sfoot">NII<br/>DYNAMICS</div></aside><div class="content">
+<div class="top"><div><div class="eyebrow">CONTENTS</div><h1>牛二力学合集目录（上）</h1></div><div class="badge">目录 1 / 2</div></div>
+<div class="dir-grid"><div class="dir-card"><div class="dir-num">01</div><div><h3>牛二分析运动</h3><div class="dir-sub">P4 知识点 ｜ P5 基础例题 ｜ P6 高考进阶</div></div></div><div class="dir-card"><div class="dir-num">02</div><div><h3>牛二分析运动例题</h3><div class="dir-sub">P7 知识点 ｜ P8 基础例题 ｜ P9 高考进阶</div></div></div><div class="dir-card"><div class="dir-num">03</div><div><h3>牛二正交分解</h3><div class="dir-sub">P10 知识点 ｜ P11 基础例题 ｜ P12 高考进阶</div></div></div><div class="dir-card"><div class="dir-num">04</div><div><h3>牛二正交分解（2）</h3><div class="dir-sub">P13 知识点 ｜ P14 基础例题 ｜ P15 高考进阶</div></div></div><div class="dir-card"><div class="dir-num">05</div><div><h3>动力学解题</h3><div class="dir-sub">P16 知识点 ｜ P17 基础例题 ｜ P18 高考进阶</div></div></div><div class="dir-card"><div class="dir-num">06</div><div><h3>动力学练习</h3><div class="dir-sub">P19 知识点 ｜ P20 基础例题 ｜ P21 高考进阶</div></div></div><div class="dir-card"><div class="dir-num">07</div><div><h3>超重与失重</h3><div class="dir-sub">P22 知识点 ｜ P23 基础例题 ｜ P24 高考进阶</div></div></div></div>
+</div></div></section><section class="slide"><div class="frame"><aside class="side"><div><div class="tag">目录</div><div class="pno">03</div><div class="stitle">目录（下）</div></div><div class="sfoot">NII<br/>DYNAMICS</div></aside><div class="content">
+<div class="top"><div><div class="eyebrow">CONTENTS</div><h1>牛二力学合集目录（下）</h1></div><div class="badge">目录 2 / 2</div></div>
+<div class="dir-grid"><div class="dir-card"><div class="dir-num">08</div><div><h3>斜面动力学</h3><div class="dir-sub">P25 知识点 ｜ P26 基础例题 ｜ P27 高考进阶</div></div></div><div class="dir-card"><div class="dir-num">09</div><div><h3>连接体问题</h3><div class="dir-sub">P28 知识点 ｜ P29 基础例题 ｜ P30 高考进阶</div></div></div><div class="dir-card"><div class="dir-num">10</div><div><h3>板块模型</h3><div class="dir-sub">P31 知识点 ｜ P32 基础例题 ｜ P33 高考进阶</div></div></div><div class="dir-card"><div class="dir-num">11</div><div><h3>传送带模型</h3><div class="dir-sub">P34 知识点 ｜ P35 基础例题 ｜ P36 高考进阶</div></div></div><div class="dir-card"><div class="dir-num">12</div><div><h3>动力学图像</h3><div class="dir-sub">P37 知识点 ｜ P38 基础例题 ｜ P39 高考进阶</div></div></div><div class="dir-card"><div class="dir-num">13</div><div><h3>临界与极值问题</h3><div class="dir-sub">P40 知识点 ｜ P41 基础例题 ｜ P42 高考进阶</div></div></div><div class="dir-card"><div class="dir-num">14</div><div><h3>牛二综合提升</h3><div class="dir-sub">P43 知识点 ｜ P44 基础例题 ｜ P45 高考进阶</div></div></div></div>
+</div></div></section><section class="slide"><div class="frame"><aside class="side"><div><div class="tag">知识点</div><div class="pno">04</div><div class="stitle">01<br/>牛二分析运动</div></div><div class="sfoot">NII<br/>DYNAMICS</div></aside><div class="content">
+<div class="top"><div><div class="eyebrow">KNOWLEDGE</div><h1>牛二分析运动</h1></div><div class="badge">第 1 / 3 页</div></div>
+<div class="cols two">
+<div class="card solid"><h3>核心知识点</h3><ul><li>核心思路：先由受力判断加速度方向，再由加速度与速度关系判断运动变化。</li><li>若加速度与速度同向，物体做加速运动；反向则做减速运动。</li><li>分析“撤去某力后如何运动”时，要重新判断合力方向。</li><li>只要合力不为零，就一定有加速度；但有加速度不一定立刻改变运动方向。</li></ul></div>
+<div class="card solid"><h3>方法提炼</h3><div class="method-box">先受力，后加速度；先方向，后大小；需要求速度、位移时，再把牛顿第二定律与运动学公式联立。<br/><br/>本讲主线：牛二分析运动</div></div>
+</div>
+<div class="footer"><span>牛二力学专题</span><span>01 牛二分析运动</span></div>
+</div></div></section><section class="slide"><div class="frame"><aside class="side"><div><div class="tag">例题</div><div class="pno">05</div><div class="stitle">01<br/>牛二分析运动</div></div><div class="sfoot">NII<br/>DYNAMICS</div></aside><div class="content">
+<div class="top"><div><div class="eyebrow">BASIC EXAMPLE</div><h1>牛二分析运动</h1></div><div class="badge">第 2 / 3 页</div></div>
+<div class="card full solid"><h3>中档例题｜反向合力与停止距离</h3><div class="qblock"><div class="qlabel">题目</div><div class="qtext">质量为 2 kg 的物块以 6 m/s 的初速度在粗糙水平面上向右滑动，动摩擦因数 μ=0.20。某时刻开始受到 8 N 的水平恒力，方向向左。取 g=10 m/s²。求物块从受力开始到第一次速度减为 0 所需的时间及这段时间内的位移大小。</div></div><div class="answer-toggle-row"><button class="answer-toggle" type="button"><span class="arrow">▶</span><span class="answer-label">点击显示答案</span></button></div><div class="ablock"><div class="alabel">解答</div><div class="atext">物块向右滑动时，滑动摩擦力向左，大小 f=μmg=0.20×2×10=4 N。合力向左，大小 8+4=12 N，因此加速度大小 a=12/2=6 m/s²，方向向左。由 0=v₀-at 得 t=6/6=1.0 s。位移 x=v₀t-½at²=6×1-½×6×1²=3.0 m。</div></div></div>
+<div class="footer"><span>贴合视频内容｜基础</span><span>01 牛二分析运动</span></div>
+</div></div></section><section class="slide"><div class="frame"><aside class="side"><div><div class="tag">例题</div><div class="pno">06</div><div class="stitle">01<br/>牛二分析运动</div></div><div class="sfoot">NII<br/>DYNAMICS</div></aside><div class="content">
+<div class="top"><div><div class="eyebrow">GAOKAO STYLE</div><h1>牛二分析运动</h1></div><div class="badge">第 3 / 3 页</div></div>
+<div class="card full solid"><h3>高考中档｜斜面撤力分段运动</h3><div class="qblock"><div class="qlabel">题目</div><div class="qtext">质量为 2 kg 的物块在倾角 37° 的粗糙斜面上沿斜面向上运动，物块与斜面间的动摩擦因数 μ=0.25。开始时物块速度为 8 m/s，同时受到沿斜面向上的恒力 F=30 N。1.0 s 后撤去 F。取 sin37°=0.6，cos37°=0.8，g=10 m/s²。求撤去 F 后物块再经过多长时间第一次停下，并求从开始计时到第一次停下的总位移。</div></div><div class="answer-toggle-row"><button class="answer-toggle" type="button"><span class="arrow">▶</span><span class="answer-label">点击显示答案</span></button></div><div class="ablock"><div class="alabel">解答</div><div class="atext">上滑阶段摩擦力始终沿斜面向下，N=mgcos37°=16 N，f=μN=4 N。前 1 s：沿斜面向上为正，a₁=(30-12-4)/2=7 m/s²，所以 v₁=8+7×1=15 m/s，x₁=8×1+½×7×1²=11.5 m。撤力后 a₂=-(12+4)/2=-8 m/s²，故到第一次停下 t₂=15/8=1.875 s，x₂=v₁²/(2×8)=225/16=14.0625 m。总位移 x=x₁+x₂=25.5625 m，约 25.6 m。</div></div></div>
+<div class="footer"><span>贴合高考题｜稍加难度</span><span>01 牛二分析运动</span></div>
+</div></div></section><section class="slide"><div class="frame"><aside class="side"><div><div class="tag">知识点</div><div class="pno">07</div><div class="stitle">02<br/>牛二分析运动例题</div></div><div class="sfoot">NII<br/>DYNAMICS</div></aside><div class="content">
+<div class="top"><div><div class="eyebrow">KNOWLEDGE</div><h1>牛二分析运动例题</h1></div><div class="badge">第 1 / 3 页</div></div>
+<div class="cols two">
+<div class="card solid"><h3>核心知识点</h3><ul><li>动态分析常分三步：受力→加速度→速度与位移。</li><li>物体的“未来运动”由当前速度和当前加速度共同决定。</li><li>图景信息如“光滑”“粗糙”“匀速”“刚撤力”都直接决定列式。</li><li>题目中若给出多个过程，要分过程逐段分析。</li></ul></div>
+<div class="card solid"><h3>方法提炼</h3><div class="method-box">先受力，后加速度；先方向，后大小；需要求速度、位移时，再把牛顿第二定律与运动学公式联立。<br/><br/>本讲主线：牛二分析运动例题</div></div>
+</div>
+<div class="footer"><span>牛二力学专题</span><span>02 牛二分析运动例题</span></div>
+</div></div></section><section class="slide"><div class="frame"><aside class="side"><div><div class="tag">例题</div><div class="pno">08</div><div class="stitle">02<br/>牛二分析运动例题</div></div><div class="sfoot">NII<br/>DYNAMICS</div></aside><div class="content">
+<div class="top"><div><div class="eyebrow">BASIC EXAMPLE</div><h1>牛二分析运动例题</h1></div><div class="badge">第 2 / 3 页</div></div>
+<div class="card full solid"><h3>中档例题｜斜拉力改变支持力</h3><div class="qblock"><div class="qlabel">题目</div><div class="qtext">质量为 4 kg 的物块置于粗糙水平面上，动摩擦因数 μ=0.25。现用大小 20 N、与水平方向成 37° 斜向上的恒力拉动物块，物块正在向右滑动。取 sin37°=0.6，cos37°=0.8，g=10 m/s²。求物块的加速度大小。</div></div><div class="answer-toggle-row"><button class="answer-toggle" type="button"><span class="arrow">▶</span><span class="answer-label">点击显示答案</span></button></div><div class="ablock"><div class="alabel">解答</div><div class="atext">竖直方向无加速度：N+Fsin37°=mg，所以 N=40-20×0.6=28 N。滑动摩擦力 f=μN=7 N，方向向左。水平方向 Fcos37°-f=ma，即 20×0.8-7=4a，得 a=9/4=2.25 m/s²。</div></div></div>
+<div class="footer"><span>贴合视频内容｜基础</span><span>02 牛二分析运动例题</span></div>
+</div></div></section><section class="slide"><div class="frame"><aside class="side"><div><div class="tag">例题</div><div class="pno">09</div><div class="stitle">02<br/>牛二分析运动例题</div></div><div class="sfoot">NII<br/>DYNAMICS</div></aside><div class="content">
+<div class="top"><div><div class="eyebrow">GAOKAO STYLE</div><h1>牛二分析运动例题</h1></div><div class="badge">第 3 / 3 页</div></div>
+<div class="card full solid"><h3>高考中档｜竖直运动的最低点</h3><div class="qblock"><div class="qlabel">题目</div><div class="qtext">质量为 1 kg 的小球在竖直方向只受重力和竖直向上的恒力 F=14 N 作用。某时刻小球速度为 6 m/s，方向竖直向下。取 g=10 m/s²。求小球到达最低点所需时间及最低点相对初位置的竖直距离。</div></div><div class="answer-toggle-row"><button class="answer-toggle" type="button"><span class="arrow">▶</span><span class="answer-label">点击显示答案</span></button></div><div class="ablock"><div class="alabel">解答</div><div class="atext">取竖直向上为正。合力 F-mg=4 N，所以 a=4 m/s²。初速度 v₀=-6 m/s。最低点满足 v=0：0=-6+4t，得 t=1.5 s。位移 y=v₀t+½at²=-6×1.5+½×4×1.5²=-4.5 m，因此最低点在初位置下方 4.5 m。</div></div></div>
+<div class="footer"><span>贴合高考题｜稍加难度</span><span>02 牛二分析运动例题</span></div>
+</div></div></section><section class="slide"><div class="frame"><aside class="side"><div><div class="tag">知识点</div><div class="pno">10</div><div class="stitle">03<br/>牛二正交分解</div></div><div class="sfoot">NII<br/>DYNAMICS</div></aside><div class="content">
+<div class="top"><div><div class="eyebrow">KNOWLEDGE</div><h1>牛二正交分解</h1></div><div class="badge">第 1 / 3 页</div></div>
+<div class="cols two">
+<div class="card solid"><h3>核心知识点</h3><ul><li>建立坐标轴时，优先选择沿运动方向与垂直运动方向，或沿斜面与垂直斜面方向。</li><li>对力正交分解后，分别在各坐标方向列牛顿第二定律方程。</li><li>斜面问题中重力常分解为 mgsinθ 和 mgcosθ。</li><li>正交分解可以避免直接处理夹角，提高列式清晰度。</li></ul></div>
+<div class="card solid"><h3>方法提炼</h3><div class="method-box">先受力，后加速度；先方向，后大小；需要求速度、位移时，再把牛顿第二定律与运动学公式联立。<br/><br/>本讲主线：牛二正交分解</div></div>
+</div>
+<div class="footer"><span>牛二力学专题</span><span>03 牛二正交分解</span></div>
+</div></div></section><section class="slide"><div class="frame"><aside class="side"><div><div class="tag">例题</div><div class="pno">11</div><div class="stitle">03<br/>牛二正交分解</div></div><div class="sfoot">NII<br/>DYNAMICS</div></aside><div class="content">
+<div class="top"><div><div class="eyebrow">BASIC EXAMPLE</div><h1>牛二正交分解</h1></div><div class="badge">第 2 / 3 页</div></div>
+<div class="card full solid"><h3>中档例题｜斜面上的水平推力分解</h3><div class="qblock"><div class="qlabel">题目</div><div class="qtext">质量为 2 kg 的物块沿倾角 37° 的粗糙斜面向上滑动，动摩擦因数 μ=0.25。现施加一个水平向右、大小 20 N 的恒力，斜面向右上方倾斜。取 sin37°=0.6，cos37°=0.8，g=10 m/s²。求物块的加速度大小和方向。</div></div><div class="answer-toggle-row"><button class="answer-toggle" type="button"><span class="arrow">▶</span><span class="answer-label">点击显示答案</span></button></div><div class="ablock"><div class="alabel">解答</div><div class="atext">把水平力分解到沿斜面与垂直斜面方向。沿斜面向上的分量 F∥=Fcos37°=16 N；压向斜面的分量 F⊥=Fsin37°=12 N。故 N=mgcos37°+Fsin37°=16+12=28 N，f=μN=7 N，物块上滑时摩擦力沿斜面向下。沿斜面合力=16-12-7=-3 N，所以 a=3/2=1.5 m/s²，方向沿斜面向下。</div></div></div>
+<div class="footer"><span>贴合视频内容｜基础</span><span>03 牛二正交分解</span></div>
+</div></div></section><section class="slide"><div class="frame"><aside class="side"><div><div class="tag">例题</div><div class="pno">12</div><div class="stitle">03<br/>牛二正交分解</div></div><div class="sfoot">NII<br/>DYNAMICS</div></aside><div class="content">
+<div class="top"><div><div class="eyebrow">GAOKAO STYLE</div><h1>牛二正交分解</h1></div><div class="badge">第 3 / 3 页</div></div>
+<div class="card full solid"><h3>高考中档｜水平力使物块匀速上滑</h3><div class="qblock"><div class="qlabel">题目</div><div class="qtext">质量为 2 kg 的物块在倾角 37° 的粗糙斜面上沿斜面向上做匀速运动。物块与斜面间动摩擦因数 μ=0.25，现由水平向右的恒力 F 维持该运动，斜面向右上方倾斜。取 sin37°=0.6，cos37°=0.8，g=10 m/s²。求 F 的大小。</div></div><div class="answer-toggle-row"><button class="answer-toggle" type="button"><span class="arrow">▶</span><span class="answer-label">点击显示答案</span></button></div><div class="ablock"><div class="alabel">解答</div><div class="atext">水平力沿斜面向上的分量为 Fcos37°，压向斜面的分量为 Fsin37°。N=mgcos37°+Fsin37°=16+0.6F，f=μN=4+0.15F。匀速上滑满足 Fcos37°=mgsin37°+f，即 0.8F=12+4+0.15F。故 0.65F=16，F=320/13 N≈24.6 N。</div></div></div>
+<div class="footer"><span>贴合高考题｜稍加难度</span><span>03 牛二正交分解</span></div>
+</div></div></section><section class="slide"><div class="frame"><aside class="side"><div><div class="tag">知识点</div><div class="pno">13</div><div class="stitle">04<br/>牛二正交分解（2）</div></div><div class="sfoot">NII<br/>DYNAMICS</div></aside><div class="content">
+<div class="top"><div><div class="eyebrow">KNOWLEDGE</div><h1>牛二正交分解（2）</h1></div><div class="badge">第 1 / 3 页</div></div>
+<div class="cols two">
+<div class="card solid"><h3>核心知识点</h3><ul><li>有摩擦斜面中，沿斜面方向一般列：F沿 - f - 其他阻力 = ma。</li><li>判断摩擦力方向时，先判断相对运动或相对运动趋势。</li><li>多个力作用时，分解对象不只限于重力，也可分解拉力、支持力等。</li><li>同一题内坐标方向要始终统一。</li></ul></div>
+<div class="card solid"><h3>方法提炼</h3><div class="method-box">先受力，后加速度；先方向，后大小；需要求速度、位移时，再把牛顿第二定律与运动学公式联立。<br/><br/>本讲主线：牛二正交分解（2）</div></div>
+</div>
+<div class="footer"><span>牛二力学专题</span><span>04 牛二正交分解（2）</span></div>
+</div></div></section><section class="slide"><div class="frame"><aside class="side"><div><div class="tag">例题</div><div class="pno">14</div><div class="stitle">04<br/>牛二正交分解（2）</div></div><div class="sfoot">NII<br/>DYNAMICS</div></aside><div class="content">
+<div class="top"><div><div class="eyebrow">BASIC EXAMPLE</div><h1>牛二正交分解（2）</h1></div><div class="badge">第 2 / 3 页</div></div>
+<div class="card full solid"><h3>中档例题｜斜拉力与摩擦联动</h3><div class="qblock"><div class="qlabel">题目</div><div class="qtext">质量为 5 kg 的物块在粗糙水平面上向右滑动，动摩擦因数 μ=0.40。现用大小 50 N、与水平方向成 37° 斜向上的恒力拉动物块。取 sin37°=0.6，cos37°=0.8，g=10 m/s²。求物块的加速度。</div></div><div class="answer-toggle-row"><button class="answer-toggle" type="button"><span class="arrow">▶</span><span class="answer-label">点击显示答案</span></button></div><div class="ablock"><div class="alabel">解答</div><div class="atext">竖直方向平衡：N=mg-Fsin37°=50-30=20 N。摩擦力 f=μN=8 N。水平方向合力 Fcos37°-f=40-8=32 N，故 a=32/5=6.4 m/s²。</div></div></div>
+<div class="footer"><span>贴合视频内容｜基础</span><span>04 牛二正交分解（2）</span></div>
+</div></div></section><section class="slide"><div class="frame"><aside class="side"><div><div class="tag">例题</div><div class="pno">15</div><div class="stitle">04<br/>牛二正交分解（2）</div></div><div class="sfoot">NII<br/>DYNAMICS</div></aside><div class="content">
+<div class="top"><div><div class="eyebrow">GAOKAO STYLE</div><h1>牛二正交分解（2）</h1></div><div class="badge">第 3 / 3 页</div></div>
+<div class="card full solid"><h3>高考中档｜斜拉力加速度极值</h3><div class="qblock"><div class="qlabel">题目</div><div class="qtext">质量为 5 kg 的物块在粗糙水平面上运动，动摩擦因数 μ=0.50。用大小恒为 40 N 的拉力 F 拉动物块，F 与水平方向夹角 θ 可调，且物块始终未离开地面。取 g=10 m/s²。求使物块水平加速度最大的 θ，并求最大加速度。</div></div><div class="answer-toggle-row"><button class="answer-toggle" type="button"><span class="arrow">▶</span><span class="answer-label">点击显示答案</span></button></div><div class="ablock"><div class="alabel">解答</div><div class="atext">物块滑动时 N=mg-Fsinθ，f=μN。水平方向 ma=Fcosθ-μ(mg-Fsinθ)=F(cosθ+μsinθ)-μmg。要使 a 最大，应使 cosθ+μsinθ 最大，其最大值为 √(1+μ²)，且 tanθ=μ=0.5，所以 θ=arctan0.5≈26.6°。a_max=[40√(1+0.5²)-0.5×50]/5=4√5-5≈3.94 m/s²。</div></div></div>
+<div class="footer"><span>贴合高考题｜稍加难度</span><span>04 牛二正交分解（2）</span></div>
+</div></div></section><section class="slide"><div class="frame"><aside class="side"><div><div class="tag">知识点</div><div class="pno">16</div><div class="stitle">05<br/>动力学解题</div></div><div class="sfoot">NII<br/>DYNAMICS</div></aside><div class="content">
+<div class="top"><div><div class="eyebrow">KNOWLEDGE</div><h1>动力学解题</h1></div><div class="badge">第 1 / 3 页</div></div>
+<div class="cols two">
+<div class="card solid"><h3>核心知识点</h3><ul><li>动力学题的一般流程：选对象、受力分析、列牛二方程、联立几何或运动学关系。</li><li>若题目问“能否”“何时”“多大”，常伴有临界条件。</li><li>匀速、静止、刚好不滑动、刚好离开接触面都是常见临界词。</li><li>求量之前，先明确研究对象和过程。</li></ul></div>
+<div class="card solid"><h3>方法提炼</h3><div class="method-box">先受力，后加速度；先方向，后大小；需要求速度、位移时，再把牛顿第二定律与运动学公式联立。<br/><br/>本讲主线：动力学解题</div></div>
+</div>
+<div class="footer"><span>牛二力学专题</span><span>05 动力学解题</span></div>
+</div></div></section><section class="slide"><div class="frame"><aside class="side"><div><div class="tag">例题</div><div class="pno">17</div><div class="stitle">05<br/>动力学解题</div></div><div class="sfoot">NII<br/>DYNAMICS</div></aside><div class="content">
+<div class="top"><div><div class="eyebrow">BASIC EXAMPLE</div><h1>动力学解题</h1></div><div class="badge">第 2 / 3 页</div></div>
+<div class="card full solid"><h3>中档例题｜撤力后的停止时间</h3><div class="qblock"><div class="qlabel">题目</div><div class="qtext">质量为 2 kg 的物块在粗糙水平面上由静止开始运动，动摩擦因数 μ=0.20。前 4.0 s 受到 12 N 水平恒力作用，随后撤去该恒力。取 g=10 m/s²。求物块从开始运动到停止的总时间。</div></div><div class="answer-toggle-row"><button class="answer-toggle" type="button"><span class="arrow">▶</span><span class="answer-label">点击显示答案</span></button></div><div class="ablock"><div class="alabel">解答</div><div class="atext">滑动摩擦力 f=μmg=4 N。前 4 s 合力 12-4=8 N，a₁=4 m/s²，所以 4 s 末速度 v₁=16 m/s。撤力后只有摩擦力，减速度 a₂=f/m=2 m/s²，停止还需 t₂=v₁/a₂=8 s。总时间 t=4+8=12 s。</div></div></div>
+<div class="footer"><span>贴合视频内容｜基础</span><span>05 动力学解题</span></div>
+</div></div></section><section class="slide"><div class="frame"><aside class="side"><div><div class="tag">例题</div><div class="pno">18</div><div class="stitle">05<br/>动力学解题</div></div><div class="sfoot">NII<br/>DYNAMICS</div></aside><div class="content">
+<div class="top"><div><div class="eyebrow">GAOKAO STYLE</div><h1>动力学解题</h1></div><div class="badge">第 3 / 3 页</div></div>
+<div class="card full solid"><h3>高考中档｜电梯分阶段与压力</h3><div class="qblock"><div class="qlabel">题目</div><div class="qtext">质量为 60 kg 的人站在电梯内。电梯从静止开始先以 2 m/s² 的加速度竖直向上运动 3 s，随后仍向上运动但加速度改为 1 m/s²、方向竖直向下，持续 4 s。取 g=10 m/s²。求两个阶段中人对地板的压力，并求 7 s 末电梯的速度。</div></div><div class="answer-toggle-row"><button class="answer-toggle" type="button"><span class="arrow">▶</span><span class="answer-label">点击显示答案</span></button></div><div class="ablock"><div class="alabel">解答</div><div class="atext">第一阶段：N₁-mg=ma₁，N₁=60(10+2)=720 N。第一阶段末速度 v₁=2×3=6 m/s 向上。第二阶段加速度向下，取向上为正，a₂=-1 m/s²：N₂-mg=ma₂，所以 N₂=60(10-1)=540 N。4 s 后 v=6-1×4=2 m/s，仍向上。由牛顿第三定律，人对地板压力大小分别为 720 N、540 N。</div></div></div>
+<div class="footer"><span>贴合高考题｜稍加难度</span><span>05 动力学解题</span></div>
+</div></div></section><section class="slide"><div class="frame"><aside class="side"><div><div class="tag">知识点</div><div class="pno">19</div><div class="stitle">06<br/>动力学练习</div></div><div class="sfoot">NII<br/>DYNAMICS</div></aside><div class="content">
+<div class="top"><div><div class="eyebrow">KNOWLEDGE</div><h1>动力学练习</h1></div><div class="badge">第 1 / 3 页</div></div>
+<div class="cols two">
+<div class="card solid"><h3>核心知识点</h3><ul><li>练习题中常把牛二与运动学公式结合。</li><li>先由牛二求加速度，再代入 v=v0+at、x=v0t+1/2at² 等公式。</li><li>题目中的“由静止开始”“匀加速”“经过位移 x”是重要入手点。</li><li>多问题通常前一问结论会为后一问服务。</li></ul></div>
+<div class="card solid"><h3>方法提炼</h3><div class="method-box">先受力，后加速度；先方向，后大小；需要求速度、位移时，再把牛顿第二定律与运动学公式联立。<br/><br/>本讲主线：动力学练习</div></div>
+</div>
+<div class="footer"><span>牛二力学专题</span><span>06 动力学练习</span></div>
+</div></div></section><section class="slide"><div class="frame"><aside class="side"><div><div class="tag">例题</div><div class="pno">20</div><div class="stitle">06<br/>动力学练习</div></div><div class="sfoot">NII<br/>DYNAMICS</div></aside><div class="content">
+<div class="top"><div><div class="eyebrow">BASIC EXAMPLE</div><h1>动力学练习</h1></div><div class="badge">第 2 / 3 页</div></div>
+<div class="card full solid"><h3>中档例题｜牛二与运动学分段</h3><div class="qblock"><div class="qlabel">题目</div><div class="qtext">质量为 2 kg 的物块在粗糙水平面上以 2 m/s 的初速度向右运动，动摩擦因数 μ=0.20。随后受到 10 N 水平向右的恒力作用 2 s，之后撤去恒力。取 g=10 m/s²。求物块从开始受力到最终停止的总位移。</div></div><div class="answer-toggle-row"><button class="answer-toggle" type="button"><span class="arrow">▶</span><span class="answer-label">点击显示答案</span></button></div><div class="ablock"><div class="alabel">解答</div><div class="atext">摩擦力 f=4 N。前 2 s：a₁=(10-4)/2=3 m/s²，v₁=2+3×2=8 m/s，x₁=2×2+½×3×2²=10 m。撤力后减速度 a₂=4/2=2 m/s²，停止距离 x₂=v₁²/(2a₂)=64/4=16 m。总位移 x=26 m。</div></div></div>
+<div class="footer"><span>贴合视频内容｜基础</span><span>06 动力学练习</span></div>
+</div></div></section><section class="slide"><div class="frame"><aside class="side"><div><div class="tag">例题</div><div class="pno">21</div><div class="stitle">06<br/>动力学练习</div></div><div class="sfoot">NII<br/>DYNAMICS</div></aside><div class="content">
+<div class="top"><div><div class="eyebrow">GAOKAO STYLE</div><h1>动力学练习</h1></div><div class="badge">第 3 / 3 页</div></div>
+<div class="card full solid"><h3>高考中档｜力反向后的再次启动</h3><div class="qblock"><div class="qlabel">题目</div><div class="qtext">质量为 1 kg 的物块在水平面上，滑动摩擦力大小和最大静摩擦力大小均取 2 N。物块初始静止。前 2 s 受 8 N 水平向右恒力，随后恒力变为 4 N 水平向左，并持续 3 s。求 5 s 末物块的速度和这 5 s 内的位移。</div></div><div class="answer-toggle-row"><button class="answer-toggle" type="button"><span class="arrow">▶</span><span class="answer-label">点击显示答案</span></button></div><div class="ablock"><div class="alabel">解答</div><div class="atext">前 2 s：a₁=(8-2)/1=6 m/s²，v₁=12 m/s，x₁=½×6×2²=12 m。后阶段开始时物块仍向右，左向力和摩擦力都向左，减速度 6 m/s²，2 s 后速度降为 0，期间 x₂=12×2-½×6×2²=12 m。此时距 5 s 末还剩 1 s。由于左向外力 4 N&gt;最大静摩擦力 2 N，物块向左启动，滑动后净力向左 4-2=2 N，a₃=2 m/s²，1 s 后速度为 2 m/s 向左，位移 x₃=1 m 向左。因此 5 s 末速度为 2 m/s 向左，总位移=12+12-1=23 m 向右。</div></div></div>
+<div class="footer"><span>贴合高考题｜稍加难度</span><span>06 动力学练习</span></div>
+</div></div></section><section class="slide"><div class="frame"><aside class="side"><div><div class="tag">知识点</div><div class="pno">22</div><div class="stitle">07<br/>超重与失重</div></div><div class="sfoot">NII<br/>DYNAMICS</div></aside><div class="content">
+<div class="top"><div><div class="eyebrow">KNOWLEDGE</div><h1>超重与失重</h1></div><div class="badge">第 1 / 3 页</div></div>
+<div class="cols two">
+<div class="card solid"><h3>核心知识点</h3><ul><li>视重取决于支持力或悬线拉力，而不取决于真实重力变化。</li><li>向上加速或向下减速时超重；向下加速或向上减速时失重。</li><li>完全失重对应支持力或拉力等于 0。</li><li>超重和失重都不是重力变化，而是弹力变化。</li></ul></div>
+<div class="card solid"><h3>方法提炼</h3><div class="method-box">先受力，后加速度；先方向，后大小；需要求速度、位移时，再把牛顿第二定律与运动学公式联立。<br/><br/>本讲主线：超重与失重</div></div>
+</div>
+<div class="footer"><span>牛二力学专题</span><span>07 超重与失重</span></div>
+</div></div></section><section class="slide"><div class="frame"><aside class="side"><div><div class="tag">例题</div><div class="pno">23</div><div class="stitle">07<br/>超重与失重</div></div><div class="sfoot">NII<br/>DYNAMICS</div></aside><div class="content">
+<div class="top"><div><div class="eyebrow">BASIC EXAMPLE</div><h1>超重与失重</h1></div><div class="badge">第 2 / 3 页</div></div>
+<div class="card full solid"><h3>中档例题｜电梯三个阶段的视重</h3><div class="qblock"><div class="qlabel">题目</div><div class="qtext">质量为 50 kg 的人站在电梯中的体重计上。电梯依次经历：① 以 2 m/s² 加速度竖直向上；② 匀速上升；③ 仍向上运动但以 2 m/s² 加速度竖直向下。取 g=10 m/s²。求三个阶段体重计示数。</div></div><div class="answer-toggle-row"><button class="answer-toggle" type="button"><span class="arrow">▶</span><span class="answer-label">点击显示答案</span></button></div><div class="ablock"><div class="alabel">解答</div><div class="atext">对人列 N-mg=ma。阶段① a=+2，N₁=50(10+2)=600 N；阶段② a=0，N₂=500 N；阶段③ a=-2，N₃=50(10-2)=400 N。对应超重、正常、失重。</div></div></div>
+<div class="footer"><span>贴合视频内容｜基础</span><span>07 超重与失重</span></div>
+</div></div></section><section class="slide"><div class="frame"><aside class="side"><div><div class="tag">例题</div><div class="pno">24</div><div class="stitle">07<br/>超重与失重</div></div><div class="sfoot">NII<br/>DYNAMICS</div></aside><div class="content">
+<div class="top"><div><div class="eyebrow">GAOKAO STYLE</div><h1>超重与失重</h1></div><div class="badge">第 3 / 3 页</div></div>
+<div class="card full solid"><h3>高考中档｜由测力计反推运动状态</h3><div class="qblock"><div class="qlabel">题目</div><div class="qtext">质量为 50 kg 的人站在电梯内的体重计上，某时刻体重计示数为 420 N。取 g=10 m/s²。求电梯加速度的大小和方向，并说明此时电梯可能处于哪两种运动状态。</div></div><div class="answer-toggle-row"><button class="answer-toggle" type="button"><span class="arrow">▶</span><span class="answer-label">点击显示答案</span></button></div><div class="ablock"><div class="alabel">解答</div><div class="atext">对人：N-mg=ma。420-500=50a，得 a=-1.6 m/s²，即加速度大小 1.6 m/s²，方向竖直向下。若此时电梯速度向上，则做向上减速运动；若速度向下，则做向下加速运动。仅凭视重不能判断速度方向。</div></div></div>
+<div class="footer"><span>贴合高考题｜稍加难度</span><span>07 超重与失重</span></div>
+</div></div></section><section class="slide"><div class="frame"><aside class="side"><div><div class="tag">知识点</div><div class="pno">25</div><div class="stitle">08<br/>斜面动力学</div></div><div class="sfoot">NII<br/>DYNAMICS</div></aside><div class="content">
+<div class="top"><div><div class="eyebrow">KNOWLEDGE</div><h1>斜面动力学</h1></div><div class="badge">第 1 / 3 页</div></div>
+<div class="cols two">
+<div class="card solid"><h3>核心知识点</h3><ul><li>斜面上沿斜面方向列牛二方程最简洁。</li><li>若有支持力变化，一般在垂直斜面方向列平衡方程。</li><li>斜面题中常同时考查摩擦力方向、大小和临界条件。</li><li>“沿斜面向上运动”与“加速度向上”不是一回事。</li></ul></div>
+<div class="card solid"><h3>方法提炼</h3><div class="method-box">先受力，后加速度；先方向，后大小；需要求速度、位移时，再把牛顿第二定律与运动学公式联立。<br/><br/>本讲主线：斜面动力学</div></div>
+</div>
+<div class="footer"><span>牛二力学专题</span><span>08 斜面动力学</span></div>
+</div></div></section><section class="slide"><div class="frame"><aside class="side"><div><div class="tag">例题</div><div class="pno">26</div><div class="stitle">08<br/>斜面动力学</div></div><div class="sfoot">NII<br/>DYNAMICS</div></aside><div class="content">
+<div class="top"><div><div class="eyebrow">BASIC EXAMPLE</div><h1>斜面动力学</h1></div><div class="badge">第 2 / 3 页</div></div>
+<div class="card full solid"><h3>中档例题｜粗糙斜面下滑</h3><div class="qblock"><div class="qlabel">题目</div><div class="qtext">质量为 2 kg 的物块从倾角 37° 的粗糙斜面顶端由静止下滑，动摩擦因数 μ=0.25。取 sin37°=0.6，cos37°=0.8，g=10 m/s²。求物块下滑 3.0 s 时的速度和这段时间的位移。</div></div><div class="answer-toggle-row"><button class="answer-toggle" type="button"><span class="arrow">▶</span><span class="answer-label">点击显示答案</span></button></div><div class="ablock"><div class="alabel">解答</div><div class="atext">沿斜面向下：mgsin37°=12 N，N=mgcos37°=16 N，f=μN=4 N 向上。合力 8 N，所以 a=8/2=4 m/s²。由静止出发，3 s 时 v=at=12 m/s，位移 x=½at²=18 m。</div></div></div>
+<div class="footer"><span>贴合视频内容｜基础</span><span>08 斜面动力学</span></div>
+</div></div></section><section class="slide"><div class="frame"><aside class="side"><div><div class="tag">例题</div><div class="pno">27</div><div class="stitle">08<br/>斜面动力学</div></div><div class="sfoot">NII<br/>DYNAMICS</div></aside><div class="content">
+<div class="top"><div><div class="eyebrow">GAOKAO STYLE</div><h1>斜面动力学</h1></div><div class="badge">第 3 / 3 页</div></div>
+<div class="card full solid"><h3>高考中档｜斜面上力与摩擦换向</h3><div class="qblock"><div class="qlabel">题目</div><div class="qtext">质量为 2 kg 的物块在倾角 37° 的粗糙斜面上以 10 m/s 的速度沿斜面向下运动。物块与斜面间动摩擦因数 μ=0.25，同时受到沿斜面向上的恒力 F=18 N。取 sin37°=0.6，cos37°=0.8，g=10 m/s²。求从施力开始 3.0 s 末物块的速度和相对初位置的位移。</div></div><div class="answer-toggle-row"><button class="answer-toggle" type="button"><span class="arrow">▶</span><span class="answer-label">点击显示答案</span></button></div><div class="ablock"><div class="alabel">解答</div><div class="atext">初始下滑时，摩擦力向上，大小 f=μmgcos37°=4 N。取沿斜面向上为正，初速度 v₀=-10 m/s。下滑阶段合力=F+f-mgsin37°=18+4-12=10 N，a₁=5 m/s²，2 s 后速度降为 0；此段位移 x₁=-10×2+½×5×2²=-10 m。随后物块改为上滑，摩擦力转为向下，合力=18-12-4=2 N，a₂=1 m/s²。剩余 1 s 内 v=1 m/s 向上，x₂=0.5 m 向上。因此 3 s 末速度 1 m/s 向上，总位移为 -9.5 m，即仍在初位置下方 9.5 m。</div></div></div>
+<div class="footer"><span>贴合高考题｜稍加难度</span><span>08 斜面动力学</span></div>
+</div></div></section><section class="slide"><div class="frame"><aside class="side"><div><div class="tag">知识点</div><div class="pno">28</div><div class="stitle">09<br/>连接体问题</div></div><div class="sfoot">NII<br/>DYNAMICS</div></aside><div class="content">
+<div class="top"><div><div class="eyebrow">KNOWLEDGE</div><h1>连接体问题</h1></div><div class="badge">第 1 / 3 页</div></div>
+<div class="cols two">
+<div class="card solid"><h3>核心知识点</h3><ul><li>连接体常用“先整体、后隔离”的方法。</li><li>整体求系统加速度，隔离求绳张力、接触力、摩擦力等内力。</li><li>若接触面粗糙，要分别判断每个接触面的摩擦力。</li><li>轻绳轻杆理想情况下张力可在同一绳上视为相等。</li></ul></div>
+<div class="card solid"><h3>方法提炼</h3><div class="method-box">先受力，后加速度；先方向，后大小；需要求速度、位移时，再把牛顿第二定律与运动学公式联立。<br/><br/>本讲主线：连接体问题</div></div>
+</div>
+<div class="footer"><span>牛二力学专题</span><span>09 连接体问题</span></div>
+</div></div></section><section class="slide"><div class="frame"><aside class="side"><div><div class="tag">例题</div><div class="pno">29</div><div class="stitle">09<br/>连接体问题</div></div><div class="sfoot">NII<br/>DYNAMICS</div></aside><div class="content">
+<div class="top"><div><div class="eyebrow">BASIC EXAMPLE</div><h1>连接体问题</h1></div><div class="badge">第 2 / 3 页</div></div>
+<div class="card full solid"><h3>中档例题｜粗糙面连接体整体与隔离</h3><div class="qblock"><div class="qlabel">题目</div><div class="qtext">A、B 两物块质量分别为 2 kg、3 kg，用轻绳连接后放在同一粗糙水平面上，动摩擦因数均为 μ=0.20。现用 20 N 水平恒力拉 A，使两物块向右运动。取 g=10 m/s²。求系统加速度和轻绳张力。</div></div><div class="answer-toggle-row"><button class="answer-toggle" type="button"><span class="arrow">▶</span><span class="answer-label">点击显示答案</span></button></div><div class="ablock"><div class="alabel">解答</div><div class="atext">对整体：总摩擦力 f=μ(mA+mB)g=0.2×5×10=10 N，故 a=(20-10)/5=2 m/s²。隔离 B：T-fB=mBa，其中 fB=0.2×3×10=6 N，所以 T=3×2+6=12 N。</div></div></div>
+<div class="footer"><span>贴合视频内容｜基础</span><span>09 连接体问题</span></div>
+</div></div></section><section class="slide"><div class="frame"><aside class="side"><div><div class="tag">例题</div><div class="pno">30</div><div class="stitle">09<br/>连接体问题</div></div><div class="sfoot">NII<br/>DYNAMICS</div></aside><div class="content">
+<div class="top"><div><div class="eyebrow">GAOKAO STYLE</div><h1>连接体问题</h1></div><div class="badge">第 3 / 3 页</div></div>
+<div class="card full solid"><h3>高考中档｜三物体连接与两段张力</h3><div class="qblock"><div class="qlabel">题目</div><div class="qtext">A、B 两物块质量分别为 1 kg、2 kg，放在粗糙水平面上，动摩擦因数均为 0.20；C 物块质量为 2 kg，悬挂在定滑轮另一侧。A、B、C 由两根轻绳依次连接，滑轮和绳均理想。系统释放后 C 下落。取 g=10 m/s²。求系统加速度，以及 A-B 间张力 T₁、B-C 间张力 T₂。</div></div><div class="answer-toggle-row"><button class="answer-toggle" type="button"><span class="arrow">▶</span><span class="answer-label">点击显示答案</span></button></div><div class="ablock"><div class="alabel">解答</div><div class="atext">A、B 所受总摩擦力为 0.2×(1+2)×10=6 N。对整体：mCg-f总=(mA+mB+mC)a，即 20-6=5a，得 a=2.8 m/s²。对 A：T₁-2=1×2.8，得 T₁=4.8 N。对 C：20-T₂=2×2.8，得 T₂=14.4 N。</div></div></div>
+<div class="footer"><span>贴合高考题｜稍加难度</span><span>09 连接体问题</span></div>
+</div></div></section><section class="slide"><div class="frame"><aside class="side"><div><div class="tag">知识点</div><div class="pno">31</div><div class="stitle">10<br/>板块模型</div></div><div class="sfoot">NII<br/>DYNAMICS</div></aside><div class="content">
+<div class="top"><div><div class="eyebrow">KNOWLEDGE</div><h1>板块模型</h1></div><div class="badge">第 1 / 3 页</div></div>
+<div class="cols two">
+<div class="card solid"><h3>核心知识点</h3><ul><li>板块模型关键是先判断是否共速、是否发生相对滑动。</li><li>若一起运动，可把上下物块视作整体求加速度。</li><li>若发生滑动，摩擦力通常取滑动摩擦力，并分别对两个物体列式。</li><li>临界条件常是“恰好不滑”“刚要相对滑动”。</li></ul></div>
+<div class="card solid"><h3>方法提炼</h3><div class="method-box">先受力，后加速度；先方向，后大小；需要求速度、位移时，再把牛顿第二定律与运动学公式联立。<br/><br/>本讲主线：板块模型</div></div>
+</div>
+<div class="footer"><span>牛二力学专题</span><span>10 板块模型</span></div>
+</div></div></section><section class="slide"><div class="frame"><aside class="side"><div><div class="tag">例题</div><div class="pno">32</div><div class="stitle">10<br/>板块模型</div></div><div class="sfoot">NII<br/>DYNAMICS</div></aside><div class="content">
+<div class="top"><div><div class="eyebrow">BASIC EXAMPLE</div><h1>板块模型</h1></div><div class="badge">第 2 / 3 页</div></div>
+<div class="card full solid"><h3>中档例题｜板块共速的摩擦需求</h3><div class="qblock"><div class="qlabel">题目</div><div class="qtext">质量 m=1 kg 的小物块放在质量 M=3 kg 的长木板上，地面光滑，物块与木板间最大静摩擦因数 μs=0.40。现对木板施加 12 N 水平恒力。取 g=10 m/s²。判断二者是否相对滑动；若不滑，求共同加速度和物块所受摩擦力。</div></div><div class="answer-toggle-row"><button class="answer-toggle" type="button"><span class="arrow">▶</span><span class="answer-label">点击显示答案</span></button></div><div class="ablock"><div class="alabel">解答</div><div class="atext">若共同运动，系统加速度 a=12/(1+3)=3 m/s²。物块获得该加速度所需摩擦力 f=ma=3 N，而最大静摩擦力 fmax=μsmg=0.4×1×10=4 N，3&lt;4，所以不滑。共同加速度 3 m/s²，物块所受静摩擦力 3 N，方向向右。</div></div></div>
+<div class="footer"><span>贴合视频内容｜基础</span><span>10 板块模型</span></div>
+</div></div></section><section class="slide"><div class="frame"><aside class="side"><div><div class="tag">例题</div><div class="pno">33</div><div class="stitle">10<br/>板块模型</div></div><div class="sfoot">NII<br/>DYNAMICS</div></aside><div class="content">
+<div class="top"><div><div class="eyebrow">GAOKAO STYLE</div><h1>板块模型</h1></div><div class="badge">第 3 / 3 页</div></div>
+<div class="card full solid"><h3>高考中档｜板块相对滑动后的双加速度</h3><div class="qblock"><div class="qlabel">题目</div><div class="qtext">仍取上题 m=1 kg、M=3 kg，地面光滑。物块与木板间最大静摩擦因数 μs=0.40，动摩擦因数 μk=0.30。现把作用在木板上的水平恒力增大为 20 N。判断是否发生相对滑动；若滑动，求物块与木板各自的加速度。取 g=10 m/s²。</div></div><div class="answer-toggle-row"><button class="answer-toggle" type="button"><span class="arrow">▶</span><span class="answer-label">点击显示答案</span></button></div><div class="ablock"><div class="alabel">解答</div><div class="atext">若假设共同运动，则 a=20/4=5 m/s²，物块所需摩擦力 ma=5 N&gt;fmax=4 N，故发生相对滑动。滑动后摩擦力 f=μkmg=3 N。物块仅受向右摩擦力，a物=3/1=3 m/s²。木板受向右 20 N 和向左 3 N，a板=(20-3)/3=17/3≈5.67 m/s²。</div></div></div>
+<div class="footer"><span>贴合高考题｜稍加难度</span><span>10 板块模型</span></div>
+</div></div></section><section class="slide"><div class="frame"><aside class="side"><div><div class="tag">知识点</div><div class="pno">34</div><div class="stitle">11<br/>传送带模型</div></div><div class="sfoot">NII<br/>DYNAMICS</div></aside><div class="content">
+<div class="top"><div><div class="eyebrow">KNOWLEDGE</div><h1>传送带模型</h1></div><div class="badge">第 1 / 3 页</div></div>
+<div class="cols two">
+<div class="card solid"><h3>核心知识点</h3><ul><li>传送带题先判断物体与传送带是否有相对滑动。</li><li>摩擦力方向由相对运动趋势决定，不由物体实际运动方向直接决定。</li><li>若最终达到共速，则末速度与传送带速度相同。</li><li>常见问法：离开传送带时速度、位移、时间、摩擦生热。</li></ul></div>
+<div class="card solid"><h3>方法提炼</h3><div class="method-box">先受力，后加速度；先方向，后大小；需要求速度、位移时，再把牛顿第二定律与运动学公式联立。<br/><br/>本讲主线：传送带模型</div></div>
+</div>
+<div class="footer"><span>牛二力学专题</span><span>11 传送带模型</span></div>
+</div></div></section><section class="slide"><div class="frame"><aside class="side"><div><div class="tag">例题</div><div class="pno">35</div><div class="stitle">11<br/>传送带模型</div></div><div class="sfoot">NII<br/>DYNAMICS</div></aside><div class="content">
+<div class="top"><div><div class="eyebrow">BASIC EXAMPLE</div><h1>传送带模型</h1></div><div class="badge">第 2 / 3 页</div></div>
+<div class="card full solid"><h3>中档例题｜有限长水平传送带</h3><div class="qblock"><div class="qlabel">题目</div><div class="qtext">水平传送带以 5 m/s 的速度向右匀速运动，长度为 4 m。质量 1 kg 的物块从左端无初速度轻放到传送带上，物块与传送带间动摩擦因数 μ=0.20。取 g=10 m/s²。判断物块在离开右端前能否与传送带共速，并求离开传送带时的速度。</div></div><div class="answer-toggle-row"><button class="answer-toggle" type="button"><span class="arrow">▶</span><span class="answer-label">点击显示答案</span></button></div><div class="ablock"><div class="alabel">解答</div><div class="atext">物块相对传送带向左滑，受向右摩擦力，a=μg=2 m/s²。若达到共速 5 m/s，需要 t=5/2=2.5 s，位移 x=½at²=6.25 m&gt;4 m，所以离开前不能共速。由 v²=2ax=2×2×4=16，故离开时 v=4 m/s。</div></div></div>
+<div class="footer"><span>贴合视频内容｜基础</span><span>11 传送带模型</span></div>
+</div></div></section><section class="slide"><div class="frame"><aside class="side"><div><div class="tag">例题</div><div class="pno">36</div><div class="stitle">11<br/>传送带模型</div></div><div class="sfoot">NII<br/>DYNAMICS</div></aside><div class="content">
+<div class="top"><div><div class="eyebrow">GAOKAO STYLE</div><h1>传送带模型</h1></div><div class="badge">第 3 / 3 页</div></div>
+<div class="card full solid"><h3>高考中档｜斜传送带共速与摩擦生热</h3><div class="qblock"><div class="qlabel">题目</div><div class="qtext">倾角 37°、长度 10 m 的传送带以 5 m/s 的速度沿斜面向上匀速运动。质量 1 kg 的物块从传送带下端无初速度轻放其上，物块与带间动摩擦因数和最大静摩擦因数均为 1.0。取 sin37°=0.6，cos37°=0.8，g=10 m/s²。求物块到达上端所需时间，并求全过程因相对滑动产生的热量。</div></div><div class="answer-toggle-row"><button class="answer-toggle" type="button"><span class="arrow">▶</span><span class="answer-label">点击显示答案</span></button></div><div class="ablock"><div class="alabel">解答</div><div class="atext">初始物块相对带向下滑，摩擦力沿斜面向上，f=μmgcos37°=8 N，重力沿斜面分量 6 N，故 a=(8-6)/1=2 m/s²。达到带速 5 m/s 需 t₁=2.5 s，物块位移 x₁=½×2×2.5²=6.25 m。此时剩余 3.75 m，之后可由静摩擦维持与带共速，t₂=3.75/5=0.75 s，总时间 3.25 s。滑动阶段传送带位移 5×2.5=12.5 m，相对位移 Δx=12.5-6.25=6.25 m，故热量 Q=fΔx=8×6.25=50 J。</div></div></div>
+<div class="footer"><span>贴合高考题｜稍加难度</span><span>11 传送带模型</span></div>
+</div></div></section><section class="slide"><div class="frame"><aside class="side"><div><div class="tag">知识点</div><div class="pno">37</div><div class="stitle">12<br/>动力学图像</div></div><div class="sfoot">NII<br/>DYNAMICS</div></aside><div class="content">
+<div class="top"><div><div class="eyebrow">KNOWLEDGE</div><h1>动力学图像</h1></div><div class="badge">第 1 / 3 页</div></div>
+<div class="cols two">
+<div class="card solid"><h3>核心知识点</h3><ul><li>图像题中，a-F、a-t、v-t 等图像都可能和牛二结合。</li><li>斜率、截距、面积等图像信息要结合物理意义解释。</li><li>若 a 随 F 线性变化，常可由 a=F/m 或 a=(F-f)/m 识别质量与摩擦。</li><li>图像变化点常对应受力或运动状态改变。</li></ul></div>
+<div class="card solid"><h3>方法提炼</h3><div class="method-box">先受力，后加速度；先方向，后大小；需要求速度、位移时，再把牛顿第二定律与运动学公式联立。<br/><br/>本讲主线：动力学图像</div></div>
+</div>
+<div class="footer"><span>牛二力学专题</span><span>12 动力学图像</span></div>
+</div></div></section><section class="slide"><div class="frame"><aside class="side"><div><div class="tag">例题</div><div class="pno">38</div><div class="stitle">12<br/>动力学图像</div></div><div class="sfoot">NII<br/>DYNAMICS</div></aside><div class="content">
+<div class="top"><div><div class="eyebrow">BASIC EXAMPLE</div><h1>动力学图像</h1></div><div class="badge">第 2 / 3 页</div></div>
+<div class="card full solid"><h3>中档例题｜由 a-F 图像读质量与摩擦</h3><div class="qblock"><div class="qlabel">题目</div><div class="qtext">某物块在粗糙水平面上向右运动，其 a-F 图像为一直线。图线上两点分别为 (F=4 N，a=0) 和 (F=12 N，a=4 m/s²)，拉力方向始终水平向右。取 g=10 m/s²。求物块质量和动摩擦因数。</div></div><div class="answer-toggle-row"><button class="answer-toggle" type="button"><span class="arrow">▶</span><span class="answer-label">点击显示答案</span></button></div><div class="ablock"><div class="alabel">解答</div><div class="atext">运动过程中 a=(F-f)/m。图像斜率 Δa/ΔF=4/(12-4)=0.5=1/m，所以 m=2 kg。由 F=4 N 时 a=0 得滑动摩擦力 f=4 N，因此 μ=f/(mg)=4/(2×10)=0.20。</div></div></div>
+<div class="footer"><span>贴合视频内容｜基础</span><span>12 动力学图像</span></div>
+</div></div></section><section class="slide"><div class="frame"><aside class="side"><div><div class="tag">例题</div><div class="pno">39</div><div class="stitle">12<br/>动力学图像</div></div><div class="sfoot">NII<br/>DYNAMICS</div></aside><div class="content">
+<div class="top"><div><div class="eyebrow">GAOKAO STYLE</div><h1>动力学图像</h1></div><div class="badge">第 3 / 3 页</div></div>
+<div class="card full solid"><h3>高考中档｜静摩擦阈值与 a-F 分段图像</h3><div class="qblock"><div class="qlabel">题目</div><div class="qtext">质量未知的物块静置在粗糙水平面上，水平拉力 F 从 0 缓慢增大。实验测得：F≤10 N 时物块保持静止；开始滑动后 a-F 图像为直线，并经过 (F=12 N，a=2 m/s²) 与 (F=18 N，a=5 m/s²) 两点。取 g=10 m/s²。求物块质量、最大静摩擦因数和动摩擦因数。</div></div><div class="answer-toggle-row"><button class="answer-toggle" type="button"><span class="arrow">▶</span><span class="answer-label">点击显示答案</span></button></div><div class="ablock"><div class="alabel">解答</div><div class="atext">滑动段斜率 Δa/ΔF=(5-2)/(18-12)=0.5=1/m，所以 m=2 kg。由 2=(12-fk)/2，得 fk=8 N，故 μk=8/(2×10)=0.40。最大静摩擦力为 10 N，所以 μs=10/(2×10)=0.50。</div></div></div>
+<div class="footer"><span>贴合高考题｜稍加难度</span><span>12 动力学图像</span></div>
+</div></div></section><section class="slide"><div class="frame"><aside class="side"><div><div class="tag">知识点</div><div class="pno">40</div><div class="stitle">13<br/>临界与极值问题</div></div><div class="sfoot">NII<br/>DYNAMICS</div></aside><div class="content">
+<div class="top"><div><div class="eyebrow">KNOWLEDGE</div><h1>临界与极值问题</h1></div><div class="badge">第 1 / 3 页</div></div>
+<div class="cols two">
+<div class="card solid"><h3>核心知识点</h3><ul><li>“恰好”通常意味着临界：恰好不滑、恰好脱离、恰好静止。</li><li>临界状态下常把某个力取最大值、最小值或取 0。</li><li>极值问题要先列一般式，再利用物理条件求最值。</li><li>临界题比普通牛二题多一步“找条件”。</li></ul></div>
+<div class="card solid"><h3>方法提炼</h3><div class="method-box">先受力，后加速度；先方向，后大小；需要求速度、位移时，再把牛顿第二定律与运动学公式联立。<br/><br/>本讲主线：临界与极值问题</div></div>
+</div>
+<div class="footer"><span>牛二力学专题</span><span>13 临界与极值问题</span></div>
+</div></div></section><section class="slide"><div class="frame"><aside class="side"><div><div class="tag">例题</div><div class="pno">41</div><div class="stitle">13<br/>临界与极值问题</div></div><div class="sfoot">NII<br/>DYNAMICS</div></aside><div class="content">
+<div class="top"><div><div class="eyebrow">BASIC EXAMPLE</div><h1>临界与极值问题</h1></div><div class="badge">第 2 / 3 页</div></div>
+<div class="card full solid"><h3>中档例题｜竖直墙面静摩擦临界</h3><div class="qblock"><div class="qlabel">题目</div><div class="qtext">质量为 2 kg 的物块被水平恒力 F 压在竖直墙面上，物块与墙面间最大静摩擦因数 μs=0.50。取 g=10 m/s²。求使物块能够静止在墙面上的 F 最小值。</div></div><div class="answer-toggle-row"><button class="answer-toggle" type="button"><span class="arrow">▶</span><span class="answer-label">点击显示答案</span></button></div><div class="ablock"><div class="alabel">解答</div><div class="atext">水平受力平衡给 N=F。竖直方向要靠静摩擦平衡重力，需 f=mg=20 N，同时 f≤μsN=0.5F。故 20≤0.5F，F≥40 N。最小值 Fmin=40 N。</div></div></div>
+<div class="footer"><span>贴合视频内容｜基础</span><span>13 临界与极值问题</span></div>
+</div></div></section><section class="slide"><div class="frame"><aside class="side"><div><div class="tag">例题</div><div class="pno">42</div><div class="stitle">13<br/>临界与极值问题</div></div><div class="sfoot">NII<br/>DYNAMICS</div></aside><div class="content">
+<div class="top"><div><div class="eyebrow">GAOKAO STYLE</div><h1>临界与极值问题</h1></div><div class="badge">第 3 / 3 页</div></div>
+<div class="card full solid"><h3>高考中档｜静摩擦方向改变的力值范围</h3><div class="qblock"><div class="qlabel">题目</div><div class="qtext">质量为 2 kg 的物块被 50 N 的水平恒力压在竖直墙面上，物块与墙面间最大静摩擦因数 μs=0.40。另对物块施加竖直向上的外力 P。取 g=10 m/s²。若要求物块始终静止，求 P 的取值范围。</div></div><div class="answer-toggle-row"><button class="answer-toggle" type="button"><span class="arrow">▶</span><span class="answer-label">点击显示答案</span></button></div><div class="ablock"><div class="alabel">解答</div><div class="atext">水平面法向力 N=50 N，最大静摩擦力 fmax=μsN=20 N。竖直方向平衡需要摩擦力补足 mg 与 P 的差，故 |mg-P|≤fmax，即 |20-P|≤20。解得 0≤P≤40 N。P&lt;20 N 时摩擦力向上；P&gt;20 N 时摩擦力向下。</div></div></div>
+<div class="footer"><span>贴合高考题｜稍加难度</span><span>13 临界与极值问题</span></div>
+</div></div></section><section class="slide"><div class="frame"><aside class="side"><div><div class="tag">知识点</div><div class="pno">43</div><div class="stitle">14<br/>牛二综合提升</div></div><div class="sfoot">NII<br/>DYNAMICS</div></aside><div class="content">
+<div class="top"><div><div class="eyebrow">KNOWLEDGE</div><h1>牛二综合提升</h1></div><div class="badge">第 1 / 3 页</div></div>
+<div class="cols two">
+<div class="card solid"><h3>核心知识点</h3><ul><li>综合题常把牛顿第二定律与运动学、功能关系、图像等结合。</li><li>分段过程要分段受力、分段列式、分段分析。</li><li>做综合题时，先抓“哪个过程求加速度、哪个过程求速度或位移”。</li><li>列方程时优先使用最直接的物理规律。</li></ul></div>
+<div class="card solid"><h3>方法提炼</h3><div class="method-box">先受力，后加速度；先方向，后大小；需要求速度、位移时，再把牛顿第二定律与运动学公式联立。<br/><br/>本讲主线：牛二综合提升</div></div>
+</div>
+<div class="footer"><span>牛二力学专题</span><span>14 牛二综合提升</span></div>
+</div></div></section><section class="slide"><div class="frame"><aside class="side"><div><div class="tag">例题</div><div class="pno">44</div><div class="stitle">14<br/>牛二综合提升</div></div><div class="sfoot">NII<br/>DYNAMICS</div></aside><div class="content">
+<div class="top"><div><div class="eyebrow">BASIC EXAMPLE</div><h1>牛二综合提升</h1></div><div class="badge">第 2 / 3 页</div></div>
+<div class="card full solid"><h3>中档例题｜恒力撤去后的总位移</h3><div class="qblock"><div class="qlabel">题目</div><div class="qtext">质量为 2 kg 的物块在粗糙水平面上以 2 m/s 初速度向右运动，动摩擦因数 μ=0.20。随后受到 12 N 水平向右恒力作用 3 s，之后撤去恒力。取 g=10 m/s²。求物块从开始受力到最终停止的总位移。</div></div><div class="answer-toggle-row"><button class="answer-toggle" type="button"><span class="arrow">▶</span><span class="answer-label">点击显示答案</span></button></div><div class="ablock"><div class="alabel">解答</div><div class="atext">摩擦力 f=4 N。前 3 s：a₁=(12-4)/2=4 m/s²，v₁=2+4×3=14 m/s，x₁=2×3+½×4×3²=24 m。撤力后减速度 a₂=4/2=2 m/s²，停止距离 x₂=v₁²/(2a₂)=196/4=49 m。总位移 x=24+49=73 m。</div></div></div>
+<div class="footer"><span>贴合视频内容｜基础</span><span>14 牛二综合提升</span></div>
+</div></div></section><section class="slide"><div class="frame"><aside class="side"><div><div class="tag">例题</div><div class="pno">45</div><div class="stitle">14<br/>牛二综合提升</div></div><div class="sfoot">NII<br/>DYNAMICS</div></aside><div class="content">
+<div class="top"><div><div class="eyebrow">GAOKAO STYLE</div><h1>牛二综合提升</h1></div><div class="badge">第 3 / 3 页</div></div>
+<div class="card full solid"><h3>高考中档｜力反向、停止与再反向</h3><div class="qblock"><div class="qlabel">题目</div><div class="qtext">质量为 2 kg 的物块在粗糙水平面上由静止开始运动，物块受到的滑动摩擦力和最大静摩擦力大小均为 4 N。前 4 s 施加 12 N 水平向右恒力，随后把外力改为 8 N 水平向左并持续 6 s。求 10 s 末物块的速度及 10 s 内的位移。</div></div><div class="answer-toggle-row"><button class="answer-toggle" type="button"><span class="arrow">▶</span><span class="answer-label">点击显示答案</span></button></div><div class="ablock"><div class="alabel">解答</div><div class="atext">前 4 s：a₁=(12-4)/2=4 m/s²，v₁=16 m/s，x₁=½×4×4²=32 m。后 6 s 初期物块仍向右，左向外力与摩擦力同向，a₂=-(8+4)/2=-6 m/s²。经过 t₂=16/6=8/3 s 停止，此段位移 x₂=16×(8/3)-½×6×(8/3)²=64/3 m。剩余时间 6-8/3=10/3 s。物块停下后 8 N 左向力大于最大静摩擦力 4 N，故向左启动；滑动后净力 8-4=4 N，a₃=2 m/s² 向左。末速度大小 v₃=2×10/3=20/3 m/s，方向向左；左向位移 x₃=½×2×(10/3)²=100/9 m。总位移=32+64/3-100/9=380/9≈42.2 m，方向向右。</div></div></div>
+<div class="footer"><span>贴合高考题｜稍加难度</span><span>14 牛二综合提升</span></div>
+</div></div></section><section class="slide"><div class="frame"><aside class="side"><div><div class="tag">结束</div><div class="pno">46</div><div class="stitle">牛二力学</div></div><div class="sfoot">NII<br/>DYNAMICS</div></aside><div class="content">
+<div class="cover">
+<div class="kicker">DONE</div>
+<h1>牛二力学专题完成</h1>
+<h2>知识点 · 基础例题 · 高考进阶</h2>
+<div class="cover-line"></div>
+<div class="tags"><span>分析运动</span><span>正交分解</span><span>连接体</span><span>传送带</span><span>综合提升</span></div>
+</div>
+</div></div></section></main>
+</div>
+<div class="nav"><button id="prevBtn">◀ 上一页</button><button id="nextBtn">下一页 ▶</button><button id="fullBtn">⛶ 全屏</button><div id="progWrap"><div id="prog"></div></div><div id="count"></div><div class="small">快捷键：<kbd>←</kbd> <kbd>→</kbd> <kbd>空格</kbd></div></div>
+<script>
+const slideEls = Array.from(document.querySelectorAll('.slide'));
+let current = 0;
+function render(){
+  slideEls.forEach((s,i)=>s.classList.toggle('active', i===current));
+  document.getElementById('count').textContent = `第 ${current+1} / ${slideEls.length} 页`;
+  document.getElementById('prog').style.width = `${current/(slideEls.length-1)*100}%`;
+}
+function next(){if(current<slideEls.length-1){current++;render();}}
+function prev(){if(current>0){current--;render();}}
+document.getElementById('nextBtn').onclick = next;
+document.getElementById('prevBtn').onclick = prev;
+document.getElementById('fullBtn').onclick = ()=>{ if(!document.fullscreenElement) document.documentElement.requestFullscreen(); else document.exitFullscreen(); };
+document.addEventListener('keydown', e=>{ if(['ArrowRight',' ','PageDown'].includes(e.key)){e.preventDefault();next();} if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();prev();} if(e.key.toLowerCase()==='f') document.getElementById('fullBtn').click(); });
+render();
+let sec=0; setInterval(()=>{ sec++; const m=String(Math.floor(sec/60)).padStart(2,'0'); const s=String(sec%60).padStart(2,'0'); document.getElementById('timer').textContent=`${m}:${s}`; },1000);
+
+// 点击显示 / 收起答案
+document.addEventListener('click', e=>{
+  const btn = e.target.closest('.answer-toggle');
+  if(!btn) return;
+  const row = btn.closest('.answer-toggle-row');
+  const ans = row ? row.nextElementSibling : null;
+  if(!ans || !ans.classList.contains('ablock')) return;
+  const open = ans.classList.toggle('open');
+  btn.classList.toggle('open', open);
+  const label = btn.querySelector('.answer-label');
+  if(label) label.textContent = open ? '点击收起答案' : '点击显示答案';
+});
+
+// original red fluorescent hexagon background + slowly drifting random hexagon blocks
+const canvas = document.getElementById('bg');
+const ctx = canvas.getContext('2d');
+const floatCanvas = document.getElementById('floatHexLayer');
+const fctx = floatCanvas.getContext('2d');
+let W = innerWidth, H = innerHeight, DPR = window.devicePixelRatio || 1;
+let hexes = [], pulses = [], floatHexes = [];
+
+function rand(a,b){ return a + Math.random()*(b-a); }
+
+function resize(){
+  DPR = window.devicePixelRatio || 1;
+  W = innerWidth; H = innerHeight;
+  canvas.width = W * DPR;
+  canvas.height = H * DPR;
+  canvas.style.width = W + 'px';
+  canvas.style.height = H + 'px';
+  ctx.setTransform(DPR,0,0,DPR,0,0);
+  floatCanvas.width = W * DPR;
+  floatCanvas.height = H * DPR;
+  floatCanvas.style.width = W + 'px';
+  floatCanvas.style.height = H + 'px';
+  fctx.setTransform(DPR,0,0,DPR,0,0);
+  buildHexScene();
+}
+
+function buildHexScene(){
+  hexes = []; pulses = []; floatHexes = [];
+  const r = Math.max(26, Math.min(38, W/34));
+  const cellW = Math.sqrt(3) * r;
+  const cellH = 1.5 * r;
+  const cols = Math.ceil(W/cellW) + 3;
+  const rows = Math.ceil(H/cellH) + 3;
+
+  // Original tiled hexagonal background.
+  for(let row=0; row<rows; row++){
+    for(let col=0; col<cols; col++){
+      const x = col*cellW + (row%2 ? cellW/2 : 0) - cellW;
+      const y = row*cellH - r;
+      hexes.push({x,y,r,phase:Math.random()*Math.PI*2});
+    }
+  }
+
+  // Soft pulses travel through the tiled background.
+  for(let i=0;i<16;i++){
+    pulses.push({speed:0.00010 + Math.random()*0.00011, offset:Math.random()*1000});
+  }
+
+  // Random, independent hexagonal blocks that drift very slowly.
+  const count = Math.max(10, Math.min(18, Math.round(W/115)));
+  for(let i=0;i<count;i++){
+    const rr = rand(22,58);
+    const angle = rand(0,Math.PI*2);
+    const speed = rand(0.010,0.038); // deliberately very slow
+    floatHexes.push({
+      x:rand(-rr,W+rr), y:rand(-rr,H+rr), r:rr,
+      vx:Math.cos(angle)*speed, vy:Math.sin(angle)*speed,
+      rot:rand(0,Math.PI*2), vrot:rand(-0.000018,0.000018),
+      alpha:rand(0.11,0.28), phase:rand(0,Math.PI*2),
+      filled:Math.random()<0.72
+    });
+  }
+}
+
+function hexPath(x,y,r,rot=0){
+  ctx.beginPath();
+  for(let i=0;i<6;i++){
+    const ang = Math.PI/6 + rot + i*Math.PI/3;
+    const px = x + r*Math.cos(ang), py = y + r*Math.sin(ang);
+    if(i===0) ctx.moveTo(px,py); else ctx.lineTo(px,py);
+  }
+  ctx.closePath();
+}
+
+function drawBaseHex(x,y,r,glow){
+  hexPath(x,y,r,0);
+  ctx.fillStyle = 'rgba(28,8,8,0.96)';
+  ctx.fill();
+  ctx.strokeStyle = `rgba(255,80,80,${0.18 + glow*0.52})`;
+  ctx.lineWidth = 1.7;
+  ctx.shadowBlur = 7 + glow*16;
+  ctx.shadowColor = `rgba(255,70,70,${0.20 + glow*0.48})`;
+  ctx.stroke();
+  ctx.shadowBlur = 0;
+}
+
+function floatHexPath(x,y,r,rot=0){
+  fctx.beginPath();
+  for(let i=0;i<6;i++){
+    const ang = Math.PI/6 + rot + i*Math.PI/3;
+    const px = x + r*Math.cos(ang), py = y + r*Math.sin(ang);
+    if(i===0) fctx.moveTo(px,py); else fctx.lineTo(px,py);
+  }
+  fctx.closePath();
+}
+
+function drawFloatingHex(h,t){
+  const pulse = 0.82 + 0.18*Math.sin(t*0.00042 + h.phase);
+  const a = h.alpha * pulse;
+  fctx.save();
+  floatHexPath(h.x,h.y,h.r,h.rot);
+  if(h.filled){
+    const g = fctx.createRadialGradient(h.x-h.r*.25,h.y-h.r*.28,2,h.x,h.y,h.r*1.15);
+    g.addColorStop(0,`rgba(145,28,28,${a*.55})`);
+    g.addColorStop(.58,`rgba(72,10,13,${a*.68})`);
+    g.addColorStop(1,`rgba(25,3,5,${a*.16})`);
+    fctx.fillStyle = g;
+    fctx.fill();
+  }
+  fctx.strokeStyle = `rgba(255,88,88,${Math.min(.48,a*1.85)})`;
+  fctx.lineWidth = h.r>42 ? 2.2 : 1.7;
+  fctx.shadowBlur = 10 + h.r*.16;
+  fctx.shadowColor = `rgba(255,45,45,${Math.min(.38,a*1.55)})`;
+  fctx.stroke();
+  // Inner circuit-brick line: visible over panel fills but light enough not to compete with text.
+  floatHexPath(h.x,h.y,h.r*.58,-h.rot*.55);
+  fctx.strokeStyle = `rgba(255,135,135,${a*.42})`;
+  fctx.lineWidth = 1;
+  fctx.shadowBlur = 4;
+  fctx.stroke();
+  fctx.restore();
+}
+
+let lastTime = 0;
+function hexLoop(t){
+  const dt = Math.min(40, t-lastTime || 16); lastTime=t;
+  ctx.clearRect(0,0,W,H);
+  fctx.clearRect(0,0,W,H);
+
+  // Keep the original dark-red radial glow behind the hexagon bricks.
+  const glowBg = ctx.createRadialGradient(W/2,H/2,0,W/2,H/2,Math.max(W,H)*0.72);
+  glowBg.addColorStop(0,'rgba(255,40,40,0.075)');
+  glowBg.addColorStop(.45,'rgba(82,8,10,0.030)');
+  glowBg.addColorStop(1,'rgba(255,40,40,0)');
+  ctx.fillStyle = glowBg;
+  ctx.fillRect(0,0,W,H);
+
+  // Static original hexagonal brick grid with restrained travelling highlights.
+  hexes.forEach(hex=>{
+    let glow = 0.07 + 0.055*Math.sin(t*0.00045 + hex.phase);
+    for(const p of pulses){
+      const wave = Math.sin((hex.x+hex.y)*0.0115 - t*p.speed + p.offset);
+      if(wave>0.972) glow += (wave-0.972)*10;
+    }
+    glow = Math.max(0.035,Math.min(.86,glow));
+    drawBaseHex(hex.x,hex.y,hex.r,glow);
+  });
+
+  // Slowly drifting random hexagonal blocks.
+  for(const h of floatHexes){
+    h.x += h.vx * dt;
+    h.y += h.vy * dt;
+    h.rot += h.vrot * dt;
+    const margin = h.r*1.5;
+    if(h.x < -margin) h.x = W + margin;
+    if(h.x > W + margin) h.x = -margin;
+    if(h.y < -margin) h.y = H + margin;
+    if(h.y > H + margin) h.y = -margin;
+    drawFloatingHex(h,t);
+  }
+
+  requestAnimationFrame(hexLoop);
+}
+window.addEventListener('resize',resize);
+resize();
+requestAnimationFrame(hexLoop);
+</script>
+<script crossorigin="anonymous" data-cf-beacon='{"version":"2024.11.0","token":"45c2bf8136a245cd97f1c2e9a96c0730"}' integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" type="module"></script>
+<script crossorigin="anonymous" data-cf-beacon='{"version":"2024.11.0","token":"45c2bf8136a245cd97f1c2e9a96c0730"}' integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" type="module"></script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"45c2bf8136a245cd97f1c2e9a96c0730"}' crossorigin="anonymous"></script>
+</body>
+</html>
