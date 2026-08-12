@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>万有引力与宇宙航行｜详细强化版</title><style>
+*{box-sizing:border-box}html,body{margin:0;height:100%;overflow:hidden;font-family:"PingFang SC","Microsoft YaHei",Arial,sans-serif;color:#f6f8ff;background:#02040a}body{position:relative}
+#space{position:fixed;inset:0;z-index:0}#app{position:relative;z-index:2;height:100%}.slide{display:none;height:100%;padding:22px 30px 28px}.slide.active{display:block;animation:fade .22s ease}@keyframes fade{from{opacity:.25;transform:translateY(8px)}to{opacity:1;transform:none}}
+.page{height:100%;display:flex;flex-direction:column;position:relative}.toprow{display:flex;justify-content:space-between;align-items:center}.core{font-size:14px;letter-spacing:3.2px;color:#adc7ff;text-shadow:0 0 12px rgba(75,132,255,.35)}.timerBox{font-size:13px;border:1px solid rgba(115,165,255,.38);border-radius:18px;padding:8px 13px;color:#d7e4ff;background:rgba(4,8,20,.22);backdrop-filter:blur(4px)}.timerBox b{font-size:18px}.hero{margin-top:4px}.heroK{font-size:12px;letter-spacing:2.8px;color:#c59aff;font-weight:900}.hero h1{margin:3px 0 0;font-size:44px;line-height:1.08;letter-spacing:.4px;text-shadow:0 0 22px rgba(105,137,255,.18)}.heroSub{margin-top:8px;font-size:18px;color:#b8cfff}
+.body{flex:1;min-height:0;margin-top:20px}.coverGrid{display:grid;grid-template-columns:1.08fr .92fr;gap:28px;height:100%;align-items:center}.bigline{font-size:44px;font-weight:950;text-shadow:0 0 30px rgba(116,141,255,.25)}.subline{font-size:21px;color:#d2dcff;margin-top:10px}.coverTags{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}.coverTags span{border:1px solid rgba(153,169,255,.36);border-radius:999px;padding:8px 12px;color:#dfe5ff;background:rgba(5,10,26,.12)}
+.formulaPanel,.panel{border:1px solid rgba(120,154,255,.26);border-radius:26px;background:linear-gradient(180deg,rgba(5,9,26,.30),rgba(4,7,19,.18));box-shadow:inset 0 0 0 1px rgba(189,202,255,.025),0 0 28px rgba(48,85,180,.08);backdrop-filter:blur(3px)}.formulaPanel{padding:32px;display:flex;min-height:300px;justify-content:center;flex-direction:column;gap:20px;text-align:center;font-family:Georgia,"Times New Roman",serif;font-size:31px;color:#dce8ff}.formulaPanel small{font-family:Arial,sans-serif;font-size:11px;letter-spacing:3px;color:#9cb4ec}
+.grid2{display:grid;grid-template-columns:1.08fr .92fr;gap:20px;height:100%}.panel{padding:20px 24px;overflow:auto}.panel h3{margin:0 0 14px;font-size:24px;color:#edf3ff}.panel ul{margin:0;padding-left:24px;font-size:18px;line-height:1.7;color:#edf2ff}.panel li{margin-bottom:7px}.visual{display:flex;flex-direction:column;justify-content:center}.formulaCard{font-family:Georgia,"Times New Roman",serif;font-size:25px;line-height:1.8;text-align:center;color:#cfe1ff;padding:28px 14px;border-top:1px solid rgba(164,180,255,.16);border-bottom:1px solid rgba(164,180,255,.16)}.sourceTag{margin-top:18px;font-size:13px;line-height:1.7;color:#a9bce9;text-align:center}
+.example{height:100%;padding:24px 30px}.question{font-size:23px;line-height:1.72;color:#f8faff}.answerBtn{margin-top:20px;border:1px solid rgba(145,166,255,.48);border-radius:14px;padding:10px 16px;background:rgba(72,93,190,.12);color:#dbe6ff;font-size:16px;font-weight:900;cursor:pointer;box-shadow:0 0 18px rgba(89,113,255,.08)}.answerBtn span{display:inline-block;margin-right:8px;transition:transform .22s}.answerBtn.open span{transform:rotate(90deg)}.answer{display:none;margin-top:16px;border-top:1px dashed rgba(138,157,255,.32);padding-top:14px;font-size:18px;line-height:1.76;color:#e8edff}.answer.open{display:block;animation:fade .18s ease}.answer b{display:block;color:#c7d6ff;letter-spacing:1.5px;font-size:13px;margin-bottom:7px}
+.dirList{max-width:1200px;margin:0 auto;padding-top:2px}.dirRow{display:grid;grid-template-columns:70px 1fr 130px;gap:18px;align-items:center;padding:13px 6px;border-bottom:1px solid rgba(151,171,255,.16);font-size:19px}.dirRow b{color:#c9d7ff}.dirRow em{text-align:right;font-style:normal;color:#95a9dc}
+.foot{display:flex;align-items:center;gap:14px;margin-top:12px}.fl,.fr{display:flex;gap:8px;align-items:center}.fl{min-width:170px}.fr{min-width:48px;justify-content:flex-end}.foot button{width:40px;height:38px;border:1px solid rgba(122,153,255,.32);border-radius:12px;background:rgba(7,11,28,.24);color:#e3ebff;font-size:19px;cursor:pointer}.prog{flex:1;height:7px;border-radius:99px;background:rgba(255,255,255,.08);overflow:hidden}.prog i{display:block;height:100%;width:0;background:linear-gradient(90deg,#6f8cff,#c78cff,#f5f7ff)}.fl b{font-size:16px;color:#d6e1ff}
+@media(max-width:1100px){.hero h1{font-size:36px}.grid2,.coverGrid{grid-template-columns:1fr}.panel ul{font-size:16px}.question{font-size:19px}.answer{font-size:16px}.formulaPanel{min-height:180px;font-size:24px}}
+
+/* Deep-space station upgrade */
+.formulaPanel,.panel{background:linear-gradient(180deg,rgba(5,9,21,.26),rgba(3,7,17,.14));border-color:rgba(198,212,235,.30);box-shadow:inset 0 0 0 1px rgba(255,255,255,.025),0 0 32px rgba(95,135,205,.10)}
+.timerBox,.foot button{border-color:rgba(205,220,240,.34);background:rgba(6,11,21,.20)}
+.core{color:#d6e3f4}.heroK{color:#c7d3e8}.heroSub{color:#c8d6ea}.formulaCard{color:#e1e9f5;border-color:rgba(210,222,240,.16)}
+.advancedBox{margin-top:14px;padding:14px 15px;border-top:1px solid rgba(210,224,244,.22);background:linear-gradient(90deg,rgba(180,200,230,.07),rgba(80,110,155,.025));font-family:"PingFang SC","Microsoft YaHei",Arial,sans-serif;text-align:left}
+.advancedBox b{display:block;font-size:13px;letter-spacing:1.5px;color:#e8eef7;margin-bottom:7px}.advancedBox ul{margin:0;padding-left:20px;font-size:14px;line-height:1.6;color:#cfd9e8}.advancedBox li{margin-bottom:4px}
+.answerBtn{border-color:rgba(205,220,242,.48);background:linear-gradient(90deg,rgba(105,125,165,.18),rgba(180,195,220,.08));color:#edf4ff}
+.answer{border-color:rgba(205,220,242,.30)}
+#space{filter:saturate(.84) contrast(1.05)}
+</style></head><body><canvas id="space"></canvas><div id="app"><section class="slide"><div class="page">
+<div class="toprow"><div class="core">GRAVITY · ORBIT</div><div class="timerBox">计时  <b class="timer">00:00</b></div></div>
+<div class="hero"><div class="heroK">VIDEO REVIEW</div><h1>万有引力与宇宙航行</h1><div class="heroSub">原合集 16 个视频 · 深度强化 · 高考中档偏难</div></div>
+<div class="body"><div class="coverGrid"><div class="coverText">
+<div class="bigline">万有引力与宇宙航行</div>
+<div class="coverTags"><span>开普勒</span><span>万有引力</span><span>同步卫星</span><span>宇宙速度</span><span>星球密度</span><span>变轨</span><span>双星</span><span>追及相遇</span></div>
+</div><div class="formulaPanel"><div>F = Gm₁m₂ / r²</div><div>GMm/r² = mv²/r</div><div>T² ∝ r³</div><small>ORBITAL MECHANICS · DEEP SPACE STATION</small></div></div></div>
+<div class="foot"><div class="fl"><button onclick="prevSlide()">←</button><button onclick="nextSlide()">→</button><b>1 / 52</b></div><div class="prog"><i></i></div><div class="fr"><button onclick="toggleFull()">⛶</button></div></div>
+</div></section><section class="slide"><div class="page">
+<div class="toprow"><div class="core">GRAVITY · ORBIT</div><div class="timerBox">计时  <b class="timer">00:00</b></div></div>
+<div class="hero"><div class="heroK">CONTENTS</div><h1>目录（1/3）</h1><div class="heroSub">对应原合集视频顺序</div></div>
+<div class="body"><div class="dirList"><div class="dirRow"><b>01</b><span>1.〖讲义27-28〗开普勒三大定律</span><em>P5–P7</em></div><div class="dirRow"><b>02</b><span>2.〖讲义27〗万有引力定律</span><em>P8–P10</em></div><div class="dirRow"><b>03</b><span>3.〖讲义29-30〗天体运动公式</span><em>P11–P13</em></div><div class="dirRow"><b>04</b><span>4.〖讲义31〗高轨低速大周期</span><em>P14–P16</em></div><div class="dirRow"><b>05</b><span>5.〖讲义32〗同步卫星看地面</span><em>P17–P19</em></div><div class="dirRow"><b>06</b><span>6.〖讲义32〗宇航员</span><em>P20–P22</em></div></div></div>
+<div class="foot"><div class="fl"><button onclick="prevSlide()">←</button><button onclick="nextSlide()">→</button><b>2 / 52</b></div><div class="prog"><i></i></div><div class="fr"><button onclick="toggleFull()">⛶</button></div></div>
+</div></section><section class="slide"><div class="page">
+<div class="toprow"><div class="core">GRAVITY · ORBIT</div><div class="timerBox">计时  <b class="timer">00:00</b></div></div>
+<div class="hero"><div class="heroK">CONTENTS</div><h1>目录（2/3）</h1><div class="heroSub">对应原合集视频顺序</div></div>
+<div class="body"><div class="dirList"><div class="dirRow"><b>07</b><span>7.〖讲义33〗第一宇宙速度</span><em>P23–P25</em></div><div class="dirRow"><b>08</b><span>8.〖讲义34〗星球密度</span><em>P26–P28</em></div><div class="dirRow"><b>09</b><span>9.〖讲义35〗比值问题</span><em>P29–P31</em></div><div class="dirRow"><b>10</b><span>10.〖讲义39〗变轨</span><em>P32–P34</em></div><div class="dirRow"><b>11</b><span>11.〖讲义41〗双星多星</span><em>P35–P37</em></div></div></div>
+<div class="foot"><div class="fl"><button onclick="prevSlide()">←</button><button onclick="nextSlide()">→</button><b>3 / 52</b></div><div class="prog"><i></i></div><div class="fr"><button onclick="toggleFull()">⛶</button></div></div>
+</div></section><section class="slide"><div class="page">
+<div class="toprow"><div class="core">GRAVITY · ORBIT</div><div class="timerBox">计时  <b class="timer">00:00</b></div></div>
+<div class="hero"><div class="heroK">CONTENTS</div><h1>目录（3/3）</h1><div class="heroSub">对应原合集视频顺序</div></div>
+<div class="body"><div class="dirList"><div class="dirRow"><b>12</b><span>12.〖讲义43〗追及相遇</span><em>P38–P40</em></div><div class="dirRow"><b>13</b><span>13.〖讲义30〗人间考虑自转</span><em>P41–P43</em></div><div class="dirRow"><b>14</b><span>14.〖讲义36-38〗〖习题〗综合练习</span><em>P44–P46</em></div><div class="dirRow"><b>15</b><span>15.〖讲义39〗〖习题〗变轨练习</span><em>P47–P49</em></div><div class="dirRow"><b>16</b><span>16.〖讲义42〗〖习题〗双星练习</span><em>P50–P52</em></div></div></div>
+<div class="foot"><div class="fl"><button onclick="prevSlide()">←</button><button onclick="nextSlide()">→</button><b>4 / 52</b></div><div class="prog"><i></i></div><div class="fr"><button onclick="toggleFull()">⛶</button></div></div>
+</div></section><section class="slide"><div class="page">
+<div class="toprow"><div class="core">GRAVITY · ORBIT</div><div class="timerBox">计时  <b class="timer">00:00</b></div></div>
+<div class="hero"><div class="heroK">KNOWLEDGE</div><h1>01｜开普勒三大定律</h1><div class="heroSub">知识点页 · 公式链与易错点</div></div>
+<div class="body"><div class="grid2"><div class="panel"><h3>核心知识点</h3><ul><li>轨道定律：行星绕太阳的轨道是椭圆，太阳位于椭圆的一个焦点；圆轨道只是椭圆轨道的特殊情形。</li><li>面积定律：相等时间内，行星与太阳的连线扫过面积相等；因此近日点速度大、远日点速度小。</li><li>周期定律：对绕同一中心天体运动的星体，a³/T² 为常量；圆轨道可写成 r³/T² 为常量。</li><li>椭圆轨道比较速度时优先用面积定律；比较不同圆轨道周期时优先用 T∝r^(3/2)。</li><li>若中心天体不同，第三定律中的常量不同，不能直接跨中心天体比较。</li></ul></div>
+<div class="panel visual"><h3>模型与公式</h3><div class="formulaCard">椭圆轨道：a³/T² = 常量<br/>圆轨道：T = 2π√(r³/GM)</div><div class="sourceTag">原视频：1.〖讲义27-28〗开普勒三大定律</div><div class="advancedBox"><b>进阶推论 · 高频陷阱</b><ul><li>椭圆轨道中半长轴 a=(r近+r远)/2；第三定律使用 a，而不是近日点或远日点距离。</li><li>在近日点、远日点速度与矢径垂直，由面积定律可直接得到 r近v近=r远v远。</li><li>从近日点到远日点必为半个轨道周期，但扫过的路程、平均速度均不能简单取一半。</li></ul></div></div></div></div>
+<div class="foot"><div class="fl"><button onclick="prevSlide()">←</button><button onclick="nextSlide()">→</button><b>5 / 52</b></div><div class="prog"><i></i></div><div class="fr"><button onclick="toggleFull()">⛶</button></div></div>
+</div></section><section class="slide"><div class="page">
+<div class="toprow"><div class="core">GRAVITY · ORBIT</div><div class="timerBox">计时  <b class="timer">00:00</b></div></div>
+<div class="hero"><div class="heroK">VIDEO STYLE</div><h1>01｜开普勒三大定律</h1><div class="heroSub">贴合视频模型 · 条件强化 · 多步推理</div></div>
+<div class="body"><div class="panel example"><h3>例题 A｜贴合原视频题型 · 高考中档+</h3><div class="question">一颗行星绕恒星做椭圆运动，近日点、远日点到恒星距离分别为 r、4r。已知它在近日点附近用时 Δt 扫过的面积为 S。若在远日点附近同样用时 Δt，求扫过面积，并求近日点速度与远日点速度之比。</div>
+<button class="answerBtn" onclick="toggleAnswer(this)"><span>▶</span> 点击展开答案</button><div class="answer"><b>答案与解析</b><div>面积定律给出相等时间扫过面积相等，因此远日点附近仍扫过 S。近日点、远日点速度均与矢径垂直，故 (1/2)rv近Δt=(1/2)(4r)v远Δt，得 v近:v远=4:1。</div></div></div></div>
+<div class="foot"><div class="fl"><button onclick="prevSlide()">←</button><button onclick="nextSlide()">→</button><b>6 / 52</b></div><div class="prog"><i></i></div><div class="fr"><button onclick="toggleFull()">⛶</button></div></div>
+</div></section><section class="slide"><div class="page">
+<div class="toprow"><div class="core">GRAVITY · ORBIT</div><div class="timerBox">计时  <b class="timer">00:00</b></div></div>
+<div class="hero"><div class="heroK">GAOKAO STYLE</div><h1>01｜开普勒三大定律</h1><div class="heroSub">高考综合 · 临界/反推/多模型联立</div></div>
+<div class="body"><div class="panel example"><h3>例题 B｜高考中档偏难 · 优质综合题</h3><div class="question">某卫星先在半径 r 的圆轨道运行，后进入以 r 和 4r 为近、远地点距离的转移椭圆。设原圆轨道周期为 T₀。求卫星从近地点飞到远地点所需时间，并求该转移椭圆周期与半径 4r 圆轨道周期之比。</div>
+<button class="answerBtn" onclick="toggleAnswer(this)"><span>▶</span> 点击展开答案</button><div class="answer"><b>答案与解析</b><div>转移椭圆半长轴 a=(r+4r)/2=5r/2。由开普勒第三定律，T椭/T₀=(a/r)^(3/2)=(5/2)^(3/2)。从近地点到远地点为半周期，t=(T₀/2)(5/2)^(3/2)。半径4r圆轨道周期 T₄=8T₀，因此 T椭/T₄=(5/2)^(3/2)/8=5√10/32。</div></div></div></div>
+<div class="foot"><div class="fl"><button onclick="prevSlide()">←</button><button onclick="nextSlide()">→</button><b>7 / 52</b></div><div class="prog"><i></i></div><div class="fr"><button onclick="toggleFull()">⛶</button></div></div>
+</div></section><section class="slide"><div class="page">
+<div class="toprow"><div class="core">GRAVITY · ORBIT</div><div class="timerBox">计时  <b class="timer">00:00</b></div></div>
+<div class="hero"><div class="heroK">KNOWLEDGE</div><h1>02｜万有引力定律与重力</h1><div class="heroSub">知识点页 · 公式链与易错点</div></div>
+<div class="body"><div class="grid2"><div class="panel"><h3>核心知识点</h3><ul><li>万有引力定律：F=Gm₁m₂/r²，r 为两质点距离；均匀球体可等效为质量集中在球心。</li><li>地表附近忽略自转时，GMm/R²=mg，因此 GM=gR²，是天体计算最常用的“黄金代换”。</li><li>距星球表面高度 h 处，重力加速度 g_h=gR²/(R+h)²。</li><li>万有引力是相互作用力，两物体受力大小相等、方向相反，与两物体质量大小无关。</li><li>球壳外部引力可按质点模型处理；题目给的是“距表面高度”时，先换成距球心距离。</li></ul></div>
+<div class="panel visual"><h3>模型与公式</h3><div class="formulaCard">F = Gm₁m₂/r²<br/>GM = gR²<br/>g_h/g = R²/(R+h)²</div><div class="sourceTag">原视频：2.〖讲义27〗万有引力定律</div><div class="advancedBox"><b>进阶推论 · 高频陷阱</b><ul><li>均匀球体外部可按质量集中于球心处理；球内问题不能直接套 GMm/r²。</li><li>复杂天体引力可用“叠加/割补”思想：完整球体的场减去被挖去部分的场。</li><li>两天体连线上合引力为零的位置通常更靠近质量较小的一侧。</li></ul></div></div></div></div>
+<div class="foot"><div class="fl"><button onclick="prevSlide()">←</button><button onclick="nextSlide()">→</button><b>8 / 52</b></div><div class="prog"><i></i></div><div class="fr"><button onclick="toggleFull()">⛶</button></div></div>
+</div></section><section class="slide"><div class="page">
+<div class="toprow"><div class="core">GRAVITY · ORBIT</div><div class="timerBox">计时  <b class="timer">00:00</b></div></div>
+<div class="hero"><div class="heroK">VIDEO STYLE</div><h1>02｜万有引力定律与重力</h1><div class="heroSub">贴合视频模型 · 条件强化 · 多步推理</div></div>
+<div class="body"><div class="panel example"><h3>例题 A｜贴合原视频题型 · 高考中档+</h3><div class="question">质量分别为 M 和 4M 的两球相距 9L，可视为质点。在两球连线上放一小物体，使其所受两球引力合力为零。求该点到质量为 M 的球的距离。</div>
+<button class="answerBtn" onclick="toggleAnswer(this)"><span>▶</span> 点击展开答案</button><div class="answer"><b>答案与解析</b><div>设距 M 为 x，则距 4M 为 9L-x。由 GMm/x²=G·4Mm/(9L-x)²，得 (9L-x)=2x，所以 x=3L。零引力点更靠近质量较小的球。</div></div></div></div>
+<div class="foot"><div class="fl"><button onclick="prevSlide()">←</button><button onclick="nextSlide()">→</button><b>9 / 52</b></div><div class="prog"><i></i></div><div class="fr"><button onclick="toggleFull()">⛶</button></div></div>
+</div></section><section class="slide"><div class="page">
+<div class="toprow"><div class="core">GRAVITY · ORBIT</div><div class="timerBox">计时  <b class="timer">00:00</b></div></div>
+<div class="hero"><div class="heroK">GAOKAO STYLE</div><h1>02｜万有引力定律与重力</h1><div class="heroSub">高考综合 · 临界/反推/多模型联立</div></div>
+<div class="body"><div class="panel example"><h3>例题 B｜高考中档偏难 · 优质综合题</h3><div class="question">均匀球形星球半径 R、密度 ρ。现从球内挖去一个半径 R/2 的球形空腔，空腔球心距原球心 R/2，且两球面内切。求原球心处由于“剩余部分”产生的引力场强大小。</div>
+<button class="answerBtn" onclick="toggleAnswer(this)"><span>▶</span> 点击展开答案</button><div class="answer"><b>答案与解析</b><div>用叠加/割补：剩余体=完整大球-被挖小球。完整均匀球在自身球心场强为0；故剩余体在原球心的场等于“负小球”贡献。原球心位于小球表面，故 g=G M小/(R/2)²。M小=ρ·(4/3)π(R/2)³，因此 g=G·(4/3)πρ(R³/8)/(R²/4)=2πGρR/3。方向与实际小球在该点产生场方向相反，即背离空腔球心。</div></div></div></div>
+<div class="foot"><div class="fl"><button onclick="prevSlide()">←</button><button onclick="nextSlide()">→</button><b>10 / 52</b></div><div class="prog"><i></i></div><div class="fr"><button onclick="toggleFull()">⛶</button></div></div>
+</div></section><section class="slide"><div class="page">
+<div class="toprow"><div class="core">GRAVITY · ORBIT</div><div class="timerBox">计时  <b class="timer">00:00</b></div></div>
+<div class="hero"><div class="heroK">KNOWLEDGE</div><h1>03｜天体圆周运动公式体系</h1><div class="heroSub">知识点页 · 公式链与易错点</div></div>
+<div class="body"><div class="grid2"><div class="panel"><h3>核心知识点</h3><ul><li>圆轨道卫星的核心方程只有一个：万有引力提供向心力。由此可推出线速度、角速度、周期和向心加速度。</li><li>v=√(GM/r)：轨道半径越大，线速度越小。</li><li>ω=√(GM/r³)：轨道半径越大，角速度越小。</li><li>T=2π√(r³/GM)：轨道半径越大，周期越大。</li><li>a=GM/r²：轨道半径越大，向心加速度越小。分析题先统一使用到中心天体球心的距离 r。</li></ul></div>
+<div class="panel visual"><h3>模型与公式</h3><div class="formulaCard">GMm/r² = mv²/r = mω²r = m4π²r/T²<br/>v=√(GM/r),  T=2π√(r³/GM)</div><div class="sourceTag">原视频：3.〖讲义29-30〗天体运动公式</div><div class="advancedBox"><b>进阶推论 · 高频陷阱</b><ul><li>圆轨道四量链：v∝r⁻¹ᐟ²，ω∝r⁻³ᐟ²，T∝r³ᐟ²，a∝r⁻²，仅限同一中心天体。</li><li>由周期与轨道半径可反推中心天体质量：M=4π²r³/(GT²)。</li><li>轨道向心加速度 a=GM/r²，与该处“重力加速度”数值相同，但概念侧重点不同。</li></ul></div></div></div></div>
+<div class="foot"><div class="fl"><button onclick="prevSlide()">←</button><button onclick="nextSlide()">→</button><b>11 / 52</b></div><div class="prog"><i></i></div><div class="fr"><button onclick="toggleFull()">⛶</button></div></div>
+</div></section><section class="slide"><div class="page">
+<div class="toprow"><div class="core">GRAVITY · ORBIT</div><div class="timerBox">计时  <b class="timer">00:00</b></div></div>
+<div class="hero"><div class="heroK">VIDEO STYLE</div><h1>03｜天体圆周运动公式体系</h1><div class="heroSub">贴合视频模型 · 条件强化 · 多步推理</div></div>
+<div class="body"><div class="panel example"><h3>例题 A｜贴合原视频题型 · 高考中档+</h3><div class="question">某行星半径为 R。一卫星在距表面高度 R 的圆轨道上运行，测得周期为 T。求行星质量 M，并求该行星表面重力加速度 g。</div>
+<button class="answerBtn" onclick="toggleAnswer(this)"><span>▶</span> 点击展开答案</button><div class="answer"><b>答案与解析</b><div>轨道半径 r=2R。由 GMm/r²=m4π²r/T²，得 M=4π²(2R)³/(GT²)=32π²R³/(GT²)。表面 g=GM/R²=32π²R/T²。</div></div></div></div>
+<div class="foot"><div class="fl"><button onclick="prevSlide()">←</button><button onclick="nextSlide()">→</button><b>12 / 52</b></div><div class="prog"><i></i></div><div class="fr"><button onclick="toggleFull()">⛶</button></div></div>
+</div></section><section class="slide"><div class="page">
+<div class="toprow"><div class="core">GRAVITY · ORBIT</div><div class="timerBox">计时  <b class="timer">00:00</b></div></div>
+<div class="hero"><div class="heroK">GAOKAO STYLE</div><h1>03｜天体圆周运动公式体系</h1><div class="heroSub">高考综合 · 临界/反推/多模型联立</div></div>
+<div class="body"><div class="panel example"><h3>例题 B｜高考中档偏难 · 优质综合题</h3><div class="question">两颗卫星 A、B 绕同一行星做圆周运动。已知 A 的向心加速度是 B 的 9 倍，而 A 的周期是 B 的 1/27。判断这两条观测是否可能同时成立，并说明理由。</div>
+<button class="answerBtn" onclick="toggleAnswer(this)"><span>▶</span> 点击展开答案</button><div class="answer"><b>答案与解析</b><div>同中心天体有 a∝r⁻²，T∝r^(3/2)。由 a_A/a_B=9 得 r_A/r_B=1/3。则应有 T_A/T_B=(1/3)^(3/2)=1/(3√3)，并非1/27。因此两观测不可能同时对应同一中心天体的稳定圆轨道。</div></div></div></div>
+<div class="foot"><div class="fl"><button onclick="prevSlide()">←</button><button onclick="nextSlide()">→</button><b>13 / 52</b></div><div class="prog"><i></i></div><div class="fr"><button onclick="toggleFull()">⛶</button></div></div>
+</div></section><section class="slide"><div class="page">
+<div class="toprow"><div class="core">GRAVITY · ORBIT</div><div class="timerBox">计时  <b class="timer">00:00</b></div></div>
+<div class="hero"><div class="heroK">KNOWLEDGE</div><h1>04｜高轨低速大周期</h1><div class="heroSub">知识点页 · 公式链与易错点</div></div>
+<div class="body"><div class="grid2"><div class="panel"><h3>核心知识点</h3><ul><li>对绕同一中心天体的圆轨道卫星，“轨道越高”意味着 r 越大。</li><li>r 越大：v 越小、ω 越小、T 越大、a 越小。</li><li>圆轨道动能 E_k=GMm/(2r)，所以高轨道动能更小。</li><li>若引入引力势能 U=-GMm/r，则圆轨道总机械能 E=-GMm/(2r)，轨道越高总机械能越大（更接近 0）。</li><li>“高轨低速”指稳定圆轨道上的速度；从低轨升高到高轨过程中需要外界做正功。</li></ul></div>
+<div class="panel visual"><h3>模型与公式</h3><div class="formulaCard">r↑ ⇒ v↓, ω↓, a↓, T↑<br/>E_k=GMm/(2r),  E=-GMm/(2r)</div><div class="sourceTag">原视频：4.〖讲义31〗高轨低速大周期</div><div class="advancedBox"><b>进阶推论 · 高频陷阱</b><ul><li>圆轨道动能 Ek=GMm/(2r)，机械能 E=-GMm/(2r)：升轨后速度变小，但机械能反而增大。</li><li>高轨“低速”是稳定圆轨道结论，不代表升轨点火时要减速。</li><li>同一卫星的轨道角动量随稳定圆轨道半径增大而增大，可用于定性判断变轨方向。</li></ul></div></div></div></div>
+<div class="foot"><div class="fl"><button onclick="prevSlide()">←</button><button onclick="nextSlide()">→</button><b>14 / 52</b></div><div class="prog"><i></i></div><div class="fr"><button onclick="toggleFull()">⛶</button></div></div>
+</div></section><section class="slide"><div class="page">
+<div class="toprow"><div class="core">GRAVITY · ORBIT</div><div class="timerBox">计时  <b class="timer">00:00</b></div></div>
+<div class="hero"><div class="heroK">VIDEO STYLE</div><h1>04｜高轨低速大周期</h1><div class="heroSub">贴合视频模型 · 条件强化 · 多步推理</div></div>
+<div class="body"><div class="panel example"><h3>例题 A｜贴合原视频题型 · 高考中档+</h3><div class="question">同一卫星分别在半径 r 和 9r 的稳定圆轨道运行。比较两状态的线速度、动能、向心加速度和机械能绝对值。</div>
+<button class="answerBtn" onclick="toggleAnswer(this)"><span>▶</span> 点击展开答案</button><div class="answer"><b>答案与解析</b><div>v∝r⁻¹ᐟ²，故 v₁:v₂=3:1；Ek∝1/r，故 Ek₁:Ek₂=9:1；a∝1/r²，故 a₁:a₂=81:1；圆轨道机械能 E=-GMm/(2r)，绝对值 |E|∝1/r，故 |E₁|:|E₂|=9:1。</div></div></div></div>
+<div class="foot"><div class="fl"><button onclick="prevSlide()">←</button><button onclick="nextSlide()">→</button><b>15 / 52</b></div><div class="prog"><i></i></div><div class="fr"><button onclick="toggleFull()">⛶</button></div></div>
+</div></section><section class="slide"><div class="page">
+<div class="toprow"><div class="core">GRAVITY · ORBIT</div><div class="timerBox">计时  <b class="timer">00:00</b></div></div>
+<div class="hero"><div class="heroK">GAOKAO STYLE</div><h1>04｜高轨低速大周期</h1><div class="heroSub">高考综合 · 临界/反推/多模型联立</div></div>
+<div class="body"><div class="panel example"><h3>例题 B｜高考中档偏难 · 优质综合题</h3><div class="question">卫星质量 m，从半径 r 的圆轨道提升到半径 4r 的圆轨道。只比较两个稳定圆轨道，求外界至少需要增加的机械能 ΔE；并解释为什么最终速度反而变小。</div>
+<button class="answerBtn" onclick="toggleAnswer(this)"><span>▶</span> 点击展开答案</button><div class="answer"><b>答案与解析</b><div>E₁=-GMm/(2r)，E₂=-GMm/(8r)，所以 ΔE=E₂-E₁=3GMm/(8r)&gt;0。虽然外界做正功使总机械能增加，但高轨圆周速度 v=√(GM/r) 较小；增加的能量主要体现为引力势能升高。</div></div></div></div>
+<div class="foot"><div class="fl"><button onclick="prevSlide()">←</button><button onclick="nextSlide()">→</button><b>16 / 52</b></div><div class="prog"><i></i></div><div class="fr"><button onclick="toggleFull()">⛶</button></div></div>
+</div></section><section class="slide"><div class="page">
+<div class="toprow"><div class="core">GRAVITY · ORBIT</div><div class="timerBox">计时  <b class="timer">00:00</b></div></div>
+<div class="hero"><div class="heroK">KNOWLEDGE</div><h1>05｜同步卫星与地面观察</h1><div class="heroSub">知识点页 · 公式链与易错点</div></div>
+<div class="body"><div class="grid2"><div class="panel"><h3>核心知识点</h3><ul><li>同步卫星的公转周期与地球自转周期相同；地球静止卫星是同步卫星的特殊情况。</li><li>地球静止卫星必须位于赤道平面内、沿地球自转方向运动，周期约 24 h。</li><li>静止卫星相对地面不动，因此其角速度与地球自转角速度相同，轨道半径由周期唯一确定。</li><li>“同步”不等于“静止”：若轨道面不在赤道面，卫星虽周期同步但相对地面会移动。</li><li>卫星看地面常涉及覆盖范围、视线与地球切线关系，以及赤道上物体与卫星的角速度比较。</li></ul></div>
+<div class="panel visual"><h3>模型与公式</h3><div class="formulaCard">T同步 = T自转<br/>ω同步 = ω地<br/>GM/r³ = ω地²</div><div class="sourceTag">原视频：5.〖讲义32〗同步卫星看地面</div><div class="advancedBox"><b>进阶推论 · 高频陷阱</b><ul><li>同步轨道半径由中心天体质量与自转周期唯一确定：r=(GMT²/4π²)^(1/3)。</li><li>地球静止卫星是同步卫星的特殊情形，必须赤道、顺行、圆轨道。</li><li>可视边界由卫星视线与地球相切确定，覆盖半角满足 cosθ=R/r。</li></ul></div></div></div></div>
+<div class="foot"><div class="fl"><button onclick="prevSlide()">←</button><button onclick="nextSlide()">→</button><b>17 / 52</b></div><div class="prog"><i></i></div><div class="fr"><button onclick="toggleFull()">⛶</button></div></div>
+</div></section><section class="slide"><div class="page">
+<div class="toprow"><div class="core">GRAVITY · ORBIT</div><div class="timerBox">计时  <b class="timer">00:00</b></div></div>
+<div class="hero"><div class="heroK">VIDEO STYLE</div><h1>05｜同步卫星与地面观察</h1><div class="heroSub">贴合视频模型 · 条件强化 · 多步推理</div></div>
+<div class="body"><div class="panel example"><h3>例题 A｜贴合原视频题型 · 高考中档+</h3><div class="question">某星球自转周期为 T，质量 M。求其同步圆轨道半径 r。若星球半径 R，写出同步卫星离地高度 h。</div>
+<button class="answerBtn" onclick="toggleAnswer(this)"><span>▶</span> 点击展开答案</button><div class="answer"><b>答案与解析</b><div>同步条件 T轨=T自转=T。由 T=2π√(r³/GM)，得 r=(GMT²/4π²)^(1/3)，高度 h=r-R。</div></div></div></div>
+<div class="foot"><div class="fl"><button onclick="prevSlide()">←</button><button onclick="nextSlide()">→</button><b>18 / 52</b></div><div class="prog"><i></i></div><div class="fr"><button onclick="toggleFull()">⛶</button></div></div>
+</div></section><section class="slide"><div class="page">
+<div class="toprow"><div class="core">GRAVITY · ORBIT</div><div class="timerBox">计时  <b class="timer">00:00</b></div></div>
+<div class="hero"><div class="heroK">GAOKAO STYLE</div><h1>05｜同步卫星与地面观察</h1><div class="heroSub">高考综合 · 临界/反推/多模型联立</div></div>
+<div class="body"><div class="panel example"><h3>例题 B｜高考中档偏难 · 优质综合题</h3><div class="question">某静止卫星轨道半径为 6R，R 为星球半径。忽略大气遮挡。求该卫星在赤道上单侧理论可见范围对应的最大地心夹角 θ，并估计要让若干同轨静止卫星在赤道上实现连续可见，至少需要多少颗（仅按几何覆盖估算）。</div>
+<button class="answerBtn" onclick="toggleAnswer(this)"><span>▶</span> 点击展开答案</button><div class="answer"><b>答案与解析</b><div>视线边界与星球相切，cosθ=R/(6R)=1/6，所以 θ=arccos(1/6)≈80.4°。单星沿赤道可覆盖中心角约2θ≈160.8°。要覆盖360°，至少需 N≥360°/160.8°≈2.24，因此几何上至少3颗。</div></div></div></div>
+<div class="foot"><div class="fl"><button onclick="prevSlide()">←</button><button onclick="nextSlide()">→</button><b>19 / 52</b></div><div class="prog"><i></i></div><div class="fr"><button onclick="toggleFull()">⛶</button></div></div>
+</div></section><section class="slide"><div class="page">
+<div class="toprow"><div class="core">GRAVITY · ORBIT</div><div class="timerBox">计时  <b class="timer">00:00</b></div></div>
+<div class="hero"><div class="heroK">KNOWLEDGE</div><h1>06｜宇航员与失重</h1><div class="heroSub">知识点页 · 公式链与易错点</div></div>
+<div class="body"><div class="grid2"><div class="panel"><h3>核心知识点</h3><ul><li>宇航员在轨道舱内“失重”不是没有重力，而是人与飞船共同做自由落体式的圆周运动。</li><li>完全失重时，支持力或弹簧秤示数可为 0，但万有引力仍然存在并提供向心加速度。</li><li>在轨道舱内，普通天平无法通过支持力测质量；可用已知力产生加速度，通过 F=ma 测质量。</li><li>重力加速度随高度增大而减小，但低轨宇航员所受地球引力仍较大。</li><li>“超重/失重”判断看支持力与 mg 的比较，而不是看物体是否向上或向下运动。</li></ul></div>
+<div class="panel visual"><h3>模型与公式</h3><div class="formulaCard">完全失重：N=0，但 GMm/r²≠0<br/>GMm/r² = ma向</div><div class="sourceTag">原视频：6.〖讲义32〗宇航员</div><div class="advancedBox"><b>进阶推论 · 高频陷阱</b><ul><li>完全失重时 N=0，但引力约等于 mGM/r²，正是它提供轨道向心力。</li><li>失重环境仍可利用 F=ma、弹簧振动周期等惯性方法测质量。</li><li>舱内抛出的物体若速度相对舱体很小，会与空间站共同绕地运动，不能按地面抛体模型处理。</li></ul></div></div></div></div>
+<div class="foot"><div class="fl"><button onclick="prevSlide()">←</button><button onclick="nextSlide()">→</button><b>20 / 52</b></div><div class="prog"><i></i></div><div class="fr"><button onclick="toggleFull()">⛶</button></div></div>
+</div></section><section class="slide"><div class="page">
+<div class="toprow"><div class="core">GRAVITY · ORBIT</div><div class="timerBox">计时  <b class="timer">00:00</b></div></div>
+<div class="hero"><div class="heroK">VIDEO STYLE</div><h1>06｜宇航员与失重</h1><div class="heroSub">贴合视频模型 · 条件强化 · 多步推理</div></div>
+<div class="body"><div class="panel example"><h3>例题 A｜贴合原视频题型 · 高考中档+</h3><div class="question">空间站绕地球做圆周运动，宇航员在舱内用水平恒力 F 推一质量未知的小实验舱，测得其相对空间站的加速度为 a。若实验时间很短，可忽略轨道曲率影响，求实验舱质量，并指出“失重”为什么不妨碍该测量。</div>
+<button class="answerBtn" onclick="toggleAnswer(this)"><span>▶</span> 点击展开答案</button><div class="answer"><b>答案与解析</b><div>由惯性定律 m=F/a。失重只意味着宇航员和物体共同自由落体、支持力近似为0，并不改变惯性质量，所以外力与加速度的关系仍成立。</div></div></div></div>
+<div class="foot"><div class="fl"><button onclick="prevSlide()">←</button><button onclick="nextSlide()">→</button><b>21 / 52</b></div><div class="prog"><i></i></div><div class="fr"><button onclick="toggleFull()">⛶</button></div></div>
+</div></section><section class="slide"><div class="page">
+<div class="toprow"><div class="core">GRAVITY · ORBIT</div><div class="timerBox">计时  <b class="timer">00:00</b></div></div>
+<div class="hero"><div class="heroK">GAOKAO STYLE</div><h1>06｜宇航员与失重</h1><div class="heroSub">高考综合 · 临界/反推/多模型联立</div></div>
+<div class="body"><div class="panel example"><h3>例题 B｜高考中档偏难 · 优质综合题</h3><div class="question">空间站轨道半径为 r，舱内有一小球初始与舱体相对静止。宇航员轻推小球，使其沿空间站运行方向获得很小的相对速度 Δv（Δv远小于轨道速度）。定性判断小球相对空间站在随后短时间内更可能向“高轨侧”还是“低轨侧”漂移，并说明轨道力学原因。</div>
+<button class="answerBtn" onclick="toggleAnswer(this)"><span>▶</span> 点击展开答案</button><div class="answer"><b>答案与解析</b><div>顺运行方向加速意味着小球瞬时速度略大于原圆轨道速度，因此它进入以当前点为近地点的略椭圆轨道，随后轨道半径增大，向高轨侧漂移。注意不是因为“受了向外的力”，而是因为切向增速改变了所需圆周向心条件与轨道能量。</div></div></div></div>
+<div class="foot"><div class="fl"><button onclick="prevSlide()">←</button><button onclick="nextSlide()">→</button><b>22 / 52</b></div><div class="prog"><i></i></div><div class="fr"><button onclick="toggleFull()">⛶</button></div></div>
+</div></section><section class="slide"><div class="page">
+<div class="toprow"><div class="core">GRAVITY · ORBIT</div><div class="timerBox">计时  <b class="timer">00:00</b></div></div>
+<div class="hero"><div class="heroK">KNOWLEDGE</div><h1>07｜第一宇宙速度与发射速度</h1><div class="heroSub">知识点页 · 公式链与易错点</div></div>
+<div class="body"><div class="grid2"><div class="panel"><h3>核心知识点</h3><ul><li>第一宇宙速度 v₁=√(GM/R)=√(gR)，是近地圆轨道速度。</li><li>从地面发射卫星时，第一宇宙速度也是使物体进入近地绕行轨道的最小发射速度（忽略空气阻力和自转）。</li><li>第二宇宙速度对应摆脱地球引力束缚；第三宇宙速度对应从地球附近出发摆脱太阳系引力束缚。</li><li>不同星球第一宇宙速度由 M/R 决定，也可写为 √(gR)。</li><li>发射速度越大不等于稳定轨道速度越大；高轨稳定速度反而更小。</li></ul></div>
+<div class="panel visual"><h3>模型与公式</h3><div class="formulaCard">v₁=√(GM/R)=√(gR)<br/>同密度球体：v₁∝R</div><div class="sourceTag">原视频：7.〖讲义33〗第一宇宙速度</div><div class="advancedBox"><b>进阶推论 · 高频陷阱</b><ul><li>第一宇宙速度是近地圆轨道速度，不等于“任何卫星的最小运行速度”。</li><li>v₁=√(gR)=R√(4πGρ/3)，同密度星球的第一宇宙速度与半径成正比。</li><li>若计入星球自转，从赤道顺行发射可利用自转线速度，所需相对地面的发射增量更小。</li></ul></div></div></div></div>
+<div class="foot"><div class="fl"><button onclick="prevSlide()">←</button><button onclick="nextSlide()">→</button><b>23 / 52</b></div><div class="prog"><i></i></div><div class="fr"><button onclick="toggleFull()">⛶</button></div></div>
+</div></section><section class="slide"><div class="page">
+<div class="toprow"><div class="core">GRAVITY · ORBIT</div><div class="timerBox">计时  <b class="timer">00:00</b></div></div>
+<div class="hero"><div class="heroK">VIDEO STYLE</div><h1>07｜第一宇宙速度与发射速度</h1><div class="heroSub">贴合视频模型 · 条件强化 · 多步推理</div></div>
+<div class="body"><div class="panel example"><h3>例题 A｜贴合原视频题型 · 高考中档+</h3><div class="question">两均匀球形星球 A、B 密度相同，半径比 R_A:R_B=2:5。忽略自转，求表面重力加速度比和第一宇宙速度比。</div>
+<button class="answerBtn" onclick="toggleAnswer(this)"><span>▶</span> 点击展开答案</button><div class="answer"><b>答案与解析</b><div>同密度 M∝R³，所以 g=GM/R²∝R，得 g_A:g_B=2:5。第一宇宙速度 v₁=√(gR)∝R，因此 v_A:v_B=2:5。</div></div></div></div>
+<div class="foot"><div class="fl"><button onclick="prevSlide()">←</button><button onclick="nextSlide()">→</button><b>24 / 52</b></div><div class="prog"><i></i></div><div class="fr"><button onclick="toggleFull()">⛶</button></div></div>
+</div></section><section class="slide"><div class="page">
+<div class="toprow"><div class="core">GRAVITY · ORBIT</div><div class="timerBox">计时  <b class="timer">00:00</b></div></div>
+<div class="hero"><div class="heroK">GAOKAO STYLE</div><h1>07｜第一宇宙速度与发射速度</h1><div class="heroSub">高考综合 · 临界/反推/多模型联立</div></div>
+<div class="body"><div class="panel example"><h3>例题 B｜高考中档偏难 · 优质综合题</h3><div class="question">某星球半径 R、平均密度 ρ。若从其表面附近发射卫星进入近地圆轨道，求第一宇宙速度 v₁；再设星球自转到赤道处物体恰好失重，求赤道自转线速度 v自，并比较 v自 与 v₁。</div>
+<button class="answerBtn" onclick="toggleAnswer(this)"><span>▶</span> 点击展开答案</button><div class="answer"><b>答案与解析</b><div>M=(4/3)πR³ρ。第一宇宙速度 v₁=√(GM/R)=R√(4πGρ/3)。临界失重时 ω²R=GM/R²，因此 v自=ωR=√(GM/R)=v₁。即赤道临界自转线速度恰等于第一宇宙速度。</div></div></div></div>
+<div class="foot"><div class="fl"><button onclick="prevSlide()">←</button><button onclick="nextSlide()">→</button><b>25 / 52</b></div><div class="prog"><i></i></div><div class="fr"><button onclick="toggleFull()">⛶</button></div></div>
+</div></section><section class="slide"><div class="page">
+<div class="toprow"><div class="core">GRAVITY · ORBIT</div><div class="timerBox">计时  <b class="timer">00:00</b></div></div>
+<div class="hero"><div class="heroK">KNOWLEDGE</div><h1>08｜星球质量与密度</h1><div class="heroSub">知识点页 · 公式链与易错点</div></div>
+<div class="body"><div class="grid2"><div class="panel"><h3>核心知识点</h3><ul><li>天体质量常由“卫星轨道信息”反推：M=4π²r³/(GT²)。</li><li>若已知天体半径 R，再用 ρ=M/(4πR³/3) 求平均密度。</li><li>近地卫星模型 r≈R，可得到 ρ 与近地卫星周期 T 的简洁关系。</li><li>若题目给表面 g 与 R，则 M=gR²/G，再由体积求密度。</li><li>密度题要分清轨道半径 r 与星球半径 R，两者不一定相等。</li></ul></div>
+<div class="panel visual"><h3>模型与公式</h3><div class="formulaCard">M=4π²r³/(GT²)<br/>ρ=3M/(4πR³)<br/>近地卫星：ρ=3π/(GT²)</div><div class="sourceTag">原视频：8.〖讲义34〗星球密度</div><div class="advancedBox"><b>进阶推论 · 高频陷阱</b><ul><li>一般卫星反推密度：ρ=3πr³/(GT²R³)，其中 r=R+h。</li><li>只有“近地卫星”才可令 r≈R，得到 ρ=3π/(GT²)。</li><li>已知表面 g 与 R 时，ρ=3g/(4πGR)，是另一条常用反推链。</li></ul></div></div></div></div>
+<div class="foot"><div class="fl"><button onclick="prevSlide()">←</button><button onclick="nextSlide()">→</button><b>26 / 52</b></div><div class="prog"><i></i></div><div class="fr"><button onclick="toggleFull()">⛶</button></div></div>
+</div></section><section class="slide"><div class="page">
+<div class="toprow"><div class="core">GRAVITY · ORBIT</div><div class="timerBox">计时  <b class="timer">00:00</b></div></div>
+<div class="hero"><div class="heroK">VIDEO STYLE</div><h1>08｜星球质量与密度</h1><div class="heroSub">贴合视频模型 · 条件强化 · 多步推理</div></div>
+<div class="body"><div class="panel example"><h3>例题 A｜贴合原视频题型 · 高考中档+</h3><div class="question">某行星半径 R，一颗卫星在距表面高度 h 的圆轨道上运行，周期为 T。求行星平均密度 ρ。</div>
+<button class="answerBtn" onclick="toggleAnswer(this)"><span>▶</span> 点击展开答案</button><div class="answer"><b>答案与解析</b><div>轨道半径 r=R+h。由 M=4π²r³/(GT²)，再代入 ρ=3M/(4πR³)，得 ρ=3π(R+h)³/(GT²R³)。</div></div></div></div>
+<div class="foot"><div class="fl"><button onclick="prevSlide()">←</button><button onclick="nextSlide()">→</button><b>27 / 52</b></div><div class="prog"><i></i></div><div class="fr"><button onclick="toggleFull()">⛶</button></div></div>
+</div></section><section class="slide"><div class="page">
+<div class="toprow"><div class="core">GRAVITY · ORBIT</div><div class="timerBox">计时  <b class="timer">00:00</b></div></div>
+<div class="hero"><div class="heroK">GAOKAO STYLE</div><h1>08｜星球质量与密度</h1><div class="heroSub">高考综合 · 临界/反推/多模型联立</div></div>
+<div class="body"><div class="panel example"><h3>例题 B｜高考中档偏难 · 优质综合题</h3><div class="question">某未知行星有两颗圆轨道卫星。A 为近地卫星，周期 T；B 的轨道半径为行星半径的 4 倍。若只根据 T 和万有引力常量 G，能否求出行星平均密度？能否求出行星半径？分别说明。</div>
+<button class="answerBtn" onclick="toggleAnswer(this)"><span>▶</span> 点击展开答案</button><div class="answer"><b>答案与解析</b><div>由近地卫星周期可直接得到平均密度 ρ=3π/(GT²)，所以密度可求。仅有 T 与 G 无法单独确定 R，因为质量 M 与 R³ 同时缩放仍可保持同一平均密度；因此行星半径不能由这些信息唯一确定。B 的半径比例不引入绝对长度，也无法解除尺度不确定性。</div></div></div></div>
+<div class="foot"><div class="fl"><button onclick="prevSlide()">←</button><button onclick="nextSlide()">→</button><b>28 / 52</b></div><div class="prog"><i></i></div><div class="fr"><button onclick="toggleFull()">⛶</button></div></div>
+</div></section><section class="slide"><div class="page">
+<div class="toprow"><div class="core">GRAVITY · ORBIT</div><div class="timerBox">计时  <b class="timer">00:00</b></div></div>
+<div class="hero"><div class="heroK">KNOWLEDGE</div><h1>09｜天体运动比值题</h1><div class="heroSub">知识点页 · 公式链与易错点</div></div>
+<div class="body"><div class="grid2"><div class="panel"><h3>核心知识点</h3><ul><li>同一中心天体圆轨道的比值题，优先使用幂次关系而不是逐个代公式。</li><li>v∝r^(-1/2)，ω∝r^(-3/2)，T∝r^(3/2)，a∝r^(-2)。</li><li>不同中心天体时，必须保留中心天体质量 M，不能只看轨道半径。</li><li>第一宇宙速度比较可用 v₁∝√(M/R) 或 √(gR)。</li><li>比值题要特别注意题目给的是“高度比”还是“轨道半径比”。</li></ul></div>
+<div class="panel visual"><h3>模型与公式</h3><div class="formulaCard">同中心天体：<br/>v∝r⁻¹ᐟ², ω∝r⁻³ᐟ², T∝r³ᐟ², a∝r⁻²</div><div class="sourceTag">原视频：9.〖讲义35〗比值问题</div><div class="advancedBox"><b>进阶推论 · 高频陷阱</b><ul><li>比值题先统一变量到“距球心轨道半径 r”；题目给高度 h 时必须先写 r=R+h。</li><li>不同中心天体比较时保留 M：v∝√(M/r)，T∝√(r³/M)。</li><li>多个比例条件可以用指数法一次联立，避免重复代入完整公式。</li></ul></div></div></div></div>
+<div class="foot"><div class="fl"><button onclick="prevSlide()">←</button><button onclick="nextSlide()">→</button><b>29 / 52</b></div><div class="prog"><i></i></div><div class="fr"><button onclick="toggleFull()">⛶</button></div></div>
+</div></section><section class="slide"><div class="page">
+<div class="toprow"><div class="core">GRAVITY · ORBIT</div><div class="timerBox">计时  <b class="timer">00:00</b></div></div>
+<div class="hero"><div class="heroK">VIDEO STYLE</div><h1>09｜天体运动比值题</h1><div class="heroSub">贴合视频模型 · 条件强化 · 多步推理</div></div>
+<div class="body"><div class="panel example"><h3>例题 A｜贴合原视频题型 · 高考中档+</h3><div class="question">两星球 A、B 的质量比 M_A:M_B=8:1，半径比 R_A:R_B=2:1。各有一颗卫星在距表面高度等于各自半径的位置运行。求两卫星线速度比与周期比。</div>
+<button class="answerBtn" onclick="toggleAnswer(this)"><span>▶</span> 点击展开答案</button><div class="answer"><b>答案与解析</b><div>两卫星轨道半径均为2R，因此 r_A:r_B=2:1。v∝√(M/r)，所以 v_A/v_B=√[(8/2)/(1/1)]=2。T∝√(r³/M)，故 T_A/T_B=√[(2³/8)/(1³/1)]=1。</div></div></div></div>
+<div class="foot"><div class="fl"><button onclick="prevSlide()">←</button><button onclick="nextSlide()">→</button><b>30 / 52</b></div><div class="prog"><i></i></div><div class="fr"><button onclick="toggleFull()">⛶</button></div></div>
+</div></section><section class="slide"><div class="page">
+<div class="toprow"><div class="core">GRAVITY · ORBIT</div><div class="timerBox">计时  <b class="timer">00:00</b></div></div>
+<div class="hero"><div class="heroK">GAOKAO STYLE</div><h1>09｜天体运动比值题</h1><div class="heroSub">高考综合 · 临界/反推/多模型联立</div></div>
+<div class="body"><div class="panel example"><h3>例题 B｜高考中档偏难 · 优质综合题</h3><div class="question">同一行星的卫星 A、B 做圆周运动。测得 v_A:v_B=2:1。另一时刻又测得 a_A:a_B=16:1。判断两组数据是否自洽；若自洽，求 T_A:T_B。</div>
+<button class="answerBtn" onclick="toggleAnswer(this)"><span>▶</span> 点击展开答案</button><div class="answer"><b>答案与解析</b><div>同中心天体 v∝r⁻¹ᐟ²，由 v_A/v_B=2 得 r_A:r_B=1:4。则 a∝r⁻²，应有 a_A:a_B=16:1，与观测一致。周期 T∝r^(3/2)，故 T_A:T_B=1:8。</div></div></div></div>
+<div class="foot"><div class="fl"><button onclick="prevSlide()">←</button><button onclick="nextSlide()">→</button><b>31 / 52</b></div><div class="prog"><i></i></div><div class="fr"><button onclick="toggleFull()">⛶</button></div></div>
+</div></section><section class="slide"><div class="page">
+<div class="toprow"><div class="core">GRAVITY · ORBIT</div><div class="timerBox">计时  <b class="timer">00:00</b></div></div>
+<div class="hero"><div class="heroK">KNOWLEDGE</div><h1>10｜卫星变轨与椭圆转移</h1><div class="heroSub">知识点页 · 公式链与易错点</div></div>
+<div class="body"><div class="grid2"><div class="panel"><h3>核心知识点</h3><ul><li>低圆轨道升到高圆轨道通常需要两次加速：第一次进入转移椭圆，第二次在高轨处圆化。</li><li>高圆轨道降到低圆轨道通常需要两次减速。</li><li>变轨瞬间位置不变，万有引力不突变；改变的是速度，因此轨道形状随之改变。</li><li>同一椭圆轨道上近地点速度大于远地点速度；能量守恒可用于比较速度与机械能。</li><li>稳定圆轨道：半径越大，圆周速度越小，但从低轨提升到高轨需要外界做正功。</li></ul></div>
+<div class="panel visual"><h3>模型与公式</h3><div class="formulaCard">圆轨道：v_c=√(GM/r)<br/>椭圆：近地点快，远地点慢<br/>升轨：加速→椭圆→再加速圆化</div><div class="sourceTag">原视频：10.〖讲义39〗变轨</div><div class="advancedBox"><b>进阶推论 · 高频陷阱</b><ul><li>霍曼式转移椭圆半长轴 a=(r₁+r₂)/2，单程转移时间为该椭圆周期的一半。</li><li>升轨两次点火均为加速；降轨两次点火均为减速。</li><li>变轨瞬间位置与引力不突变，速度改变后，原点成为新椭圆的近地点或远地点。</li></ul></div></div></div></div>
+<div class="foot"><div class="fl"><button onclick="prevSlide()">←</button><button onclick="nextSlide()">→</button><b>32 / 52</b></div><div class="prog"><i></i></div><div class="fr"><button onclick="toggleFull()">⛶</button></div></div>
+</div></section><section class="slide"><div class="page">
+<div class="toprow"><div class="core">GRAVITY · ORBIT</div><div class="timerBox">计时  <b class="timer">00:00</b></div></div>
+<div class="hero"><div class="heroK">VIDEO STYLE</div><h1>10｜卫星变轨与椭圆转移</h1><div class="heroSub">贴合视频模型 · 条件强化 · 多步推理</div></div>
+<div class="body"><div class="panel example"><h3>例题 A｜贴合原视频题型 · 高考中档+</h3><div class="question">卫星在半径 r₁ 的低圆轨道上，第一次沿运动方向加速进入以 r₁、r₂(r₂&gt;r₁) 为近、远地点的转移椭圆，到远地点后第二次点火进入半径 r₂ 的高圆轨道。比较四个速度：低轨圆周速度 v₁、椭圆近地点速度 v_p、椭圆远地点速度 v_a、高轨圆周速度 v₂。</div>
+<button class="answerBtn" onclick="toggleAnswer(this)"><span>▶</span> 点击展开答案</button><div class="answer"><b>答案与解析</b><div>第一次点火加速，所以 v_p&gt;v₁；第二次在远地点需要加速圆化，所以 v₂&gt;v_a；同中心天体稳定圆轨道高轨速度更小，因此 v₁&gt;v₂。综合：v_p&gt;v₁&gt;v₂&gt;v_a。</div></div></div></div>
+<div class="foot"><div class="fl"><button onclick="prevSlide()">←</button><button onclick="nextSlide()">→</button><b>33 / 52</b></div><div class="prog"><i></i></div><div class="fr"><button onclick="toggleFull()">⛶</button></div></div>
+</div></section><section class="slide"><div class="page">
+<div class="toprow"><div class="core">GRAVITY · ORBIT</div><div class="timerBox">计时  <b class="timer">00:00</b></div></div>
+<div class="hero"><div class="heroK">GAOKAO STYLE</div><h1>10｜卫星变轨与椭圆转移</h1><div class="heroSub">高考综合 · 临界/反推/多模型联立</div></div>
+<div class="body"><div class="panel example"><h3>例题 B｜高考中档偏难 · 优质综合题</h3><div class="question">卫星由半径 r 的圆轨道经霍曼转移到半径 4r 的圆轨道。设低圆轨道周期为 T₀。求从第一次点火到到达高轨处第二次点火前的飞行时间；并比较转移椭圆近、远地点的速度之比。</div>
+<button class="answerBtn" onclick="toggleAnswer(this)"><span>▶</span> 点击展开答案</button><div class="answer"><b>答案与解析</b><div>转移椭圆半长轴 a=(r+4r)/2=5r/2，周期 T椭=T₀(5/2)^(3/2)，单程时间 t=T椭/2=(T₀/2)(5/2)^(3/2)。近、远地点由面积定律 r·v_p=4r·v_a，故 v_p:v_a=4:1。</div></div></div></div>
+<div class="foot"><div class="fl"><button onclick="prevSlide()">←</button><button onclick="nextSlide()">→</button><b>34 / 52</b></div><div class="prog"><i></i></div><div class="fr"><button onclick="toggleFull()">⛶</button></div></div>
+</div></section><section class="slide"><div class="page">
+<div class="toprow"><div class="core">GRAVITY · ORBIT</div><div class="timerBox">计时  <b class="timer">00:00</b></div></div>
+<div class="hero"><div class="heroK">KNOWLEDGE</div><h1>11｜双星与多星系统</h1><div class="heroSub">知识点页 · 公式链与易错点</div></div>
+<div class="body"><div class="grid2"><div class="panel"><h3>核心知识点</h3><ul><li>双星在彼此万有引力作用下绕共同质心做圆周运动，两星角速度与周期相同。</li><li>两星到共同圆心距离满足 r₁+r₂=L，并有 m₁r₁=m₂r₂。</li><li>把两颗星的向心方程相加，可得 ω²=G(m₁+m₂)/L³。</li><li>多星问题先利用几何对称性求每颗星所受合力，再令合力提供向心力。</li><li>正多边形多星系统中，必须做引力矢量合成，不能把各力大小直接相加。</li></ul></div>
+<div class="panel visual"><h3>模型与公式</h3><div class="formulaCard">双星：m₁r₁=m₂r₂<br/>ω²=G(m₁+m₂)/L³<br/>T²=4π²L³/[G(m₁+m₂)]</div><div class="sourceTag">原视频：11.〖讲义41〗双星多星</div><div class="advancedBox"><b>进阶推论 · 高频陷阱</b><ul><li>双星公共角速度相同，且 m₁r₁=m₂r₂；质量大的星轨道半径更小。</li><li>双星总质量可由相对距离 L 和周期 T 直接得到：m₁+m₂=4π²L³/(GT²)。</li><li>多星对称模型先做力的矢量合成，再令合引力提供向心力。</li></ul></div></div></div></div>
+<div class="foot"><div class="fl"><button onclick="prevSlide()">←</button><button onclick="nextSlide()">→</button><b>35 / 52</b></div><div class="prog"><i></i></div><div class="fr"><button onclick="toggleFull()">⛶</button></div></div>
+</div></section><section class="slide"><div class="page">
+<div class="toprow"><div class="core">GRAVITY · ORBIT</div><div class="timerBox">计时  <b class="timer">00:00</b></div></div>
+<div class="hero"><div class="heroK">VIDEO STYLE</div><h1>11｜双星与多星系统</h1><div class="heroSub">贴合视频模型 · 条件强化 · 多步推理</div></div>
+<div class="body"><div class="panel example"><h3>例题 A｜贴合原视频题型 · 高考中档+</h3><div class="question">双星质量分别为 m、3m，两星间距恒为 L，绕共同质心做圆周运动。求两星轨道半径以及角速度。</div>
+<button class="answerBtn" onclick="toggleAnswer(this)"><span>▶</span> 点击展开答案</button><div class="answer"><b>答案与解析</b><div>由 mr₁=3m r₂ 且 r₁+r₂=L，得质量为m的星轨道半径 r₁=3L/4，质量为3m的星 r₂=L/4。双星角速度满足 ω²=G(m+3m)/L³=4Gm/L³，故 ω=2√(Gm/L³)。</div></div></div></div>
+<div class="foot"><div class="fl"><button onclick="prevSlide()">←</button><button onclick="nextSlide()">→</button><b>36 / 52</b></div><div class="prog"><i></i></div><div class="fr"><button onclick="toggleFull()">⛶</button></div></div>
+</div></section><section class="slide"><div class="page">
+<div class="toprow"><div class="core">GRAVITY · ORBIT</div><div class="timerBox">计时  <b class="timer">00:00</b></div></div>
+<div class="hero"><div class="heroK">GAOKAO STYLE</div><h1>11｜双星与多星系统</h1><div class="heroSub">高考综合 · 临界/反推/多模型联立</div></div>
+<div class="body"><div class="panel example"><h3>例题 B｜高考中档偏难 · 优质综合题</h3><div class="question">四颗质量均为 m 的星体位于边长为 L 的正方形四个顶点，并保持正方形形状绕中心匀速转动。求任一星体的角速度 ω。</div>
+<button class="answerBtn" onclick="toggleAnswer(this)"><span>▶</span> 点击展开答案</button><div class="answer"><b>答案与解析</b><div>对一个顶点：两相邻星引力各为 F=Gm²/L²，方向互相垂直，其合力沿对角线向中心，大小 √2F；对角星距离 √2L，引力为 F_d=Gm²/(2L²)，方向同样指向中心。总向心力 F_c=(√2+1/2)Gm²/L²。顶点到中心 r=L/√2。令 F_c=mω²r，得 ω²=[(√2+1/2)Gm/L²]/(L/√2)=(2+√2/2)Gm/L³，故 ω=√[(2+√2/2)Gm/L³]。</div></div></div></div>
+<div class="foot"><div class="fl"><button onclick="prevSlide()">←</button><button onclick="nextSlide()">→</button><b>37 / 52</b></div><div class="prog"><i></i></div><div class="fr"><button onclick="toggleFull()">⛶</button></div></div>
+</div></section><section class="slide"><div class="page">
+<div class="toprow"><div class="core">GRAVITY · ORBIT</div><div class="timerBox">计时  <b class="timer">00:00</b></div></div>
+<div class="hero"><div class="heroK">KNOWLEDGE</div><h1>12｜卫星追及相遇与会合周期</h1><div class="heroSub">知识点页 · 公式链与易错点</div></div>
+<div class="body"><div class="grid2"><div class="panel"><h3>核心知识点</h3><ul><li>同向圆周运动的追及，本质是相对角速度问题：Δω=|ω₁-ω₂|。</li><li>再次同侧相遇要求相对转角增加 2π，时间 t=2π/Δω。</li><li>第一次位于地心两侧（相距最远）通常对应相对转角 π。</li><li>若已知周期，可用 1/T会合=|1/T₁-1/T₂|。</li><li>行星冲日、卫星会合、最近/最远问题都可以统一为角度追及模型。</li></ul></div>
+<div class="panel visual"><h3>模型与公式</h3><div class="formulaCard">Δω=|ω₁-ω₂|<br/>t同侧=2π/Δω<br/>1/T会合=|1/T₁-1/T₂|</div><div class="sourceTag">原视频：12.〖讲义43〗追及相遇</div><div class="advancedBox"><b>进阶推论 · 高频陷阱</b><ul><li>同向追及：相对角速度 |ω₁-ω₂|；反向相遇：相对角速度 ω₁+ω₂。</li><li>会合周期 T会满足 1/T会=|1/T₁-1/T₂|（同向）。</li><li>若要求“相距最远”或“夹角首次为 θ”，只需把相对转角条件改成 π 或 θ。</li></ul></div></div></div></div>
+<div class="foot"><div class="fl"><button onclick="prevSlide()">←</button><button onclick="nextSlide()">→</button><b>38 / 52</b></div><div class="prog"><i></i></div><div class="fr"><button onclick="toggleFull()">⛶</button></div></div>
+</div></section><section class="slide"><div class="page">
+<div class="toprow"><div class="core">GRAVITY · ORBIT</div><div class="timerBox">计时  <b class="timer">00:00</b></div></div>
+<div class="hero"><div class="heroK">VIDEO STYLE</div><h1>12｜卫星追及相遇与会合周期</h1><div class="heroSub">贴合视频模型 · 条件强化 · 多步推理</div></div>
+<div class="body"><div class="panel example"><h3>例题 A｜贴合原视频题型 · 高考中档+</h3><div class="question">两卫星绕同一行星同向运行，周期分别为 T 和 3T。某时刻两星与行星中心位于同一直线同侧。求下一次再次同侧共线的时间，以及第一次位于中心两侧共线的时间。</div>
+<button class="answerBtn" onclick="toggleAnswer(this)"><span>▶</span> 点击展开答案</button><div class="answer"><b>答案与解析</b><div>相对角速度 Δω=2π/T-2π/(3T)=4π/(3T)。再次同侧需相对转角2π，故 t同=2π/Δω=3T/2。第一次两侧共线需相对转角π，故 t对=π/Δω=3T/4。</div></div></div></div>
+<div class="foot"><div class="fl"><button onclick="prevSlide()">←</button><button onclick="nextSlide()">→</button><b>39 / 52</b></div><div class="prog"><i></i></div><div class="fr"><button onclick="toggleFull()">⛶</button></div></div>
+</div></section><section class="slide"><div class="page">
+<div class="toprow"><div class="core">GRAVITY · ORBIT</div><div class="timerBox">计时  <b class="timer">00:00</b></div></div>
+<div class="hero"><div class="heroK">GAOKAO STYLE</div><h1>12｜卫星追及相遇与会合周期</h1><div class="heroSub">高考综合 · 临界/反推/多模型联立</div></div>
+<div class="body"><div class="panel example"><h3>例题 B｜高考中档偏难 · 优质综合题</h3><div class="question">卫星 A、B 同向绕同一行星运动，轨道半径比 r_A:r_B=1:9。初始时 A 落后 B 60°。若 A 的周期为 T，求 A 第一次追上 B 所需时间。</div>
+<button class="answerBtn" onclick="toggleAnswer(this)"><span>▶</span> 点击展开答案</button><div class="answer"><b>答案与解析</b><div>由 T∝r^(3/2)，T_B=27T。相对角速度 Δω=2π/T-2π/(27T)=52π/(27T)。A 落后60°=π/3，要追上需弥补相对角位移π/3，因此 t=(π/3)/Δω=9T/52。</div></div></div></div>
+<div class="foot"><div class="fl"><button onclick="prevSlide()">←</button><button onclick="nextSlide()">→</button><b>40 / 52</b></div><div class="prog"><i></i></div><div class="fr"><button onclick="toggleFull()">⛶</button></div></div>
+</div></section><section class="slide"><div class="page">
+<div class="toprow"><div class="core">GRAVITY · ORBIT</div><div class="timerBox">计时  <b class="timer">00:00</b></div></div>
+<div class="hero"><div class="heroK">KNOWLEDGE</div><h1>13｜地面物体与星球自转</h1><div class="heroSub">知识点页 · 公式链与易错点</div></div>
+<div class="body"><div class="grid2"><div class="panel"><h3>核心知识点</h3><ul><li>星球自转时，地表物体做圆周运动需要向心力，因此“测得的重力”不再简单等于万有引力。</li><li>在赤道上：GMm/R² - N = mω²R；若把 N=mg视为称重结果，则 g=GM/R²-ω²R。</li><li>在两极处物体不随地轴做圆周运动，近似有 g极=GM/R²。</li><li>因此同一星球表面通常两极测得的重力加速度略大于赤道。</li><li>临界自转角速度满足赤道处支持力 N=0，即 GM/R²=ω²R。</li></ul></div>
+<div class="panel visual"><h3>模型与公式</h3><div class="formulaCard">赤道：GMm/R² - N = mω²R<br/>临界：ω²=GM/R³</div><div class="sourceTag">原视频：13.〖讲义30〗人间考虑自转</div><div class="advancedBox"><b>进阶推论 · 高频陷阱</b><ul><li>赤道处有效重力近似 g效=g-ω²R；两极处无自转向心项。</li><li>临界飘起满足 GM/R²=ω²R，可用密度化为 ω²=4πGρ/3。</li><li>自转越快，赤道称重越小；但物体所受万有引力本身并不因此减小。</li></ul></div></div></div></div>
+<div class="foot"><div class="fl"><button onclick="prevSlide()">←</button><button onclick="nextSlide()">→</button><b>41 / 52</b></div><div class="prog"><i></i></div><div class="fr"><button onclick="toggleFull()">⛶</button></div></div>
+</div></section><section class="slide"><div class="page">
+<div class="toprow"><div class="core">GRAVITY · ORBIT</div><div class="timerBox">计时  <b class="timer">00:00</b></div></div>
+<div class="hero"><div class="heroK">VIDEO STYLE</div><h1>13｜地面物体与星球自转</h1><div class="heroSub">贴合视频模型 · 条件强化 · 多步推理</div></div>
+<div class="body"><div class="panel example"><h3>例题 A｜贴合原视频题型 · 高考中档+</h3><div class="question">某星球半径 R、表面万有引力加速度 g，自转角速度 ω。忽略纬度效应，只考察赤道。求赤道处质量为 m 的物体对地面的压力 N。</div>
+<button class="answerBtn" onclick="toggleAnswer(this)"><span>▶</span> 点击展开答案</button><div class="answer"><b>答案与解析</b><div>赤道处向心方向指向星球中心。万有引力 mg 与支持力 N 反向，故 mg-N=mω²R，得 N=m(g-ω²R)。随ω增大，压力减小。</div></div></div></div>
+<div class="foot"><div class="fl"><button onclick="prevSlide()">←</button><button onclick="nextSlide()">→</button><b>42 / 52</b></div><div class="prog"><i></i></div><div class="fr"><button onclick="toggleFull()">⛶</button></div></div>
+</div></section><section class="slide"><div class="page">
+<div class="toprow"><div class="core">GRAVITY · ORBIT</div><div class="timerBox">计时  <b class="timer">00:00</b></div></div>
+<div class="hero"><div class="heroK">GAOKAO STYLE</div><h1>13｜地面物体与星球自转</h1><div class="heroSub">高考综合 · 临界/反推/多模型联立</div></div>
+<div class="body"><div class="panel example"><h3>例题 B｜高考中档偏难 · 优质综合题</h3><div class="question">均匀球形星球密度为 ρ，自转周期逐渐缩短。求赤道物体刚好飘起时的临界周期 T_c；并判断密度更大的星球临界周期更长还是更短。</div>
+<button class="answerBtn" onclick="toggleAnswer(this)"><span>▶</span> 点击展开答案</button><div class="answer"><b>答案与解析</b><div>临界时 GM/R²=ω²R。代入 M=(4/3)πR³ρ 得 ω²=4πGρ/3。T_c=2π/ω=√(3π/(Gρ))。ρ越大，T_c越小，即高密度星球必须转得更快（周期更短）才会在赤道发生临界失重。</div></div></div></div>
+<div class="foot"><div class="fl"><button onclick="prevSlide()">←</button><button onclick="nextSlide()">→</button><b>43 / 52</b></div><div class="prog"><i></i></div><div class="fr"><button onclick="toggleFull()">⛶</button></div></div>
+</div></section><section class="slide"><div class="page">
+<div class="toprow"><div class="core">GRAVITY · ORBIT</div><div class="timerBox">计时  <b class="timer">00:00</b></div></div>
+<div class="hero"><div class="heroK">KNOWLEDGE</div><h1>14｜综合练习：天体公式联立</h1><div class="heroSub">知识点页 · 公式链与易错点</div></div>
+<div class="body"><div class="grid2"><div class="panel"><h3>核心知识点</h3><ul><li>综合题先判断中心天体、轨道类型和已知量，再决定用万有引力定律、圆周运动公式或开普勒定律。</li><li>若题目给星球表面 g、R，优先使用 GM=gR²，避免直接求 M。</li><li>若给卫星周期与轨道半径，可先反求中心天体质量 M。</li><li>若同时给“高度”和“星球半径”，所有轨道公式中必须使用 r=R+h。</li><li>综合题的难点通常在多模型切换，而不是代数运算。</li></ul></div>
+<div class="panel visual"><h3>模型与公式</h3><div class="formulaCard">建模顺序：<br/>中心天体 → r=R+h → 选方程 → 比值/联立</div><div class="sourceTag">原视频：14.〖讲义36-38〗〖习题〗综合练习</div><div class="advancedBox"><b>进阶推论 · 高频陷阱</b><ul><li>综合题优先建立“黄金代换 GM=gR²”，再连接轨道公式与密度公式。</li><li>若同时出现表面量与轨道量，先分清 R、h、r=R+h，避免把高度当轨道半径。</li><li>参数反演常采用：观测 T、r → M；再结合 R → ρ 或 g。</li></ul></div></div></div></div>
+<div class="foot"><div class="fl"><button onclick="prevSlide()">←</button><button onclick="nextSlide()">→</button><b>44 / 52</b></div><div class="prog"><i></i></div><div class="fr"><button onclick="toggleFull()">⛶</button></div></div>
+</div></section><section class="slide"><div class="page">
+<div class="toprow"><div class="core">GRAVITY · ORBIT</div><div class="timerBox">计时  <b class="timer">00:00</b></div></div>
+<div class="hero"><div class="heroK">VIDEO STYLE</div><h1>14｜综合练习：天体公式联立</h1><div class="heroSub">贴合视频模型 · 条件强化 · 多步推理</div></div>
+<div class="body"><div class="panel example"><h3>例题 A｜贴合原视频题型 · 高考中档+</h3><div class="question">某行星表面重力加速度为 g、半径为 R。一探测器在距表面高度 3R 的圆轨道运行。求探测器的线速度、周期与该处重力加速度，均用 g、R 表示。</div>
+<button class="answerBtn" onclick="toggleAnswer(this)"><span>▶</span> 点击展开答案</button><div class="answer"><b>答案与解析</b><div>轨道半径 r=4R，且 GM=gR²。v=√(GM/r)=1/2√(gR)。T=2π√(r³/GM)=2π√(64R³/(gR²))=16π√(R/g)。该处重力加速度 g_h=GM/(4R)²=g/16。</div></div></div></div>
+<div class="foot"><div class="fl"><button onclick="prevSlide()">←</button><button onclick="nextSlide()">→</button><b>45 / 52</b></div><div class="prog"><i></i></div><div class="fr"><button onclick="toggleFull()">⛶</button></div></div>
+</div></section><section class="slide"><div class="page">
+<div class="toprow"><div class="core">GRAVITY · ORBIT</div><div class="timerBox">计时  <b class="timer">00:00</b></div></div>
+<div class="hero"><div class="heroK">GAOKAO STYLE</div><h1>14｜综合练习：天体公式联立</h1><div class="heroSub">高考综合 · 临界/反推/多模型联立</div></div>
+<div class="body"><div class="panel example"><h3>例题 B｜高考中档偏难 · 优质综合题</h3><div class="question">观测某未知行星：表面重力加速度为 g；一颗卫星在距表面高度恰等于行星半径处的圆轨道周期为 T。求行星半径 R 和平均密度 ρ，结果用 g、T、G 表示。</div>
+<button class="answerBtn" onclick="toggleAnswer(this)"><span>▶</span> 点击展开答案</button><div class="answer"><b>答案与解析</b><div>卫星轨道半径 r=2R。由 T²=4π²(2R)³/(GM)=32π²R³/(G M)。又 GM=gR²，代入得 T²=32π²R/g，因此 R=gT²/(32π²)。再用 ρ=3g/(4πGR)，得到 ρ=24π/(GT²)。</div></div></div></div>
+<div class="foot"><div class="fl"><button onclick="prevSlide()">←</button><button onclick="nextSlide()">→</button><b>46 / 52</b></div><div class="prog"><i></i></div><div class="fr"><button onclick="toggleFull()">⛶</button></div></div>
+</div></section><section class="slide"><div class="page">
+<div class="toprow"><div class="core">GRAVITY · ORBIT</div><div class="timerBox">计时  <b class="timer">00:00</b></div></div>
+<div class="hero"><div class="heroK">KNOWLEDGE</div><h1>15｜变轨练习：能量与速度链</h1><div class="heroSub">知识点页 · 公式链与易错点</div></div>
+<div class="body"><div class="grid2"><div class="panel"><h3>核心知识点</h3><ul><li>变轨综合题常同时比较四个速度：低轨圆速、转移椭圆近地点速、高轨圆速、转移椭圆远地点速。</li><li>升轨两次点火均加速；降轨两次点火均减速。</li><li>在同一位置比较不同轨道速度时，要结合该轨道的能量状态，而不能只看“轨道高低”。</li><li>椭圆轨道上机械能守恒，近地点动能大、引力势能小；远地点相反。</li><li>变轨后的高圆轨道机械能大于低圆轨道，能量差由推进系统提供。</li></ul></div>
+<div class="panel visual"><h3>模型与公式</h3><div class="formulaCard">升轨速度链：v_p &gt; v低圆 &gt; v高圆 &gt; v_a<br/>圆轨道 E=-GMm/(2r)</div><div class="sourceTag">原视频：15.〖讲义39〗〖习题〗变轨练习</div><div class="advancedBox"><b>进阶推论 · 高频陷阱</b><ul><li>高考变轨题要同时跟踪四个状态量：速度、加速度、机械能、轨道形状。</li><li>点火瞬间加速度只由所在位置的万有引力决定，不因速度突变而突变。</li><li>转移椭圆上的速度可由能量守恒与角动量/面积定律辅助比较。</li></ul></div></div></div></div>
+<div class="foot"><div class="fl"><button onclick="prevSlide()">←</button><button onclick="nextSlide()">→</button><b>47 / 52</b></div><div class="prog"><i></i></div><div class="fr"><button onclick="toggleFull()">⛶</button></div></div>
+</div></section><section class="slide"><div class="page">
+<div class="toprow"><div class="core">GRAVITY · ORBIT</div><div class="timerBox">计时  <b class="timer">00:00</b></div></div>
+<div class="hero"><div class="heroK">VIDEO STYLE</div><h1>15｜变轨练习：能量与速度链</h1><div class="heroSub">贴合视频模型 · 条件强化 · 多步推理</div></div>
+<div class="body"><div class="panel example"><h3>例题 A｜贴合原视频题型 · 高考中档+</h3><div class="question">卫星在半径 r 的圆轨道上速度为 v₀。瞬时沿切向减速到 0.8v₀。判断原位置在新轨道上是近地点还是远地点，并判断之后卫星首先向内还是向外运动。</div>
+<button class="answerBtn" onclick="toggleAnswer(this)"><span>▶</span> 点击展开答案</button><div class="answer"><b>答案与解析</b><div>减速后所需向心力 m(0.8v₀)²/r 小于原圆轨道所需，而实际万有引力不变、相对“过强”，故卫星开始向内运动。原位置是新椭圆轨道的远地点。</div></div></div></div>
+<div class="foot"><div class="fl"><button onclick="prevSlide()">←</button><button onclick="nextSlide()">→</button><b>48 / 52</b></div><div class="prog"><i></i></div><div class="fr"><button onclick="toggleFull()">⛶</button></div></div>
+</div></section><section class="slide"><div class="page">
+<div class="toprow"><div class="core">GRAVITY · ORBIT</div><div class="timerBox">计时  <b class="timer">00:00</b></div></div>
+<div class="hero"><div class="heroK">GAOKAO STYLE</div><h1>15｜变轨练习：能量与速度链</h1><div class="heroSub">高考综合 · 临界/反推/多模型联立</div></div>
+<div class="body"><div class="panel example"><h3>例题 B｜高考中档偏难 · 优质综合题</h3><div class="question">卫星由半径 r 的圆轨道转移到半径 4r 的圆轨道。设转移椭圆近地点速度为 v_p、远地点速度为 v_a。已知低轨圆周速度 v₀。利用椭圆机械能公式 E=-GMm/(2a) 求 v_p/v₀，并与面积定律得到的 v_p/v_a 联立求 v_a/v₀。</div>
+<button class="answerBtn" onclick="toggleAnswer(this)"><span>▶</span> 点击展开答案</button><div class="answer"><b>答案与解析</b><div>转移椭圆 a=5r/2。近地点能量：v_p²/2-GM/r=-GM/(5r)，故 v_p²/2=4GM/(5r)，而 v₀²=GM/r，所以 v_p/v₀=√(8/5)。面积定律 rv_p=4r v_a，故 v_a=v_p/4，所以 v_a/v₀=√(8/5)/4=√10/10。</div></div></div></div>
+<div class="foot"><div class="fl"><button onclick="prevSlide()">←</button><button onclick="nextSlide()">→</button><b>49 / 52</b></div><div class="prog"><i></i></div><div class="fr"><button onclick="toggleFull()">⛶</button></div></div>
+</div></section><section class="slide"><div class="page">
+<div class="toprow"><div class="core">GRAVITY · ORBIT</div><div class="timerBox">计时  <b class="timer">00:00</b></div></div>
+<div class="hero"><div class="heroK">KNOWLEDGE</div><h1>16｜双星练习：质量、距离与周期</h1><div class="heroSub">知识点页 · 公式链与易错点</div></div>
+<div class="body"><div class="grid2"><div class="panel"><h3>核心知识点</h3><ul><li>双星题的三条主线：同角速度、引力相等、质心关系。</li><li>质量比可由轨道半径反比得到：m₁/m₂=r₂/r₁。</li><li>总质量可由两星距离 L 与周期 T 直接求：m₁+m₂=4π²L³/(GT²)。</li><li>若再给某一颗星的轨道半径，即可进一步求两星质量。</li><li>复杂双星题常把观测到的周期、两星距离或光谱速度与上述关系联立。</li></ul></div>
+<div class="panel visual"><h3>模型与公式</h3><div class="formulaCard">m₁r₁=m₂r₂<br/>r₁+r₂=L<br/>m₁+m₂=4π²L³/(GT²)</div><div class="sourceTag">原视频：16.〖讲义42〗〖习题〗双星练习</div><div class="advancedBox"><b>进阶推论 · 高频陷阱</b><ul><li>双星“距离 L”指两星间距，不是任一星的轨道半径。</li><li>先用质心关系求 r₁:r₂，再用总质量公式求 m₁+m₂，是最稳的两步法。</li><li>观测周期与间距即可得到总质量；再多一个轨道半径比即可拆分两星质量。</li></ul></div></div></div></div>
+<div class="foot"><div class="fl"><button onclick="prevSlide()">←</button><button onclick="nextSlide()">→</button><b>50 / 52</b></div><div class="prog"><i></i></div><div class="fr"><button onclick="toggleFull()">⛶</button></div></div>
+</div></section><section class="slide"><div class="page">
+<div class="toprow"><div class="core">GRAVITY · ORBIT</div><div class="timerBox">计时  <b class="timer">00:00</b></div></div>
+<div class="hero"><div class="heroK">VIDEO STYLE</div><h1>16｜双星练习：质量、距离与周期</h1><div class="heroSub">贴合视频模型 · 条件强化 · 多步推理</div></div>
+<div class="body"><div class="panel example"><h3>例题 A｜贴合原视频题型 · 高考中档+</h3><div class="question">双星间距 L、周期 T，质量比 m₁:m₂=2:1。求两星质量 m₁、m₂。</div>
+<button class="answerBtn" onclick="toggleAnswer(this)"><span>▶</span> 点击展开答案</button><div class="answer"><b>答案与解析</b><div>总质量 M=m₁+m₂=4π²L³/(GT²)。按2:1分配，m₁=(2/3)M=8π²L³/(3GT²)，m₂=(1/3)M=4π²L³/(3GT²)。</div></div></div></div>
+<div class="foot"><div class="fl"><button onclick="prevSlide()">←</button><button onclick="nextSlide()">→</button><b>51 / 52</b></div><div class="prog"><i></i></div><div class="fr"><button onclick="toggleFull()">⛶</button></div></div>
+</div></section><section class="slide"><div class="page">
+<div class="toprow"><div class="core">GRAVITY · ORBIT</div><div class="timerBox">计时  <b class="timer">00:00</b></div></div>
+<div class="hero"><div class="heroK">GAOKAO STYLE</div><h1>16｜双星练习：质量、距离与周期</h1><div class="heroSub">高考综合 · 临界/反推/多模型联立</div></div>
+<div class="body"><div class="panel example"><h3>例题 B｜高考中档偏难 · 优质综合题</h3><div class="question">观测一双星系统，两星间距 L，周期 T。测得质量较大的星到公共圆心的轨道半径为 L/5。求两星质量，并求较小质量星的轨道速度。</div>
+<button class="answerBtn" onclick="toggleAnswer(this)"><span>▶</span> 点击展开答案</button><div class="answer"><b>答案与解析</b><div>设大质量星 m₁ 的半径 r₁=L/5，则另一星 r₂=4L/5。质心关系 m₁r₁=m₂r₂ 得 m₁=4m₂。总质量 M=4π²L³/(GT²)，故 m₂=M/5=4π²L³/(5GT²)，m₁=16π²L³/(5GT²)。较小质量星在 r₂=4L/5 处，角速度 ω=2π/T，所以 v₂=ωr₂=8πL/(5T)。</div></div></div></div>
+<div class="foot"><div class="fl"><button onclick="prevSlide()">←</button><button onclick="nextSlide()">→</button><b>52 / 52</b></div><div class="prog"><i></i></div><div class="fr"><button onclick="toggleFull()">⛶</button></div></div>
+</div></section></div><script>
+const slides=[...document.querySelectorAll('.slide')];let current=0;const total=slides.length;
+function render(){slides.forEach((s,i)=>s.classList.toggle('active',i===current));document.querySelectorAll('.prog i').forEach(el=>el.style.width=`${(current+1)/total*100}%`)}
+function nextSlide(){if(current<total-1){current++;render()}}function prevSlide(){if(current>0){current--;render()}}
+function toggleFull(){if(!document.fullscreenElement)document.documentElement.requestFullscreen();else document.exitFullscreen()}
+function toggleAnswer(btn){const a=btn.nextElementSibling;const open=a.classList.toggle('open');btn.classList.toggle('open',open);btn.lastChild.textContent=open?' 点击收起答案':' 点击展开答案'}
+window.nextSlide=nextSlide;window.prevSlide=prevSlide;window.toggleFull=toggleFull;window.toggleAnswer=toggleAnswer;
+document.addEventListener('keydown',e=>{if(['ArrowRight',' ','PageDown'].includes(e.key)){e.preventDefault();nextSlide()}if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();prevSlide()}if(e.key.toLowerCase()==='f')toggleFull()});render();
+let sec=0;setInterval(()=>{sec++;let m=String(Math.floor(sec/60)).padStart(2,'0'),s=String(sec%60).padStart(2,'0');document.querySelectorAll('.timer').forEach(el=>el.textContent=`${m}:${s}`)},1000);
+
+// Dynamic orbital-station background: silver deep-space station, parallax stars, navigation lights and slow camera drift
+const c=document.getElementById('space'),ctx=c.getContext('2d');let W,H,DPR=1;let stars=[],dust=[],craft=[];
+function rnd(a,b){return a+Math.random()*(b-a)}
+function resize(){DPR=window.devicePixelRatio||1;W=innerWidth;H=innerHeight;c.width=W*DPR;c.height=H*DPR;c.style.width=W+'px';c.style.height=H+'px';ctx.setTransform(DPR,0,0,DPR,0,0);initScene()}
+function initScene(){stars=[];dust=[];craft=[];for(let i=0;i<360;i++)stars.push({x:Math.random()*W,y:Math.random()*H,r:rnd(.3,1.65),a:rnd(.2,.95),p:rnd(0,6.28),tw:rnd(.0004,.0022),z:rnd(.25,1)});for(let i=0;i<60;i++)dust.push({x:Math.random()*W,y:Math.random()*H,vx:rnd(-.018,.018),vy:rnd(-.010,.010),a:rnd(.025,.11)});for(let i=0;i<5;i++)craft.push({x:rnd(-W*.2,W*1.1),y:rnd(H*.15,H*.85),v:rnd(.025,.07),p:rnd(0,6.28),s:rnd(.5,1.15)})}
+function drawNebula(t){let g=ctx.createRadialGradient(W*.18,H*.18,0,W*.18,H*.18,W*.72);g.addColorStop(0,'rgba(86,112,155,.13)');g.addColorStop(.35,'rgba(27,43,75,.085)');g.addColorStop(1,'rgba(0,0,0,0)');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);let g2=ctx.createRadialGradient(W*.88,H*.76,0,W*.88,H*.76,W*.55);g2.addColorStop(0,'rgba(116,132,164,.085)');g2.addColorStop(1,'rgba(0,0,0,0)');ctx.fillStyle=g2;ctx.fillRect(0,0,W,H)}
+function segArc(rx,ry,rot,start,end,alpha,width){ctx.beginPath();ctx.ellipse(0,0,rx,ry,rot,start,end);ctx.strokeStyle=`rgba(205,218,235,${alpha})`;ctx.lineWidth=width;ctx.stroke()}
+function drawStation(t){const S=Math.min(W,H),cx=W*.69+Math.sin(t*.000035)*W*.016,cy=H*.47+Math.cos(t*.000028)*H*.018,base=S*.43,rot=-.42+Math.sin(t*.000018)*.055;ctx.save();ctx.translate(cx,cy);ctx.rotate(rot);ctx.shadowBlur=18;ctx.shadowColor='rgba(145,180,230,.14)';
+ // rear structural rings
+ ctx.lineCap='round';for(let ring=0;ring<3;ring++){let rx=base*(1.18-ring*.17),ry=base*(.36-ring*.055),rr=ring*.22;ctx.lineWidth=10-ring*2;ctx.strokeStyle=`rgba(${135+ring*18},${150+ring*18},${172+ring*18},${.18+ring*.06})`;ctx.beginPath();ctx.ellipse(0,0,rx,ry,rr,0,Math.PI*2);ctx.stroke();ctx.lineWidth=1.4;ctx.strokeStyle='rgba(232,240,248,.42)';ctx.beginPath();ctx.ellipse(0,0,rx,ry,rr,0,Math.PI*2);ctx.stroke();for(let i=0;i<28;i++){let a=(i/28)*Math.PI*2+t*.000018*(ring%2?1:-1);if(i%2===0){ctx.strokeStyle='rgba(195,210,230,.15)';ctx.lineWidth=3;ctx.beginPath();ctx.ellipse(0,0,rx,ry,rr,a,a+.055);ctx.stroke()}}}
+ // hub and docking spine
+ ctx.rotate(-rot*.35);let hg=ctx.createRadialGradient(-base*.12,-base*.06,4,0,0,base*.34);hg.addColorStop(0,'rgba(235,243,250,.46)');hg.addColorStop(.30,'rgba(93,112,138,.45)');hg.addColorStop(.66,'rgba(22,30,44,.86)');hg.addColorStop(1,'rgba(5,8,13,.98)');ctx.fillStyle=hg;ctx.beginPath();ctx.ellipse(0,0,base*.34,base*.16,-.12,0,Math.PI*2);ctx.fill();ctx.strokeStyle='rgba(225,235,246,.34)';ctx.lineWidth=2;ctx.stroke();
+ // radial trusses
+ for(let i=0;i<10;i++){let a=(i/10)*Math.PI*2+t*.000012;let x1=Math.cos(a)*base*.22,y1=Math.sin(a)*base*.075,x2=Math.cos(a)*base*1.03,y2=Math.sin(a)*base*.31;ctx.strokeStyle='rgba(180,197,219,.28)';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();ctx.strokeStyle='rgba(243,248,252,.22)';ctx.lineWidth=.8;ctx.beginPath();ctx.moveTo(x1,y1-4);ctx.lineTo(x2,y2-4);ctx.stroke()}
+ // modules around main ring
+ for(let i=0;i<18;i++){let a=i/18*Math.PI*2+t*.00001;let ex=Math.cos(a)*base*1.02,ey=Math.sin(a)*base*.31;ctx.save();ctx.translate(ex,ey);ctx.rotate(a+.15);let w=base*.12,h=base*.035;ctx.fillStyle=i%3===0?'rgba(115,145,185,.28)':'rgba(70,82,101,.38)';ctx.fillRect(-w/2,-h/2,w,h);ctx.strokeStyle='rgba(224,234,245,.32)';ctx.lineWidth=1;ctx.strokeRect(-w/2,-h/2,w,h);if(i%3===0){ctx.fillStyle='rgba(125,184,255,.7)';ctx.shadowBlur=10;ctx.shadowColor='rgba(85,155,255,.8)';ctx.beginPath();ctx.arc(w*.3,0,2.1,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0}ctx.restore()}
+ // central docking lights
+ for(let i=0;i<8;i++){let a=i/8*Math.PI*2-t*.00005;ctx.fillStyle=i%2?'rgba(225,235,246,.72)':'rgba(90,170,255,.75)';ctx.shadowBlur=9;ctx.shadowColor='rgba(116,176,255,.7)';ctx.beginPath();ctx.arc(Math.cos(a)*base*.23,Math.sin(a)*base*.075,1.7,0,Math.PI*2);ctx.fill()}ctx.shadowBlur=0;ctx.restore()}
+function drawPlanet(t){const R=Math.min(W,H)*.12,x=W*.08+Math.sin(t*.000018)*12,y=H*.82+Math.cos(t*.000015)*8;let g=ctx.createRadialGradient(x-R*.28,y-R*.30,R*.04,x,y,R);g.addColorStop(0,'rgba(236,241,246,.55)');g.addColorStop(.32,'rgba(89,109,137,.52)');g.addColorStop(.67,'rgba(23,34,52,.74)');g.addColorStop(1,'rgba(0,2,8,.96)');ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,R,0,Math.PI*2);ctx.fill();ctx.strokeStyle='rgba(190,209,235,.13)';ctx.lineWidth=1.2;ctx.beginPath();ctx.ellipse(x,y,R*1.65,R*.20,-.18,0,Math.PI*2);ctx.stroke()}
+function drawCraft(t){craft.forEach((q,i)=>{q.x+=q.v*q.s;if(q.x>W+80){q.x=-100;q.y=rnd(H*.12,H*.88)}let y=q.y+Math.sin(t*.0008+q.p)*9;ctx.save();ctx.translate(q.x,y);ctx.scale(q.s,q.s);ctx.strokeStyle='rgba(215,227,242,.32)';ctx.lineWidth=1.1;ctx.beginPath();ctx.moveTo(-12,2);ctx.lineTo(8,0);ctx.lineTo(-6,-4);ctx.closePath();ctx.stroke();ctx.fillStyle='rgba(100,170,255,.45)';ctx.shadowBlur=7;ctx.shadowColor='rgba(80,150,255,.7)';ctx.fillRect(-14,1,4,1.2);ctx.restore()})}
+function drawHud(t){ctx.save();ctx.globalAlpha=.07;ctx.strokeStyle='#d8e4f2';ctx.lineWidth=1;let y=H*.09+((t*.01)%H*.82);ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();for(let i=0;i<7;i++){let x=W*(.08+i*.14);ctx.beginPath();ctx.moveTo(x,H*.08);ctx.lineTo(x+Math.sin(t*.0001+i)*12,H*.92);ctx.stroke()}ctx.restore()}
+function loop(t){ctx.clearRect(0,0,W,H);let bg=ctx.createLinearGradient(0,0,0,H);bg.addColorStop(0,'#01040a');bg.addColorStop(.48,'#07101d');bg.addColorStop(1,'#010309');ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);drawNebula(t);stars.forEach(s=>{let a=s.a*(.62+.38*Math.sin(t*s.tw+s.p));ctx.fillStyle=`rgba(225,235,248,${a})`;ctx.beginPath();ctx.arc(s.x,s.y,s.r*s.z,0,Math.PI*2);ctx.fill();s.x-=.003*s.z;if(s.x<0)s.x=W});dust.forEach(d=>{d.x+=d.vx;d.y+=d.vy;if(d.x<0)d.x=W;if(d.x>W)d.x=0;if(d.y<0)d.y=H;if(d.y>H)d.y=0;ctx.fillStyle=`rgba(190,208,232,${d.a})`;ctx.fillRect(d.x,d.y,1,1)});drawPlanet(t);drawStation(t);drawCraft(t);drawHud(t);requestAnimationFrame(loop)}
+addEventListener('resize',resize);resize();requestAnimationFrame(loop);
+</script><script crossorigin="anonymous" data-cf-beacon='{"version":"2024.11.0","token":"45c2bf8136a245cd97f1c2e9a96c0730"}' integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" type="module"></script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"45c2bf8136a245cd97f1c2e9a96c0730"}' crossorigin="anonymous"></script>
+</body></html>
