@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>光学主线整合课件</title>
+<style>
+:root{
+  --bg:#020304;
+  --panel:rgba(10,14,19,.82);
+  --panel2:rgba(16,22,30,.88);
+  --line:rgba(140,180,220,.25);
+  --line2:rgba(255,210,120,.25);
+  --text:#eef6ff;
+  --muted:#9db4c9;
+  --accent:#77d6ff;
+  --accent2:#ffd46c;
+  --accent3:#b5f3ff;
+  --card:rgba(16,23,31,.84);
+  --cardEdge:rgba(138,188,233,.22);
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;overflow:hidden;background:#000;color:var(--text);font-family:"PingFang SC","Microsoft YaHei",Arial,sans-serif}
+#bg{position:fixed;inset:0;z-index:0;display:block;background:#000}
+#app{position:relative;z-index:2;height:100%;display:flex;flex-direction:column}
+header{height:64px;padding:0 18px;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(180deg,rgba(5,10,16,.78),rgba(5,10,16,.46));backdrop-filter:blur(5px);border-bottom:1px solid rgba(154,194,231,.22)}
+.brand{font-size:22px;font-weight:900;letter-spacing:1px;color:#f4fbff;text-shadow:0 0 16px rgba(119,214,255,.22)}
+.meta{display:flex;gap:8px;flex-wrap:wrap}
+.pill{padding:6px 10px;border-radius:999px;font-size:12px;font-weight:700;background:rgba(18,26,35,.82);border:1px solid rgba(130,180,220,.22);color:#d8ebff;box-shadow:0 0 0 1px rgba(255,255,255,.03) inset}
+main{flex:1;position:relative}
+.slide{display:none;height:100%;padding:14px 16px 82px}
+.slide.active{display:block;animation:fade .26s ease}
+@keyframes fade{from{opacity:.18;transform:translateY(10px)}to{opacity:1;transform:none}}
+.frame{height:100%;display:grid;grid-template-columns:96px 1fr;border-radius:28px;overflow:hidden;background:linear-gradient(180deg,rgba(9,14,20,.88),rgba(9,14,20,.76));border:1px solid rgba(120,180,230,.18);box-shadow:0 20px 42px rgba(0,0,0,.35), 0 0 0 1px rgba(255,255,255,.02) inset}
+.side{padding:18px 12px;display:flex;flex-direction:column;justify-content:space-between;background:linear-gradient(180deg, rgba(9,15,22,.92), rgba(7,12,18,.78));border-right:1px solid rgba(130,180,220,.15)}
+.tag{font-size:12px;letter-spacing:2px;color:#8fdfff;font-weight:900}
+.pno{font-size:34px;font-weight:900;margin:8px 0;color:#fff}
+.stitle{font-size:13px;line-height:1.65;white-space:pre-line;color:#bdd4e8}
+.sfoot{font-size:11px;color:#81c7f1;letter-spacing:2px;line-height:1.6}
+.content{padding:18px 22px 14px;display:flex;flex-direction:column;min-height:0}
+.top{display:flex;justify-content:space-between;gap:14px;align-items:flex-start;margin-bottom:12px}
+.eyebrow{font-size:12px;color:#8fdfff;letter-spacing:2px;font-weight:900;margin-bottom:5px}
+h1{margin:0;font-size:30px;line-height:1.2;color:#f7fbff}
+.badge{padding:8px 12px;border-radius:999px;font-size:13px;font-weight:800;background:rgba(16,24,33,.92);border:1px solid rgba(255,212,108,.26);white-space:nowrap;color:#ffe8a7}
+.cover{display:flex;flex:1;align-items:center;justify-content:center;text-align:center;flex-direction:column;padding:20px}
+.cover .kicker{font-size:13px;letter-spacing:5px;color:#7dd8ff;font-weight:900}
+.cover h1{font-size:52px;margin:14px 0 10px}
+.cover h2{font-size:21px;margin:0;color:#c9deef;font-weight:600}
+.line{width:180px;height:4px;border-radius:999px;background:linear-gradient(90deg,rgba(119,214,255,.08),#7edbff,#ffe08a,#7edbff,rgba(119,214,255,.08));margin:24px 0}
+.tags{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.tags span{padding:10px 14px;border-radius:999px;background:rgba(17,24,32,.88);border:1px solid rgba(130,180,220,.22);font-weight:700;color:#eaf6ff}
+.dir-grid{display:grid;grid-template-columns:1fr;gap:12px;overflow:auto;padding-right:6px}
+.dir-card{display:grid;grid-template-columns:56px 1fr;gap:12px;align-items:center;padding:14px 16px;border-radius:18px;background:rgba(13,20,28,.9);border:1px solid rgba(121,178,219,.18)}
+.dir-num{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;background:rgba(24,36,49,.94);border:1px solid rgba(143,223,255,.24);font-size:18px;font-weight:900;color:#fff}
+.dir-card h3{margin:0 0 4px;font-size:19px;color:#fff}
+.dir-sub{font-size:13px;line-height:1.7;color:#bbd0e3}
+.cols{display:grid;gap:16px;flex:1;min-height:0}
+.cols.two{grid-template-columns:1.05fr .95fr}
+.card{padding:18px 20px;border-radius:22px;background:var(--card);border:1px solid var(--cardEdge);box-shadow:0 10px 22px rgba(0,0,0,.22);overflow:auto}
+.card h3{margin:0 0 12px;font-size:20px;color:#f8fcff}
+.card ul{margin:0;padding-left:18px;line-height:1.8}
+.card li{margin-bottom:8px;color:#e7f2fb}
+.note{font-size:16px;line-height:1.82;color:#d5e6f5}
+.full{flex:1;min-height:0}
+.qblock,.ablock,.tipblock{margin-top:12px;padding:14px 16px;border-radius:16px;background:rgba(20,29,39,.92);border:1px solid rgba(133,188,228,.18)}
+.qlabel,.alabel,.tlabel{font-size:12px;letter-spacing:1.6px;font-weight:900;color:#8fdfff;margin-bottom:8px}
+.qtext{font-size:18px;line-height:1.8;color:#f7fbff}
+.atext{font-size:15px;line-height:1.82;color:#dbeaf7}
+.toggle-row{display:flex;justify-content:flex-start;margin-top:12px}
+.ans-btn{appearance:none;border:none;border-radius:999px;padding:10px 16px;font-weight:900;letter-spacing:.4px;color:#091019;cursor:pointer;background:linear-gradient(90deg,#7fdcff,#ffe08a);box-shadow:0 10px 22px rgba(127,220,255,.16)}
+.ablock{display:none}
+.ablock.open{display:block;animation:fade .18s ease}
+.formula{padding:12px 14px;border-radius:15px;background:rgba(9,14,20,.92);border:1px solid rgba(255,212,108,.16);line-height:1.9;color:#ffefbb;font-family:"Consolas","Menlo",monospace;font-size:15px}
+.footer{margin-top:12px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:12px;color:#98b2ca}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.kv{padding:12px 14px;border-radius:16px;background:rgba(15,21,28,.9);border:1px solid rgba(120,180,220,.15)}
+.kv strong{display:block;margin-bottom:8px;color:#ffe6a0;font-size:14px}
+.highlight{color:#ffe08a;font-weight:800}
+.blue{color:#8fdfff;font-weight:800}
+
+.qpair{display:grid;grid-template-columns:1fr 1fr;gap:14px;flex:1;min-height:0}.qa-item{min-height:0;overflow:auto;padding:14px 16px;border-radius:20px;background:rgba(13,20,28,.88);border:1px solid rgba(126,184,226,.18);box-shadow:0 10px 24px rgba(0,0,0,.20)}.qa-item .qblock{margin-top:0}.qa-item .qtext{font-size:16.5px;line-height:1.72}.qa-item .atext{font-size:14.5px;line-height:1.72}.qa-item .ans-btn{padding:8px 13px;font-size:13px}.qa-item .ablock{padding:11px 13px;margin-top:10px}@media(max-width:1100px){.qpair{grid-template-columns:1fr}.qa-item .qtext{font-size:15px}}
+.nav{position:fixed;left:16px;right:16px;bottom:10px;z-index:5;display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:18px;background:rgba(8,13,19,.82);backdrop-filter:blur(8px);border:1px solid rgba(120,180,230,.18)}
+.nav button{border:1px solid rgba(130,180,220,.22);border-radius:12px;padding:9px 13px;background:rgba(16,23,31,.95);color:#eaf6ff;font-weight:800;cursor:pointer}
+#progWrap{flex:1;height:10px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden}
+#prog{height:100%;width:0;background:linear-gradient(90deg,#7edbff,#ffe08a,#ffffff)}
+#count{min-width:100px;text-align:center;font-size:12px;color:#c9deef}
+.small{font-size:11px;color:#8da6bc}
+kbd{padding:2px 6px;border-radius:5px;border:1px solid rgba(130,180,220,.22);background:rgba(14,21,29,.88)}
+@media (max-width:1100px){.frame{grid-template-columns:84px 1fr}.cols.two{grid-template-columns:1fr}.grid2{grid-template-columns:1fr}h1{font-size:25px}.cover h1{font-size:40px}.qtext{font-size:17px}}
+</style>
+</head>
+<body>
+<canvas id="bg"></canvas>
+<div id="app">
+  <header>
+    <div class="brand">光学主线整合</div>
+    <div class="meta">
+      <span class="pill">35 幕</span>
+      <span class="pill">35 幕</span>
+      <span class="pill">44 道精选</span>
+      <span class="pill">黑色镜阵反射光束</span>
+      <span class="pill" id="timer">00:00</span>
+    </div>
+  </header>
+  <main id="slides"></main>
+</div>
+<div class="nav">
+  <button id="prevBtn">◀ 上一屏</button>
+  <button id="nextBtn">下一屏 ▶</button>
+  <button id="fullBtn">⛶ 全屏</button>
+  <div id="progWrap"><div id="prog"></div></div>
+  <div id="count"></div>
+  <div class="small">快捷键：<kbd>←</kbd> <kbd>→</kbd> <kbd>空格</kbd></div>
+</div>
+<script>
+const modules = [{"title":"题型一：平面镜反射与运动模型","route":"把反射问题转化为几何问题：先定法线，再用对称、光路可逆和‘镜面转 θ → 反射方向转 2θ’。运动题优先分解垂直镜面与平行镜面的速度分量。","points":["反射定律：入射角等于反射角；入射角、反射角都相对法线定义。","平面镜成像中，像与物关于镜面对称；垂直镜面的速度分量反向，平行镜面的速度分量不变。","镜面转过 θ 而入射光方向不变时，反射光方向转过 2θ。","最短路径、最短时间与定点反射问题，通常用镜像法把折线转为直线。"],"formula":["i=r","镜面转 θ → 反射线转 2θ","v像,⊥=-v物,⊥；v像,∥=v物,∥"],"qA":[["A1 · 转镜扫描","一束固定激光以任意角度射到平面镜上，镜面绕入射点在纸面内缓慢转过 6°。距入射点 4.0 m 处有一圆弧形接收屏，屏心在入射点。求反射光斑沿圆弧移动的弧长。","反射光方向转角为 2×6°=12°=π/15 rad。接收屏是以入射点为圆心、半径 4.0 m 的圆弧，因此光斑弧长 s=RΔθ=4.0×π/15≈0.84 m。"],["A2 · 镜像速度","竖直平面镜固定，物点在镜前做速度为 5 m/s 的匀速运动，其中垂直镜面的分量为 3 m/s、沿镜面的分量为 4 m/s。求像相对物的速度大小。","像的沿镜面分量与物相同，二者相对速度在该方向为 0；垂直镜面的速度分量大小相同、方向相反，所以相对速度大小为 2×3=6 m/s。"]],"qB":[["B1 · 双镜反射","两平面镜互相垂直。一束光在纸面内依次被两镜各反射一次。证明最终光线与初始光线反向平行，并说明结果是否依赖第一次入射角。","把光的方向向量分解到两镜法线方向。第一次反射使其中一个法向分量反号，第二次反射使另一个正交法向分量反号，最终两个分量都变号，因此最终方向向量等于初始方向向量的相反数。结论与第一次入射角无关，只要依次发生两次反射。"],["B2 · 有限镜面临界","身高 H 的人眼睛距头顶为 a，站在竖直平面镜前。若要求恰能看到从脚到头顶的完整像，证明镜子的最小高度为 H/2，并指出镜子上、下边缘分别应位于什么高度。","看头顶时，反射点在眼睛与头顶像连线的中点高度，即距地 H-a/2；看脚时，反射点在眼睛与脚像连线的中点高度，即距地 (H-a)/2。镜高差为 H-a/2-(H-a)/2=H/2。镜上缘至少到 H-a/2，下缘至少到 (H-a)/2。"]]},{"title":"题型二：折射定律与多层介质","route":"遇到多层平行介质，不必逐层反复求角：所有界面法线平行时，n·sinθ 在各层中保持同一个值。速度、波长与折射率的比例可由 n=c/v 串联。","points":["折射定律：n₁sin i=n₂sin r。","折射率 n=c/v；跨介质时频率不变，波速与波长按 v=fλ 同比例变化。","平行分层介质中 n₁sinθ₁=n₂sinθ₂=n₃sinθ₃。","从疏到密偏向法线，从密到疏偏离法线；判断前先确认光的传播方向。"],"formula":["n₁sinθ₁=n₂sinθ₂","n=c/v","λ₂/λ₁=v₂/v₁=n₁/n₂"],"qA":[["A1 · 速度与角度","光从介质 A 射向介质 B，入射角 53°，折射角 37°。取 sin53°=0.80、sin37°=0.60。若 A 中光速为 2.4×10⁸ m/s，求 B 中光速。","由 nA sin53°=nB sin37°，得 nB/nA=0.80/0.60=4/3。又 vB/vA=nA/nB=3/4，所以 vB=1.8×10⁸ m/s。"],["A2 · 平行三层","光依次穿过三层平行介质，折射率分别为 1.0、1.5、1.2。第一层中入射角满足 sinθ₁=0.60。求第三层中 sinθ₃。","平行界面中 n sinθ 保持不变：1.0×0.60=1.2 sinθ₃，因此 sinθ₃=0.50。中间层的角度无需先求。"]],"qB":[["B1 · 波长联立","某单色光由空气进入折射率为 4/3 的液体，再进入折射率为 3/2 的玻璃。空气中波长为 λ₀。求液体和玻璃中的波长，并比较频率。","频率跨界面不变。λ液=λ₀/(4/3)=3λ₀/4；λ玻=λ₀/(3/2)=2λ₀/3。三处频率完全相同，只是波速和波长改变。"],["B2 · 反推介质","一束光从 A 进入 B 时入射角 45°、折射角 30°；从 B 进入 C 时入射角 60°、折射角 45°。若 nA=1，求 nC。","第一界面 nB=sin45°/sin30°=√2。第二界面 nC=nB sin60°/sin45°=√2×(√3/2)/(√2/2)=√3。"]]},{"title":"题型三：平行玻璃板、侧移与视深","route":"平行板题抓‘方向恢复、位置侧移’；视深题抓‘反向延长形成虚像’。多层视深可把每一层的视厚度相加。","points":["平行玻璃板两表面平行时，最终出射光与初始入射光平行。","侧移量可写为 δ=d·sin(i-r)/cos r。","近轴观察单层介质：视深 h′=h/n。","多层透明介质近轴观察时，等效视深为各层 hᵢ/nᵢ 的和。"],"formula":["δ=d·sin(i-r)/cos r","h′=h/n","h′总=Σ(hᵢ/nᵢ)"],"qA":[["A1 · 侧移定量","厚度 d=6.0 cm 的玻璃板折射率 n=√2，光从空气以 i=45° 入射。求折射角 r 和侧移量 δ。","由 sin45°=√2 sin r，得 sin r=1/2，所以 r=30°。δ=d·sin15°/cos30°≈6.0×0.2588/0.866≈1.79 cm。"],["A2 · 双层视深","容器中上层油厚 12 cm、n=1.5，下层水厚 20 cm、n=4/3。观察者从空气中沿近轴方向看容器底，求底部的等效视深。","视深相加：h′=12/1.5+20/(4/3)=8+15=23 cm。真实深度为 32 cm，因此看起来上升了 9 cm。"]],"qB":[["B1 · 参数比较","两块厚度相同的平行玻璃板 A、B，折射率 nA>nB。同一束光以相同入射角通过两板。比较两者的折射角和侧移量。","由 sin r=sin i/n，nA>nB，所以 rA<rB。侧移 δ=d sin(i-r)/cos r；A 中 r 更小，通常 i-r 更大，因此 A 的侧移量更大。"],["B2 · 反推折射率","一块厚 9.0 cm 的透明板，从正上方近轴观察时看起来只有 6.0 cm 厚。若下方还有一物点与板下表面相距 4.0 cm 的空气层，求透明板折射率，并求从上方看到物点距板上表面的视深。","n=9/6=1.5。透明板贡献视厚 6.0 cm，空气层视厚仍为 4.0 cm，所以物点总视深为 10.0 cm。"]]},{"title":"题型四：临界角、全反射与有界出射","route":"全反射题先判方向，再把几何角转换成界面入射角。点光源照亮范围、光纤和棱镜转向，本质都是‘入射角是否达到 C’。","points":["全反射必须同时满足：从光密到光疏、入射角不小于临界角。","临界角满足 sinC=n₂/n₁；外界为空气时 sinC=1/n。","水下点光源能从水面射出的光形成有限圆形区域，边界对应临界角。","棱镜与光纤题常把几何角、临界角与全反射条件组合。"],"formula":["sinC=n₂/n₁","外界为空气：sinC=1/n","水下出射圆：R=h·tanC"],"qA":[["A1 · 水下亮圆","点光源位于水面下 h=2.0 m，水的折射率 n=4/3。求水面上能直接接收到该光源折射光的圆形区域半径。","边界光线在水面入射角为临界角 C，sinC=3/4。于是 cosC=√7/4，tanC=3/√7。R=h tanC=6/√7≈2.27 m。"],["A2 · 直角棱镜","等腰直角玻璃棱镜折射率 n=1.50。一束光垂直于一条直角边入射，射到斜边时判断是否全反射。","光进入第一界面不偏折，射到斜边的入射角为 45°。临界角满足 sinC=1/1.5=2/3，C≈41.8°。因为 45°>C，所以在斜边发生全反射。"]],"qB":[["B1 · 棱镜临界折射率","仍为等腰直角棱镜，光垂直直角边入射。若要求在斜边恰好达到全反射临界状态，求棱镜的临界折射率。","斜边入射角为 45°，临界状态满足 sin45°=1/n，所以 n=√2。若 n>√2，发生全反射；若 n<√2，则有折射光射出。"],["B2 · 光纤接受角","芯层折射率 n₁=1.50，包层折射率 n₂=1.40，外界为空气。若光从光纤端面射入，设入射方向与轴线夹角为 α，推导能在芯层—包层界面持续全反射时的最大 sinα。","端面折射有 sinα=n₁sinβ。芯层内光线与侧壁法线夹角为 90°-β，全反射要求 sin(90°-β)=cosβ≥n₂/n₁。于是 sin²β≤1-n₂²/n₁²，故 sin²α=n₁²sin²β≤n₁²-n₂²，所以 sinαmax=√(n₁²-n₂²)=√0.29≈0.539。"]]},{"title":"题型五：棱镜、色散与临界组合","route":"棱镜题先判断整体偏折方向，再根据不同色光折射率大小比较偏折、临界角和全反射先后。","points":["小顶角棱镜使光线整体向底边偏折。","通常 n紫>n红，因此紫光折射更强、偏折更大、在介质中传播更慢。","同一介质对不同色光的临界角不同：n 越大，临界角越小。","棱镜色散题可与全反射条件组合，形成‘某色射出、某色全反射’的分界。"],"formula":["n紫>n红","C紫<C红","频率跨界面不变"],"qA":[["A1 · 色散比较","红、紫两束单色光以相同入射角从空气射入玻璃，且 n紫>n红。比较折射角、玻璃中速度、波长。","折射角 r紫<r红；由 v=c/n 得 v紫<v红；频率不变而 λ=v/f，所以 λ紫(在玻璃中) 相对各自真空波长按 1/n 缩短得更多。若只比较同介质中的绝对波长，还需结合两色本身频率。"],["A2 · 临界角比较","红光和紫光从同一玻璃射向空气，已知 n紫>n红。比较临界角，并判断当入射角位于两临界角之间时可能出现什么现象。","C紫<C红。若 C紫<i<C红，则紫光已满足全反射条件，而红光仍能折射出界面，因此可以出现‘紫光全反射、红光部分透射’。"]],"qB":[["B1 · 色散全反射筛选","某棱镜内部一束白光射向玻璃—空气界面，入射角固定为 42°。若 C紫=40°、C红=44°，判断红、紫两端色光的出射情况。","紫光因 42°>40° 发生全反射；红光因 42°<44° 不满足全反射，会有折射光射出。中间颜色则取决于各自临界角，形成选择性出射。"],["B2 · 浸液后的变化","把同一玻璃棱镜从空气中浸入折射率较大的透明液体，保持入射光路不变。定性判断棱镜对光的偏折和全反射趋势。","外界折射率增大，玻璃与外界的相对折射率减小，因此折射偏折一般减弱；同时临界角满足 sinC=n外/n玻，n外增大使 C 增大，所以全反射更难发生。"]]},{"title":"题型六：薄透镜成像与位置法","route":"先判 u 与 f、2f 的关系，再用 1/f=1/u+1/v 和 m=v/u 定量。出现两个清晰像位置时，可用位移法把复杂代数压缩。","points":["薄透镜成像公式：1/f=1/u+1/v。","放大率 |m|=|v/u|。","凸透镜 u>f 成实像，u<f 成正立放大虚像。","物屏距离固定且大于 4f 时，透镜通常存在两个能成清晰实像的位置。"],"formula":["1/f=1/u+1/v","|m|=|v/u|","位移法：f=(D²-l²)/(4D)"],"qA":[["A1 · 基本定量","凸透镜焦距 12 cm，物体距透镜 18 cm。求像距和放大率大小。","1/12=1/18+1/v，得 1/v=1/36，所以 v=36 cm。|m|=36/18=2，成倒立放大实像。"],["A2 · 两位置成像","物屏距离 D=100 cm，移动凸透镜时在两个位置都能在屏上成清晰像，两位置间距 l=60 cm。求焦距。","用位移法 f=(D²-l²)/(4D)=(10000-3600)/400=16 cm。"]],"qB":[["B1 · 两像放大率","在上一题的两个透镜位置，证明两次成像的放大率大小互为倒数，并求两次放大率大小。","两位置中物距、像距互换，所以 m₁=v/u，m₂=u/v，故 |m₁m₂|=1。又 u+v=100、|v-u|=60，得 u=20、v=80，所以两次放大率大小分别为 4 和 1/4。"],["B2 · 割裂透镜","一凸透镜在屏上形成清晰实像。现把透镜沿过主轴的平面切成两半，只保留其中一半，物、屏位置不变。判断像的位置、大小、完整性和亮度。","焦距不变，成像几何关系不变，所以像的位置和大小不变；每一小部分透镜都能形成完整像，因此像仍完整；但有效通光面积减小，进入系统的光能减少，所以像变暗。"]]},{"title":"题型七：透镜作图、平面镜与复合成像","route":"复合光路不要一口气处理：先让前一个光学元件形成‘等效物/像’，再把它交给下一个元件。凸透镜与平面镜联用时尤其适合分步。","points":["凸透镜三条特殊光线：平行主轴→过焦点；过焦点→平行主轴；过光心近似不偏折。","焦内物体成正立放大虚像，虚像不能在光屏上承接。","透镜与平面镜组合时，可把镜中像视为返回光路的等效物。","自准直法中，若物位于凸透镜焦平面，出射光平行，经平面镜反射后可沿原路返回。"],"formula":["平行主轴 ↔ 过焦点","自准直：物在焦平面 → 返回像与物重合"],"qA":[["A1 · 自准直测焦距","在凸透镜后放一平面镜，缓慢移动发光物体，直到返回的清晰像与物体重合。说明此时物体为何位于焦平面。","物位于焦平面时，经凸透镜后成为平行光；平面镜只改变传播方向，反射后仍为平行光；平行光再次通过凸透镜会聚在原焦点，因此返回像与物重合。反过来，若能稳定重合，就说明物处于焦平面。"],["A2 · 焦内虚像","物体距凸透镜 8 cm，焦距 12 cm。求像距符号并判断像能否被光屏承接。","1/12=1/8+1/v，得 1/v=-1/24，所以 v=-24 cm。负号表示像与物同侧，是正立放大虚像，不能在光屏上承接。"]],"qB":[["B1 · 镜后等效物","一物点经凸透镜后本应在透镜右侧 30 cm 处成实像。现把平面镜放在透镜右侧 20 cm 处并垂直主轴。忽略镜面厚度，反射后光束相对于平面镜相当于来自或会聚到何处？","原本光束要在镜后 10 cm 处会聚。平面镜反射后，‘镜后 10 cm 的会聚点’关于镜面成对称点，变为镜前 10 cm 的实际会聚目标，因此反射光会在镜前 10 cm 处会聚。"],["B2 · 物屏动态","凸透镜焦距不变，物体与光屏位置固定且能成清晰实像。若透镜向物体方向移动很小距离后像变模糊，为恢复清晰，光屏应优先向哪个方向移动？以 u>2f 情形说明。","当 u>2f 时，透镜向物体移动使 u 减小但仍大于 2f。由成像规律，u 减小时 v 增大，所以像面远离透镜。光屏应沿远离透镜的方向移动。若跨越特殊位置，需重新判断 u 所在区间。"]]},{"title":"题型八：干涉、光程差与条纹级次","route":"干涉题先写光程差，再判亮暗。若路径穿过介质，要用‘折射率×几何长度’计算光程，不能只算路程。","points":["相干光要求频率相同且相位差稳定。","光程差 Δ=kλ 对应亮纹；Δ=(k+1/2)λ 对应暗纹。","介质中的光程为 nL，因此插入透明片会改变光程差并使条纹整体平移。","中央位置是否为亮纹取决于两路初始相位关系，而不是机械地认为必亮。"],"formula":["亮：Δ=kλ","暗：Δ=(k+1/2)λ","光程=nL"],"qA":[["A1 · 亮暗判定","某点两相干光的光程差为 3.5λ，若两源初相位相同，该点是亮纹还是暗纹？若两源初相位相差 π，结论如何改变？","同相源时 3.5λ=(3+1/2)λ，为暗纹。若两源初相位额外相差 π，相当于再增加半波长的相位差，明暗互换，因此该点变为亮纹。"],["A2 · 插片光程","在双缝的一条光路中插入厚度 t、折射率 n 的薄玻璃片。与原来的空气路径相比，额外光程是多少？","原本同样厚度空气光程近似为 t，插入玻璃后为 nt，所以额外光程 Δ=(n-1)t。该量直接决定条纹整体平移的级数。"]],"qB":[["B1 · 条纹平移级数","波长 λ=600 nm，在一条光路中插入 n=1.50、厚 t=6.0 μm 的薄片。条纹整体移动多少个条纹间距？","额外光程 Δ=(1.50-1)×6.0 μm=3.0 μm。移动级数 N=Δ/λ=3.0 μm/0.60 μm=5，即整体平移 5 个条纹间距。"],["B2 · 介质段抵消","两相干光原本等光程。甲路增加长度 L 的折射率 n₁ 介质，乙路增加同样几何长度 L 的折射率 n₂ 介质。写出新的光程差，并给出中央位置仍为亮纹的条件。","光程差 Δ=(n₁-n₂)L。若两源初相位相同，中央位置仍为亮纹要求 (n₁-n₂)L=kλ，其中 λ 取真空/空气中对应波长并与光程定义保持一致。"]]},{"title":"题型九：双缝干涉与条纹移动","route":"双缝定量题围绕 x=λL/d 展开；条纹整体平移则看附加光程差。改变介质、屏距、缝距时要区分‘间距改变’与‘整组平移’。","points":["相邻亮纹（或暗纹）间距 x=λL/d。","增大 L 或 λ，条纹变宽；增大 d，条纹变窄。","整个装置浸入折射率 n 的介质后，频率不变、波长变为 λ/n，因此条纹间距变为原来的 1/n。","在单侧光路插入薄片主要造成整组条纹平移，而不是直接改变相邻条纹间距。"],"formula":["x=λL/d","浸液后 x′=x/n","薄片平移级数 N=(n-1)t/λ"],"qA":[["A1 · 参数联动","双缝干涉中，若波长变为原来的 3/2、屏距变为原来的 2/3、双缝间距变为原来的 1/2，求条纹间距变化倍数。","x∝λL/d，所以倍数=(3/2)×(2/3)/(1/2)=2。条纹间距变为原来的 2 倍。"],["A2 · 整体浸液","空气中条纹间距为 2.4 mm。若整个光路区域充满折射率 4/3 的透明液体，装置几何尺寸不变，求新的条纹间距。","光在液体中的波长变为原来的 1/n=3/4，所以 x′=2.4×3/4=1.8 mm。"]],"qB":[["B1 · 同时改参","在空气中用波长 λ 做实验。若把屏距增为 1.5L、缝距增为 1.2d，同时把整个装置浸入 n=1.25 的液体，求新旧条纹间距比。","x′/x=(1/n)×1.5/1.2=(1/1.25)×1.25=1，所以条纹间距恰好不变。"],["B2 · 半级错位","两缝原本同相。若通过某装置使其中一路额外增加半个波长的光程差，但不改变 λ、L、d，中央位置和条纹间距如何变化？","额外半波长使两路在中央位置相差 π，因此中央由亮变暗，整组条纹平移半个条纹间距；但相邻同类条纹间距仍由 x=λL/d 决定，保持不变。"]]},{"title":"题型十：衍射、分辨与偏振","route":"衍射题看‘波长与孔径的相对大小’，分辨题看‘衍射斑是否容易重叠’，偏振题则用来确认光的横波属性。","points":["单缝越窄、波长越长，衍射越明显，中央亮纹越宽。","孔径越大，衍射角越小，光学仪器通常越容易分辨相邻细节。","干涉强调相干叠加，衍射强调有限孔径导致的波传播展开。","偏振现象说明光是横波；自然光经过偏振片后可形成偏振光。"],"formula":["缝窄 / λ大 → 衍射明显","口径大 / λ小 → 分辨更好"],"qA":[["A1 · 双因素比较","同一单缝装置先用红光，再改用紫光；随后又把缝宽减小。比较两次改动对中央亮纹宽度的影响方向。","红光换紫光使波长减小，衍射减弱，中央亮纹变窄；减小缝宽使衍射增强，中央亮纹变宽。两种改动方向相反。"],["A2 · 分辨能力","两台口径不同但其他条件近似相同的望远镜观察相邻双星。哪一台更容易分辨？若改用更短波长的光，分辨能力如何变化？","口径更大的望远镜衍射角更小，更容易分辨相邻目标；改用更短波长也会减小衍射角，因此分辨能力提高。"]],"qB":[["B1 · 现象归类","在屏上观察到规则等间距明暗条纹；把一条狭缝遮住后，规则条纹消失但仍存在较宽亮斑。分别说明原现象和遮住后的主要现象。","双缝都开放时主要是干涉条纹；遮住一条缝后两路相干叠加消失，只剩单缝衍射形成的亮斑与弱纹结构。"],["B2 · 偏振辨析","一束自然光依次通过两个偏振片。转动第二个偏振片时透射光强周期性变化并可接近最暗。该现象能证明什么？为什么声波在空气中没有完全对应的偏振现象？","偏振现象说明光的振动方向有横向取向，因此证明光具有横波性质。空气中的声波主要是纵波，质点振动方向沿传播方向，没有可供偏振片选择的横向振动方向，因此不存在同类偏振现象。"]]},{"title":"题型十一：光学实验与综合数据处理","route":"实验题先确定原理公式，再把公式改造成‘可测量量关系’，最后处理多次测量、平均值、图像斜率和系统误差。","points":["双缝测波长：λ=xd/L；通常测多条条纹总宽度再除间隔数。","凸透镜物像等大时 u=v=2f，可据此快速测焦距。","折射率可由角度测量、视深法、临界角法等得到。","实验综合题的重点是数据是否满足模型，以及误差如何传播到最终结果。"],"formula":["λ=xd/L","物像等大：u=v=2f","n=h/h′（近轴视深法）"],"qA":[["A1 · 多纹测量","双缝实验中，从第 1 条亮纹中心到第 11 条亮纹中心的距离为 24.0 mm。求相邻亮纹间距。若 d=0.25 mm、L=1.20 m，求波长。","第 1 到第 11 条之间有 10 个间隔，所以 x=24.0/10=2.40 mm。λ=xd/L=(2.40×10⁻³)(0.25×10⁻³)/1.20=5.0×10⁻⁷ m。"],["A2 · 等大成像","用凸透镜成清晰实像，调节到像与物等大，测得物与屏之间距离为 64 cm。忽略镜座厚度，求焦距。","物像等大时 |m|=1，所以 u=v；又 u+v=64 cm，得 u=v=32 cm=2f，因此 f=16 cm。"]],"qB":[["B1 · 视深测 n","把标记置于透明板下表面，从上方近轴观察。真实厚度为 10.0 mm，测得视厚度为 6.7 mm。求折射率，并说明若视厚度读数偏大，会使 n 的测量值偏大还是偏小。","n=h/h′≈10.0/6.7≈1.49。若视厚度 h′ 读数偏大，而 h 不变，则 n=h/h′ 会偏小。"],["B2 · 临界角数据","某透明材料对空气的临界角测得为 41.0°，取 sin41.0°≈0.656。求折射率。若角度测量系统性偏大，折射率测量值偏大还是偏小？","n=1/sinC≈1/0.656≈1.52。若 C 测得偏大，sinC 偏大，所以 1/sinC 偏小，最终折射率测量值偏小。"]]}];
+
+
+const slides = [{type:'cover'},{type:'overview'}];
+modules.forEach((m,i)=>{slides.push({type:'map',index:i});slides.push({type:'example',index:i});slides.push({type:'deep',index:i});});
+const main = document.getElementById('slides');
+function side(title,no,sub){return `<aside class="side"><div><div class="tag">${title}</div><div class="pno">${String(no).padStart(2,'0')}</div><div class="stitle">${sub}</div></div><div class="sfoot">OPTICS<br>COURSE</div></aside>`;}
+function cover(no){return `<section class="slide"><div class="frame">${side('封面',no,'几何光学\n物理光学\n题型强化')}<div class="content"><div class="cover"><div class="kicker">GEOMETRICAL · PHYSICAL OPTICS</div><h1>光学高阶题型强化</h1><h2>35 幕不变 · 题量提升 · 难度提高到中档偏难及以上</h2><div class="line"></div><div class="tags"><span>反射与折射</span><span>全反射</span><span>透镜综合</span><span>干涉移动</span><span>衍射分辨</span><span>实验误差</span></div></div></div></div></section>`;}
+function overview(no){return `<section class="slide"><div class="frame">${side('导览',no,'11 条主线\n44 道精选')}<div class="content"><div class="top"><div><div class="eyebrow">OVERVIEW</div><h1>题型结构</h1></div><div class="badge">35 幕 · 44 题</div></div><div class="cols two"><div class="card"><h3>几何光学</h3><ul><li>平面镜运动与双镜反射</li><li>多层折射与波长联立</li><li>平行板侧移与多层视深</li><li>全反射、有界出射与光纤</li><li>棱镜色散与临界组合</li><li>薄透镜位置法与复合成像</li></ul></div><div class="card"><h3>物理光学与实验</h3><ul><li>光程差、初相位与明暗互换</li><li>双缝条纹间距与整体平移</li><li>衍射、分辨与偏振辨析</li><li>双缝、透镜、视深、临界角实验</li><li>每条主线：1 幕模型 + 2 幕双题训练</li><li>难度以高考中档偏难为基准，减少纯记忆设问</li></ul></div></div><div class="footer"><span>优先做 B 组：综合、临界、反推、参数联动</span><span>答案保持折叠</span></div></div></div></section>`;}
+function mapSlide(m,no){return `<section class="slide"><div class="frame">${side('模型',no,m.title.replace('：','：\n'))}<div class="content"><div class="top"><div><div class="eyebrow">MODEL</div><h1>${m.title}</h1></div><div class="badge">模型与公式</div></div><div class="cols two"><div class="card"><h3>核心结论</h3><ul>${m.points.map(v=>`<li>${v}</li>`).join('')}</ul></div><div class="card"><h3>高阶解题主线</h3><div class="note">${m.route}</div><div style="height:12px"></div><div class="formula">${m.formula.map(v=>`• ${v}`).join('<br>')}</div><div class="tipblock"><div class="tlabel">训练重点</div><div class="atext">方向判断 → 临界条件 → 比例关系 → 反推参数。尽量少做孤立记忆，多做模型迁移。</div></div></div></div><div class="footer"><span>每条主线配 4 道题</span><span>先模型后计算</span></div></div></div></section>`;}
+function qaItem(item){return `<div class="qa-item"><div class="qblock"><div class="qlabel">${item[0]}</div><div class="qtext">${item[1]}</div></div><div class="toggle-row"><button class="ans-btn" type="button">点击展开解析</button></div><div class="ablock"><div class="alabel">解析</div><div class="atext">${item[2]}</div></div></div>`;}
+function qSlide(m,no,group){const arr=group==='A'?m.qA:m.qB;return `<section class="slide"><div class="frame">${side(group==='A'?'题组 A':'题组 B',no,m.title.replace('：','：\n'))}<div class="content"><div class="top"><div><div class="eyebrow">${group==='A'?'CORE TRAINING':'ADVANCED TRAINING'}</div><h1>${m.title}</h1></div><div class="badge">${group==='A'?'中档偏难':'综合提升'}</div></div><div class="qpair">${arr.map(qaItem).join('')}</div><div class="footer"><span>${group==='A'?'主模型熟练度 + 定量计算':'临界、反推、复合关系与参数联动'}</span><span>先做后看解析</span></div></div></div></section>`;}
+slides.forEach((s,idx)=>{const no=idx+1;if(s.type==='cover') main.insertAdjacentHTML('beforeend',cover(no));else if(s.type==='overview') main.insertAdjacentHTML('beforeend',overview(no));else if(s.type==='map') main.insertAdjacentHTML('beforeend',mapSlide(modules[s.index],no));else if(s.type==='example') main.insertAdjacentHTML('beforeend',qSlide(modules[s.index],no,'A'));else main.insertAdjacentHTML('beforeend',qSlide(modules[s.index],no,'B'));});
+const slideEls=[...document.querySelectorAll('.slide')];
+let current=0;
+function render(){
+  slideEls.forEach((s,i)=>s.classList.toggle('active',i===current));
+  document.getElementById('count').textContent = `${String(current+1).padStart(2,'0')} / ${slideEls.length}`;
+  document.getElementById('prog').style.width = `${current/(slideEls.length-1)*100}%`;
+}
+render();
+function next(){ if(current<slideEls.length-1){ current++; render(); } }
+function prev(){ if(current>0){ current--; render(); } }
+document.getElementById('nextBtn').onclick=next;
+document.getElementById('prevBtn').onclick=prev;
+document.getElementById('fullBtn').onclick=()=>{if(!document.fullscreenElement) document.documentElement.requestFullscreen(); else document.exitFullscreen();};
+document.addEventListener('keydown',e=>{
+  if(['ArrowRight',' ','PageDown'].includes(e.key)){ e.preventDefault(); next(); }
+  if(['ArrowLeft','PageUp'].includes(e.key)){ e.preventDefault(); prev(); }
+  if(e.key.toLowerCase()==='f') document.getElementById('fullBtn').click();
+});
+let sec=0; setInterval(()=>{sec++; document.getElementById('timer').textContent=`${String(Math.floor(sec/60)).padStart(2,'0')}:${String(sec%60).padStart(2,'0')}`;},1000);
+document.addEventListener('click',e=>{const b=e.target.closest('.ans-btn'); if(!b) return; const item=b.closest('.qa-item'); const ab=item.querySelector('.ablock'); ab.classList.toggle('open'); b.textContent=ab.classList.contains('open')?'点击收起解析':'点击展开解析';});
+
+// background: black field, random mirrors, long beams reflecting continuously
+const canvas=document.getElementById('bg');
+const ctx=canvas.getContext('2d');
+let W,H,DPR;
+let mirrors=[];
+let sources=[];
+function rand(a,b){return a+Math.random()*(b-a)}
+function normalize(vx,vy){const m=Math.hypot(vx,vy)||1; return {x:vx/m,y:vy/m};}
+function resize(){
+  DPR=window.devicePixelRatio||1; W=window.innerWidth; H=window.innerHeight;
+  canvas.width=W*DPR; canvas.height=H*DPR; canvas.style.width=W+'px'; canvas.style.height=H+'px';
+  ctx.setTransform(DPR,0,0,DPR,0,0);
+  initMirrors(); initSources();
+}
+function initMirrors(){
+  mirrors=[];
+  const n=10;
+  for(let i=0;i<n;i++){
+    mirrors.push({
+      x:rand(120,W-120), y:rand(110,H-100), len:rand(120,240), ang:rand(-1.2,1.2),
+      vx:rand(-0.1,0.1), vy:rand(-0.08,0.08), vang:rand(-0.0012,0.0012)
+    });
+  }
+}
+function initSources(){
+  sources=[];
+  const make=(side)=>{
+    if(side===0){const y=rand(80,H-80); return {x:0,y,dx:1,dy:rand(-.45,.45), drift:rand(0,6.28), color:'cyan'};}
+    if(side===1){const y=rand(80,H-80); return {x:W,y,dx:-1,dy:rand(-.45,.45), drift:rand(0,6.28), color:'gold'};}
+    if(side===2){const x=rand(80,W-80); return {x,y:0,dx:rand(-.45,.45),dy:1, drift:rand(0,6.28), color:'white'};}
+    const x=rand(80,W-80); return {x,y:H,dx:rand(-.45,.45),dy:-1, drift:rand(0,6.28), color:'cyan'};
+  };
+  for(let i=0;i<5;i++){
+    const s=make(i%4); const n=normalize(s.dx,s.dy); s.dx=n.x; s.dy=n.y; sources.push(s);
+  }
+}
+function mirrorEnds(m){const c=Math.cos(m.ang), s=Math.sin(m.ang), h=m.len/2; return {x1:m.x-c*h,y1:m.y-s*h,x2:m.x+c*h,y2:m.y+s*h};}
+function intersectRaySegment(ox,oy,dx,dy,x1,y1,x2,y2){
+  const rx=dx, ry=dy, sx=x2-x1, sy=y2-y1; const denom = rx*sy - ry*sx;
+  if(Math.abs(denom)<1e-6) return null;
+  const qpx=x1-ox, qpy=y1-oy;
+  const t=(qpx*sy - qpy*sx)/denom;
+  const u=(qpx*ry - qpy*rx)/denom;
+  if(t>0.001 && u>=0 && u<=1) return {t, x:ox+t*dx, y:oy+t*dy};
+  return null;
+}
+function reflect(dx,dy,m){
+  const ex=Math.cos(m.ang), ey=Math.sin(m.ang); const nx=-ey, ny=ex; const dot=dx*nx+dy*ny;
+  let rx=dx-2*dot*nx, ry=dy-2*dot*ny; const mag=Math.hypot(rx,ry)||1; return {dx:rx/mag, dy:ry/mag};
+}
+function traceRay(src){
+  let pts=[{x:src.x,y:src.y}], ox=src.x, oy=src.y, dx=src.dx, dy=src.dy, last=-1;
+  for(let bounce=0; bounce<18; bounce++){
+    let best=null, idx=-1;
+    for(let i=0;i<mirrors.length;i++){
+      if(i===last) continue;
+      const e=mirrorEnds(mirrors[i]);
+      const hit=intersectRaySegment(ox,oy,dx,dy,e.x1,e.y1,e.x2,e.y2);
+      if(hit && (!best || hit.t<best.t)){ best=hit; idx=i; }
+    }
+    const ts=[];
+    if(dx>0) ts.push((W-ox)/dx); else if(dx<0) ts.push((0-ox)/dx);
+    if(dy>0) ts.push((H-oy)/dy); else if(dy<0) ts.push((0-oy)/dy);
+    const tBound=Math.min(...ts.filter(v=>v>0.001));
+    if(!best || tBound < best.t){ pts.push({x:ox+dx*tBound,y:oy+dy*tBound}); break; }
+    pts.push({x:best.x,y:best.y});
+    const r=reflect(dx,dy,mirrors[idx]); ox=best.x+r.dx*0.6; oy=best.y+r.dy*0.6; dx=r.dx; dy=r.dy; last=idx;
+  }
+  return pts;
+}
+function update(ts){
+  mirrors.forEach((m,i)=>{
+    m.x += m.vx + Math.sin(ts*0.00032+i)*0.02;
+    m.y += m.vy + Math.cos(ts*0.00027+i*1.2)*0.02;
+    m.ang += m.vang;
+    if(m.x<70||m.x>W-70) m.vx*=-1;
+    if(m.y<80||m.y>H-80) m.vy*=-1;
+    if(m.ang<-1.35||m.ang>1.35) m.vang*=-1;
+  });
+  sources.forEach((s,i)=>{
+    const ang = Math.atan2(s.dy,s.dx) + Math.sin(ts*0.00045 + s.drift)*0.0035;
+    const n = normalize(Math.cos(ang),Math.sin(ang)); s.dx=n.x; s.dy=n.y;
+    if(s.x===0||s.x===W){ s.y += Math.sin(ts*0.0006 + i)*0.15; }
+    if(s.y===0||s.y===H){ s.x += Math.cos(ts*0.0006 + i)*0.15; }
+  });
+}
+function glowLine(points,colorA,colorB,width){
+  ctx.save(); ctx.lineCap='round'; ctx.lineJoin='round';
+  for(let i=0;i<points.length-1;i++){
+    const p=points[i], q=points[i+1];
+    const grad=ctx.createLinearGradient(p.x,p.y,q.x,q.y); grad.addColorStop(0,colorA); grad.addColorStop(1,colorB);
+    ctx.strokeStyle=grad; ctx.lineWidth=width; ctx.shadowBlur=18; ctx.shadowColor=colorA;
+    ctx.beginPath(); ctx.moveTo(p.x,p.y); ctx.lineTo(q.x,q.y); ctx.stroke();
+    ctx.strokeStyle='rgba(255,255,255,.8)'; ctx.lineWidth=Math.max(1,width*0.22); ctx.shadowBlur=0;
+    ctx.beginPath(); ctx.moveTo(p.x,p.y); ctx.lineTo(q.x,q.y); ctx.stroke();
+  }
+  ctx.restore();
+}
+function draw(ts){
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle='#000'; ctx.fillRect(0,0,W,H);
+  // star dust
+  for(let i=0;i<80;i++){ const x=(i*97.3)%W, y=(i*53.8)%H; const a=.04 + .05*Math.sin(ts*0.001+i); ctx.fillStyle=`rgba(255,255,255,${a})`; ctx.fillRect(x,y,1.4,1.4); }
+  update(ts);
+  // mirrors
+  mirrors.forEach((m,i)=>{
+    const e=mirrorEnds(m);
+    ctx.save();
+    ctx.strokeStyle='rgba(205,225,245,.68)'; ctx.lineWidth=5.5; ctx.lineCap='round'; ctx.shadowBlur=12; ctx.shadowColor='rgba(200,220,255,.24)';
+    ctx.beginPath(); ctx.moveTo(e.x1,e.y1); ctx.lineTo(e.x2,e.y2); ctx.stroke();
+    ctx.strokeStyle='rgba(255,255,255,.22)'; ctx.lineWidth=1.4; ctx.beginPath(); ctx.moveTo(e.x1,e.y1); ctx.lineTo(e.x2,e.y2); ctx.stroke();
+    ctx.restore();
+  });
+  // beams
+  sources.forEach((s,i)=>{
+    const pts=traceRay(s);
+    if(s.color==='gold') glowLine(pts,'rgba(255,222,122,.92)','rgba(255,255,255,.72)',3.1);
+    else if(s.color==='white') glowLine(pts,'rgba(255,255,255,.95)','rgba(167,228,255,.68)',2.8);
+    else glowLine(pts,'rgba(124,227,255,.95)','rgba(255,255,255,.70)',2.9);
+    const rg=ctx.createRadialGradient(s.x,s.y,1,s.x,s.y,20); rg.addColorStop(0,'rgba(255,255,255,1)'); rg.addColorStop(.28,s.color==='gold'?'rgba(255,232,153,1)':'rgba(148,233,255,1)'); rg.addColorStop(1,'rgba(255,255,255,0)');
+    ctx.fillStyle=rg; ctx.beginPath(); ctx.arc(s.x,s.y,20,0,Math.PI*2); ctx.fill();
+  });
+  requestAnimationFrame(draw);
+}
+window.addEventListener('resize',resize); resize(); requestAnimationFrame(draw);
+</script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"45c2bf8136a245cd97f1c2e9a96c0730"}' crossorigin="anonymous"></script>
+</body>
+</html>

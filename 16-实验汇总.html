@@ -1,0 +1,1503 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>高中物理实验题型矩阵</title><style>
+:root{--c1:#14f7ff;--c2:#ff35d6;--c3:#8a63ff;--c4:#ffd84d;--c5:#2cff8d;--text:#f5fbff}
+*{box-sizing:border-box}html,body{margin:0;height:100%;overflow:hidden;background:#02030a;color:var(--text);font-family:"PingFang SC","Microsoft YaHei",Arial,sans-serif}
+#bg{position:fixed;inset:0;z-index:0;display:block;background:#02030a}#app{position:relative;z-index:2;height:100%;display:flex;flex-direction:column}
+header{height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;border-bottom:1px solid rgba(64,224,255,.22);background:linear-gradient(180deg,rgba(2,3,12,.56),rgba(2,4,12,.18));backdrop-filter:blur(3px)}
+.brand{font-size:21px;font-weight:900;letter-spacing:.8px;text-shadow:0 0 16px rgba(20,247,255,.38)}.meta{display:flex;gap:8px;flex-wrap:wrap}
+.pill{padding:6px 10px;border-radius:999px;border:1px solid rgba(89,220,255,.22);background:rgba(7,12,30,.64);font-size:12px;color:#dff7ff;box-shadow:0 0 14px rgba(255,53,214,.06) inset}
+main{flex:1;position:relative}.slide{display:none;height:100%;padding:14px 16px 82px}.slide.active{display:block;animation:fade .2s ease}
+@keyframes fade{from{opacity:.16;transform:translateY(8px) scale(.997)}to{opacity:1;transform:none}}
+.shell{height:100%;display:grid;grid-template-columns:106px 1fr;gap:16px;overflow:visible;background:transparent;border:0;box-shadow:none;backdrop-filter:none}
+.rail{padding:18px 12px;border-right:1px solid rgba(78,221,255,.28);display:flex;flex-direction:column;justify-content:space-between;background:transparent;text-shadow:0 0 12px rgba(20,247,255,.24)}
+.tag{font-size:11px;letter-spacing:2px;font-weight:900;color:#7eeeff}.num{font-size:38px;font-weight:900;margin:10px 0;background:linear-gradient(180deg,#fff,#80efff 48%,#ff75e6);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 0 18px rgba(20,247,255,.14)}
+.rail-title{font-size:12px;line-height:1.62;color:#e6f5ff}.rail-foot{font-size:10px;line-height:1.6;letter-spacing:1.7px;color:#78a5bf}
+.screen{display:flex;flex-direction:column;min-width:0;min-height:0;padding:16px 12px 8px}.top{display:flex;justify-content:space-between;gap:14px;align-items:flex-start;margin-bottom:13px}
+.eyebrow{font-size:11px;letter-spacing:2px;color:#53eeff;font-weight:900;margin-bottom:6px}h1{margin:0;font-size:29px;line-height:1.18;text-shadow:0 0 22px rgba(64,220,255,.28),0 2px 7px rgba(0,0,0,.95)}
+.sub{margin-top:7px;font-size:14px;color:#b9cee0}.count-badge{min-width:72px;height:38px;border-radius:999px;display:grid;place-items:center;border:1px solid rgba(255,70,215,.38);background:rgba(5,8,20,.28);font-size:12px;color:#fff0fb;box-shadow:0 0 18px rgba(255,53,214,.16)}
+.cover{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}.cover-small{font-size:12px;letter-spacing:5px;color:#58efff}
+.cover-main{font-size:48px;font-weight:900;margin-top:16px;text-shadow:0 0 26px rgba(20,247,255,.22),0 0 34px rgba(255,53,214,.12)}
+.cover-rule{width:340px;height:4px;border-radius:999px;background:linear-gradient(90deg,#14f7ff,#8a63ff,#ff35d6,#ffd84d,#2cff8d);margin:24px 0;box-shadow:0 0 24px rgba(20,247,255,.35)}
+.cover-sub{font-size:21px;color:#d8e9f6;letter-spacing:3px}.cover-tags{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:22px}.cover-tags span{padding:9px 14px;border-radius:999px;border:1px solid rgba(112,226,255,.30);background:rgba(4,10,24,.24);color:#effcff;text-shadow:0 0 12px rgba(20,247,255,.18)}
+.dir{display:grid;grid-template-columns:1fr 1fr;gap:8px 18px;overflow:auto;padding-right:6px}.dir-row{display:grid;grid-template-columns:48px 1fr;gap:10px;align-items:center;padding:9px 5px;border-bottom:1px dashed rgba(100,210,255,.12)}
+.dnum{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;border:1px solid rgba(89,229,255,.2);background:linear-gradient(135deg,rgba(20,247,255,.10),rgba(255,53,214,.10));font-weight:900;color:#c7faff}
+.dtitle{font-size:15px;font-weight:800;color:#f7fbff}.dsub{font-size:11px;color:#7fa1b7;margin-top:3px}
+.two-col{display:grid;grid-template-columns:1.12fr .88fr;gap:25px;flex:1;min-height:0}.plain{padding:5px 8px 0 0;overflow:auto}.plain h3{margin:0 0 13px;font-size:20px;color:#fff}
+.plain ul{margin:0;padding-left:22px;font-size:17px;line-height:1.78;text-shadow:0 1px 6px rgba(0,0,0,.9)}.plain li{margin-bottom:8px}
+.method{font-size:17px;line-height:1.88;color:#eefaff;border-left:3px solid #31f0ff;padding:7px 0 7px 16px;background:transparent;text-shadow:0 1px 5px rgba(0,0,0,.88)}
+.topic-id{margin-top:28px;font-size:11px;letter-spacing:3px;color:#ba77ff}
+.question-grid{display:grid;grid-template-rows:1fr 1fr;gap:14px;flex:1;min-height:0;overflow:auto;padding-right:4px}.question-grid.four{grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr}
+.qcard{padding:12px 16px 14px 4px;background:transparent;border:0;border-radius:0;box-shadow:none;overflow:auto;border-bottom:1px dashed rgba(91,222,255,.28);text-shadow:0 1px 6px rgba(0,0,0,.88)}
+.qcard.compact{padding:11px 14px}.qcard.compact .qtext{font-size:15px;line-height:1.62}.qcard.compact .ans-text{font-size:13px;line-height:1.62}.qcard.compact .ans-btn{margin-top:7px;padding:6px 11px}
+.qtag{display:inline-block;font-size:11px;font-weight:900;letter-spacing:1.6px;color:#ffe475;border-bottom:2px solid #ffcc4a;padding-bottom:4px}
+.qtext{font-size:18px;line-height:1.74;margin-top:10px;color:#fbfdff;text-shadow:0 1px 7px rgba(0,0,0,.94)}.ans-btn{margin-top:11px;border:1px solid rgba(102,229,255,.24);border-radius:999px;padding:8px 14px;background:linear-gradient(90deg,rgba(20,247,255,.18),rgba(255,53,214,.16));color:#fff;font-weight:800;cursor:pointer;box-shadow:0 0 18px rgba(20,247,255,.07)}
+.answer{display:none;margin-top:10px;border-top:1px solid rgba(105,215,255,.14);padding-top:10px}.answer.open{display:block;animation:fade .16s ease}
+.ans-title{font-size:11px;letter-spacing:2px;color:#6cf6ff;font-weight:900;margin-bottom:6px}.ans-text{font-size:15px;line-height:1.74;color:#e9f5ff;text-shadow:0 1px 6px rgba(0,0,0,.9)}
+.nav{position:fixed;left:16px;right:16px;bottom:10px;z-index:5;display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:18px;border:1px solid rgba(91,220,255,.20);background:rgba(2,4,13,.42);backdrop-filter:blur(4px)}
+.nav button{padding:8px 13px;border-radius:999px;border:1px solid rgba(99,226,255,.18);background:rgba(8,15,31,.82);color:#fff;font-weight:800;cursor:pointer}.track{flex:1;height:8px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden}
+#prog{height:100%;width:0;background:linear-gradient(90deg,#14f7ff,#8a63ff,#ff35d6,#ffd84d,#2cff8d);box-shadow:0 0 16px rgba(20,247,255,.34)}#counter{min-width:96px;text-align:center;font-size:12px;color:#cfe3ef}.hint{font-size:11px;color:#7194a8}
+@media(max-width:1100px){.shell{grid-template-columns:82px 1fr}.two-col,.dir,.question-grid.four{grid-template-columns:1fr}.question-grid.four{grid-template-rows:auto}h1{font-size:24px}.plain ul{font-size:15px}.qtext{font-size:16px}}
+</style></head>
+<body><canvas id="bg"></canvas><div id="app">
+<header><div class="brand">高中物理实验 · 高频题型矩阵</div><div class="meta"><span class="pill">60幕</span><span class="pill">80题</span><span class="pill">高考中档偏难</span><span class="pill" id="timer">00:00</span></div></header>
+<main><section class="slide">
+      <div class="shell">
+        <aside class="rail">
+          <div><div class="tag">封面</div><div class="num">01</div><div class="rail-title">实验题型矩阵</div></div>
+          <div class="rail-foot">EXPERIMENT<br>CYBER LAB</div>
+        </aside>
+        <div class="screen">
+          <div class="top">
+            <div><div class="eyebrow">HIGH SCHOOL PHYSICS · EXPERIMENT</div><h1>实验题型矩阵</h1><div class="sub">题目主导 · 模型反推 · 图像与误差</div></div>
+            <div class="count-badge">01/60</div>
+          </div><div class="cover">
+  <div class="cover-small">NEON EXPERIMENT MATRIX</div>
+  <div class="cover-main">高中物理实验 · 高频题型矩阵</div>
+  <div class="cover-rule"></div>
+  <div class="cover-sub">力学实验 · 电学实验 · 光学实验 · 热学实验</div>
+  <div class="cover-tags"><span>60幕</span><span>80题</span><span>高考中档偏难</span></div>
+</div>
+        </div>
+      </div>
+    </section><section class="slide">
+      <div class="shell">
+        <aside class="rail">
+          <div><div class="tag">索引 1/2</div><div class="num">02</div><div class="rail-title">实验题型索引</div></div>
+          <div class="rail-foot">EXPERIMENT<br>CYBER LAB</div>
+        </aside>
+        <div class="screen">
+          <div class="top">
+            <div><div class="eyebrow">HIGH SCHOOL PHYSICS · EXPERIMENT</div><h1>实验题型索引</h1><div class="sub">01—10</div></div>
+            <div class="count-badge">02/60</div>
+          </div><div class="dir"><div class="dir-row"><div class="dnum">01</div>
+        <div><div class="dtitle">测量仪器与读数｜有效数字、量程、精度</div>
+        <div class="dsub">核心框架 · 高频题组 · 误差与图像</div></div></div><div class="dir-row"><div class="dnum">02</div>
+        <div><div class="dtitle">运动学实验｜纸带、光电门与图像</div>
+        <div class="dsub">核心框架 · 高频题组 · 误差与图像</div></div></div><div class="dir-row"><div class="dnum">03</div>
+        <div><div class="dtitle">弹簧实验｜胡克定律与图像反推</div>
+        <div class="dsub">核心框架 · 高频题组 · 误差与图像</div></div></div><div class="dir-row"><div class="dnum">04</div>
+        <div><div class="dtitle">力的合成｜平行四边形定则与等效思想</div>
+        <div class="dsub">核心框架 · 高频题组 · 误差与图像</div></div></div><div class="dir-row"><div class="dnum">05</div>
+        <div><div class="dtitle">牛顿第二定律｜控制变量、平衡摩擦与系统误差</div>
+        <div class="dsub">核心框架 · 高频题组 · 误差与图像</div></div></div><div class="dir-row"><div class="dnum">06</div>
+        <div><div class="dtitle">平抛实验｜轨迹、分运动与参数反推</div>
+        <div class="dsub">核心框架 · 高频题组 · 误差与图像</div></div></div><div class="dir-row"><div class="dnum">07</div>
+        <div><div class="dtitle">向心力实验｜平方律与传感器图像</div>
+        <div class="dsub">核心框架 · 高频题组 · 误差与图像</div></div></div><div class="dir-row"><div class="dnum">08</div>
+        <div><div class="dtitle">机械能守恒｜纸带法、光电门法与能量损耗</div>
+        <div class="dsub">核心框架 · 高频题组 · 误差与图像</div></div></div><div class="dir-row"><div class="dnum">09</div>
+        <div><div class="dtitle">动量守恒实验｜平抛落点与碰撞条件</div>
+        <div class="dsub">核心框架 · 高频题组 · 误差与图像</div></div></div><div class="dir-row"><div class="dnum">10</div>
+        <div><div class="dtitle">单摆测 g｜周期、摆长与图像法</div>
+        <div class="dsub">核心框架 · 高频题组 · 误差与图像</div></div></div></div>
+        </div>
+      </div>
+    </section><section class="slide">
+      <div class="shell">
+        <aside class="rail">
+          <div><div class="tag">索引 2/2</div><div class="num">03</div><div class="rail-title">实验题型索引</div></div>
+          <div class="rail-foot">EXPERIMENT<br>CYBER LAB</div>
+        </aside>
+        <div class="screen">
+          <div class="top">
+            <div><div class="eyebrow">HIGH SCHOOL PHYSICS · EXPERIMENT</div><h1>实验题型索引</h1><div class="sub">11—20</div></div>
+            <div class="count-badge">03/60</div>
+          </div><div class="dir"><div class="dir-row"><div class="dnum">11</div>
+        <div><div class="dtitle">电学仪器读数｜电表、游标与实物规范</div>
+        <div class="dsub">核心框架 · 高频题组 · 误差与图像</div></div></div><div class="dir-row"><div class="dnum">12</div>
+        <div><div class="dtitle">电路设计｜内外接、限流分压、量程与连线</div>
+        <div class="dsub">核心框架 · 高频题组 · 误差与图像</div></div></div><div class="dir-row"><div class="dnum">13</div>
+        <div><div class="dtitle">电表改装与校准｜串并电阻模型</div>
+        <div class="dsub">核心框架 · 高频题组 · 误差与图像</div></div></div><div class="dir-row"><div class="dnum">14</div>
+        <div><div class="dtitle">多用电表｜欧姆表原理、步骤与故障判断</div>
+        <div class="dsub">核心框架 · 高频题组 · 误差与图像</div></div></div><div class="dir-row"><div class="dnum">15</div>
+        <div><div class="dtitle">电阻率与多种测阻｜伏安、半偏、电桥</div>
+        <div class="dsub">核心框架 · 高频题组 · 误差与图像</div></div></div><div class="dir-row"><div class="dnum">16</div>
+        <div><div class="dtitle">小灯泡伏安特性｜非线性、图像与功率</div>
+        <div class="dsub">核心框架 · 高频题组 · 误差与图像</div></div></div><div class="dir-row"><div class="dnum">17</div>
+        <div><div class="dtitle">测电源电动势和内阻｜U-I 图像与方法迁移</div>
+        <div class="dsub">核心框架 · 高频题组 · 误差与图像</div></div></div><div class="dir-row"><div class="dnum">18</div>
+        <div><div class="dtitle">电容器充放电｜i-t 面积、Q=CU 与时间尺度</div>
+        <div class="dsub">核心框架 · 高频题组 · 误差与图像</div></div></div><div class="dir-row"><div class="dnum">19</div>
+        <div><div class="dtitle">光学实验｜折射率与双缝干涉</div>
+        <div class="dsub">核心框架 · 高频题组 · 误差与图像</div></div></div><div class="dir-row"><div class="dnum">20</div>
+        <div><div class="dtitle">热学实验｜油膜法与等温气体</div>
+        <div class="dsub">核心框架 · 高频题组 · 误差与图像</div></div></div></div>
+        </div>
+      </div>
+    </section><section class="slide">
+      <div class="shell">
+        <aside class="rail">
+          <div><div class="tag">核心</div><div class="num">04</div><div class="rail-title">测量仪器与读数｜有效数字、量程、精度</div></div>
+          <div class="rail-foot">EXPERIMENT<br>CYBER LAB</div>
+        </aside>
+        <div class="screen">
+          <div class="top">
+            <div><div class="eyebrow">HIGH SCHOOL PHYSICS · EXPERIMENT</div><h1>测量仪器与读数｜有效数字、量程、精度</h1><div class="sub">原理 · 操作 · 数据 · 误差</div></div>
+            <div class="count-badge">04/60</div>
+          </div><div class="two-col">
+      <div class="plain">
+        <h3>核心框架</h3>
+        <ul><li>读数第一步永远先确认量程与分度值，再决定是否估读；游标卡尺通常按游标分度直接读，不再向下一位估读。</li><li>螺旋测微器读数 = 固定刻度 + 可动刻度×精度，需检查半毫米刻线是否露出。</li><li>模拟电表既要看量程又要看表盘总格数；仪器选择兼顾安全、精度与指针偏转范围。</li><li>实验数据处理应区分随机误差与系统误差；重复测量主要削弱随机误差，不能自动消除系统偏差。</li></ul>
+      </div>
+      <div class="plain">
+        <h3>解题主线</h3>
+        <div class="method">高频顺序：量程 → 分度 → 读数 → 单位 → 有效数字。涉及仪器选择时，再比较“最大可能值”和“尽量接近满偏但不超量程”。</div>
+        <div class="topic-id">MODULE 01 · MODEL / ERROR / GRAPH</div>
+      </div>
+    </div>
+        </div>
+      </div>
+    </section><section class="slide">
+      <div class="shell">
+        <aside class="rail">
+          <div><div class="tag">四题连练</div><div class="num">05</div><div class="rail-title">测量仪器与读数｜有效数字、量程、精度</div></div>
+          <div class="rail-foot">EXPERIMENT<br>CYBER LAB</div>
+        </aside>
+        <div class="screen">
+          <div class="top">
+            <div><div class="eyebrow">HIGH SCHOOL PHYSICS · EXPERIMENT</div><h1>测量仪器与读数｜有效数字、量程、精度</h1><div class="sub">四题连练 · 高考中档偏难</div></div>
+            <div class="count-badge">05/60</div>
+          </div><div class="question-grid four"><div class="qcard compact">
+              <div class="qtag">题 01 · 游标卡尺</div>
+              <div class="qtext">20 分度游标卡尺测某圆柱直径，主尺读到 12 mm，游标第 7 条刻线与主尺对齐。求读数。</div>
+              <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">20 分度游标卡尺精度为 0.05 mm。读数 = 12 mm + 7×0.05 mm = 12.35 mm。</div></div>
+            </div><div class="qcard compact">
+              <div class="qtag">题 02 · 螺旋测微器</div>
+              <div class="qtext">螺旋测微器固定刻度露出 5.5 mm，可动刻度第 23.0 格与基准线重合，精度 0.01 mm。求读数。</div>
+              <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">读数 = 5.5 mm + 23.0×0.01 mm = 5.730 mm。</div></div>
+            </div><div class="qcard compact">
+              <div class="qtag">题 03 · 量程选择</div>
+              <div class="qtext">预计某支路电流约 0.42 A，可选 0.6 A 与 3 A 两量程。若均安全，应选哪一量程？为什么？</div>
+              <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">优先选 0.6 A。它既不超量程，又能让指针偏转更大，相对读数误差通常更小。</div></div>
+            </div><div class="qcard compact">
+              <div class="qtag">题 04 · 误差判断</div>
+              <div class="qtext">同一物体用同一把存在 +0.20 mm 零点偏差的尺重复测量 20 次再取平均，能否消除该偏差？</div>
+              <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">不能。重复平均主要减小随机误差；固定零点偏差属于系统误差，平均后仍保留约 +0.20 mm 的系统偏差。</div></div>
+            </div></div>
+        </div>
+      </div>
+    </section><section class="slide">
+      <div class="shell">
+        <aside class="rail">
+          <div><div class="tag">核心</div><div class="num">06</div><div class="rail-title">运动学实验｜纸带、光电门与图像</div></div>
+          <div class="rail-foot">EXPERIMENT<br>CYBER LAB</div>
+        </aside>
+        <div class="screen">
+          <div class="top">
+            <div><div class="eyebrow">HIGH SCHOOL PHYSICS · EXPERIMENT</div><h1>运动学实验｜纸带、光电门与图像</h1><div class="sub">原理 · 操作 · 数据 · 误差</div></div>
+            <div class="count-badge">06/60</div>
+          </div><div class="two-col">
+      <div class="plain">
+        <h3>核心框架</h3>
+        <ul><li>纸带法中，中间时刻瞬时速度常用相邻两侧位移的平均速度估算。</li><li>连续相等时间内位移差恒定是匀变速运动的重要判据：Δx=aT²。</li><li>v-t 图像斜率给加速度；x-t 图像切线斜率给瞬时速度。</li><li>光电门用遮光条宽度 d 与遮光时间 Δt 得 v≈d/Δt；遮光条越窄，越接近某时刻瞬时速度。</li></ul>
+      </div>
+      <div class="plain">
+        <h3>解题主线</h3>
+        <div class="method">先确定打点周期与计数间隔，再统一 SI 单位。纸带题优先找“中间时刻速度”和“逐差法”；光电门题先看遮光条宽度是否可忽略。</div>
+        <div class="topic-id">MODULE 02 · MODEL / ERROR / GRAPH</div>
+      </div>
+    </div>
+        </div>
+      </div>
+    </section><section class="slide">
+      <div class="shell">
+        <aside class="rail">
+          <div><div class="tag">题组 A</div><div class="num">07</div><div class="rail-title">运动学实验｜纸带、光电门与图像</div></div>
+          <div class="rail-foot">EXPERIMENT<br>CYBER LAB</div>
+        </aside>
+        <div class="screen">
+          <div class="top">
+            <div><div class="eyebrow">HIGH SCHOOL PHYSICS · EXPERIMENT</div><h1>运动学实验｜纸带、光电门与图像</h1><div class="sub">双题训练 · 高考中档偏难</div></div>
+            <div class="count-badge">07/60</div>
+          </div><div class="question-grid"><div class="qcard">
+                  <div class="qtag">题 01 · 中间时刻速度</div>
+                  <div class="qtext">相邻计数点时间 T=0.10 s，A、B、C 三点位置分别为 2.10 cm、5.50 cm、10.10 cm。求 B 点瞬时速度。</div>
+                  <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">v_B≈(x_C-x_A)/(2T)=(10.10-2.10)cm/0.20s=0.40 m/s。</div></div>
+                </div><div class="qcard">
+                  <div class="qtag">题 02 · 逐差求加速度</div>
+                  <div class="qtext">连续四个相等时间 T=0.10 s 内位移为 2.4、3.2、4.0、4.8 cm。判断运动并求加速度。</div>
+                  <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">相邻位移差均为 0.8 cm，说明近似匀加速。a=Δx/T²=0.008/0.010=0.80 m/s²。</div></div>
+                </div></div>
+        </div>
+      </div>
+    </section><section class="slide">
+      <div class="shell">
+        <aside class="rail">
+          <div><div class="tag">题组 B</div><div class="num">08</div><div class="rail-title">运动学实验｜纸带、光电门与图像</div></div>
+          <div class="rail-foot">EXPERIMENT<br>CYBER LAB</div>
+        </aside>
+        <div class="screen">
+          <div class="top">
+            <div><div class="eyebrow">HIGH SCHOOL PHYSICS · EXPERIMENT</div><h1>运动学实验｜纸带、光电门与图像</h1><div class="sub">双题训练 · 高考中档偏难</div></div>
+            <div class="count-badge">08/60</div>
+          </div><div class="question-grid"><div class="qcard">
+                  <div class="qtag">题 03 · 频率反推</div>
+                  <div class="qtext">交流打点计时器频率 50 Hz，每隔 4 个实际点取一个计数点，即相邻计数点之间跨 5 个打点周期。求 T。</div>
+                  <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">打点周期 0.02 s，相邻计数点跨 5 个周期，所以 T=0.10 s。</div></div>
+                </div><div class="qcard">
+                  <div class="qtag">题 04 · 光电门偏差</div>
+                  <div class="qtext">做加速运动的小车用宽度 d 的遮光条测速度。若 d 较大，d/Δt 更接近遮光过程哪个时刻的速度？如何提高瞬时速度近似质量？</div>
+                  <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">d/Δt 是遮光过程的平均速度，对匀变速运动等于时间中点速度。减小遮光条宽度，可缩短测量时间区间，使其更接近局部瞬时速度。</div></div>
+                </div></div>
+        </div>
+      </div>
+    </section><section class="slide">
+      <div class="shell">
+        <aside class="rail">
+          <div><div class="tag">核心</div><div class="num">09</div><div class="rail-title">弹簧实验｜胡克定律与图像反推</div></div>
+          <div class="rail-foot">EXPERIMENT<br>CYBER LAB</div>
+        </aside>
+        <div class="screen">
+          <div class="top">
+            <div><div class="eyebrow">HIGH SCHOOL PHYSICS · EXPERIMENT</div><h1>弹簧实验｜胡克定律与图像反推</h1><div class="sub">原理 · 操作 · 数据 · 误差</div></div>
+            <div class="count-badge">09/60</div>
+          </div><div class="two-col">
+      <div class="plain">
+        <h3>核心框架</h3>
+        <ul><li>弹性限度内 F=kx；若作 F-x 图像，斜率就是劲度系数 k。</li><li>若作 F-L 图像，则 F=k(L-L₀)，斜率仍为 k，横轴截距可反推原长 L₀。</li><li>加载与卸载数据若明显不重合，说明可能存在滞后、塑性形变或读数方式问题。</li><li>图线截距与斜率应分开解释：截距异常不一定改变斜率。</li></ul>
+      </div>
+      <div class="plain">
+        <h3>解题主线</h3>
+        <div class="method">遇到图像先写成 y=kx+b 的形式，再把斜率和截距分别对应到物理量。比起单组数据，直线拟合更能抑制随机误差。</div>
+        <div class="topic-id">MODULE 03 · MODEL / ERROR / GRAPH</div>
+      </div>
+    </div>
+        </div>
+      </div>
+    </section><section class="slide">
+      <div class="shell">
+        <aside class="rail">
+          <div><div class="tag">题组 A</div><div class="num">10</div><div class="rail-title">弹簧实验｜胡克定律与图像反推</div></div>
+          <div class="rail-foot">EXPERIMENT<br>CYBER LAB</div>
+        </aside>
+        <div class="screen">
+          <div class="top">
+            <div><div class="eyebrow">HIGH SCHOOL PHYSICS · EXPERIMENT</div><h1>弹簧实验｜胡克定律与图像反推</h1><div class="sub">双题训练 · 高考中档偏难</div></div>
+            <div class="count-badge">10/60</div>
+          </div><div class="question-grid"><div class="qcard">
+                  <div class="qtag">题 01 · 斜率法</div>
+                  <div class="qtext">F-x 图像过原点，取两点 (2.0 cm,1.2 N)、(5.0 cm,3.0 N)。求 k。</div>
+                  <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">k=ΔF/Δx=(3.0-1.2)/(0.050-0.020)=60 N/m。</div></div>
+                </div><div class="qcard">
+                  <div class="qtag">题 02 · 原长反推</div>
+                  <div class="qtext">某实验直接作 F-L 图像，直线斜率 80 N/m，与 L 轴交于 12.0 cm。求弹簧原长。</div>
+                  <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">F=k(L-L₀)，当 F=0 时 L=L₀，因此原长 L₀=12.0 cm。</div></div>
+                </div></div>
+        </div>
+      </div>
+    </section><section class="slide">
+      <div class="shell">
+        <aside class="rail">
+          <div><div class="tag">题组 B</div><div class="num">11</div><div class="rail-title">弹簧实验｜胡克定律与图像反推</div></div>
+          <div class="rail-foot">EXPERIMENT<br>CYBER LAB</div>
+        </aside>
+        <div class="screen">
+          <div class="top">
+            <div><div class="eyebrow">HIGH SCHOOL PHYSICS · EXPERIMENT</div><h1>弹簧实验｜胡克定律与图像反推</h1><div class="sub">双题训练 · 高考中档偏难</div></div>
+            <div class="count-badge">11/60</div>
+          </div><div class="question-grid"><div class="qcard">
+                  <div class="qtag">题 03 · 截距辨析</div>
+                  <div class="qtext">F-x 图像斜率 75 N/m，但横轴正方向有 0.40 cm 截距。若只是原长测量偏差，k 是否一定受影响？</div>
+                  <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">不一定。若仅是 x 的零点整体平移，直线斜率仍可保持 75 N/m；异常主要体现在截距。</div></div>
+                </div><div class="qcard">
+                  <div class="qtag">题 04 · 滞后判断</div>
+                  <div class="qtext">同一弹簧加载曲线与卸载曲线围成明显狭窄回线，且重复多次仍存在。仅靠多次取平均能否消除？</div>
+                  <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">不能把它当普通随机波动完全消除。稳定回线提示系统性的滞后或非理想弹性，应讨论材料滞后、摩擦或超出理想弹性范围。</div></div>
+                </div></div>
+        </div>
+      </div>
+    </section><section class="slide">
+      <div class="shell">
+        <aside class="rail">
+          <div><div class="tag">核心</div><div class="num">12</div><div class="rail-title">力的合成｜平行四边形定则与等效思想</div></div>
+          <div class="rail-foot">EXPERIMENT<br>CYBER LAB</div>
+        </aside>
+        <div class="screen">
+          <div class="top">
+            <div><div class="eyebrow">HIGH SCHOOL PHYSICS · EXPERIMENT</div><h1>力的合成｜平行四边形定则与等效思想</h1><div class="sub">原理 · 操作 · 数据 · 误差</div></div>
+            <div class="count-badge">12/60</div>
+          </div><div class="two-col">
+      <div class="plain">
+        <h3>核心框架</h3>
+        <ul><li>两分力共同作用与单力作用必须让结点到达同一位置，才能保证作用效果相同。</li><li>分力方向由细绳方向确定，大小由测力计读数确定；作图时统一标度。</li><li>理论合力是按平行四边形作出的矢量结果，实验合力是单力拉至同一位置时的测量值。</li><li>角度误差、结点位置偏差、绳与滑轮摩擦、作图标度都会造成偏差。</li></ul>
+      </div>
+      <div class="plain">
+        <h3>解题主线</h3>
+        <div class="method">先锁定同一作用效果，再谈“等效”。计算题可用余弦定理；实验判断题则重点检查方向、标度与结点位置。</div>
+        <div class="topic-id">MODULE 04 · MODEL / ERROR / GRAPH</div>
+      </div>
+    </div>
+        </div>
+      </div>
+    </section><section class="slide">
+      <div class="shell">
+        <aside class="rail">
+          <div><div class="tag">题组 A</div><div class="num">13</div><div class="rail-title">力的合成｜平行四边形定则与等效思想</div></div>
+          <div class="rail-foot">EXPERIMENT<br>CYBER LAB</div>
+        </aside>
+        <div class="screen">
+          <div class="top">
+            <div><div class="eyebrow">HIGH SCHOOL PHYSICS · EXPERIMENT</div><h1>力的合成｜平行四边形定则与等效思想</h1><div class="sub">双题训练 · 高考中档偏难</div></div>
+            <div class="count-badge">13/60</div>
+          </div><div class="question-grid"><div class="qcard">
+                  <div class="qtag">题 01 · 控制条件</div>
+                  <div class="qtext">为什么两分力拉橡皮条和单力拉橡皮条时，都必须使结点到达同一位置 O？</div>
+                  <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">同一位置意味着橡皮条伸长和方向一致，即两种施力方式产生相同作用效果，才可以比较“单力”与“两分力合力”。</div></div>
+                </div><div class="qcard">
+                  <div class="qtag">题 02 · 结果计算</div>
+                  <div class="qtext">两个分力均为 5.0 N，夹角 120°。理论合力大小是多少？</div>
+                  <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">F=√(F₁²+F₂²+2F₁F₂cos120°)=√(25+25-25)=5.0 N。</div></div>
+                </div></div>
+        </div>
+      </div>
+    </section><section class="slide">
+      <div class="shell">
+        <aside class="rail">
+          <div><div class="tag">题组 B</div><div class="num">14</div><div class="rail-title">力的合成｜平行四边形定则与等效思想</div></div>
+          <div class="rail-foot">EXPERIMENT<br>CYBER LAB</div>
+        </aside>
+        <div class="screen">
+          <div class="top">
+            <div><div class="eyebrow">HIGH SCHOOL PHYSICS · EXPERIMENT</div><h1>力的合成｜平行四边形定则与等效思想</h1><div class="sub">双题训练 · 高考中档偏难</div></div>
+            <div class="count-badge">14/60</div>
+          </div><div class="question-grid"><div class="qcard">
+                  <div class="qtag">题 03 · 作图质量</div>
+                  <div class="qtext">同样一组数据，若作图时选择过小标度，使 5 N 只画 1 cm，和使 5 N 画 8 cm 相比，哪种通常更利于减小作图相对误差？</div>
+                  <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">后者。矢量画得更长时，相同绝对作图误差所占比例更小，但也要保证图能完整放下。</div></div>
+                </div><div class="qcard">
+                  <div class="qtag">题 04 · 偏差诊断</div>
+                  <div class="qtext">理论合力方向与单力方向几乎一致，但大小稳定偏小。优先怀疑“方向测量”还是“测力计示值/摩擦”类问题？</div>
+                  <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">方向几乎一致说明角度和方向记录较好；大小系统偏小更应优先检查测力计零点、绳轮摩擦、读数方式或结点是否完全重合。</div></div>
+                </div></div>
+        </div>
+      </div>
+    </section><section class="slide">
+      <div class="shell">
+        <aside class="rail">
+          <div><div class="tag">核心</div><div class="num">15</div><div class="rail-title">牛顿第二定律｜控制变量、平衡摩擦与系统误差</div></div>
+          <div class="rail-foot">EXPERIMENT<br>CYBER LAB</div>
+        </aside>
+        <div class="screen">
+          <div class="top">
+            <div><div class="eyebrow">HIGH SCHOOL PHYSICS · EXPERIMENT</div><h1>牛顿第二定律｜控制变量、平衡摩擦与系统误差</h1><div class="sub">原理 · 操作 · 数据 · 误差</div></div>
+            <div class="count-badge">15/60</div>
+          </div><div class="two-col">
+      <div class="plain">
+        <h3>核心框架</h3>
+        <ul><li>研究 a-F 时保持总质量不变；研究 a-M 时常转化为 a-1/M 线性关系。</li><li>传统砝码盘牵引法中，若把 mg 当牵引力，需满足悬挂质量远小于运动系统总质量。</li><li>平衡摩擦力时通常不挂砝码盘，通过倾斜轨道让重力分力补偿阻力。</li><li>图像的截距、弯曲方向常直接暴露摩擦补偿和“mg≈T”近似失效。</li></ul>
+      </div>
+      <div class="plain">
+        <h3>解题主线</h3>
+        <div class="method">先写真实动力学方程，再判断实验把哪个量近似成了哪个量。高质量误差题往往不是算数，而是比较“真实关系”和“处理关系”。</div>
+        <div class="topic-id">MODULE 05 · MODEL / ERROR / GRAPH</div>
+      </div>
+    </div>
+        </div>
+      </div>
+    </section><section class="slide">
+      <div class="shell">
+        <aside class="rail">
+          <div><div class="tag">题组 A</div><div class="num">16</div><div class="rail-title">牛顿第二定律｜控制变量、平衡摩擦与系统误差</div></div>
+          <div class="rail-foot">EXPERIMENT<br>CYBER LAB</div>
+        </aside>
+        <div class="screen">
+          <div class="top">
+            <div><div class="eyebrow">HIGH SCHOOL PHYSICS · EXPERIMENT</div><h1>牛顿第二定律｜控制变量、平衡摩擦与系统误差</h1><div class="sub">双题训练 · 高考中档偏难</div></div>
+            <div class="count-badge">16/60</div>
+          </div><div class="question-grid"><div class="qcard">
+                  <div class="qtag">题 01 · 近似条件</div>
+                  <div class="qtext">为什么传统装置要求悬挂质量 m 远小于小车及砝码总质量 M？</div>
+                  <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">真实张力 T=Mmg/(M+m) 小于 mg。m≪M 时 T≈mg，才能把悬挂物重力近似作为小车受的牵引力。</div></div>
+                </div><div class="qcard">
+                  <div class="qtag">题 02 · 图像弯曲</div>
+                  <div class="qtext">未满足 m≪M，却仍把 mg 当作横轴 F。a-F 图像后段通常向上还是向下偏离理想直线？</div>
+                  <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">向下弯。m 越大，mg 对真实张力的高估越严重，所以横坐标被越来越高估，相同横坐标下实际 a 偏小。</div></div>
+                </div></div>
+        </div>
+      </div>
+    </section><section class="slide">
+      <div class="shell">
+        <aside class="rail">
+          <div><div class="tag">题组 B</div><div class="num">17</div><div class="rail-title">牛顿第二定律｜控制变量、平衡摩擦与系统误差</div></div>
+          <div class="rail-foot">EXPERIMENT<br>CYBER LAB</div>
+        </aside>
+        <div class="screen">
+          <div class="top">
+            <div><div class="eyebrow">HIGH SCHOOL PHYSICS · EXPERIMENT</div><h1>牛顿第二定律｜控制变量、平衡摩擦与系统误差</h1><div class="sub">双题训练 · 高考中档偏难</div></div>
+            <div class="count-badge">17/60</div>
+          </div><div class="question-grid"><div class="qcard">
+                  <div class="qtag">题 03 · 摩擦过补偿</div>
+                  <div class="qtext">若轨道倾角调得过大，空车释放后会自行加速。之后作 a-F 图像，纵轴截距通常为正、零还是负？</div>
+                  <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">通常为正。即使外加牵引力按 0 处理，沿斜面方向仍有未被抵消的净驱动力，因此 a&gt;0。</div></div>
+                </div><div class="qcard">
+                  <div class="qtag">题 04 · 传感器升级</div>
+                  <div class="qtext">若用力传感器直接测小车所受水平拉力 F，并保持总质量 M 不变，作 a-F 图像理论斜率是多少？</div>
+                  <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">由 F=Ma，a=F/M，故 a-F 图像斜率为 1/M。</div></div>
+                </div></div>
+        </div>
+      </div>
+    </section><section class="slide">
+      <div class="shell">
+        <aside class="rail">
+          <div><div class="tag">核心</div><div class="num">18</div><div class="rail-title">平抛实验｜轨迹、分运动与参数反推</div></div>
+          <div class="rail-foot">EXPERIMENT<br>CYBER LAB</div>
+        </aside>
+        <div class="screen">
+          <div class="top">
+            <div><div class="eyebrow">HIGH SCHOOL PHYSICS · EXPERIMENT</div><h1>平抛实验｜轨迹、分运动与参数反推</h1><div class="sub">原理 · 操作 · 数据 · 误差</div></div>
+            <div class="count-badge">18/60</div>
+          </div><div class="two-col">
+      <div class="plain">
+        <h3>核心框架</h3>
+        <ul><li>平抛可分解为水平方向匀速与竖直方向自由落体。</li><li>取抛出点为原点时：x=v₀t，y=gt²/2，因此 y=(g/2v₀²)x²。</li><li>验证水平匀速可比较相等时间内水平位移；验证竖直自由落体可看竖直位移的二次规律。</li><li>若原点选错，直接检验 y/x² 是否恒定会失效，需要先修正坐标零点。</li></ul>
+      </div>
+      <div class="plain">
+        <h3>解题主线</h3>
+        <div class="method">轨迹点题优先检验 y 与 x² 的线性关系；若数据明显不线性，先排查原点、坐标轴、斜槽末端是否水平。</div>
+        <div class="topic-id">MODULE 06 · MODEL / ERROR / GRAPH</div>
+      </div>
+    </div>
+        </div>
+      </div>
+    </section><section class="slide">
+      <div class="shell">
+        <aside class="rail">
+          <div><div class="tag">题组 A</div><div class="num">19</div><div class="rail-title">平抛实验｜轨迹、分运动与参数反推</div></div>
+          <div class="rail-foot">EXPERIMENT<br>CYBER LAB</div>
+        </aside>
+        <div class="screen">
+          <div class="top">
+            <div><div class="eyebrow">HIGH SCHOOL PHYSICS · EXPERIMENT</div><h1>平抛实验｜轨迹、分运动与参数反推</h1><div class="sub">双题训练 · 高考中档偏难</div></div>
+            <div class="count-badge">19/60</div>
+          </div><div class="question-grid"><div class="qcard">
+                  <div class="qtag">题 01 · 模型检验</div>
+                  <div class="qtext">测得三点 (x,y)=(10,5.0)、(20,20.0)、(30,45.0) cm。判断是否符合以抛出点为原点的平抛模型。</div>
+                  <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">计算 y/x²，三组均为 5（采用 m 单位后系数一致），因此 y∝x²，符合平抛轨迹关系。</div></div>
+                </div><div class="qcard">
+                  <div class="qtag">题 02 · 初速度反推</div>
+                  <div class="qtext">上题取 g=10 m/s²，求 v₀。</div>
+                  <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">由 y=(g/2v₀²)x²，系数 g/(2v₀²)=5，得 v₀=1.0 m/s。</div></div>
+                </div></div>
+        </div>
+      </div>
+    </section><section class="slide">
+      <div class="shell">
+        <aside class="rail">
+          <div><div class="tag">题组 B</div><div class="num">20</div><div class="rail-title">平抛实验｜轨迹、分运动与参数反推</div></div>
+          <div class="rail-foot">EXPERIMENT<br>CYBER LAB</div>
+        </aside>
+        <div class="screen">
+          <div class="top">
+            <div><div class="eyebrow">HIGH SCHOOL PHYSICS · EXPERIMENT</div><h1>平抛实验｜轨迹、分运动与参数反推</h1><div class="sub">双题训练 · 高考中档偏难</div></div>
+            <div class="count-badge">20/60</div>
+          </div><div class="question-grid"><div class="qcard">
+                  <div class="qtag">题 03 · 相等时间判据</div>
+                  <div class="qtext">频闪图中相邻像之间时间相等，水平位移几乎相同，但竖直位移依次增大。分别说明两个方向的运动特点。</div>
+                  <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">水平等时位移相等，说明水平速度恒定；竖直等时位移递增，符合有恒定竖直加速度的运动。</div></div>
+                </div><div class="qcard">
+                  <div class="qtag">题 04 · 原点误差</div>
+                  <div class="qtext">若坐标原点实际比抛出点低 2 cm，却仍直接作 y-x² 图像，图像应过原点吗？如何修正？</div>
+                  <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">一般不过原点，会出现纵截距。应把纵坐标修正为相对真实抛出点的竖直位移，再检验线性。</div></div>
+                </div></div>
+        </div>
+      </div>
+    </section><section class="slide">
+      <div class="shell">
+        <aside class="rail">
+          <div><div class="tag">核心</div><div class="num">21</div><div class="rail-title">向心力实验｜平方律与传感器图像</div></div>
+          <div class="rail-foot">EXPERIMENT<br>CYBER LAB</div>
+        </aside>
+        <div class="screen">
+          <div class="top">
+            <div><div class="eyebrow">HIGH SCHOOL PHYSICS · EXPERIMENT</div><h1>向心力实验｜平方律与传感器图像</h1><div class="sub">原理 · 操作 · 数据 · 误差</div></div>
+            <div class="count-badge">21/60</div>
+          </div><div class="two-col">
+      <div class="plain">
+        <h3>核心框架</h3>
+        <ul><li>向心力 F=mω²r=mv²/r，控制变量必须明确。</li><li>保持 m、r 不变，F 与 ω² 成正比；保持 m、ω 不变，F 与 r 成正比。</li><li>若以周期 T 描述，则 F=4π²mr/T²。</li><li>高频数据题重在选线性坐标与解释斜率。</li></ul>
+      </div>
+      <div class="plain">
+        <h3>解题主线</h3>
+        <div class="method">看到平方关系就尝试变量替换：F-ω²、F-1/T²。图像线性化后，斜率能直接反推 m、r 或组合量。</div>
+        <div class="topic-id">MODULE 07 · MODEL / ERROR / GRAPH</div>
+      </div>
+    </div>
+        </div>
+      </div>
+    </section><section class="slide">
+      <div class="shell">
+        <aside class="rail">
+          <div><div class="tag">题组 A</div><div class="num">22</div><div class="rail-title">向心力实验｜平方律与传感器图像</div></div>
+          <div class="rail-foot">EXPERIMENT<br>CYBER LAB</div>
+        </aside>
+        <div class="screen">
+          <div class="top">
+            <div><div class="eyebrow">HIGH SCHOOL PHYSICS · EXPERIMENT</div><h1>向心力实验｜平方律与传感器图像</h1><div class="sub">双题训练 · 高考中档偏难</div></div>
+            <div class="count-badge">22/60</div>
+          </div><div class="question-grid"><div class="qcard">
+                  <div class="qtag">题 01 · 平方律</div>
+                  <div class="qtext">m、r 不变，角速度变为原来 1.5 倍，向心力变为多少倍？</div>
+                  <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">F∝ω²，所以变为 1.5²=2.25 倍。</div></div>
+                </div><div class="qcard">
+                  <div class="qtag">题 02 · 线性化</div>
+                  <div class="qtext">保持 m、r 不变，直接作 F-ω 图为曲线。改作什么图能得到直线？斜率表示什么？</div>
+                  <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">作 F-ω² 图。由 F=(mr)ω²，斜率为 mr。</div></div>
+                </div></div>
+        </div>
+      </div>
+    </section><section class="slide">
+      <div class="shell">
+        <aside class="rail">
+          <div><div class="tag">题组 B</div><div class="num">23</div><div class="rail-title">向心力实验｜平方律与传感器图像</div></div>
+          <div class="rail-foot">EXPERIMENT<br>CYBER LAB</div>
+        </aside>
+        <div class="screen">
+          <div class="top">
+            <div><div class="eyebrow">HIGH SCHOOL PHYSICS · EXPERIMENT</div><h1>向心力实验｜平方律与传感器图像</h1><div class="sub">双题训练 · 高考中档偏难</div></div>
+            <div class="count-badge">23/60</div>
+          </div><div class="question-grid"><div class="qcard">
+                  <div class="qtag">题 03 · 周期模型</div>
+                  <div class="qtext">m=0.20 kg、r=0.50 m，周期 T=1.0 s。求理论向心力。</div>
+                  <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">F=4π²mr/T²=4π²×0.20×0.50≈3.95 N。</div></div>
+                </div><div class="qcard">
+                  <div class="qtag">题 04 · 零点误差</div>
+                  <div class="qtext">力传感器存在 +0.15 N 零点偏差。作 F-ω² 图时主要影响斜率还是纵截距？</div>
+                  <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">若偏差近似恒定，主要把图像整体上移，使纵截距约增加 0.15 N；理想斜率基本不变。</div></div>
+                </div></div>
+        </div>
+      </div>
+    </section><section class="slide">
+      <div class="shell">
+        <aside class="rail">
+          <div><div class="tag">核心</div><div class="num">24</div><div class="rail-title">机械能守恒｜纸带法、光电门法与能量损耗</div></div>
+          <div class="rail-foot">EXPERIMENT<br>CYBER LAB</div>
+        </aside>
+        <div class="screen">
+          <div class="top">
+            <div><div class="eyebrow">HIGH SCHOOL PHYSICS · EXPERIMENT</div><h1>机械能守恒｜纸带法、光电门法与能量损耗</h1><div class="sub">原理 · 操作 · 数据 · 误差</div></div>
+            <div class="count-badge">24/60</div>
+          </div><div class="two-col">
+      <div class="plain">
+        <h3>核心框架</h3>
+        <ul><li>自由落体法比较 mgh 与 mv²/2，质量在两边可约去。</li><li>光电门法常用 v=d/Δt 测速度，配合高度差 h 验证 v²≈2gh。</li><li>若作 v²-h 图，理想斜率为 2g。</li><li>空气阻力、纸带摩擦、滑轮转动等会把部分机械能转化为其他形式。</li></ul>
+      </div>
+      <div class="plain">
+        <h3>解题主线</h3>
+        <div class="method">先选系统，再列能量账本。若装置包含滑轮、转动物体或弹簧，必须判断这些部分是否也储存能量，不能只盯一个物体。</div>
+        <div class="topic-id">MODULE 08 · MODEL / ERROR / GRAPH</div>
+      </div>
+    </div>
+        </div>
+      </div>
+    </section><section class="slide">
+      <div class="shell">
+        <aside class="rail">
+          <div><div class="tag">题组 A</div><div class="num">25</div><div class="rail-title">机械能守恒｜纸带法、光电门法与能量损耗</div></div>
+          <div class="rail-foot">EXPERIMENT<br>CYBER LAB</div>
+        </aside>
+        <div class="screen">
+          <div class="top">
+            <div><div class="eyebrow">HIGH SCHOOL PHYSICS · EXPERIMENT</div><h1>机械能守恒｜纸带法、光电门法与能量损耗</h1><div class="sub">双题训练 · 高考中档偏难</div></div>
+            <div class="count-badge">25/60</div>
+          </div><div class="question-grid"><div class="qcard">
+                  <div class="qtag">题 01 · 质量是否必测</div>
+                  <div class="qtext">自由落体纸带法比较 mgh 与 mv²/2 时，为什么通常不必单独测重物质量？</div>
+                  <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">等式两边都有相同因子 m，可约去。实验核心比较 gh 与 v²/2。</div></div>
+                </div><div class="qcard">
+                  <div class="qtag">题 02 · 图像斜率</div>
+                  <div class="qtext">摆球由不同高度静止释放，在最低点测 v，作 v²-h 图。若机械能守恒，斜率是多少？</div>
+                  <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">mgh=mv²/2，故 v²=2gh，斜率为 2g。</div></div>
+                </div></div>
+        </div>
+      </div>
+    </section><section class="slide">
+      <div class="shell">
+        <aside class="rail">
+          <div><div class="tag">题组 B</div><div class="num">26</div><div class="rail-title">机械能守恒｜纸带法、光电门法与能量损耗</div></div>
+          <div class="rail-foot">EXPERIMENT<br>CYBER LAB</div>
+        </aside>
+        <div class="screen">
+          <div class="top">
+            <div><div class="eyebrow">HIGH SCHOOL PHYSICS · EXPERIMENT</div><h1>机械能守恒｜纸带法、光电门法与能量损耗</h1><div class="sub">双题训练 · 高考中档偏难</div></div>
+            <div class="count-badge">26/60</div>
+          </div><div class="question-grid"><div class="qcard">
+                  <div class="qtag">题 03 · 损耗方向</div>
+                  <div class="qtext">多组数据均显示 gh 比 v²/2 大，且差值随 h 增大。更像随机误差还是系统损耗？</div>
+                  <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">更像系统性机械能损耗。阻力与摩擦持续做负功，路程越长累计损耗通常越大。</div></div>
+                </div><div class="qcard">
+                  <div class="qtag">题 04 · 系统选择</div>
+                  <div class="qtext">小车通过细线带动有明显转动惯量的滑轮下落。若只比较小车/砝码重力势能减少与平动动能增加，会发现哪一边偏大？</div>
+                  <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">势能减少量会偏大，因为还有一部分能量进入滑轮转动动能（以及可能的摩擦耗散）。</div></div>
+                </div></div>
+        </div>
+      </div>
+    </section><section class="slide">
+      <div class="shell">
+        <aside class="rail">
+          <div><div class="tag">核心</div><div class="num">27</div><div class="rail-title">动量守恒实验｜平抛落点与碰撞条件</div></div>
+          <div class="rail-foot">EXPERIMENT<br>CYBER LAB</div>
+        </aside>
+        <div class="screen">
+          <div class="top">
+            <div><div class="eyebrow">HIGH SCHOOL PHYSICS · EXPERIMENT</div><h1>动量守恒实验｜平抛落点与碰撞条件</h1><div class="sub">原理 · 操作 · 数据 · 误差</div></div>
+            <div class="count-badge">27/60</div>
+          </div><div class="two-col">
+      <div class="plain">
+        <h3>核心框架</h3>
+        <ul><li>碰撞后两球从近似同一高度做平抛，飞行时间相同，则水平位移与水平速度成正比。</li><li>常把 m₁v₀=m₁v₁+m₂v₂ 转化为 m₁x₀≈m₁x₁+m₂x₂。</li><li>碰撞应近似一维，斜槽末端水平，每次从同一点无初速释放。</li><li>球半径、碰撞点高度和落点中心定位都会影响“相同飞行时间”的近似。</li></ul>
+      </div>
+      <div class="plain">
+        <h3>解题主线</h3>
+        <div class="method">先判断能否用“位移代速度”。只有两个飞行时间相同或已知比例时，才能直接把 x 当速度比例量。</div>
+        <div class="topic-id">MODULE 09 · MODEL / ERROR / GRAPH</div>
+      </div>
+    </div>
+        </div>
+      </div>
+    </section><section class="slide">
+      <div class="shell">
+        <aside class="rail">
+          <div><div class="tag">题组 A</div><div class="num">28</div><div class="rail-title">动量守恒实验｜平抛落点与碰撞条件</div></div>
+          <div class="rail-foot">EXPERIMENT<br>CYBER LAB</div>
+        </aside>
+        <div class="screen">
+          <div class="top">
+            <div><div class="eyebrow">HIGH SCHOOL PHYSICS · EXPERIMENT</div><h1>动量守恒实验｜平抛落点与碰撞条件</h1><div class="sub">双题训练 · 高考中档偏难</div></div>
+            <div class="count-badge">28/60</div>
+          </div><div class="question-grid"><div class="qcard">
+                  <div class="qtag">题 01 · 位移验证</div>
+                  <div class="qtext">m₁=2m、m₂=m，x₀=30 cm，碰后 x₁=18 cm、x₂=24 cm。检验水平动量。</div>
+                  <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">左边 2m×30=60m；右边 2m×18+m×24=60m，满足位移形式的动量守恒。</div></div>
+                </div><div class="qcard">
+                  <div class="qtag">题 02 · 质量条件</div>
+                  <div class="qtext">为什么常选入射球质量大于靶球质量？</div>
+                  <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">可降低入射球碰后反弹或几乎停下的概率，使两球都向前飞出、落点更易区分，实验几何关系更稳定。</div></div>
+                </div></div>
+        </div>
+      </div>
+    </section><section class="slide">
+      <div class="shell">
+        <aside class="rail">
+          <div><div class="tag">题组 B</div><div class="num">29</div><div class="rail-title">动量守恒实验｜平抛落点与碰撞条件</div></div>
+          <div class="rail-foot">EXPERIMENT<br>CYBER LAB</div>
+        </aside>
+        <div class="screen">
+          <div class="top">
+            <div><div class="eyebrow">HIGH SCHOOL PHYSICS · EXPERIMENT</div><h1>动量守恒实验｜平抛落点与碰撞条件</h1><div class="sub">双题训练 · 高考中档偏难</div></div>
+            <div class="count-badge">29/60</div>
+          </div><div class="question-grid"><div class="qcard">
+                  <div class="qtag">题 03 · 高度陷阱</div>
+                  <div class="qtext">若两球半径差别较大，碰后从槽口离开时球心高度不同，还能直接用 x 比例代替 v 比例吗？</div>
+                  <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">不能无条件直接用。平抛时间 t=√(2h/g) 可能不同，应先修正不同球心高度对应的飞行时间。</div></div>
+                </div><div class="qcard">
+                  <div class="qtag">题 04 · 弹性检验</div>
+                  <div class="qtext">在已验证动量守恒后，又想判断碰撞是否近似弹性，还需比较什么量？</div>
+                  <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">还需比较碰撞前后总动能：½m₁v₀² 与 ½m₁v₁²+½m₂v₂²。动量守恒本身不能说明动能守恒。</div></div>
+                </div></div>
+        </div>
+      </div>
+    </section><section class="slide">
+      <div class="shell">
+        <aside class="rail">
+          <div><div class="tag">核心</div><div class="num">30</div><div class="rail-title">单摆测 g｜周期、摆长与图像法</div></div>
+          <div class="rail-foot">EXPERIMENT<br>CYBER LAB</div>
+        </aside>
+        <div class="screen">
+          <div class="top">
+            <div><div class="eyebrow">HIGH SCHOOL PHYSICS · EXPERIMENT</div><h1>单摆测 g｜周期、摆长与图像法</h1><div class="sub">原理 · 操作 · 数据 · 误差</div></div>
+            <div class="count-badge">30/60</div>
+          </div><div class="two-col">
+      <div class="plain">
+        <h3>核心框架</h3>
+        <ul><li>小振幅条件下 T=2π√(L/g)，摆长从悬点量到摆球球心。</li><li>应计时多次全振动再除以次数，降低反应时间造成的相对误差。</li><li>作 T²-L 图，斜率 k=4π²/g，可由斜率求 g。</li><li>若只量线长而漏掉球半径，计算出的 g 会系统偏小。</li></ul>
+      </div>
+      <div class="plain">
+        <h3>解题主线</h3>
+        <div class="method">周期计数特别注意“经过同一位置同一方向”才算一个完整周期；图像法还能同时识别摆长零点偏差。</div>
+        <div class="topic-id">MODULE 10 · MODEL / ERROR / GRAPH</div>
+      </div>
+    </div>
+        </div>
+      </div>
+    </section><section class="slide">
+      <div class="shell">
+        <aside class="rail">
+          <div><div class="tag">题组 A</div><div class="num">31</div><div class="rail-title">单摆测 g｜周期、摆长与图像法</div></div>
+          <div class="rail-foot">EXPERIMENT<br>CYBER LAB</div>
+        </aside>
+        <div class="screen">
+          <div class="top">
+            <div><div class="eyebrow">HIGH SCHOOL PHYSICS · EXPERIMENT</div><h1>单摆测 g｜周期、摆长与图像法</h1><div class="sub">双题训练 · 高考中档偏难</div></div>
+            <div class="count-badge">31/60</div>
+          </div><div class="question-grid"><div class="qcard">
+                  <div class="qtag">题 01 · 基本计算</div>
+                  <div class="qtext">L=1.00 m，50 次全振动用时 100.5 s。求 T 与 g。</div>
+                  <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">T=2.01 s；g=4π²L/T²≈9.77 m/s²。</div></div>
+                </div><div class="qcard">
+                  <div class="qtag">题 02 · 漏半径</div>
+                  <div class="qtext">把摆线长度误当摆长，漏掉摆球半径 r，其他测量正确。计算的 g 偏大还是偏小？</div>
+                  <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">偏小。实际摆长更大，而公式中代入的 L 偏小，周期却由真实摆长决定。</div></div>
+                </div></div>
+        </div>
+      </div>
+    </section><section class="slide">
+      <div class="shell">
+        <aside class="rail">
+          <div><div class="tag">题组 B</div><div class="num">32</div><div class="rail-title">单摆测 g｜周期、摆长与图像法</div></div>
+          <div class="rail-foot">EXPERIMENT<br>CYBER LAB</div>
+        </aside>
+        <div class="screen">
+          <div class="top">
+            <div><div class="eyebrow">HIGH SCHOOL PHYSICS · EXPERIMENT</div><h1>单摆测 g｜周期、摆长与图像法</h1><div class="sub">双题训练 · 高考中档偏难</div></div>
+            <div class="count-badge">32/60</div>
+          </div><div class="question-grid"><div class="qcard">
+                  <div class="qtag">题 03 · 图像反推</div>
+                  <div class="qtext">T²-L 图斜率测得 4.05 s²/m。求 g。</div>
+                  <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">k=4π²/g，所以 g=4π²/k≈39.48/4.05≈9.75 m/s²。</div></div>
+                </div><div class="qcard">
+                  <div class="qtag">题 04 · 计数陷阱</div>
+                  <div class="qtext">从第一次经过最低点向右开始计时，到第 51 次“经过最低点向右”停止。中间经历多少个完整周期？</div>
+                  <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">相同位置相同方向的相邻两次间隔为一个周期。第 1 次到第 51 次共有 50 个周期。</div></div>
+                </div></div>
+        </div>
+      </div>
+    </section><section class="slide">
+      <div class="shell">
+        <aside class="rail">
+          <div><div class="tag">核心</div><div class="num">33</div><div class="rail-title">电学仪器读数｜电表、游标与实物规范</div></div>
+          <div class="rail-foot">EXPERIMENT<br>CYBER LAB</div>
+        </aside>
+        <div class="screen">
+          <div class="top">
+            <div><div class="eyebrow">HIGH SCHOOL PHYSICS · EXPERIMENT</div><h1>电学仪器读数｜电表、游标与实物规范</h1><div class="sub">原理 · 操作 · 数据 · 误差</div></div>
+            <div class="count-badge">33/60</div>
+          </div><div class="two-col">
+      <div class="plain">
+        <h3>核心框架</h3>
+        <ul><li>电流表、电压表先确定量程，再按总格数换算分度值。</li><li>电学实验选择量程时要“安全且尽可能大偏转”，不能为了精度冒险超量程。</li><li>实物连线应先断开开关，滑动变阻器置于安全位置，再按电流路径连接。</li><li>测长度、直径等几何量会进入电阻率等结果，误差可能被平方放大。</li></ul>
+      </div>
+      <div class="plain">
+        <h3>解题主线</h3>
+        <div class="method">仪器读数和电路操作常放在同一道大题的前两空。按固定动作做：量程—分度—读数；断开—安全位—连线—复查。</div>
+        <div class="topic-id">MODULE 11 · MODEL / ERROR / GRAPH</div>
+      </div>
+    </div>
+        </div>
+      </div>
+    </section><section class="slide">
+      <div class="shell">
+        <aside class="rail">
+          <div><div class="tag">题组 A</div><div class="num">34</div><div class="rail-title">电学仪器读数｜电表、游标与实物规范</div></div>
+          <div class="rail-foot">EXPERIMENT<br>CYBER LAB</div>
+        </aside>
+        <div class="screen">
+          <div class="top">
+            <div><div class="eyebrow">HIGH SCHOOL PHYSICS · EXPERIMENT</div><h1>电学仪器读数｜电表、游标与实物规范</h1><div class="sub">双题训练 · 高考中档偏难</div></div>
+            <div class="count-badge">34/60</div>
+          </div><div class="question-grid"><div class="qcard">
+                  <div class="qtag">题 01 · 电表换算</div>
+                  <div class="qtext">某电压表 0～3 V 量程共 30 小格，指针指第 18 小格。读数是多少？</div>
+                  <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">每小格 0.1 V，读数 1.8 V。</div></div>
+                </div><div class="qcard">
+                  <div class="qtag">题 02 · 量程决策</div>
+                  <div class="qtext">预计电压最高约 2.4 V，可选 0～3 V 与 0～15 V。若表精度等级相同，应优先哪个？</div>
+                  <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">优先 0～3 V，既安全又使偏转更大，通常相对读数误差更小。</div></div>
+                </div></div>
+        </div>
+      </div>
+    </section><section class="slide">
+      <div class="shell">
+        <aside class="rail">
+          <div><div class="tag">题组 B</div><div class="num">35</div><div class="rail-title">电学仪器读数｜电表、游标与实物规范</div></div>
+          <div class="rail-foot">EXPERIMENT<br>CYBER LAB</div>
+        </aside>
+        <div class="screen">
+          <div class="top">
+            <div><div class="eyebrow">HIGH SCHOOL PHYSICS · EXPERIMENT</div><h1>电学仪器读数｜电表、游标与实物规范</h1><div class="sub">双题训练 · 高考中档偏难</div></div>
+            <div class="count-badge">35/60</div>
+          </div><div class="question-grid"><div class="qcard">
+                  <div class="qtag">题 03 · 安全位置</div>
+                  <div class="qtext">分压式接法初次闭合开关前，应把滑片调到怎样的位置更稳妥？</div>
+                  <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">应先使被测支路两端电压尽可能小（通常接近 0），再逐步调节，避免一开始就给被测元件过大电压。</div></div>
+                </div><div class="qcard">
+                  <div class="qtag">题 04 · 误差放大</div>
+                  <div class="qtext">电阻率 ρ=Rπd²/(4L)。若直径 d 测量值系统偏大 1%，其他量准确，ρ 约偏大多少？</div>
+                  <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">ρ∝d²，小误差近似按 2 倍传递，因此约偏大 2%。</div></div>
+                </div></div>
+        </div>
+      </div>
+    </section><section class="slide">
+      <div class="shell">
+        <aside class="rail">
+          <div><div class="tag">核心</div><div class="num">36</div><div class="rail-title">电路设计｜内外接、限流分压、量程与连线</div></div>
+          <div class="rail-foot">EXPERIMENT<br>CYBER LAB</div>
+        </aside>
+        <div class="screen">
+          <div class="top">
+            <div><div class="eyebrow">HIGH SCHOOL PHYSICS · EXPERIMENT</div><h1>电路设计｜内外接、限流分压、量程与连线</h1><div class="sub">原理 · 操作 · 数据 · 误差</div></div>
+            <div class="count-badge">36/60</div>
+          </div><div class="two-col">
+      <div class="plain">
+        <h3>核心框架</h3>
+        <ul><li>伏安法内接：测得 R≈Rₓ+R_A，适合较大电阻；外接：电流表含电压表支路电流，适合较小电阻。</li><li>定量比较可用临界电阻 R₀≈√(R_A R_V)：Rₓ≫R₀ 倾向内接，Rₓ≪R₀ 倾向外接。</li><li>分压式可从接近 0 连续调节，适合要求宽范围、从 0 起调或被测电阻相对滑变较大。</li><li>限流式电路简单、功耗通常较小，但可调范围受限。</li></ul>
+      </div>
+      <div class="plain">
+        <h3>解题主线</h3>
+        <div class="method">高频组合题依次做：估 Rₓ → 选内外接 → 选限流/分压 → 选量程 → 画电路 → 连实物。顺序错了容易前后矛盾。</div>
+        <div class="topic-id">MODULE 12 · MODEL / ERROR / GRAPH</div>
+      </div>
+    </div>
+        </div>
+      </div>
+    </section><section class="slide">
+      <div class="shell">
+        <aside class="rail">
+          <div><div class="tag">题组 A</div><div class="num">37</div><div class="rail-title">电路设计｜内外接、限流分压、量程与连线</div></div>
+          <div class="rail-foot">EXPERIMENT<br>CYBER LAB</div>
+        </aside>
+        <div class="screen">
+          <div class="top">
+            <div><div class="eyebrow">HIGH SCHOOL PHYSICS · EXPERIMENT</div><h1>电路设计｜内外接、限流分压、量程与连线</h1><div class="sub">双题训练 · 高考中档偏难</div></div>
+            <div class="count-badge">37/60</div>
+          </div><div class="question-grid"><div class="qcard">
+                  <div class="qtag">题 01 · 临界电阻</div>
+                  <div class="qtext">R_A=2 Ω，R_V=800 Ω，待测 Rₓ≈100 Ω。更倾向内接还是外接？</div>
+                  <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">临界 R₀≈√(2×800)=40 Ω。Rₓ=100 Ω 明显大于 40 Ω，更倾向内接，电流表内阻造成的相对误差更小。</div></div>
+                </div><div class="qcard">
+                  <div class="qtag">题 02 · 分压必要性</div>
+                  <div class="qtext">测小灯泡伏安特性，要求电压从 0 附近连续调到额定值，为什么常用分压式？</div>
+                  <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">分压式可把被测支路电压从接近 0 连续调起，覆盖范围宽，适合描完整伏安特性曲线。</div></div>
+                </div></div>
+        </div>
+      </div>
+    </section><section class="slide">
+      <div class="shell">
+        <aside class="rail">
+          <div><div class="tag">题组 B</div><div class="num">38</div><div class="rail-title">电路设计｜内外接、限流分压、量程与连线</div></div>
+          <div class="rail-foot">EXPERIMENT<br>CYBER LAB</div>
+        </aside>
+        <div class="screen">
+          <div class="top">
+            <div><div class="eyebrow">HIGH SCHOOL PHYSICS · EXPERIMENT</div><h1>电路设计｜内外接、限流分压、量程与连线</h1><div class="sub">双题训练 · 高考中档偏难</div></div>
+            <div class="count-badge">38/60</div>
+          </div><div class="question-grid"><div class="qcard">
+                  <div class="qtag">题 03 · 量程配套</div>
+                  <div class="qtext">待测电阻约 5 Ω，电源 3 V，预计最大电流约 0.5 A。电流表 0.6 A/3 A 两量程应优先哪一个？</div>
+                  <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">0.6 A 更合适。最大电流不超量程且指针偏转更大，读数精度更好。</div></div>
+                </div><div class="qcard">
+                  <div class="qtag">题 04 · 实物故障</div>
+                  <div class="qtext">闭合开关后发现无论怎样移动滑片，被测支路电压都几乎不变。优先检查滑动变阻器哪类接线错误？</div>
+                  <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">优先检查是否错误地接在同一上端/同一固定端，或没有使用“一上一下”形成有效可变电阻/分压结构。</div></div>
+                </div></div>
+        </div>
+      </div>
+    </section><section class="slide">
+      <div class="shell">
+        <aside class="rail">
+          <div><div class="tag">核心</div><div class="num">39</div><div class="rail-title">电表改装与校准｜串并电阻模型</div></div>
+          <div class="rail-foot">EXPERIMENT<br>CYBER LAB</div>
+        </aside>
+        <div class="screen">
+          <div class="top">
+            <div><div class="eyebrow">HIGH SCHOOL PHYSICS · EXPERIMENT</div><h1>电表改装与校准｜串并电阻模型</h1><div class="sub">原理 · 操作 · 数据 · 误差</div></div>
+            <div class="count-badge">39/60</div>
+          </div><div class="two-col">
+      <div class="plain">
+        <h3>核心框架</h3>
+        <ul><li>表头满偏电流 I_g、内阻 R_g。改装电压表需串联电阻 R_s=U/I_g-R_g。</li><li>改装电流表需并联分流电阻 R_p=I_gR_g/(I-I_g)。</li><li>校准既检查零点，也检查满偏与中间刻度；分流/串联电阻误差会改变量程。</li><li>改装后的表仍需考虑内阻对被测电路的影响。</li></ul>
+      </div>
+      <div class="plain">
+        <h3>解题主线</h3>
+        <div class="method">先让表头达到满偏，再写支路电流/电压关系。串联扩压抓“同电流”，并联扩流抓“同电压”。</div>
+        <div class="topic-id">MODULE 13 · MODEL / ERROR / GRAPH</div>
+      </div>
+    </div>
+        </div>
+      </div>
+    </section><section class="slide">
+      <div class="shell">
+        <aside class="rail">
+          <div><div class="tag">题组 A</div><div class="num">40</div><div class="rail-title">电表改装与校准｜串并电阻模型</div></div>
+          <div class="rail-foot">EXPERIMENT<br>CYBER LAB</div>
+        </aside>
+        <div class="screen">
+          <div class="top">
+            <div><div class="eyebrow">HIGH SCHOOL PHYSICS · EXPERIMENT</div><h1>电表改装与校准｜串并电阻模型</h1><div class="sub">双题训练 · 高考中档偏难</div></div>
+            <div class="count-badge">40/60</div>
+          </div><div class="question-grid"><div class="qcard">
+                  <div class="qtag">题 01 · 改电压表</div>
+                  <div class="qtext">表头 I_g=1.0 mA、R_g=100 Ω，改装成 3.0 V 电压表，串联电阻多大？</div>
+                  <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">总电阻应为 U/I_g=3000 Ω，因此 R_s=3000-100=2900 Ω。</div></div>
+                </div><div class="qcard">
+                  <div class="qtag">题 02 · 改电流表</div>
+                  <div class="qtext">同一表头改装成 0.60 A 电流表，求分流电阻。</div>
+                  <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">R_p=I_gR_g/(I-I_g)=0.001×100/(0.60-0.001)≈0.167 Ω。</div></div>
+                </div></div>
+        </div>
+      </div>
+    </section><section class="slide">
+      <div class="shell">
+        <aside class="rail">
+          <div><div class="tag">题组 B</div><div class="num">41</div><div class="rail-title">电表改装与校准｜串并电阻模型</div></div>
+          <div class="rail-foot">EXPERIMENT<br>CYBER LAB</div>
+        </aside>
+        <div class="screen">
+          <div class="top">
+            <div><div class="eyebrow">HIGH SCHOOL PHYSICS · EXPERIMENT</div><h1>电表改装与校准｜串并电阻模型</h1><div class="sub">双题训练 · 高考中档偏难</div></div>
+            <div class="count-badge">41/60</div>
+          </div><div class="question-grid"><div class="qcard">
+                  <div class="qtag">题 03 · 分流偏大</div>
+                  <div class="qtext">改装电流表的分流电阻实际比设计值偏大。其实际满偏量程相对标称值偏大还是偏小？</div>
+                  <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">偏小。R_p 增大使旁路分流减少，在表头达到 I_g 满偏时，总电流 I=I_g+I_p 变小。</div></div>
+                </div><div class="qcard">
+                  <div class="qtag">题 04 · 校准判断</div>
+                  <div class="qtext">改装电压表零点正确，但在标准 3.00 V 下只指到 2.85 V。若表头正常，说明串联电阻实际偏大还是偏小？</div>
+                  <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">偏大。总电阻过大，使同样外加电压下表头电流偏小，因此示值偏低。</div></div>
+                </div></div>
+        </div>
+      </div>
+    </section><section class="slide">
+      <div class="shell">
+        <aside class="rail">
+          <div><div class="tag">核心</div><div class="num">42</div><div class="rail-title">多用电表｜欧姆表原理、步骤与故障判断</div></div>
+          <div class="rail-foot">EXPERIMENT<br>CYBER LAB</div>
+        </aside>
+        <div class="screen">
+          <div class="top">
+            <div><div class="eyebrow">HIGH SCHOOL PHYSICS · EXPERIMENT</div><h1>多用电表｜欧姆表原理、步骤与故障判断</h1><div class="sub">原理 · 操作 · 数据 · 误差</div></div>
+            <div class="count-badge">42/60</div>
+          </div><div class="two-col">
+      <div class="plain">
+        <h3>核心框架</h3>
+        <ul><li>欧姆挡本质是内部电源、表头和可调电阻串联，被测电阻越大，电流越小。</li><li>短接表笔调零时 I 达满偏，对应 0 Ω；断路时 I≈0，对应 ∞。</li><li>更换倍率后必须重新短接调零。</li><li>测电阻时应断开待测元件与原电路电源，避免外加电压影响甚至损坏仪表。</li></ul>
+      </div>
+      <div class="plain">
+        <h3>解题主线</h3>
+        <div class="method">欧姆表刻度“左大右小、非线性”。读数 = 表盘值 × 倍率。倍率换挡不仅改单位，还改变内部等效电阻与合适测量区间。</div>
+        <div class="topic-id">MODULE 14 · MODEL / ERROR / GRAPH</div>
+      </div>
+    </div>
+        </div>
+      </div>
+    </section><section class="slide">
+      <div class="shell">
+        <aside class="rail">
+          <div><div class="tag">题组 A</div><div class="num">43</div><div class="rail-title">多用电表｜欧姆表原理、步骤与故障判断</div></div>
+          <div class="rail-foot">EXPERIMENT<br>CYBER LAB</div>
+        </aside>
+        <div class="screen">
+          <div class="top">
+            <div><div class="eyebrow">HIGH SCHOOL PHYSICS · EXPERIMENT</div><h1>多用电表｜欧姆表原理、步骤与故障判断</h1><div class="sub">双题训练 · 高考中档偏难</div></div>
+            <div class="count-badge">43/60</div>
+          </div><div class="question-grid"><div class="qcard">
+                  <div class="qtag">题 01 · 中值原理</div>
+                  <div class="qtext">某欧姆表调零后满偏电流为 I_g，内部等效电阻为 R_内。指针恰半偏时，被测电阻 Rₓ 多大？</div>
+                  <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">I=E/(R_内+Rₓ)，满偏 I_g=E/R_内。半偏 I=I_g/2，解得 Rₓ=R_内。</div></div>
+                </div><div class="qcard">
+                  <div class="qtag">题 02 · 倍率读数</div>
+                  <div class="qtext">使用 ×100 挡，指针在标尺 18 Ω 位置，读数是多少？</div>
+                  <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">18×100=1800 Ω=1.8 kΩ。</div></div>
+                </div></div>
+        </div>
+      </div>
+    </section><section class="slide">
+      <div class="shell">
+        <aside class="rail">
+          <div><div class="tag">题组 B</div><div class="num">44</div><div class="rail-title">多用电表｜欧姆表原理、步骤与故障判断</div></div>
+          <div class="rail-foot">EXPERIMENT<br>CYBER LAB</div>
+        </aside>
+        <div class="screen">
+          <div class="top">
+            <div><div class="eyebrow">HIGH SCHOOL PHYSICS · EXPERIMENT</div><h1>多用电表｜欧姆表原理、步骤与故障判断</h1><div class="sub">双题训练 · 高考中档偏难</div></div>
+            <div class="count-badge">44/60</div>
+          </div><div class="question-grid"><div class="qcard">
+                  <div class="qtag">题 03 · 换挡操作</div>
+                  <div class="qtext">从 ×10 挡改到 ×1k 挡后，能否直接测量？为什么？</div>
+                  <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">不能。不同倍率对应内部电阻配置不同，必须重新短接两表笔进行欧姆调零。</div></div>
+                </div><div class="qcard">
+                  <div class="qtag">题 04 · 带电测量</div>
+                  <div class="qtext">把欧姆挡直接接到仍通电的电路元件两端，可能造成什么问题？</div>
+                  <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">外部电源会叠加到欧姆表内部电源，使读数失真，严重时还可能使表头过流或损坏仪表。</div></div>
+                </div></div>
+        </div>
+      </div>
+    </section><section class="slide">
+      <div class="shell">
+        <aside class="rail">
+          <div><div class="tag">核心</div><div class="num">45</div><div class="rail-title">电阻率与多种测阻｜伏安、半偏、电桥</div></div>
+          <div class="rail-foot">EXPERIMENT<br>CYBER LAB</div>
+        </aside>
+        <div class="screen">
+          <div class="top">
+            <div><div class="eyebrow">HIGH SCHOOL PHYSICS · EXPERIMENT</div><h1>电阻率与多种测阻｜伏安、半偏、电桥</h1><div class="sub">原理 · 操作 · 数据 · 误差</div></div>
+            <div class="count-badge">45/60</div>
+          </div><div class="two-col">
+      <div class="plain">
+        <h3>核心框架</h3>
+        <ul><li>电阻率实验：ρ=RS/L=Rπd²/(4L)，需要测 R、L、d。</li><li>伏安法的系统误差来自电流表内阻与电压表有限内阻。</li><li>半偏法利用指针减半建立分流关系，通常要求相关串联电阻远大于表头内阻以减小近似误差。</li><li>电桥平衡时可由桥臂比例求未知电阻，平衡条件是检流计电流为零。</li></ul>
+      </div>
+      <div class="plain">
+        <h3>解题主线</h3>
+        <div class="method">遇到“测电阻”先判断可用的信息结构：有 U、I 就伏安；有表头半偏就分流；有四臂与零电流就电桥。不要把不同方法的公式混用。</div>
+        <div class="topic-id">MODULE 15 · MODEL / ERROR / GRAPH</div>
+      </div>
+    </div>
+        </div>
+      </div>
+    </section><section class="slide">
+      <div class="shell">
+        <aside class="rail">
+          <div><div class="tag">题组 A</div><div class="num">46</div><div class="rail-title">电阻率与多种测阻｜伏安、半偏、电桥</div></div>
+          <div class="rail-foot">EXPERIMENT<br>CYBER LAB</div>
+        </aside>
+        <div class="screen">
+          <div class="top">
+            <div><div class="eyebrow">HIGH SCHOOL PHYSICS · EXPERIMENT</div><h1>电阻率与多种测阻｜伏安、半偏、电桥</h1><div class="sub">双题训练 · 高考中档偏难</div></div>
+            <div class="count-badge">46/60</div>
+          </div><div class="question-grid"><div class="qcard">
+                  <div class="qtag">题 01 · 电阻率计算</div>
+                  <div class="qtext">金属丝 L=1.00 m，d=0.50 mm，测得 R=2.00 Ω。求 ρ。</div>
+                  <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">S=π(0.25×10⁻³)²≈1.963×10⁻⁷ m²，ρ=RS/L≈3.93×10⁻⁷ Ω·m。</div></div>
+                </div><div class="qcard">
+                  <div class="qtag">题 02 · 直径误差</div>
+                  <div class="qtext">上式中若 d 偏大 2%，其他量准确，ρ 约偏大多少？</div>
+                  <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">ρ∝d²，因此小误差近似放大 2 倍，约偏大 4%。</div></div>
+                </div></div>
+        </div>
+      </div>
+    </section><section class="slide">
+      <div class="shell">
+        <aside class="rail">
+          <div><div class="tag">题组 B</div><div class="num">47</div><div class="rail-title">电阻率与多种测阻｜伏安、半偏、电桥</div></div>
+          <div class="rail-foot">EXPERIMENT<br>CYBER LAB</div>
+        </aside>
+        <div class="screen">
+          <div class="top">
+            <div><div class="eyebrow">HIGH SCHOOL PHYSICS · EXPERIMENT</div><h1>电阻率与多种测阻｜伏安、半偏、电桥</h1><div class="sub">双题训练 · 高考中档偏难</div></div>
+            <div class="count-badge">47/60</div>
+          </div><div class="question-grid"><div class="qcard">
+                  <div class="qtag">题 03 · 半偏近似</div>
+                  <div class="qtext">半偏法中为了使“并联电阻≈表头内阻”的近似更好，为什么希望表头外串联的限流电阻足够大？</div>
+                  <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">使接入分流电阻前后主回路总电流变化很小，从而半偏主要由电流在表头和分流支路重新分配造成。</div></div>
+                </div><div class="qcard">
+                  <div class="qtag">题 04 · 电桥平衡</div>
+                  <div class="qtext">惠斯通电桥平衡，四臂满足 R₁/R₂=Rₓ/R₀。已知 R₁=100 Ω、R₂=250 Ω、R₀=500 Ω，求 Rₓ。</div>
+                  <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">Rₓ=R₀R₁/R₂=500×100/250=200 Ω。</div></div>
+                </div></div>
+        </div>
+      </div>
+    </section><section class="slide">
+      <div class="shell">
+        <aside class="rail">
+          <div><div class="tag">核心</div><div class="num">48</div><div class="rail-title">小灯泡伏安特性｜非线性、图像与功率</div></div>
+          <div class="rail-foot">EXPERIMENT<br>CYBER LAB</div>
+        </aside>
+        <div class="screen">
+          <div class="top">
+            <div><div class="eyebrow">HIGH SCHOOL PHYSICS · EXPERIMENT</div><h1>小灯泡伏安特性｜非线性、图像与功率</h1><div class="sub">原理 · 操作 · 数据 · 误差</div></div>
+            <div class="count-badge">48/60</div>
+          </div><div class="two-col">
+      <div class="plain">
+        <h3>核心框架</h3>
+        <ul><li>灯丝温度升高时电阻率增大，因此小灯泡 I-U 关系通常非线性。</li><li>描线时应从低电压开始，分压式便于从 0 附近连续调节。</li><li>某工作点的静态电阻 R=U/I；图线局部斜率对应的是微分关系，不能随意等同 U/I。</li><li>功率 P=UI，可直接由图中工作点读 U、I 后计算。</li></ul>
+      </div>
+      <div class="plain">
+        <h3>解题主线</h3>
+        <div class="method">图像题先看坐标轴到底是 I-U 还是 U-I。静态电阻用“点到原点的比值”，局部斜率含义则取决于坐标设置。</div>
+        <div class="topic-id">MODULE 16 · MODEL / ERROR / GRAPH</div>
+      </div>
+    </div>
+        </div>
+      </div>
+    </section><section class="slide">
+      <div class="shell">
+        <aside class="rail">
+          <div><div class="tag">题组 A</div><div class="num">49</div><div class="rail-title">小灯泡伏安特性｜非线性、图像与功率</div></div>
+          <div class="rail-foot">EXPERIMENT<br>CYBER LAB</div>
+        </aside>
+        <div class="screen">
+          <div class="top">
+            <div><div class="eyebrow">HIGH SCHOOL PHYSICS · EXPERIMENT</div><h1>小灯泡伏安特性｜非线性、图像与功率</h1><div class="sub">双题训练 · 高考中档偏难</div></div>
+            <div class="count-badge">49/60</div>
+          </div><div class="question-grid"><div class="qcard">
+                  <div class="qtag">题 01 · 温度效应</div>
+                  <div class="qtext">小灯泡电压增大时，I-U 图像斜率通常逐渐变小。说明灯丝电阻如何变化？</div>
+                  <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">在 I-U 图中局部斜率约对应导电能力 dI/dU。斜率变小说明电阻增大，原因是灯丝温度升高导致电阻率增大。</div></div>
+                </div><div class="qcard">
+                  <div class="qtag">题 02 · 工作点电阻</div>
+                  <div class="qtext">某工作点 U=2.5 V、I=0.30 A。求此时静态电阻。</div>
+                  <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">R=U/I=2.5/0.30≈8.33 Ω。</div></div>
+                </div></div>
+        </div>
+      </div>
+    </section><section class="slide">
+      <div class="shell">
+        <aside class="rail">
+          <div><div class="tag">题组 B</div><div class="num">50</div><div class="rail-title">小灯泡伏安特性｜非线性、图像与功率</div></div>
+          <div class="rail-foot">EXPERIMENT<br>CYBER LAB</div>
+        </aside>
+        <div class="screen">
+          <div class="top">
+            <div><div class="eyebrow">HIGH SCHOOL PHYSICS · EXPERIMENT</div><h1>小灯泡伏安特性｜非线性、图像与功率</h1><div class="sub">双题训练 · 高考中档偏难</div></div>
+            <div class="count-badge">50/60</div>
+          </div><div class="question-grid"><div class="qcard">
+                  <div class="qtag">题 03 · 工作点功率</div>
+                  <div class="qtext">同一工作点灯泡功率多大？</div>
+                  <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">P=UI=2.5×0.30=0.75 W。</div></div>
+                </div><div class="qcard">
+                  <div class="qtag">题 04 · 图线斜率陷阱</div>
+                  <div class="qtext">若纵轴是 I、横轴是 U，能否直接把某点切线斜率的倒数当作该点的 U/I？</div>
+                  <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">一般不能。切线斜率给 dI/dU，其倒数是微分电阻 dU/dI；静态电阻是 U/I，即原点到该点割线斜率的倒数。</div></div>
+                </div></div>
+        </div>
+      </div>
+    </section><section class="slide">
+      <div class="shell">
+        <aside class="rail">
+          <div><div class="tag">核心</div><div class="num">51</div><div class="rail-title">测电源电动势和内阻｜U-I 图像与方法迁移</div></div>
+          <div class="rail-foot">EXPERIMENT<br>CYBER LAB</div>
+        </aside>
+        <div class="screen">
+          <div class="top">
+            <div><div class="eyebrow">HIGH SCHOOL PHYSICS · EXPERIMENT</div><h1>测电源电动势和内阻｜U-I 图像与方法迁移</h1><div class="sub">原理 · 操作 · 数据 · 误差</div></div>
+            <div class="count-badge">51/60</div>
+          </div><div class="two-col">
+      <div class="plain">
+        <h3>核心框架</h3>
+        <ul><li>基本关系 U=E-Ir，作 U-I 图像，纵截距 E，斜率绝对值 r。</li><li>多组数据线性拟合优于仅用两组数据，可降低随机误差。</li><li>若电压表内阻有限、接线方式不同，会改变源的真实负载与电流定义。</li><li>也可用电阻箱构造 U=ER/(R+r) 等关系，通过变换坐标线性化。</li></ul>
+      </div>
+      <div class="plain">
+        <h3>解题主线</h3>
+        <div class="method">最稳方法：先写端电压方程，再看横纵轴。任何“截距/斜率题”都先把目标式整理成 y=kx+b。</div>
+        <div class="topic-id">MODULE 17 · MODEL / ERROR / GRAPH</div>
+      </div>
+    </div>
+        </div>
+      </div>
+    </section><section class="slide">
+      <div class="shell">
+        <aside class="rail">
+          <div><div class="tag">题组 A</div><div class="num">52</div><div class="rail-title">测电源电动势和内阻｜U-I 图像与方法迁移</div></div>
+          <div class="rail-foot">EXPERIMENT<br>CYBER LAB</div>
+        </aside>
+        <div class="screen">
+          <div class="top">
+            <div><div class="eyebrow">HIGH SCHOOL PHYSICS · EXPERIMENT</div><h1>测电源电动势和内阻｜U-I 图像与方法迁移</h1><div class="sub">双题训练 · 高考中档偏难</div></div>
+            <div class="count-badge">52/60</div>
+          </div><div class="question-grid"><div class="qcard">
+                  <div class="qtag">题 01 · 图像反推</div>
+                  <div class="qtext">U-I 拟合直线经过 (0.20 A,1.40 V) 与 (0.80 A,1.10 V)。求 E、r。</div>
+                  <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">斜率 ΔU/ΔI=(1.10-1.40)/(0.80-0.20)=-0.50 Ω，所以 r=0.50 Ω。E=U+Ir=1.40+0.20×0.50=1.50 V。</div></div>
+                </div><div class="qcard">
+                  <div class="qtag">题 02 · 最大功率点</div>
+                  <div class="qtext">若上题电源接纯电阻 R，什么时候外电阻获得功率最大？</div>
+                  <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">对线性电源模型，最大功率传输条件 R=r=0.50 Ω。此时端电压 E/2。</div></div>
+                </div></div>
+        </div>
+      </div>
+    </section><section class="slide">
+      <div class="shell">
+        <aside class="rail">
+          <div><div class="tag">题组 B</div><div class="num">53</div><div class="rail-title">测电源电动势和内阻｜U-I 图像与方法迁移</div></div>
+          <div class="rail-foot">EXPERIMENT<br>CYBER LAB</div>
+        </aside>
+        <div class="screen">
+          <div class="top">
+            <div><div class="eyebrow">HIGH SCHOOL PHYSICS · EXPERIMENT</div><h1>测电源电动势和内阻｜U-I 图像与方法迁移</h1><div class="sub">双题训练 · 高考中档偏难</div></div>
+            <div class="count-badge">53/60</div>
+          </div><div class="question-grid"><div class="qcard">
+                  <div class="qtag">题 03 · 数据异常</div>
+                  <div class="qtext">拟合 U-I 图时某一点远离其余数据形成孤立异常点，应直接让它参与普通两点斜率计算吗？</div>
+                  <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">不应。应先核查该组读数、接触、量程或滑片状态；合理剔除明显异常后再用多点拟合，不能让单个异常点主导结果。</div></div>
+                </div><div class="qcard">
+                  <div class="qtag">题 04 · 坐标变换</div>
+                  <div class="qtext">由 U=E-Ir 可得 I=(E-U)/r。若改作 I-U 图，斜率和纵截距分别是什么？</div>
+                  <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">I=-(1/r)U+E/r，所以斜率 -1/r，纵截距 E/r。</div></div>
+                </div></div>
+        </div>
+      </div>
+    </section><section class="slide">
+      <div class="shell">
+        <aside class="rail">
+          <div><div class="tag">核心</div><div class="num">54</div><div class="rail-title">电容器充放电｜i-t 面积、Q=CU 与时间尺度</div></div>
+          <div class="rail-foot">EXPERIMENT<br>CYBER LAB</div>
+        </aside>
+        <div class="screen">
+          <div class="top">
+            <div><div class="eyebrow">HIGH SCHOOL PHYSICS · EXPERIMENT</div><h1>电容器充放电｜i-t 面积、Q=CU 与时间尺度</h1><div class="sub">原理 · 操作 · 数据 · 误差</div></div>
+            <div class="count-badge">54/60</div>
+          </div><div class="two-col">
+      <div class="plain">
+        <h3>核心框架</h3>
+        <ul><li>电容器电荷量 Q=CU；充放电过程中电流随时间变化。</li><li>i-t 图下的面积 ∫i dt 等于通过导线截面的电荷量变化。</li><li>RC 电路的典型时间尺度 τ=RC；R 或 C 增大，充放电过程整体变慢。</li><li>实验中要先确认电容极性、额定电压和开关位置，防止接反或过压。</li></ul>
+      </div>
+      <div class="plain">
+        <h3>解题主线</h3>
+        <div class="method">看到 i-t 图先想到“面积=电荷”。若给末态电压，再用 C=Q/U。若比较快慢，则优先看 RC 的乘积。</div>
+        <div class="topic-id">MODULE 18 · MODEL / ERROR / GRAPH</div>
+      </div>
+    </div>
+        </div>
+      </div>
+    </section><section class="slide">
+      <div class="shell">
+        <aside class="rail">
+          <div><div class="tag">题组 A</div><div class="num">55</div><div class="rail-title">电容器充放电｜i-t 面积、Q=CU 与时间尺度</div></div>
+          <div class="rail-foot">EXPERIMENT<br>CYBER LAB</div>
+        </aside>
+        <div class="screen">
+          <div class="top">
+            <div><div class="eyebrow">HIGH SCHOOL PHYSICS · EXPERIMENT</div><h1>电容器充放电｜i-t 面积、Q=CU 与时间尺度</h1><div class="sub">双题训练 · 高考中档偏难</div></div>
+            <div class="count-badge">55/60</div>
+          </div><div class="question-grid"><div class="qcard">
+                  <div class="qtag">题 01 · 面积求电荷</div>
+                  <div class="qtext">某次放电的 i-t 图近似三角形，初始电流 4.0 mA，2.0 s 后降为 0。估算放出的电荷量。</div>
+                  <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">面积 Q≈½×2.0×4.0 mA·s=4.0 mC。</div></div>
+                </div><div class="qcard">
+                  <div class="qtag">题 02 · 反求电容</div>
+                  <div class="qtext">若该电容器放电前电压为 8.0 V，且总放电电荷约 4.0 mC，估算 C。</div>
+                  <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">C=Q/U=4.0×10⁻³/8.0=5.0×10⁻⁴ F=500 μF。</div></div>
+                </div></div>
+        </div>
+      </div>
+    </section><section class="slide">
+      <div class="shell">
+        <aside class="rail">
+          <div><div class="tag">题组 B</div><div class="num">56</div><div class="rail-title">电容器充放电｜i-t 面积、Q=CU 与时间尺度</div></div>
+          <div class="rail-foot">EXPERIMENT<br>CYBER LAB</div>
+        </aside>
+        <div class="screen">
+          <div class="top">
+            <div><div class="eyebrow">HIGH SCHOOL PHYSICS · EXPERIMENT</div><h1>电容器充放电｜i-t 面积、Q=CU 与时间尺度</h1><div class="sub">双题训练 · 高考中档偏难</div></div>
+            <div class="count-badge">56/60</div>
+          </div><div class="question-grid"><div class="qcard">
+                  <div class="qtag">题 03 · 时间尺度</div>
+                  <div class="qtext">保持 R 不变，把 C 变为原来 3 倍，充电曲线达到相同电压比例所需时间约变为多少倍？</div>
+                  <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">τ=RC，C 变 3 倍，特征时间整体约变 3 倍。</div></div>
+                </div><div class="qcard">
+                  <div class="qtag">题 04 · 极性安全</div>
+                  <div class="qtext">使用有极性电解电容时，为什么不能长期反接？</div>
+                  <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">反接会使电容器承受错误极性电压，可能造成漏电显著、发热、损坏甚至安全风险。</div></div>
+                </div></div>
+        </div>
+      </div>
+    </section><section class="slide">
+      <div class="shell">
+        <aside class="rail">
+          <div><div class="tag">核心</div><div class="num">57</div><div class="rail-title">光学实验｜折射率与双缝干涉</div></div>
+          <div class="rail-foot">EXPERIMENT<br>CYBER LAB</div>
+        </aside>
+        <div class="screen">
+          <div class="top">
+            <div><div class="eyebrow">HIGH SCHOOL PHYSICS · EXPERIMENT</div><h1>光学实验｜折射率与双缝干涉</h1><div class="sub">原理 · 操作 · 数据 · 误差</div></div>
+            <div class="count-badge">57/60</div>
+          </div><div class="two-col">
+      <div class="plain">
+        <h3>核心框架</h3>
+        <ul><li>测玻璃折射率常用插针法确定入射线和折射线，再测 i、r，n=sin i/sin r。</li><li>插针应竖直，前后针的像要对齐；界面描线和玻璃砖位置都应准确。</li><li>双缝干涉条纹间距 Δx=λL/d，故 λ=dΔx/L。</li><li>为减小条纹间距测量误差，应跨多条条纹测总距离，再除以间隔数。</li></ul>
+      </div>
+      <div class="plain">
+        <h3>解题主线</h3>
+        <div class="method">折射率题核心是“画法线—定角—取正弦比”；双缝题核心是“d、L、Δx 三量统一单位”。</div>
+        <div class="topic-id">MODULE 19 · MODEL / ERROR / GRAPH</div>
+      </div>
+    </div>
+        </div>
+      </div>
+    </section><section class="slide">
+      <div class="shell">
+        <aside class="rail">
+          <div><div class="tag">四题连练</div><div class="num">58</div><div class="rail-title">光学实验｜折射率与双缝干涉</div></div>
+          <div class="rail-foot">EXPERIMENT<br>CYBER LAB</div>
+        </aside>
+        <div class="screen">
+          <div class="top">
+            <div><div class="eyebrow">HIGH SCHOOL PHYSICS · EXPERIMENT</div><h1>光学实验｜折射率与双缝干涉</h1><div class="sub">四题连练 · 高考中档偏难</div></div>
+            <div class="count-badge">58/60</div>
+          </div><div class="question-grid four"><div class="qcard compact">
+              <div class="qtag">题 01 · 折射率计算</div>
+              <div class="qtext">空气入射到玻璃，测得 i=45°、r=30°。求折射率。</div>
+              <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">n=sin45°/sin30°=√2≈1.41。</div></div>
+            </div><div class="qcard compact">
+              <div class="qtag">题 02 · 插针误差</div>
+              <div class="qtext">若插针明显倾斜而仍以针脚位置作图，为什么会增大折射率测量误差？</div>
+              <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">观察对齐依赖针的空间位置。倾斜会使视线对齐对应的实际光路与纸面针脚投影不一致，从而使折射线方向和角度产生系统偏差。</div></div>
+            </div><div class="qcard compact">
+              <div class="qtag">题 03 · 双缝波长</div>
+              <div class="qtext">d=0.30 mm，L=1.50 m，相邻亮纹间距 3.0 mm。求 λ。</div>
+              <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">λ=dΔx/L=(3.0×10⁻⁴×3.0×10⁻³)/1.50=6.0×10⁻⁷ m。</div></div>
+            </div><div class="qcard compact">
+              <div class="qtag">题 04 · 跨纹测量</div>
+              <div class="qtext">测从第 2 条亮纹中心到第 12 条亮纹中心距离 30.0 mm。相邻亮纹间距是多少？</div>
+              <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">第 2 到第 12 条之间有 10 个间隔，因此 Δx=30.0/10=3.00 mm。</div></div>
+            </div></div>
+        </div>
+      </div>
+    </section><section class="slide">
+      <div class="shell">
+        <aside class="rail">
+          <div><div class="tag">核心</div><div class="num">59</div><div class="rail-title">热学实验｜油膜法与等温气体</div></div>
+          <div class="rail-foot">EXPERIMENT<br>CYBER LAB</div>
+        </aside>
+        <div class="screen">
+          <div class="top">
+            <div><div class="eyebrow">HIGH SCHOOL PHYSICS · EXPERIMENT</div><h1>热学实验｜油膜法与等温气体</h1><div class="sub">原理 · 操作 · 数据 · 误差</div></div>
+            <div class="count-badge">59/60</div>
+          </div><div class="two-col">
+      <div class="plain">
+        <h3>核心框架</h3>
+        <ul><li>油膜法用 d=V/S 估测分子尺度；V 是实际油酸体积，不是溶液总体积。</li><li>需由溶液浓度、每滴体积与滴数换算油酸体积，再测油膜面积。</li><li>等温气体实验验证 pV≈常量；压强必须使用绝对压强。</li><li>读数前需等待热平衡，改变体积应缓慢，防止温度变化破坏等温条件。</li></ul>
+      </div>
+      <div class="plain">
+        <h3>解题主线</h3>
+        <div class="method">油膜法按“溶液 → 油酸体积 → 面积 → 厚度”逐层换算；气体题按“绝对压强 → 等温 → pV”处理。</div>
+        <div class="topic-id">MODULE 20 · MODEL / ERROR / GRAPH</div>
+      </div>
+    </div>
+        </div>
+      </div>
+    </section><section class="slide">
+      <div class="shell">
+        <aside class="rail">
+          <div><div class="tag">四题连练</div><div class="num">60</div><div class="rail-title">热学实验｜油膜法与等温气体</div></div>
+          <div class="rail-foot">EXPERIMENT<br>CYBER LAB</div>
+        </aside>
+        <div class="screen">
+          <div class="top">
+            <div><div class="eyebrow">HIGH SCHOOL PHYSICS · EXPERIMENT</div><h1>热学实验｜油膜法与等温气体</h1><div class="sub">四题连练 · 高考中档偏难</div></div>
+            <div class="count-badge">60/60</div>
+          </div><div class="question-grid four"><div class="qcard compact">
+              <div class="qtag">题 01 · 油膜估算</div>
+              <div class="qtext">油酸酒精溶液中油酸体积分数为 1/500，每滴溶液体积 0.020 mL。滴 1 滴形成面积 8.0×10⁻² m² 的单分子油膜。估算分子尺度。</div>
+              <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">油酸体积 V=(0.020/500)mL=4.0×10⁻⁵ mL=4.0×10⁻¹¹ m³。d=V/S=4.0×10⁻¹¹/(8.0×10⁻²)=5.0×10⁻¹⁰ m。</div></div>
+            </div><div class="qcard compact">
+              <div class="qtag">题 02 · 面积误差</div>
+              <div class="qtext">油膜边界统计时把面积系统高估 5%，其他量准确，算出的 d 偏大还是偏小？约多少？</div>
+              <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">d=V/S，S 高估 5% 会使 d 偏小，近似偏小 5%。</div></div>
+            </div><div class="qcard compact">
+              <div class="qtag">题 03 · 绝对压强</div>
+              <div class="qtext">活塞中气体压强表读数为 20 kPa（相对大气），当地大气压 100 kPa。做 pV 验证时应取多少压强？</div>
+              <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">应取绝对压强 p=100+20=120 kPa。</div></div>
+            </div><div class="qcard compact">
+              <div class="qtag">题 04 · 等温条件</div>
+              <div class="qtext">压缩气体后立刻读 p、V，常得到 pV 偏大的瞬态数据。为什么应缓慢操作并等待稳定？</div>
+              <button class="ans-btn" type="button">展开解析</button>
+    <div class="answer"><div class="ans-title">解析</div><div class="ans-text">快速压缩会使气体温度升高，暂时不满足等温条件。等待与环境换热后温度恢复稳定，pV 才更接近同一温度下的常量。</div></div>
+            </div></div>
+        </div>
+      </div>
+    </section></main></div>
+<div class="nav"><button id="prevBtn">◀ 上一幕</button><button id="nextBtn">下一幕 ▶</button><button id="fullBtn">⛶ 全屏</button><div class="track"><div id="prog"></div></div><div id="counter"></div><div class="hint">← → 空格 · F</div></div>
+<script>
+const slideEls=[...document.querySelectorAll('.slide')];let current=0;
+function render(){slideEls.forEach((s,i)=>s.classList.toggle('active',i===current));document.getElementById('counter').textContent=`${String(current+1).padStart(2,'0')} / ${String(slideEls.length).padStart(2,'0')}`;document.getElementById('prog').style.width=`${current/(slideEls.length-1)*100}%`;}
+function next(){if(current<slideEls.length-1){current++;render();}}function prev(){if(current>0){current--;render();}}
+document.getElementById('nextBtn').onclick=next;document.getElementById('prevBtn').onclick=prev;document.getElementById('fullBtn').onclick=()=>{if(!document.fullscreenElement)document.documentElement.requestFullscreen();else document.exitFullscreen();};
+document.addEventListener('keydown',e=>{if(['ArrowRight',' ','PageDown'].includes(e.key)){e.preventDefault();next();}if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();prev();}if(e.key.toLowerCase()==='f')document.getElementById('fullBtn').click();});
+document.addEventListener('click',e=>{const b=e.target.closest('.ans-btn');if(!b)return;const a=b.nextElementSibling;const open=a.classList.toggle('open');b.textContent=open?'收起解析':'展开解析';});
+render();let sec=0;setInterval(()=>{sec++;document.getElementById('timer').textContent=`${String(Math.floor(sec/60)).padStart(2,'0')}:${String(sec%60).padStart(2,'0')}`;},1000);
+
+const canvas=document.getElementById('bg'),ctx=canvas.getContext('2d');let W=0,H=0,DPR=1,particles=[],streaks=[],towers=[],rings=[],lasers=[],orbs=[];
+function rnd(a,b){return a+Math.random()*(b-a)}
+function resetBg(){DPR=devicePixelRatio||1;W=innerWidth;H=innerHeight;canvas.width=Math.floor(W*DPR);canvas.height=Math.floor(H*DPR);canvas.style.width=W+'px';canvas.style.height=H+'px';ctx.setTransform(DPR,0,0,DPR,0,0);
+particles=Array.from({length:260},()=>({x:rnd(0,W),y:rnd(0,H),vx:rnd(-.12,.12),vy:rnd(-.18,.18),r:rnd(.5,2.2),h:rnd(175,330),a:rnd(.08,.38),p:rnd(0,6.28)}));
+streaks=Array.from({length:46},()=>({x:rnd(-W*.2,W),y:rnd(0,H*.82),len:rnd(120,420),v:rnd(.55,2.25),h:rnd(175,330),a:rnd(.16,.52),k:rnd(-.16,.16),p:rnd(0,6.28)}));
+towers=[];let x=0;while(x<W+40){const w=rnd(34,86),h=rnd(H*.06,H*.22);towers.push({x,y:H-h,w,h,hue:rnd(180,320),seed:rnd(0,10)});x+=w+rnd(7,22)}
+rings=Array.from({length:11},(_,i)=>({x:W*(.06+i*.09)+rnd(-45,45),y:H*rnd(.10,.62),r:rnd(35,125),h:rnd(175,335),a:rnd(.08,.20),v:rnd(-.0015,.0015),phase:rnd(0,6.28)}));
+lasers=Array.from({length:10},()=>({x:rnd(-W*.1,W*1.1),y:rnd(0,H*.78),ang:rnd(-.35,.35),len:rnd(W*.34,W*.92),v:rnd(.18,.65),h:rnd(175,335),a:rnd(.06,.16),phase:rnd(0,6.28)}));
+orbs=Array.from({length:18},()=>({x:rnd(0,W),y:rnd(0,H*.75),r:rnd(12,42),vx:rnd(-.08,.08),vy:rnd(-.06,.06),h:rnd(175,335),a:rnd(.035,.10),phase:rnd(0,6.28)}));}
+function drawGrid(t){const horizon=H*.68;ctx.save();ctx.strokeStyle='rgba(45,229,255,.10)';ctx.lineWidth=1;for(let i=0;i<18;i++){const q=i/17,y=horizon+(H-horizon)*q*q;ctx.globalAlpha=.15+.5*q;ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();}
+const shift=(t*.02)%90;for(let i=-10;i<16;i++){const bx=W/2+(i*90+shift);ctx.globalAlpha=.22;ctx.beginPath();ctx.moveTo(W/2,horizon);ctx.lineTo(bx,H);ctx.stroke();}ctx.restore();}
+function drawCity(t){ctx.save();for(const b of towers){const g=ctx.createLinearGradient(0,b.y,0,H);g.addColorStop(0,'rgba(8,10,22,.95)');g.addColorStop(1,'rgba(1,3,10,.98)');ctx.fillStyle=g;ctx.fillRect(b.x,b.y,b.w,b.h);ctx.strokeStyle=`hsla(${b.hue},100%,65%,.18)`;ctx.strokeRect(b.x+.5,b.y+.5,b.w-1,b.h-1);
+const rows=Math.floor(b.h/16),cols=Math.max(1,Math.floor(b.w/15));for(let r=1;r<rows;r++)for(let c=0;c<cols;c++){if(((r*7+c*11+Math.floor(b.seed))%5)<2){const pulse=.42+.34*Math.sin(t*.0017+b.seed+r+c);ctx.fillStyle=`hsla(${b.hue},100%,68%,${pulse})`;ctx.fillRect(b.x+7+c*15,b.y+7+r*16,6,2.6);}}}ctx.restore();}
+function drawRings(t){for(const r of rings){const ang=t*r.v+r.phase;ctx.save();ctx.translate(r.x,r.y);ctx.rotate(ang);ctx.strokeStyle=`hsla(${r.h},100%,70%,${r.a})`;ctx.lineWidth=1.2;ctx.shadowColor=`hsla(${r.h},100%,65%,.35)`;ctx.shadowBlur=13;ctx.beginPath();ctx.arc(0,0,r.r,0,Math.PI*1.25);ctx.stroke();ctx.beginPath();ctx.arc(0,0,r.r*.72,Math.PI*.25,Math.PI*1.7);ctx.stroke();for(let i=0;i<5;i++){const a=i*Math.PI*2/5;ctx.beginPath();ctx.moveTo(Math.cos(a)*r.r*.83,Math.sin(a)*r.r*.83);ctx.lineTo(Math.cos(a)*r.r,Math.sin(a)*r.r);ctx.stroke();}ctx.restore();}}
+function drawStreaks(t){ctx.save();ctx.lineCap='round';for(const s of streaks){s.x+=s.v;if(s.x-s.len>W+80){s.x=-s.len-rnd(0,180);s.y=rnd(0,H*.82);s.h=rnd(175,330);}const y=s.y+Math.sin(t*.001+s.p)*12,x2=s.x-s.len,y2=y+s.k*s.len;const g=ctx.createLinearGradient(s.x,y,x2,y2);g.addColorStop(0,`hsla(${s.h},100%,78%,${s.a})`);g.addColorStop(.18,`hsla(${s.h},100%,64%,${s.a*.8})`);g.addColorStop(1,`hsla(${s.h},100%,55%,0)`);ctx.strokeStyle=g;ctx.lineWidth=1.2;ctx.shadowColor=`hsla(${s.h},100%,65%,.55)`;ctx.shadowBlur=12;ctx.beginPath();ctx.moveTo(s.x,y);ctx.lineTo(x2,y2);ctx.stroke();}ctx.restore();}
+function drawParticles(t){for(const p of particles){p.x+=p.vx;p.y+=p.vy;if(p.x<0)p.x=W;if(p.x>W)p.x=0;if(p.y<0)p.y=H;if(p.y>H)p.y=0;const a=p.a*(.55+.45*Math.sin(t*.0012+p.p));ctx.fillStyle=`hsla(${p.h},100%,72%,${a})`;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();}}
+function drawLasers(t){ctx.save();ctx.lineCap='round';for(const l of lasers){l.x+=l.v;if(l.x>W+l.len*.4)l.x=-l.len;const sway=Math.sin(t*.00075+l.phase)*34;const x2=l.x+Math.cos(l.ang)*l.len,y2=l.y+sway+Math.sin(l.ang)*l.len;const g=ctx.createLinearGradient(l.x,l.y+sway,x2,y2);g.addColorStop(0,`hsla(${l.h},100%,68%,0)`);g.addColorStop(.32,`hsla(${l.h},100%,72%,${l.a})`);g.addColorStop(.72,`hsla(${l.h},100%,76%,${l.a*.75})`);g.addColorStop(1,`hsla(${l.h},100%,70%,0)`);ctx.strokeStyle=g;ctx.lineWidth=2.0;ctx.shadowColor=`hsla(${l.h},100%,68%,.72)`;ctx.shadowBlur=20;ctx.beginPath();ctx.moveTo(l.x,l.y+sway);ctx.lineTo(x2,y2);ctx.stroke();ctx.lineWidth=.65;ctx.strokeStyle='rgba(255,255,255,.45)';ctx.beginPath();ctx.moveTo(l.x,l.y+sway);ctx.lineTo(x2,y2);ctx.stroke();}ctx.restore();}
+function drawOrbs(t){for(const o of orbs){o.x+=o.vx;o.y+=o.vy;if(o.x<-60)o.x=W+60;if(o.x>W+60)o.x=-60;if(o.y<-60)o.y=H*.75+60;if(o.y>H*.78+60)o.y=-60;const pulse=.72+.28*Math.sin(t*.0014+o.phase);const r=o.r*pulse;const g=ctx.createRadialGradient(o.x,o.y,0,o.x,o.y,r);g.addColorStop(0,`hsla(${o.h},100%,82%,${o.a*1.8})`);g.addColorStop(.28,`hsla(${o.h},100%,65%,${o.a})`);g.addColorStop(1,`hsla(${o.h},100%,55%,0)`);ctx.fillStyle=g;ctx.beginPath();ctx.arc(o.x,o.y,r,0,Math.PI*2);ctx.fill();}}
+function drawBg(t){ctx.clearRect(0,0,W,H);const bg=ctx.createLinearGradient(0,0,0,H);bg.addColorStop(0,'#030316');bg.addColorStop(.38,'#081027');bg.addColorStop(.72,'#11051b');bg.addColorStop(1,'#02030a');ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
+const g1=ctx.createRadialGradient(W*.24,H*.22,0,W*.24,H*.22,Math.max(W,H)*.38);g1.addColorStop(0,'rgba(10,238,255,.28)');g1.addColorStop(.42,'rgba(58,87,255,.13)');g1.addColorStop(1,'rgba(0,0,0,0)');ctx.fillStyle=g1;ctx.fillRect(0,0,W,H);
+const g2=ctx.createRadialGradient(W*.78,H*.28,0,W*.78,H*.28,Math.max(W,H)*.34);g2.addColorStop(0,'rgba(255,45,208,.28)');g2.addColorStop(.38,'rgba(137,67,255,.14)');g2.addColorStop(1,'rgba(0,0,0,0)');ctx.fillStyle=g2;ctx.fillRect(0,0,W,H);
+drawOrbs(t);drawRings(t);drawParticles(t);drawStreaks(t);drawLasers(t);drawCity(t);drawGrid(t);const scan=(t*.18)%H;ctx.fillStyle='rgba(80,255,255,.055)';ctx.fillRect(0,scan,W,3);const scan2=(H-(t*.11)%H);ctx.fillStyle='rgba(255,61,214,.030)';ctx.fillRect(0,scan2,W,2);requestAnimationFrame(drawBg);}
+window.addEventListener('resize',resetBg);resetBg();requestAnimationFrame(drawBg);
+</script><script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"45c2bf8136a245cd97f1c2e9a96c0730"}' crossorigin="anonymous"></script>
+</body></html>

@@ -1,0 +1,674 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>交变电流30屏计算题强化</title><style>
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;overflow:hidden;background:#000;color:#f6f6f6;font-family:"PingFang SC","Microsoft YaHei",Arial,sans-serif}
+#bg{position:fixed;inset:0;z-index:0;width:100%;height:100%}
+#app{position:relative;z-index:2;height:100%;display:flex;flex-direction:column}
+header{height:58px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;background:linear-gradient(180deg,rgba(32,0,0,.84),rgba(3,0,0,.42));border-bottom:1px solid rgba(255,46,46,.24);backdrop-filter:blur(6px)}
+.brand{font-weight:900;font-size:21px;letter-spacing:.8px;text-shadow:0 0 16px rgba(255,39,39,.5)}
+.headchips{display:flex;gap:8px;align-items:center}
+.headchips span{padding:6px 10px;border:1px solid rgba(255,65,65,.25);border-radius:6px;background:rgba(70,0,0,.22);font-size:12px;color:#ffd5d5;font-weight:800}
+main{flex:1;position:relative}
+.slide{display:none;height:100%;padding:12px 14px 75px}
+.slide.active{display:block;animation:enter .2s ease}
+@keyframes enter{from{opacity:.12;transform:translateY(6px)}to{opacity:1;transform:none}}
+.frame{height:100%;display:grid;grid-template-columns:108px 1fr;border:1px solid rgba(255,55,55,.13);background:linear-gradient(120deg,rgba(20,0,0,.15),rgba(0,0,0,.03))}
+.rail{padding:15px 10px;display:flex;flex-direction:column;justify-content:space-between;border-right:1px solid rgba(255,55,55,.18);background:linear-gradient(180deg,rgba(85,0,0,.18),rgba(6,0,0,.18))}
+.rail-tag{font-size:10px;letter-spacing:2px;color:#ff7d7d;font-weight:900}
+.rail-no{font-size:42px;font-weight:900;color:#ff3030;text-shadow:0 0 22px rgba(255,20,20,.48);margin:7px 0}
+.rail-name{font-size:13px;line-height:1.45;color:#ffe6e6}
+.rail-foot{font:10px/1.8 monospace;color:#8c5555;letter-spacing:1px}
+.content{padding:13px 18px;display:flex;flex-direction:column;min-width:0}
+.heading{display:flex;justify-content:space-between;gap:15px;align-items:flex-start;margin-bottom:11px}
+.eyebrow{font:800 11px monospace;letter-spacing:1.5px;color:#ff6969}
+h1{margin:4px 0 0;font-size:29px;line-height:1.18;color:#fff;text-shadow:0 0 17px rgba(255,43,43,.24)}
+.sub{font-size:14px;color:#e6bcbc;margin-top:6px}
+.counter{padding:7px 11px;border-radius:5px;border:1px solid rgba(255,62,62,.25);background:rgba(85,0,0,.23);color:#ffd6d6;font:bold 13px monospace}
+.cover{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.cover-kicker{font:900 12px monospace;letter-spacing:4px;color:#ff6d6d}
+.cover-title{font-size:48px;font-weight:900;line-height:1.08;margin-top:18px;text-shadow:0 0 28px rgba(255,40,40,.34)}
+.cover-title span{color:#ff3b3b}
+.core-line{width:330px;height:3px;margin:25px 0;background:linear-gradient(90deg,transparent,#6b0000,#ff3030,#fff,#ff3030,#6b0000,transparent);box-shadow:0 0 20px rgba(255,30,30,.5)}
+.cover-desc{font-size:18px;color:#f1c9c9}
+.cover-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:22px}
+.cover-grid div{padding:10px 14px;border:1px solid rgba(255,62,62,.22);background:rgba(60,0,0,.17);color:#ffdcdc}
+.index-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px 26px;overflow:auto;padding-top:4px}
+.index-item{display:grid;grid-template-columns:54px 1fr;gap:13px;align-items:center;padding:13px 0;border-bottom:1px dashed rgba(255,70,70,.18)}
+.hex{width:48px;height:42px;clip-path:polygon(25% 0,75% 0,100% 50%,75% 100%,25% 100%,0 50%);display:grid;place-items:center;background:linear-gradient(135deg,#7b0000,#1a0000);border:1px solid #ff3b3b;color:#ffdada;font-weight:900}
+.index-item b{display:block;font-size:19px;color:#fff;margin-bottom:4px}
+.index-item span{font-size:12px;color:#d9aaaa}
+.knowledge{flex:1;display:grid;grid-template-columns:.9fr 1.1fr;gap:22px;min-height:0}
+.formula-panel,.note-panel{height:100%;overflow:auto;padding:14px;background:linear-gradient(180deg,rgba(60,0,0,.11),rgba(0,0,0,.03));border:1px solid rgba(255,57,57,.13)}
+.panel-title{font:900 12px monospace;letter-spacing:2px;color:#ff6868;margin-bottom:13px}
+.formula{font-size:26px;font-weight:900;color:#fff;margin:12px 0;padding:13px 14px;border-left:3px solid #ff3333;background:linear-gradient(90deg,rgba(125,0,0,.22),transparent);text-shadow:0 0 15px rgba(255,44,44,.2)}
+.note-panel ul{margin:0;padding-left:23px;font-size:18px;line-height:1.72;color:#f5eaea}
+.note-panel li{margin-bottom:10px}
+.problem-grid{flex:1;display:grid;grid-template-rows:1fr 1fr;gap:13px;min-height:0}
+.problem{overflow:auto;padding:13px 15px;border:1px solid rgba(255,61,61,.13);background:linear-gradient(90deg,rgba(73,0,0,.12),rgba(0,0,0,.04))}
+.problem-label{font:900 12px monospace;color:#ff7070;letter-spacing:1.5px;margin-bottom:8px}
+.question{font-size:19px;line-height:1.68;color:#fff}
+.answer-btn{margin-top:10px;display:inline-flex;align-items:center;gap:8px;padding:8px 13px;border-radius:5px;border:1px solid rgba(255,65,65,.28);background:rgba(77,0,0,.30);color:#ffdada;font-weight:900;cursor:pointer}
+.arr{transition:.18s;display:inline-block}
+.answer-btn.open .arr{transform:rotate(90deg)}
+.answer{display:none;margin-top:10px;padding:10px 12px;border-left:2px solid #ff3737;background:rgba(80,0,0,.12);font-size:15px;line-height:1.7;color:#f7dfdf}
+.answer.open{display:block}
+.answer b{color:#ff8585}
+.nav{position:fixed;left:14px;right:14px;bottom:9px;z-index:7;display:flex;align-items:center;gap:10px;padding:9px 11px;background:rgba(0,0,0,.58);border-top:1px solid rgba(255,52,52,.16);backdrop-filter:blur(5px)}
+.nav button{padding:8px 13px;border-radius:5px;border:1px solid rgba(255,58,58,.23);background:rgba(73,0,0,.30);color:#fff;font-weight:900;cursor:pointer}
+#count{min-width:78px;color:#ffd5d5;font:bold 13px monospace}
+.track{flex:1;height:7px;background:rgba(255,255,255,.07);overflow:hidden}
+#prog{height:100%;width:0;background:linear-gradient(90deg,#5b0000,#ff3131,#f1dddd);box-shadow:0 0 13px rgba(255,33,33,.55)}
+.hint{font-size:11px;color:#b98282}
+@media(max-width:1050px){.frame{grid-template-columns:1fr}.rail{display:none}.knowledge,.index-grid{grid-template-columns:1fr}h1{font-size:25px}.question,.note-panel ul{font-size:16px}.formula{font-size:22px}}
+</style></head><body>
+<canvas id="bg"></canvas>
+<div id="app"><header><div class="brand">交变电流计算题强化</div><div class="headchips"><span>高考中档</span><span>计算主导</span><span>机械科幻</span><span id="timer">00:00</span></div></header>
+<main><section class="slide">
+<div class="frame">
+  <aside class="rail">
+    <div><div class="rail-tag">SYSTEM</div><div class="rail-no">01</div><div class="rail-name">交变电流计算题强化</div></div>
+    <div class="rail-foot">AC CORE<br>MECHA GRID<br>CALC MODE</div>
+  </aside>
+  <div class="content">
+    <div class="heading"><div><div class="eyebrow">ALTERNATING CURRENT / MECHA TRAINING</div><h1>交变电流计算题强化</h1><div class="sub">高考中档 · 计算主导 · 黑红机械科幻</div></div><div class="counter">01/30</div></div>
+    <div class="cover">
+<div class="cover-kicker">AC / POWER TRANSMISSION</div>
+<div class="cover-title">交变电流<br><span>计算题强化</span></div>
+<div class="core-line"></div>
+<div class="cover-desc">正弦交流 · 四值 · 变压器 · 动态负载 · 远距离输电</div>
+<div class="cover-grid"><div>36 道精选计算</div><div>9 个高频模型</div><div>答案可展开</div></div>
+</div>
+  </div>
+</div></section><section class="slide">
+<div class="frame">
+  <aside class="rail">
+    <div><div class="rail-tag">INDEX</div><div class="rail-no">02</div><div class="rail-name">训练结构</div></div>
+    <div class="rail-foot">AC CORE<br>MECHA GRID<br>CALC MODE</div>
+  </aside>
+  <div class="content">
+    <div class="heading"><div><div class="eyebrow">ALTERNATING CURRENT / MECHA TRAINING</div><h1>训练结构</h1><div class="sub">高频模型 01—05</div></div><div class="counter">02/30</div></div>
+    <div class="index-grid"><div class="index-item"><div class="hex">01</div><div><b>正弦交变电流：产生、峰值与函数式</b><span>核心公式 · 两组计算训练</span></div></div><div class="index-item"><div class="hex">02</div><div><b>图像互化：u-t、i-t 与 Φ-t</b><span>核心公式 · 两组计算训练</span></div></div><div class="index-item"><div class="hex">03</div><div><b>四值与非正弦有效值</b><span>核心公式 · 两组计算训练</span></div></div><div class="index-item"><div class="hex">04</div><div><b>理想变压器：基本计算</b><span>核心公式 · 两组计算训练</span></div></div><div class="index-item"><div class="hex">05</div><div><b>变压器动态：负载与匝数变化</b><span>核心公式 · 两组计算训练</span></div></div></div>
+  </div>
+</div></section><section class="slide">
+<div class="frame">
+  <aside class="rail">
+    <div><div class="rail-tag">INDEX</div><div class="rail-no">03</div><div class="rail-name">训练结构</div></div>
+    <div class="rail-foot">AC CORE<br>MECHA GRID<br>CALC MODE</div>
+  </aside>
+  <div class="content">
+    <div class="heading"><div><div class="eyebrow">ALTERNATING CURRENT / MECHA TRAINING</div><h1>训练结构</h1><div class="sub">高频模型 06—09</div></div><div class="counter">03/30</div></div>
+    <div class="index-grid"><div class="index-item"><div class="hex">06</div><div><b>特殊结构：多副线圈、自耦与互感器</b><span>核心公式 · 两组计算训练</span></div></div><div class="index-item"><div class="hex">07</div><div><b>远距离输电：基本损耗计算</b><span>核心公式 · 两组计算训练</span></div></div><div class="index-item"><div class="hex">08</div><div><b>远距离输电：变压器与用户端综合</b><span>核心公式 · 两组计算训练</span></div></div><div class="index-item"><div class="hex">09</div><div><b>综合计算：发电机—变压—输电贯通</b><span>核心公式 · 两组计算训练</span></div></div></div>
+  </div>
+</div></section><section class="slide">
+<div class="frame">
+  <aside class="rail">
+    <div><div class="rail-tag">M01</div><div class="rail-no">04</div><div class="rail-name">正弦交变电流：产生、峰值与函数式</div></div>
+    <div class="rail-foot">AC CORE<br>MECHA GRID<br>CALC MODE</div>
+  </aside>
+  <div class="content">
+    <div class="heading"><div><div class="eyebrow">ALTERNATING CURRENT / MECHA TRAINING</div><h1>正弦交变电流：产生、峰值与函数式</h1><div class="sub">计算框架与公式链</div></div><div class="counter">04/30</div></div>
+    <div class="knowledge">
+<div class="formula-panel"><div class="panel-title">CORE FORMULA</div><div class="formula">e=Eₘsin(ωt+φ)</div><div class="formula">Eₘ=NBSω</div><div class="formula">ω=2πf=2π/T</div></div>
+<div class="note-panel"><div class="panel-title">CALC LOGIC</div><ul><li>从中性面开始计时通常取 φ=0。</li><li>线圈平面与磁场垂直时 Φ 最大而 e=0；平行时 Φ=0 而 |e| 最大。</li><li>转速、匝数、面积、磁场强度改变时，先用 Eₘ=NBSω 做比例。</li></ul></div>
+</div>
+  </div>
+</div></section><section class="slide">
+<div class="frame">
+  <aside class="rail">
+    <div><div class="rail-tag">M01</div><div class="rail-no">05</div><div class="rail-name">正弦交变电流：产生、峰值与函数式</div></div>
+    <div class="rail-foot">AC CORE<br>MECHA GRID<br>CALC MODE</div>
+  </aside>
+  <div class="content">
+    <div class="heading"><div><div class="eyebrow">ALTERNATING CURRENT / MECHA TRAINING</div><h1>正弦交变电流：产生、峰值与函数式</h1><div class="sub">计算训练 A</div></div><div class="counter">05/30</div></div>
+    <div class="problem-grid"><div class="problem">
+<div class="problem-label">计算 1</div>
+<div class="question">100 匝矩形线圈面积 2.0×10⁻² m²，在 0.50 T 匀强磁场中以 50 r/s 匀速转动，从中性面开始计时。求感应电动势峰值及表达式。</div>
+<button class="answer-btn" onclick="toggleAnswer(this)"><span class="arr">▶</span><span>展开解析</span></button>
+<div class="answer"><b>解析：</b>ω=2π×50=100π rad/s。Eₘ=NBSω=100×0.50×2.0×10⁻²×100π=100π V，所以 e=100πsin(100πt) V。</div>
+</div><div class="problem">
+<div class="problem-label">计算 2</div>
+<div class="question">某发电机从中性面开始转动，0.005 s 后第一次达到电动势最大值。若峰值为 200 V，写出电动势表达式。</div>
+<button class="answer-btn" onclick="toggleAnswer(this)"><span class="arr">▶</span><span>展开解析</span></button>
+<div class="answer"><b>解析：</b>从中性面到首次峰值为 T/4，故 T=0.020 s，f=50 Hz，ω=100π rad/s。e=200sin(100πt) V。</div>
+</div></div>
+  </div>
+</div></section><section class="slide">
+<div class="frame">
+  <aside class="rail">
+    <div><div class="rail-tag">M01</div><div class="rail-no">06</div><div class="rail-name">正弦交变电流：产生、峰值与函数式</div></div>
+    <div class="rail-foot">AC CORE<br>MECHA GRID<br>CALC MODE</div>
+  </aside>
+  <div class="content">
+    <div class="heading"><div><div class="eyebrow">ALTERNATING CURRENT / MECHA TRAINING</div><h1>正弦交变电流：产生、峰值与函数式</h1><div class="sub">计算训练 B</div></div><div class="counter">06/30</div></div>
+    <div class="problem-grid"><div class="problem">
+<div class="problem-label">中档 1</div>
+<div class="question">某线圈原来产生 e=80sin(50πt)V。现将转速加倍、线圈面积减为原来的 3/4，其他不变。写出新的峰值和角速度。</div>
+<button class="answer-btn" onclick="toggleAnswer(this)"><span class="arr">▶</span><span>展开解析</span></button>
+<div class="answer"><b>解析：</b>Eₘ∝Sω，所以新峰值 80×2×3/4=120 V；角速度由 50π 变为 100π rad/s。</div>
+</div><div class="problem">
+<div class="problem-label">中档 2</div>
+<div class="question">某线圈从中性面开始计时，e=120sin(100πt)V。求 t=1/300 s 时的瞬时值。</div>
+<button class="answer-btn" onclick="toggleAnswer(this)"><span class="arr">▶</span><span>展开解析</span></button>
+<div class="answer"><b>解析：</b>100πt=π/3，所以 e=120sin(π/3)=60√3 V。</div>
+</div></div>
+  </div>
+</div></section><section class="slide">
+<div class="frame">
+  <aside class="rail">
+    <div><div class="rail-tag">M02</div><div class="rail-no">07</div><div class="rail-name">图像互化：u-t、i-t 与 Φ-t</div></div>
+    <div class="rail-foot">AC CORE<br>MECHA GRID<br>CALC MODE</div>
+  </aside>
+  <div class="content">
+    <div class="heading"><div><div class="eyebrow">ALTERNATING CURRENT / MECHA TRAINING</div><h1>图像互化：u-t、i-t 与 Φ-t</h1><div class="sub">计算框架与公式链</div></div><div class="counter">07/30</div></div>
+    <div class="knowledge">
+<div class="formula-panel"><div class="panel-title">CORE FORMULA</div><div class="formula">T=1/f</div><div class="formula">ω=2π/T</div><div class="formula">e=-N·dΦ/dt</div></div>
+<div class="note-panel"><div class="panel-title">CALC LOGIC</div><ul><li>图像先读峰值和周期，再判断初始状态。</li><li>Φ-t 图像斜率的绝对值决定 |e|；斜率符号决定 e 的正负。</li><li>若从正峰值开始，优先用余弦；从零向正方向变化，优先用正弦。</li></ul></div>
+</div>
+  </div>
+</div></section><section class="slide">
+<div class="frame">
+  <aside class="rail">
+    <div><div class="rail-tag">M02</div><div class="rail-no">08</div><div class="rail-name">图像互化：u-t、i-t 与 Φ-t</div></div>
+    <div class="rail-foot">AC CORE<br>MECHA GRID<br>CALC MODE</div>
+  </aside>
+  <div class="content">
+    <div class="heading"><div><div class="eyebrow">ALTERNATING CURRENT / MECHA TRAINING</div><h1>图像互化：u-t、i-t 与 Φ-t</h1><div class="sub">计算训练 A</div></div><div class="counter">08/30</div></div>
+    <div class="problem-grid"><div class="problem">
+<div class="problem-label">计算 1</div>
+<div class="question">某电流图像峰值 6 A，周期 0.040 s，t=0 时从零向正方向增大。写出 i(t)，并求 t=5.0×10⁻³ s 时电流。</div>
+<button class="answer-btn" onclick="toggleAnswer(this)"><span class="arr">▶</span><span>展开解析</span></button>
+<div class="answer"><b>解析：</b>ω=2π/T=50π rad/s，i=6sin(50πt) A。代入 t=0.005 s，角度 π/4，i=3√2 A。</div>
+</div><div class="problem">
+<div class="problem-label">计算 2</div>
+<div class="question">某电压图像在 t=0 时为正峰值 100 V，t=0.010 s 第一次过零。写出 u(t)。</div>
+<button class="answer-btn" onclick="toggleAnswer(this)"><span class="arr">▶</span><span>展开解析</span></button>
+<div class="answer"><b>解析：</b>从峰值到首次过零为 T/4，所以 T=0.040 s，ω=50π rad/s，u=100cos(50πt) V。</div>
+</div></div>
+  </div>
+</div></section><section class="slide">
+<div class="frame">
+  <aside class="rail">
+    <div><div class="rail-tag">M02</div><div class="rail-no">09</div><div class="rail-name">图像互化：u-t、i-t 与 Φ-t</div></div>
+    <div class="rail-foot">AC CORE<br>MECHA GRID<br>CALC MODE</div>
+  </aside>
+  <div class="content">
+    <div class="heading"><div><div class="eyebrow">ALTERNATING CURRENT / MECHA TRAINING</div><h1>图像互化：u-t、i-t 与 Φ-t</h1><div class="sub">计算训练 B</div></div><div class="counter">09/30</div></div>
+    <div class="problem-grid"><div class="problem">
+<div class="problem-label">中档 1</div>
+<div class="question">100 匝线圈磁通量 Φ=2.0×10⁻³cos(100πt) Wb。求感应电动势峰值。</div>
+<button class="answer-btn" onclick="toggleAnswer(this)"><span class="arr">▶</span><span>展开解析</span></button>
+<div class="answer"><b>解析：</b>e=-N dΦ/dt，峰值 Eₘ=NωΦₘ=100×100π×2.0×10⁻³=20π V。</div>
+</div><div class="problem">
+<div class="problem-label">中档 2</div>
+<div class="question">某线圈 Φ-t 图像在 0~0.020 s 内磁通量从 +4.0×10⁻³ Wb 线性减到 -4.0×10⁻³ Wb，匝数 200。求该段感应电动势大小。</div>
+<button class="answer-btn" onclick="toggleAnswer(this)"><span class="arr">▶</span><span>展开解析</span></button>
+<div class="answer"><b>解析：</b>ΔΦ=-8.0×10⁻³ Wb，E=N|ΔΦ|/Δt=200×8.0×10⁻³/0.020=80 V。</div>
+</div></div>
+  </div>
+</div></section><section class="slide">
+<div class="frame">
+  <aside class="rail">
+    <div><div class="rail-tag">M03</div><div class="rail-no">10</div><div class="rail-name">四值与非正弦有效值</div></div>
+    <div class="rail-foot">AC CORE<br>MECHA GRID<br>CALC MODE</div>
+  </aside>
+  <div class="content">
+    <div class="heading"><div><div class="eyebrow">ALTERNATING CURRENT / MECHA TRAINING</div><h1>四值与非正弦有效值</h1><div class="sub">计算框架与公式链</div></div><div class="counter">10/30</div></div>
+    <div class="knowledge">
+<div class="formula-panel"><div class="panel-title">CORE FORMULA</div><div class="formula">U=Uₘ/√2</div><div class="formula">I=Iₘ/√2</div><div class="formula">Q=I²Rt</div><div class="formula">Ē=N|ΔΦ|/Δt</div></div>
+<div class="note-panel"><div class="panel-title">CALC LOGIC</div><ul><li>电热、功率、交流电表读数用有效值。</li><li>电荷量与一段时间的感应电动势常用平均值。</li><li>非正弦周期量用等效热效应求有效值。</li></ul></div>
+</div>
+  </div>
+</div></section><section class="slide">
+<div class="frame">
+  <aside class="rail">
+    <div><div class="rail-tag">M03</div><div class="rail-no">11</div><div class="rail-name">四值与非正弦有效值</div></div>
+    <div class="rail-foot">AC CORE<br>MECHA GRID<br>CALC MODE</div>
+  </aside>
+  <div class="content">
+    <div class="heading"><div><div class="eyebrow">ALTERNATING CURRENT / MECHA TRAINING</div><h1>四值与非正弦有效值</h1><div class="sub">计算训练 A</div></div><div class="counter">11/30</div></div>
+    <div class="problem-grid"><div class="problem">
+<div class="problem-label">计算 1</div>
+<div class="question">纯电阻 R=50 Ω 接在 u=100√2sin(100πt)V 电源上。求电流有效值和平均功率。</div>
+<button class="answer-btn" onclick="toggleAnswer(this)"><span class="arr">▶</span><span>展开解析</span></button>
+<div class="answer"><b>解析：</b>U=100 V，I=U/R=2.0 A，P=UI=200 W。</div>
+</div><div class="problem">
+<div class="problem-label">计算 2</div>
+<div class="question">某正弦交流电流峰值 10 A，通过 8 Ω 电阻 10 s。求产生的热量。</div>
+<button class="answer-btn" onclick="toggleAnswer(this)"><span class="arr">▶</span><span>展开解析</span></button>
+<div class="answer"><b>解析：</b>I=10/√2=5√2 A，Q=I²Rt=50×8×10=4000 J。</div>
+</div></div>
+  </div>
+</div></section><section class="slide">
+<div class="frame">
+  <aside class="rail">
+    <div><div class="rail-tag">M03</div><div class="rail-no">12</div><div class="rail-name">四值与非正弦有效值</div></div>
+    <div class="rail-foot">AC CORE<br>MECHA GRID<br>CALC MODE</div>
+  </aside>
+  <div class="content">
+    <div class="heading"><div><div class="eyebrow">ALTERNATING CURRENT / MECHA TRAINING</div><h1>四值与非正弦有效值</h1><div class="sub">计算训练 B</div></div><div class="counter">12/30</div></div>
+    <div class="problem-grid"><div class="problem">
+<div class="problem-label">中档 1</div>
+<div class="question">一个周期 T 内，电流前 T/2 恒为 4 A，后 T/2 为 0。求有效值。</div>
+<button class="answer-btn" onclick="toggleAnswer(this)"><span class="arr">▶</span><span>展开解析</span></button>
+<div class="answer"><b>解析：</b>I_eff²T=4²·T/2，所以 I_eff=2√2 A。</div>
+</div><div class="problem">
+<div class="problem-label">中档 2</div>
+<div class="question">一个周期内，电流在前 T/4 为 +6 A，中间 T/2 为 0，后 T/4 为 -6 A。求有效值。</div>
+<button class="answer-btn" onclick="toggleAnswer(this)"><span class="arr">▶</span><span>展开解析</span></button>
+<div class="answer"><b>解析：</b>I_eff²T=36·T/4+36·T/4=18T，所以 I_eff=3√2 A。</div>
+</div></div>
+  </div>
+</div></section><section class="slide">
+<div class="frame">
+  <aside class="rail">
+    <div><div class="rail-tag">M04</div><div class="rail-no">13</div><div class="rail-name">理想变压器：基本计算</div></div>
+    <div class="rail-foot">AC CORE<br>MECHA GRID<br>CALC MODE</div>
+  </aside>
+  <div class="content">
+    <div class="heading"><div><div class="eyebrow">ALTERNATING CURRENT / MECHA TRAINING</div><h1>理想变压器：基本计算</h1><div class="sub">计算框架与公式链</div></div><div class="counter">13/30</div></div>
+    <div class="knowledge">
+<div class="formula-panel"><div class="panel-title">CORE FORMULA</div><div class="formula">U₁/U₂=n₁/n₂</div><div class="formula">I₁/I₂=n₂/n₁</div><div class="formula">P₁=P₂</div></div>
+<div class="note-panel"><div class="panel-title">CALC LOGIC</div><ul><li>先用匝数比算电压，再由负载算副边电流，最后由功率守恒反推原边电流。</li><li>理想模型忽略铜损、铁损与漏磁。</li><li>升压不增加功率，只是电压升高、电流降低。</li></ul></div>
+</div>
+  </div>
+</div></section><section class="slide">
+<div class="frame">
+  <aside class="rail">
+    <div><div class="rail-tag">M04</div><div class="rail-no">14</div><div class="rail-name">理想变压器：基本计算</div></div>
+    <div class="rail-foot">AC CORE<br>MECHA GRID<br>CALC MODE</div>
+  </aside>
+  <div class="content">
+    <div class="heading"><div><div class="eyebrow">ALTERNATING CURRENT / MECHA TRAINING</div><h1>理想变压器：基本计算</h1><div class="sub">计算训练 A</div></div><div class="counter">14/30</div></div>
+    <div class="problem-grid"><div class="problem">
+<div class="problem-label">计算 1</div>
+<div class="question">理想变压器 n₁:n₂=10:1，原线圈接 220 V，副线圈接 11 Ω 电阻。求 U₂、I₂、I₁。</div>
+<button class="answer-btn" onclick="toggleAnswer(this)"><span class="arr">▶</span><span>展开解析</span></button>
+<div class="answer"><b>解析：</b>U₂=22 V，I₂=22/11=2.0 A；P₂=44 W，所以 I₁=44/220=0.20 A。</div>
+</div><div class="problem">
+<div class="problem-label">计算 2</div>
+<div class="question">某理想升压变压器副线圈电压 2200 V，副线圈电流 0.40 A，原线圈电压 220 V。求原线圈电流和匝数比。</div>
+<button class="answer-btn" onclick="toggleAnswer(this)"><span class="arr">▶</span><span>展开解析</span></button>
+<div class="answer"><b>解析：</b>P=2200×0.40=880 W，I₁=880/220=4.0 A；n₁:n₂=220:2200=1:10。</div>
+</div></div>
+  </div>
+</div></section><section class="slide">
+<div class="frame">
+  <aside class="rail">
+    <div><div class="rail-tag">M04</div><div class="rail-no">15</div><div class="rail-name">理想变压器：基本计算</div></div>
+    <div class="rail-foot">AC CORE<br>MECHA GRID<br>CALC MODE</div>
+  </aside>
+  <div class="content">
+    <div class="heading"><div><div class="eyebrow">ALTERNATING CURRENT / MECHA TRAINING</div><h1>理想变压器：基本计算</h1><div class="sub">计算训练 B</div></div><div class="counter">15/30</div></div>
+    <div class="problem-grid"><div class="problem">
+<div class="problem-label">中档 1</div>
+<div class="question">理想变压器原边 220 V，副边接 44 Ω 电阻，副边电流 0.50 A。求匝数比 n₁:n₂ 和原边电流。</div>
+<button class="answer-btn" onclick="toggleAnswer(this)"><span class="arr">▶</span><span>展开解析</span></button>
+<div class="answer"><b>解析：</b>U₂=I₂R=22 V，n₁:n₂=220:22=10:1；P=11 W，I₁=0.050 A。</div>
+</div><div class="problem">
+<div class="problem-label">中档 2</div>
+<div class="question">某理想变压器 n₁:n₂=5:2，原边接 250 V。副边并联两个电阻 20 Ω、30 Ω。求原边电流。</div>
+<button class="answer-btn" onclick="toggleAnswer(this)"><span class="arr">▶</span><span>展开解析</span></button>
+<div class="answer"><b>解析：</b>U₂=100 V。I₂=100/20+100/30=25/3 A，P₂=100×25/3=2500/3 W，I₁=(2500/3)/250=10/3 A。</div>
+</div></div>
+  </div>
+</div></section><section class="slide">
+<div class="frame">
+  <aside class="rail">
+    <div><div class="rail-tag">M05</div><div class="rail-no">16</div><div class="rail-name">变压器动态：负载与匝数变化</div></div>
+    <div class="rail-foot">AC CORE<br>MECHA GRID<br>CALC MODE</div>
+  </aside>
+  <div class="content">
+    <div class="heading"><div><div class="eyebrow">ALTERNATING CURRENT / MECHA TRAINING</div><h1>变压器动态：负载与匝数变化</h1><div class="sub">计算框架与公式链</div></div><div class="counter">16/30</div></div>
+    <div class="knowledge">
+<div class="formula-panel"><div class="panel-title">CORE FORMULA</div><div class="formula">U₂=U₁·n₂/n₁</div><div class="formula">P₂=U₂²/R</div><div class="formula">I₁=P₂/U₁</div></div>
+<div class="note-panel"><div class="panel-title">CALC LOGIC</div><ul><li>原边直接接理想交流源时 U₁ 固定。</li><li>负载电阻减小 → I₂ 增大 → P₂ 增大 → I₁ 增大。</li><li>改变匝数时先看 U₂，再看负载电流与功率。</li></ul></div>
+</div>
+  </div>
+</div></section><section class="slide">
+<div class="frame">
+  <aside class="rail">
+    <div><div class="rail-tag">M05</div><div class="rail-no">17</div><div class="rail-name">变压器动态：负载与匝数变化</div></div>
+    <div class="rail-foot">AC CORE<br>MECHA GRID<br>CALC MODE</div>
+  </aside>
+  <div class="content">
+    <div class="heading"><div><div class="eyebrow">ALTERNATING CURRENT / MECHA TRAINING</div><h1>变压器动态：负载与匝数变化</h1><div class="sub">计算训练 A</div></div><div class="counter">17/30</div></div>
+    <div class="problem-grid"><div class="problem">
+<div class="problem-label">计算 1</div>
+<div class="question">理想变压器原边 220 V、匝数比 10:1，副边负载由 44 Ω 变为 22 Ω。求两种状态的原边电流。</div>
+<button class="answer-btn" onclick="toggleAnswer(this)"><span class="arr">▶</span><span>展开解析</span></button>
+<div class="answer"><b>解析：</b>U₂=22 V。R=44 Ω 时 P=11 W，I₁=0.050 A；R=22 Ω 时 P=22 W，I₁=0.100 A。</div>
+</div><div class="problem">
+<div class="problem-label">计算 2</div>
+<div class="question">原边电压不变，副边匝数增加 50%，负载电阻不变。求副边电压、电流、功率和原边电流的变化倍数。</div>
+<button class="answer-btn" onclick="toggleAnswer(this)"><span class="arr">▶</span><span>展开解析</span></button>
+<div class="answer"><b>解析：</b>U₂ 变 1.5 倍，I₂ 变 1.5 倍，P₂ 变 2.25 倍，I₁ 也变 2.25 倍。</div>
+</div></div>
+  </div>
+</div></section><section class="slide">
+<div class="frame">
+  <aside class="rail">
+    <div><div class="rail-tag">M05</div><div class="rail-no">18</div><div class="rail-name">变压器动态：负载与匝数变化</div></div>
+    <div class="rail-foot">AC CORE<br>MECHA GRID<br>CALC MODE</div>
+  </aside>
+  <div class="content">
+    <div class="heading"><div><div class="eyebrow">ALTERNATING CURRENT / MECHA TRAINING</div><h1>变压器动态：负载与匝数变化</h1><div class="sub">计算训练 B</div></div><div class="counter">18/30</div></div>
+    <div class="problem-grid"><div class="problem">
+<div class="problem-label">中档 1</div>
+<div class="question">原边 220 V，n₁:n₂=11:2，副边接 20 Ω 电阻。若 n₂ 增加到原来的 1.5 倍，求新原边电流。</div>
+<button class="answer-btn" onclick="toggleAnswer(this)"><span class="arr">▶</span><span>展开解析</span></button>
+<div class="answer"><b>解析：</b>原 U₂=40 V，新 U₂=60 V。P₂=60²/20=180 W，I₁=180/220=9/11 A≈0.818 A。</div>
+</div><div class="problem">
+<div class="problem-label">中档 2</div>
+<div class="question">理想变压器副边接定值电阻 R。原边匝数由 n₁ 增至 2n₁，副边匝数和原边电压不变。求输出功率变化倍数。</div>
+<button class="answer-btn" onclick="toggleAnswer(this)"><span class="arr">▶</span><span>展开解析</span></button>
+<div class="answer"><b>解析：</b>U₂∝1/n₁，变为 1/2；P₂=U₂²/R，变为 1/4。</div>
+</div></div>
+  </div>
+</div></section><section class="slide">
+<div class="frame">
+  <aside class="rail">
+    <div><div class="rail-tag">M06</div><div class="rail-no">19</div><div class="rail-name">特殊结构：多副线圈、自耦与互感器</div></div>
+    <div class="rail-foot">AC CORE<br>MECHA GRID<br>CALC MODE</div>
+  </aside>
+  <div class="content">
+    <div class="heading"><div><div class="eyebrow">ALTERNATING CURRENT / MECHA TRAINING</div><h1>特殊结构：多副线圈、自耦与互感器</h1><div class="sub">计算框架与公式链</div></div><div class="counter">19/30</div></div>
+    <div class="knowledge">
+<div class="formula-panel"><div class="panel-title">CORE FORMULA</div><div class="formula">P₁=ΣP₂</div><div class="formula">U_a/U_b=n_a/n_b</div><div class="formula">I₁=P总/U₁</div></div>
+<div class="note-panel"><div class="panel-title">CALC LOGIC</div><ul><li>多副线圈分别算各支路功率，再汇总。</li><li>自耦调压器改变有效匝数即可连续调压。</li><li>电压互感器测高电压；电流互感器测大电流。</li></ul></div>
+</div>
+  </div>
+</div></section><section class="slide">
+<div class="frame">
+  <aside class="rail">
+    <div><div class="rail-tag">M06</div><div class="rail-no">20</div><div class="rail-name">特殊结构：多副线圈、自耦与互感器</div></div>
+    <div class="rail-foot">AC CORE<br>MECHA GRID<br>CALC MODE</div>
+  </aside>
+  <div class="content">
+    <div class="heading"><div><div class="eyebrow">ALTERNATING CURRENT / MECHA TRAINING</div><h1>特殊结构：多副线圈、自耦与互感器</h1><div class="sub">计算训练 A</div></div><div class="counter">20/30</div></div>
+    <div class="problem-grid"><div class="problem">
+<div class="problem-label">计算 1</div>
+<div class="question">原线圈接 220 V。副线圈 A 输出 22 V 接 11 Ω，副线圈 B 输出 11 V 接 11 Ω。求原线圈电流。</div>
+<button class="answer-btn" onclick="toggleAnswer(this)"><span class="arr">▶</span><span>展开解析</span></button>
+<div class="answer"><b>解析：</b>P_A=44 W，P_B=11 W，总功率 55 W，I₁=55/220=0.25 A。</div>
+</div><div class="problem">
+<div class="problem-label">计算 2</div>
+<div class="question">某自耦调压器输入 220 V，总匝数 1000，输出端取其中 400 匝。求输出电压。</div>
+<button class="answer-btn" onclick="toggleAnswer(this)"><span class="arr">▶</span><span>展开解析</span></button>
+<div class="answer"><b>解析：</b>U₂/U₁=n₂/n₁=400/1000，所以 U₂=88 V。</div>
+</div></div>
+  </div>
+</div></section><section class="slide">
+<div class="frame">
+  <aside class="rail">
+    <div><div class="rail-tag">M06</div><div class="rail-no">21</div><div class="rail-name">特殊结构：多副线圈、自耦与互感器</div></div>
+    <div class="rail-foot">AC CORE<br>MECHA GRID<br>CALC MODE</div>
+  </aside>
+  <div class="content">
+    <div class="heading"><div><div class="eyebrow">ALTERNATING CURRENT / MECHA TRAINING</div><h1>特殊结构：多副线圈、自耦与互感器</h1><div class="sub">计算训练 B</div></div><div class="counter">21/30</div></div>
+    <div class="problem-grid"><div class="problem">
+<div class="problem-label">中档 1</div>
+<div class="question">电压互感器原、副线圈匝数比为 100:1，副边电压表读数 100 V。求被测高压。</div>
+<button class="answer-btn" onclick="toggleAnswer(this)"><span class="arr">▶</span><span>展开解析</span></button>
+<div class="answer"><b>解析：</b>U₁=100×100=10 kV。</div>
+</div><div class="problem">
+<div class="problem-label">中档 2</div>
+<div class="question">电流互感器原、副线圈匝数比为 1:50，副边电流表读数 2.0 A。理想情况下求原边电流。</div>
+<button class="answer-btn" onclick="toggleAnswer(this)"><span class="arr">▶</span><span>展开解析</span></button>
+<div class="answer"><b>解析：</b>I₁/I₂=n₂/n₁=50，所以 I₁=100 A。</div>
+</div></div>
+  </div>
+</div></section><section class="slide">
+<div class="frame">
+  <aside class="rail">
+    <div><div class="rail-tag">M07</div><div class="rail-no">22</div><div class="rail-name">远距离输电：基本损耗计算</div></div>
+    <div class="rail-foot">AC CORE<br>MECHA GRID<br>CALC MODE</div>
+  </aside>
+  <div class="content">
+    <div class="heading"><div><div class="eyebrow">ALTERNATING CURRENT / MECHA TRAINING</div><h1>远距离输电：基本损耗计算</h1><div class="sub">计算框架与公式链</div></div><div class="counter">22/30</div></div>
+    <div class="knowledge">
+<div class="formula-panel"><div class="panel-title">CORE FORMULA</div><div class="formula">I线=P输/U输</div><div class="formula">P损=I线²R线</div><div class="formula">ΔU=I线R线</div></div>
+<div class="note-panel"><div class="panel-title">CALC LOGIC</div><ul><li>在输送功率一定时，提高输电电压可显著降低线路电流。</li><li>损耗按电流平方变化，是高压输电的核心。</li><li>线路电压损失与线路电流成正比。</li></ul></div>
+</div>
+  </div>
+</div></section><section class="slide">
+<div class="frame">
+  <aside class="rail">
+    <div><div class="rail-tag">M07</div><div class="rail-no">23</div><div class="rail-name">远距离输电：基本损耗计算</div></div>
+    <div class="rail-foot">AC CORE<br>MECHA GRID<br>CALC MODE</div>
+  </aside>
+  <div class="content">
+    <div class="heading"><div><div class="eyebrow">ALTERNATING CURRENT / MECHA TRAINING</div><h1>远距离输电：基本损耗计算</h1><div class="sub">计算训练 A</div></div><div class="counter">23/30</div></div>
+    <div class="problem-grid"><div class="problem">
+<div class="problem-label">计算 1</div>
+<div class="question">输送功率 200 kW，输电电压 20 kV，线路总电阻 10 Ω。求输电电流、线路损耗和压降。</div>
+<button class="answer-btn" onclick="toggleAnswer(this)"><span class="arr">▶</span><span>展开解析</span></button>
+<div class="answer"><b>解析：</b>I=10 A；P损=10²×10=1000 W；ΔU=10×10=100 V。</div>
+</div><div class="problem">
+<div class="problem-label">计算 2</div>
+<div class="question">输送功率 100 kW，原输电电压 5 kV。若提高到 10 kV，线路电阻不变。求线路电流和损耗分别变为原来的多少。</div>
+<button class="answer-btn" onclick="toggleAnswer(this)"><span class="arr">▶</span><span>展开解析</span></button>
+<div class="answer"><b>解析：</b>电压加倍，电流变 1/2，损耗变 1/4。</div>
+</div></div>
+  </div>
+</div></section><section class="slide">
+<div class="frame">
+  <aside class="rail">
+    <div><div class="rail-tag">M07</div><div class="rail-no">24</div><div class="rail-name">远距离输电：基本损耗计算</div></div>
+    <div class="rail-foot">AC CORE<br>MECHA GRID<br>CALC MODE</div>
+  </aside>
+  <div class="content">
+    <div class="heading"><div><div class="eyebrow">ALTERNATING CURRENT / MECHA TRAINING</div><h1>远距离输电：基本损耗计算</h1><div class="sub">计算训练 B</div></div><div class="counter">24/30</div></div>
+    <div class="problem-grid"><div class="problem">
+<div class="problem-label">中档 1</div>
+<div class="question">某线路总电阻 8 Ω，线路损耗功率 3.2 kW。求输电电流。若输送功率 80 kW，求输电电压近似值。</div>
+<button class="answer-btn" onclick="toggleAnswer(this)"><span class="arr">▶</span><span>展开解析</span></button>
+<div class="answer"><b>解析：</b>I=√(3200/8)=20 A；U≈P/I=80000/20=4.0 kV。</div>
+</div><div class="problem">
+<div class="problem-label">中档 2</div>
+<div class="question">某系统原线路损耗占输送功率 9%。若输电电压提高到原来的 3 倍且输送功率不变，新的损耗占比约多少？</div>
+<button class="answer-btn" onclick="toggleAnswer(this)"><span class="arr">▶</span><span>展开解析</span></button>
+<div class="answer"><b>解析：</b>电流变 1/3，损耗变 1/9，占比约 1%。</div>
+</div></div>
+  </div>
+</div></section><section class="slide">
+<div class="frame">
+  <aside class="rail">
+    <div><div class="rail-tag">M08</div><div class="rail-no">25</div><div class="rail-name">远距离输电：变压器与用户端综合</div></div>
+    <div class="rail-foot">AC CORE<br>MECHA GRID<br>CALC MODE</div>
+  </aside>
+  <div class="content">
+    <div class="heading"><div><div class="eyebrow">ALTERNATING CURRENT / MECHA TRAINING</div><h1>远距离输电：变压器与用户端综合</h1><div class="sub">计算框架与公式链</div></div><div class="counter">25/30</div></div>
+    <div class="knowledge">
+<div class="formula-panel"><div class="panel-title">CORE FORMULA</div><div class="formula">P送=P用+P损</div><div class="formula">U末=U送-ΔU</div><div class="formula">U高/U低=n高/n低</div></div>
+<div class="note-panel"><div class="panel-title">CALC LOGIC</div><ul><li>用户端电流不能直接当高压线路电流。</li><li>完整题要区分升压端、线路、降压端和用户端。</li><li>理想降压变压器输入功率等于用户功率。</li></ul></div>
+</div>
+  </div>
+</div></section><section class="slide">
+<div class="frame">
+  <aside class="rail">
+    <div><div class="rail-tag">M08</div><div class="rail-no">26</div><div class="rail-name">远距离输电：变压器与用户端综合</div></div>
+    <div class="rail-foot">AC CORE<br>MECHA GRID<br>CALC MODE</div>
+  </aside>
+  <div class="content">
+    <div class="heading"><div><div class="eyebrow">ALTERNATING CURRENT / MECHA TRAINING</div><h1>远距离输电：变压器与用户端综合</h1><div class="sub">计算训练 A</div></div><div class="counter">26/30</div></div>
+    <div class="problem-grid"><div class="problem">
+<div class="problem-label">计算 1</div>
+<div class="question">高压线路首端电压 10 kV，电流 10 A，线路总电阻 20 Ω。求线路末端电压和末端可获得功率。</div>
+<button class="answer-btn" onclick="toggleAnswer(this)"><span class="arr">▶</span><span>展开解析</span></button>
+<div class="answer"><b>解析：</b>ΔU=200 V，U末=9.8 kV；P末=U末I=98 kW。</div>
+</div><div class="problem">
+<div class="problem-label">计算 2</div>
+<div class="question">降压变压器高压侧 9.8 kV，用户端要求 220 V。求匝数比 n高:n低。</div>
+<button class="answer-btn" onclick="toggleAnswer(this)"><span class="arr">▶</span><span>展开解析</span></button>
+<div class="answer"><b>解析：</b>n高:n低=9800:220=490:11≈44.55:1。</div>
+</div></div>
+  </div>
+</div></section><section class="slide">
+<div class="frame">
+  <aside class="rail">
+    <div><div class="rail-tag">M08</div><div class="rail-no">27</div><div class="rail-name">远距离输电：变压器与用户端综合</div></div>
+    <div class="rail-foot">AC CORE<br>MECHA GRID<br>CALC MODE</div>
+  </aside>
+  <div class="content">
+    <div class="heading"><div><div class="eyebrow">ALTERNATING CURRENT / MECHA TRAINING</div><h1>远距离输电：变压器与用户端综合</h1><div class="sub">计算训练 B</div></div><div class="counter">27/30</div></div>
+    <div class="problem-grid"><div class="problem">
+<div class="problem-label">中档 1</div>
+<div class="question">用户端获得 90 kW，线路损耗 10 kW，线路总电阻 10 Ω。求线路电流、送端功率和线路压降。</div>
+<button class="answer-btn" onclick="toggleAnswer(this)"><span class="arr">▶</span><span>展开解析</span></button>
+<div class="answer"><b>解析：</b>P送=100 kW。I=√(10000/10)=√1000≈31.6 A；ΔU≈316 V。</div>
+</div><div class="problem">
+<div class="problem-label">中档 2</div>
+<div class="question">某系统高压端 20 kV，线路电阻 20 Ω，用户获得 190 kW。近似认为送端功率 200 kW。求线路电流、损耗和效率。</div>
+<button class="answer-btn" onclick="toggleAnswer(this)"><span class="arr">▶</span><span>展开解析</span></button>
+<div class="answer"><b>解析：</b>I=200000/20000=10 A；P损=2000 W；若用户 190 kW，则效率=190/200=95%。</div>
+</div></div>
+  </div>
+</div></section><section class="slide">
+<div class="frame">
+  <aside class="rail">
+    <div><div class="rail-tag">M09</div><div class="rail-no">28</div><div class="rail-name">综合计算：发电机—变压—输电贯通</div></div>
+    <div class="rail-foot">AC CORE<br>MECHA GRID<br>CALC MODE</div>
+  </aside>
+  <div class="content">
+    <div class="heading"><div><div class="eyebrow">ALTERNATING CURRENT / MECHA TRAINING</div><h1>综合计算：发电机—变压—输电贯通</h1><div class="sub">计算框架与公式链</div></div><div class="counter">28/30</div></div>
+    <div class="knowledge">
+<div class="formula-panel"><div class="panel-title">CORE FORMULA</div><div class="formula">Eₘ=NBSω</div><div class="formula">U=Uₘ/√2</div><div class="formula">U₂/U₁=n₂/n₁</div><div class="formula">P损=(P/U输)²R</div></div>
+<div class="note-panel"><div class="panel-title">CALC LOGIC</div><ul><li>先把发电机瞬时量转成有效值。</li><li>再经升压变压器得到高压端电压。</li><li>然后计算线路电流与损耗，最后处理降压与用户端。</li></ul></div>
+</div>
+  </div>
+</div></section><section class="slide">
+<div class="frame">
+  <aside class="rail">
+    <div><div class="rail-tag">M09</div><div class="rail-no">29</div><div class="rail-name">综合计算：发电机—变压—输电贯通</div></div>
+    <div class="rail-foot">AC CORE<br>MECHA GRID<br>CALC MODE</div>
+  </aside>
+  <div class="content">
+    <div class="heading"><div><div class="eyebrow">ALTERNATING CURRENT / MECHA TRAINING</div><h1>综合计算：发电机—变压—输电贯通</h1><div class="sub">计算训练 A</div></div><div class="counter">29/30</div></div>
+    <div class="problem-grid"><div class="problem">
+<div class="problem-label">计算 1</div>
+<div class="question">发电机输出 u=220√2sin100πt V，经匝数比 1:50 的理想升压变压器后输电。求高压端有效值。</div>
+<button class="answer-btn" onclick="toggleAnswer(this)"><span class="arr">▶</span><span>展开解析</span></button>
+<div class="answer"><b>解析：</b>发电机有效值 220 V，高压端 U=220×50=11 kV。</div>
+</div><div class="problem">
+<div class="problem-label">计算 2</div>
+<div class="question">上题高压端输送功率 55 kW，线路总电阻 40 Ω。求线路电流、线路损耗及压降。</div>
+<button class="answer-btn" onclick="toggleAnswer(this)"><span class="arr">▶</span><span>展开解析</span></button>
+<div class="answer"><b>解析：</b>I=55000/11000=5 A；P损=25×40=1000 W；ΔU=5×40=200 V。</div>
+</div></div>
+  </div>
+</div></section><section class="slide">
+<div class="frame">
+  <aside class="rail">
+    <div><div class="rail-tag">M09</div><div class="rail-no">30</div><div class="rail-name">综合计算：发电机—变压—输电贯通</div></div>
+    <div class="rail-foot">AC CORE<br>MECHA GRID<br>CALC MODE</div>
+  </aside>
+  <div class="content">
+    <div class="heading"><div><div class="eyebrow">ALTERNATING CURRENT / MECHA TRAINING</div><h1>综合计算：发电机—变压—输电贯通</h1><div class="sub">计算训练 B</div></div><div class="counter">30/30</div></div>
+    <div class="problem-grid"><div class="problem">
+<div class="problem-label">中档 1</div>
+<div class="question">发电机线圈 N=200、S=1.0×10⁻² m²、B=0.50 T，以 50 r/s 转动。从中性面开始。先求发电机电压有效值；再经 1:20 升压，求高压端有效值。</div>
+<button class="answer-btn" onclick="toggleAnswer(this)"><span class="arr">▶</span><span>展开解析</span></button>
+<div class="answer"><b>解析：</b>Eₘ=NBSω=200×0.50×0.01×100π=100π V；U=100π/√2≈222 V；升压后约 4.44 kV。</div>
+</div><div class="problem">
+<div class="problem-label">中档 2</div>
+<div class="question">某系统输送功率 180 kW，线路电阻 20 Ω。若把高压端电压从 10 kV 提高到 30 kV，分别求两种线路损耗，并比较。</div>
+<button class="answer-btn" onclick="toggleAnswer(this)"><span class="arr">▶</span><span>展开解析</span></button>
+<div class="answer"><b>解析：</b>10 kV 时 I=18 A，P损=18²×20=6480 W；30 kV 时 I=6 A，P损=720 W。损耗降为原来的 1/9。</div>
+</div></div>
+  </div>
+</div></section></main>
+<div class="nav"><button id="prev">←</button><button id="next">→</button><div id="count"></div><div class="track"><div id="prog"></div></div><button id="full">全屏</button><div class="hint">方向键 / 空格 · F</div></div></div>
+<script>
+const slides=[...document.querySelectorAll('.slide')];
+let current=0;
+function render(){
+  slides.forEach((s,i)=>s.classList.toggle('active',i===current));
+  document.getElementById('count').textContent=`${String(current+1).padStart(2,'0')}/${String(slides.length).padStart(2,'0')}`;
+  document.getElementById('prog').style.width=`${current/(slides.length-1)*100}%`;
+}
+function next(){if(current<slides.length-1){current++;render();}}
+function prev(){if(current>0){current--;render();}}
+document.getElementById('next').onclick=next;
+document.getElementById('prev').onclick=prev;
+document.getElementById('full').onclick=()=>{if(!document.fullscreenElement)document.documentElement.requestFullscreen();else document.exitFullscreen();};
+document.addEventListener('keydown',e=>{
+  if(['ArrowRight',' ','PageDown'].includes(e.key)){e.preventDefault();next();}
+  if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();prev();}
+  if(e.key.toLowerCase()==='f')document.getElementById('full').click();
+});
+function toggleAnswer(btn){
+  const a=btn.nextElementSibling;
+  const open=a.classList.toggle('open');
+  btn.classList.toggle('open',open);
+  btn.querySelector('span:last-child').textContent=open?'收起解析':'展开解析';
+}
+window.toggleAnswer=toggleAnswer;
+render();
+let sec=0;
+setInterval(()=>{sec++;document.getElementById('timer').textContent=`${String(Math.floor(sec/60)).padStart(2,'0')}:${String(sec%60).padStart(2,'0')}`},1000);
+
+// black-red mechanical sci-fi background
+const c=document.getElementById('bg'),ctx=c.getContext('2d');
+let W=0,H=0,DPR=1,gears=[],nodes=[],traces=[],particles=[],rings=[];
+function rnd(a,b){return a+Math.random()*(b-a)}
+function reset(){
+  DPR=window.devicePixelRatio||1;W=innerWidth;H=innerHeight;
+  c.width=W*DPR;c.height=H*DPR;c.style.width=W+'px';c.style.height=H+'px';
+  ctx.setTransform(DPR,0,0,DPR,0,0);
+  gears=Array.from({length:11},()=>({x:rnd(-80,W+80),y:rnd(40,H-40),r:rnd(28,95),teeth:Math.floor(rnd(10,22)),a:rnd(0,6.28),v:rnd(-.0014,.0014),alpha:rnd(.035,.11)}));
+  nodes=Array.from({length:35},()=>({x:rnd(0,W),y:rnd(0,H),r:rnd(1,2.5),a:rnd(.08,.35),p:rnd(0,6.28)}));
+  traces=Array.from({length:22},()=>({x:rnd(-200,W),y:rnd(0,H),len:rnd(120,420),v:rnd(.18,.65),p:rnd(0,6.28),a:rnd(.08,.24)}));
+  particles=Array.from({length:75},()=>({x:rnd(0,W),y:rnd(0,H),vx:rnd(-.05,.11),vy:rnd(-.03,.04),a:rnd(.04,.20),r:rnd(.4,1.5)}));
+  rings=Array.from({length:5},()=>({x:rnd(0,W),y:rnd(0,H),r:rnd(80,190),a:rnd(.025,.07),p:rnd(0,6.28)}));
+}
+function gear(g){
+  g.a+=g.v;
+  ctx.save();ctx.translate(g.x,g.y);ctx.rotate(g.a);ctx.globalAlpha=g.alpha;
+  ctx.strokeStyle='rgba(255,45,45,.78)';ctx.lineWidth=1.1;ctx.shadowColor='rgba(255,25,25,.5)';ctx.shadowBlur=8;
+  ctx.beginPath();
+  for(let i=0;i<g.teeth*2;i++){const r=i%2?g.r:g.r*1.13,a=i*Math.PI/g.teeth;if(i===0)ctx.moveTo(Math.cos(a)*r,Math.sin(a)*r);else ctx.lineTo(Math.cos(a)*r,Math.sin(a)*r)}
+  ctx.closePath();ctx.stroke();
+  ctx.beginPath();ctx.arc(0,0,g.r*.34,0,6.28);ctx.stroke();
+  for(let i=0;i<6;i++){const a=i*Math.PI/3;ctx.beginPath();ctx.moveTo(Math.cos(a)*g.r*.40,Math.sin(a)*g.r*.40);ctx.lineTo(Math.cos(a)*g.r*.78,Math.sin(a)*g.r*.78);ctx.stroke();}
+  ctx.restore();
+}
+function draw(t){
+  ctx.clearRect(0,0,W,H);ctx.fillStyle='#000';ctx.fillRect(0,0,W,H);
+  const glow=ctx.createRadialGradient(W*.54,H*.44,0,W*.54,H*.44,Math.max(W,H)*.72);
+  glow.addColorStop(0,'rgba(95,0,0,.15)');glow.addColorStop(.45,'rgba(30,0,0,.08)');glow.addColorStop(1,'rgba(0,0,0,0)');
+  ctx.fillStyle=glow;ctx.fillRect(0,0,W,H);
+
+  // moving grid
+  ctx.save();ctx.strokeStyle='rgba(255,45,45,.032)';ctx.lineWidth=1;
+  const gs=46;
+  for(let x=(t*.014)%gs;x<W;x+=gs){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke();}
+  for(let y=(t*.009)%gs;y<H;y+=gs){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();}
+  ctx.restore();
+
+  // radar rings
+  rings.forEach((r,i)=>{
+    const pulse=.65+.35*Math.sin(t*.001+r.p);
+    ctx.save();ctx.globalAlpha=r.a*pulse;ctx.strokeStyle='rgba(255,55,55,.85)';ctx.setLineDash([10,12]);ctx.lineDashOffset=-t*.015*(i+1);ctx.lineWidth=1;
+    ctx.beginPath();ctx.arc(r.x,r.y,r.r,0,6.28);ctx.stroke();ctx.beginPath();ctx.arc(r.x,r.y,r.r*.62,0,6.28);ctx.stroke();ctx.restore();
+  });
+
+  gears.forEach(gear);
+
+  // angular light traces
+  ctx.save();ctx.lineCap='square';
+  for(const l of traces){
+    l.x+=l.v;if(l.x-l.len>W){l.x=-l.len;l.y=rnd(0,H)}
+    const y=l.y+Math.sin(t*.0008+l.p)*16;
+    const g=ctx.createLinearGradient(l.x,y,l.x-l.len,y+24);g.addColorStop(0,`rgba(255,238,238,${l.a})`);g.addColorStop(.15,`rgba(255,45,45,${l.a})`);g.addColorStop(1,'rgba(80,0,0,0)');
+    ctx.strokeStyle=g;ctx.shadowColor='rgba(255,35,35,.55)';ctx.shadowBlur=10;ctx.lineWidth=1.2;
+    ctx.beginPath();ctx.moveTo(l.x,y);ctx.lineTo(l.x-l.len*.33,y);ctx.lineTo(l.x-l.len*.46,y+24);ctx.lineTo(l.x-l.len,y+24);ctx.stroke();
+  }
+  ctx.restore();
+
+  nodes.forEach((n,i)=>{const a=n.a*(.55+.45*Math.sin(t*.002+n.p));ctx.fillStyle=`rgba(255,90,90,${a})`;ctx.shadowColor='rgba(255,45,45,.65)';ctx.shadowBlur=8;ctx.beginPath();ctx.arc(n.x,n.y,n.r,0,6.28);ctx.fill();});
+  ctx.shadowBlur=0;
+  particles.forEach(p=>{p.x+=p.vx;p.y+=p.vy;if(p.x>W+5)p.x=-5;if(p.y>H+5)p.y=-5;if(p.y<-5)p.y=H+5;ctx.fillStyle=`rgba(255,120,120,${p.a})`;ctx.fillRect(p.x,p.y,p.r,p.r);});
+  requestAnimationFrame(draw);
+}
+window.addEventListener('resize',reset);reset();requestAnimationFrame(draw);
+</script><script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"45c2bf8136a245cd97f1c2e9a96c0730"}' crossorigin="anonymous"></script>
+</body></html>

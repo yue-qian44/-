@@ -1,0 +1,326 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>恒定电流＋电学实验专题</title><style>
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;overflow:hidden;font-family:"PingFang SC","Microsoft YaHei",Arial,sans-serif;background:#021013;color:#efffff}
+#bg{position:fixed;inset:0;z-index:0;overflow:hidden;background:radial-gradient(circle at 72% 24%,rgba(31,255,238,.10),transparent 28%),linear-gradient(180deg,#03191d 0%,#021116 44%,#01090d 100%)}
+#fishCanvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+#app{position:relative;z-index:2;height:100%;display:flex;flex-direction:column}
+header{height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;background:rgba(2,14,18,.34);border-bottom:1px solid rgba(67,255,239,.20);backdrop-filter:blur(6px)}
+.brand{font-size:23px;font-weight:900;color:#bffeff;letter-spacing:1px;text-shadow:0 0 18px rgba(64,255,239,.35)}
+.timer{padding:7px 12px;border-radius:999px;border:1px solid rgba(83,255,239,.30);background:rgba(6,37,40,.35);color:#cafff8;font-size:13px;font-weight:900;box-shadow:0 0 15px rgba(63,255,236,.08) inset}
+main{flex:1;position:relative}
+.slide{display:none;height:100%;padding:14px 20px 82px}
+.slide.active{display:block;animation:fade .22s ease}
+@keyframes fade{from{opacity:.16;transform:translateY(7px)}to{opacity:1;transform:none}}
+.slide-inner{height:100%;display:flex;flex-direction:column}
+.headrow{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.section-chip{display:inline-flex;align-items:center;padding:7px 13px;border-radius:999px;font-size:13px;font-weight:900;background:rgba(5,52,53,.35);border:1px solid rgba(87,255,241,.28);color:#84fff1;text-shadow:0 0 10px rgba(55,255,231,.28)}
+.page-badge{padding:7px 13px;border-radius:999px;background:rgba(4,31,35,.32);border:1px solid rgba(105,255,244,.22);color:#aafff7;font-size:13px;font-weight:900}
+.titleblock{margin-bottom:10px}
+h1{margin:0;font-size:38px;line-height:1.14;color:#f7ffff;text-shadow:0 0 18px rgba(77,255,242,.12)}
+.subtitle{margin-top:6px;font-size:17px;color:#7ffbed;font-weight:800;letter-spacing:.2px}
+.content{flex:1;min-height:0}
+.two-col{display:grid;grid-template-columns:1.08fr .92fr;gap:22px}
+.one-col{display:grid;grid-template-columns:1fr}
+.glass{height:100%;padding:8px 4px 10px;overflow:auto;background:transparent;border:none;box-shadow:none}
+.glass h2{margin:0 0 10px;font-size:24px;color:#73fff0;text-shadow:0 0 13px rgba(56,255,231,.22)}
+.points,.extend-list{margin:0;padding-left:24px;color:#f1ffff}
+.points{font-size:19px;line-height:1.62}
+.extend-list{font-size:18px;line-height:1.64}
+.points li,.extend-list li{margin-bottom:7px}
+.trap{margin-top:14px;padding:12px 14px;border-left:3px solid rgba(91,255,238,.72);background:linear-gradient(90deg,rgba(31,199,189,.10),transparent);font-size:15px;line-height:1.65;color:#cffef7}
+.trap b{color:#76fff0}
+.cover-layout{display:grid;grid-template-columns:1.12fr .88fr;gap:28px;align-items:center;flex:1}
+.big{font-size:33px;font-weight:900;line-height:1.36;color:#f3ffff;margin-bottom:14px;max-width:900px}
+.cover-list{margin:0;padding-left:24px;font-size:20px;line-height:1.84;color:#e9ffff}
+.neon-card{height:310px;display:grid;place-items:center;text-align:center;font-size:40px;font-weight:900;line-height:1.24;color:#a8fff8;text-shadow:0 0 20px rgba(45,255,231,.35)}
+.fish-mark{font-size:88px;line-height:.7;color:#65ffec;text-shadow:0 0 28px rgba(61,255,232,.65);transform:rotate(-8deg)}
+.dir-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 24px;overflow:auto}
+.dir-item{display:grid;grid-template-columns:56px 1fr;gap:13px;align-items:center;padding:9px 0;border-bottom:1px dashed rgba(99,255,243,.16)}
+.dir-no{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;font-size:17px;font-weight:900;color:#01272a;background:linear-gradient(135deg,#a7fff8,#36e8dc);box-shadow:0 0 18px rgba(52,238,222,.14)}
+.dir-body b{display:block;font-size:18px;color:#f4ffff;margin-bottom:4px}
+.dir-body span{font-size:13px;color:#82eee6}
+.problem-box{padding-top:12px}
+.problem-tag{display:inline-block;margin-bottom:13px;font-size:14px;font-weight:900;color:#64ffef;letter-spacing:1px}
+.qtext{font-size:24px;line-height:1.76;color:#f7ffff;max-width:1380px}
+.answer-toggle{margin-top:16px;display:inline-flex;align-items:center;gap:9px;padding:9px 15px;border-radius:14px;border:1px solid rgba(83,255,239,.32);background:rgba(5,44,46,.48);color:#96fff4;font-size:16px;font-weight:900;cursor:pointer;box-shadow:0 0 16px rgba(54,255,230,.07)}
+.answer-toggle .arrow{display:inline-block;transition:transform .2s ease}
+.answer-toggle.open .arrow{transform:rotate(90deg)}
+.answer-wrap{display:none;margin-top:13px}
+.answer-wrap.open{display:block}
+.answer{padding:13px 0;border-top:1px solid rgba(100,255,242,.16);font-size:19px;line-height:1.75;color:#eafffb}
+.solve-path{margin-top:15px;font-size:15px;line-height:1.64;color:#9fded9}
+.solve-path span{color:#6affef;font-weight:900}
+.nav{position:fixed;left:16px;right:16px;bottom:11px;z-index:8;display:flex;align-items:center;gap:12px;padding:9px 13px;background:rgba(2,14,18,.45);border-top:1px solid rgba(81,255,239,.17);backdrop-filter:blur(7px)}
+.nav button{border:1px solid rgba(87,255,240,.25);border-radius:11px;padding:8px 13px;background:rgba(5,31,35,.68);color:#93fff4;font-weight:900;cursor:pointer}
+#count{min-width:118px;font-size:13px;color:#d9fffb}
+.track{flex:1;height:9px;border-radius:999px;background:rgba(117,255,246,.10);overflow:hidden}
+#prog{height:100%;width:0;background:linear-gradient(90deg,#20dccc,#9efff4);box-shadow:0 0 10px rgba(57,255,232,.35)}
+.hint{font-size:11px;color:#8ac9c5}
+@media(max-width:1150px){.two-col,.cover-layout,.dir-grid{grid-template-columns:1fr}h1{font-size:32px}.big{font-size:28px}.points,.extend-list,.cover-list,.qtext,.answer{font-size:18px}}
+</style></head><body><div id="bg"><canvas id="fishCanvas"></canvas></div><div id="app"><header><div class="brand">恒定电流＋电学实验专题</div><div class="timer" id="timer">00:00</div></header><main id="slides"><section class="slide"><div class="slide-inner"><div class="headrow"><div class="section-chip">恒定电流</div><div class="page-badge">01/32</div></div><div class="titleblock"><h1>恒定电流＋电学实验专题</h1><div class="subtitle">知识主线 · 实验拓展 · 高考中档精选</div></div>
+<div class="cover-layout">
+  <div>
+    <div class="big">从恒定电流基础模型，延伸到高频电学实验：电表改装、伏安法、误差分析、限流与分压</div>
+    <ul class="cover-list">
+      <li>基础主线：电流、电阻、闭合电路、动态电路、非纯电阻</li>
+      <li>实验拓展：实物连接、电表改装、量程与偏角、伏安法误差</li>
+      <li>方法升级：从“会算”走向“会选接法、会判误差、会解释原理”</li>
+    </ul>
+  </div>
+  <div class="neon-card"><div class="fish-mark">◎◜</div><div>CONSTANT<br>CURRENT<br>&amp; EXPERIMENT</div></div>
+</div></div></section><section class="slide"><div class="slide-inner"><div class="headrow"><div class="section-chip">目录</div><div class="page-badge">02/32</div></div><div class="titleblock"><h1>专题结构总览</h1><div class="subtitle">15 个模块 · 每模块 1 页讲解 + 1 页精选题</div></div><div class="dir-grid"><div class="dir-item"><div class="dir-no">01</div><div class="dir-body"><b>电流与微观表达式</b><span>知识讲解与拓展 P3 ｜ 精选题 P4</span></div></div><div class="dir-item"><div class="dir-no">02</div><div class="dir-body"><b>欧姆定律、伏安特性与电阻</b><span>知识讲解与拓展 P5 ｜ 精选题 P6</span></div></div><div class="dir-item"><div class="dir-no">03</div><div class="dir-body"><b>电阻定律与导体形变</b><span>知识讲解与拓展 P7 ｜ 精选题 P8</span></div></div><div class="dir-item"><div class="dir-no">04</div><div class="dir-body"><b>电源、电动势与闭合电路</b><span>知识讲解与拓展 P9 ｜ 精选题 P10</span></div></div><div class="dir-item"><div class="dir-no">05</div><div class="dir-body"><b>路端电压—电流图像与工作点</b><span>知识讲解与拓展 P11 ｜ 精选题 P12</span></div></div><div class="dir-item"><div class="dir-no">06</div><div class="dir-body"><b>含电容器的直流稳态电路</b><span>知识讲解与拓展 P13 ｜ 精选题 P14</span></div></div><div class="dir-item"><div class="dir-no">07</div><div class="dir-body"><b>电路动态分析与串并联功率</b><span>知识讲解与拓展 P15 ｜ 精选题 P16</span></div></div><div class="dir-item"><div class="dir-no">08</div><div class="dir-body"><b>电动机与非纯电阻电路</b><span>知识讲解与拓展 P17 ｜ 精选题 P18</span></div></div><div class="dir-item"><div class="dir-no">09</div><div class="dir-body"><b>电源的功率、内耗与效率</b><span>知识讲解与拓展 P19 ｜ 精选题 P20</span></div></div><div class="dir-item"><div class="dir-no">10</div><div class="dir-body"><b>最大输出功率与同功率双解</b><span>知识讲解与拓展 P21 ｜ 精选题 P22</span></div></div><div class="dir-item"><div class="dir-no">11</div><div class="dir-body"><b>电学实验基础与实物连接</b><span>知识讲解与拓展 P23 ｜ 精选题 P24</span></div></div><div class="dir-item"><div class="dir-no">12</div><div class="dir-body"><b>电表改装：量程扩展与原理</b><span>知识讲解与拓展 P25 ｜ 精选题 P26</span></div></div><div class="dir-item"><div class="dir-no">13</div><div class="dir-body"><b>偏角、量程与校准误差</b><span>知识讲解与拓展 P27 ｜ 精选题 P28</span></div></div><div class="dir-item"><div class="dir-no">14</div><div class="dir-body"><b>伏安法测电阻：内外接与误差分析</b><span>知识讲解与拓展 P29 ｜ 精选题 P30</span></div></div><div class="dir-item"><div class="dir-no">15</div><div class="dir-body"><b>滑动变阻器：限流式与分压式</b><span>知识讲解与拓展 P31 ｜ 精选题 P32</span></div></div></div></div></section><section class="slide"><div class="slide-inner"><div class="headrow"><div class="section-chip">模块 01 · 知识精讲</div><div class="page-badge">03/32</div></div><div class="titleblock"><h1>电流与微观表达式</h1><div class="subtitle">概念 → 规律 → 模型 → 高频误区</div></div><div class="content two-col"><div class="glass"><h2>核心知识</h2><ul class="points"><li>电流强度 I=Δq/Δt，描述单位时间内通过导体横截面的电荷量；电流方向规定为正电荷定向移动方向。</li><li>金属中真正定向移动的是自由电子，因此电子定向移动方向与电流方向相反。</li><li>恒定电流中，同一串联通路各处电流相等，本质是电荷守恒：导体中不会持续堆积电荷。</li><li>微观表达式 I=nqSv，其中 n 为单位体积载流子数、q 为单个载流子电荷量、S 为横截面积、v 为定向移动速率。</li><li>电子热运动速率很大，但宏观电流只由定向移动的平均效果决定，不可把热运动速率代入公式。</li></ul></div><div class="glass"><h2>拓展与模型</h2><ul class="extend-list"><li>同种材料、同温度的串联导线中 n、q 相同，因此 Sv 相同：横截面越小，定向移动速率越大。</li><li>若材料不同，必须把 n 的变化一起带入 nqSv，不能只比较横截面积。</li><li>电流大小由单位时间通过截面的净电荷量决定，不由导体电阻直接定义。</li></ul><div class="trap"><b>易错提醒</b><br>把电子运动方向当成电流方向；或者看到粗细不同的串联导线就误判电流不同。</div></div></div></div></section><section class="slide"><div class="slide-inner"><div class="headrow"><div class="section-chip">模块 01 · 精选训练</div><div class="page-badge">04/32</div></div><div class="titleblock"><h1>电流与微观表达式</h1><div class="subtitle">少而精：一道题覆盖本模块最关键的迁移能力</div></div><div class="content one-col"><div class="glass problem-box"><div class="problem-tag">高考中档 · 精选一题</div><div class="qtext">两段不同材料导线 A、B 串联，单位体积自由电子数之比 nA:nB=2:1，横截面积之比 SA:SB=1:3。稳定后求电子定向移动速率之比 vA:vB。若 20 s 内通过 A 截面的电荷量为 40 C，求电路电流。</div><button class="answer-toggle" onclick="toggleAnswer(this)"><span class="arrow">▶</span><span>点击展开解析</span></button>
+<div class="answer-wrap"><div class="answer">串联稳态电流相等：nAeSAvA=nBeSBvB，所以 vA/vB=(nBSB)/(nASA)=3/2。又 I=q/t=40/20=2 A。</div></div><div class="solve-path"><span>解题关注：</span>先识别主模型，再锁定不变量或约束；实验题要把“接法—读数—误差方向”一起考虑。</div></div></div></div></section><section class="slide"><div class="slide-inner"><div class="headrow"><div class="section-chip">模块 02 · 知识精讲</div><div class="page-badge">05/32</div></div><div class="titleblock"><h1>欧姆定律、伏安特性与电阻</h1><div class="subtitle">概念 → 规律 → 模型 → 高频误区</div></div><div class="content two-col"><div class="glass"><h2>核心知识</h2><ul class="points"><li>电阻定义 R=U/I。对给定状态的元件，U 与 I 的比值反映该状态下的电阻。</li><li>欧姆定律适用于温度等条件基本不变的线性导体；并非所有元件的 U、I 都成正比。</li><li>I-U 图像中，定值电阻是一条过原点直线，斜率 I/U=1/R；若画 U-I 图像，则斜率为 R。</li><li>小灯泡等非线性元件的伏安特性曲线通常弯曲，往往与温度变化导致电阻变化有关。</li><li>串联同电流、分压；并联同电压、分流。复杂电路先做等效，再回到局部量。</li></ul></div><div class="glass"><h2>拓展与模型</h2><ul class="extend-list"><li>非线性元件在某工作点的电阻仍用 R=U/I，不能把曲线切线斜率直接当作高中语境下的电阻。</li><li>判断灯泡亮度，本质上比较实际电功率，而不是只比较电流或电压。</li><li>元件接入电源后的实际工作状态由电源约束与元件伏安特性共同决定。</li></ul><div class="trap"><b>易错提醒</b><br>I-U 与 U-I 图像的斜率含义混淆；把小灯泡误当成定值电阻。</div></div></div></div></section><section class="slide"><div class="slide-inner"><div class="headrow"><div class="section-chip">模块 02 · 精选训练</div><div class="page-badge">06/32</div></div><div class="titleblock"><h1>欧姆定律、伏安特性与电阻</h1><div class="subtitle">少而精：一道题覆盖本模块最关键的迁移能力</div></div><div class="content one-col"><div class="glass problem-box"><div class="problem-tag">高考中档 · 精选一题</div><div class="qtext">某小灯泡的伏安数据为：I=0.30 A 时 U=2.0 V；I=0.50 A 时 U=4.0 V；I=0.60 A 时 U=6.0 V。将灯泡与 10 Ω 定值电阻串联后接在 9.0 V 理想电源上，求稳定工作电流与灯泡实际功率。</div><button class="answer-toggle" onclick="toggleAnswer(this)"><span class="arrow">▶</span><span>点击展开解析</span></button>
+<div class="answer-wrap"><div class="answer">串联满足 U灯+IR=9 V。检验给定工作点：当 I=0.50 A 时，U灯=4.0 V，IR=5.0 V，总电压正好为 9.0 V，所以工作电流为 0.50 A；灯泡实际功率 P=UI=4.0×0.50=2.0 W。</div></div><div class="solve-path"><span>解题关注：</span>先识别主模型，再锁定不变量或约束；实验题要把“接法—读数—误差方向”一起考虑。</div></div></div></div></section><section class="slide"><div class="slide-inner"><div class="headrow"><div class="section-chip">模块 03 · 知识精讲</div><div class="page-badge">07/32</div></div><div class="titleblock"><h1>电阻定律与导体形变</h1><div class="subtitle">概念 → 规律 → 模型 → 高频误区</div></div><div class="content two-col"><div class="glass"><h2>核心知识</h2><ul class="points"><li>电阻定律 R=ρL/S，其中 ρ 由材料和温度决定，L 为长度，S 为横截面积。</li><li>同种材料、温度不变时，电阻与长度成正比、与横截面积成反比。</li><li>均匀导线被拉伸时常用体积不变 LS=常量。若长度变为 λL，则截面积变为 S/λ，电阻变为 λ²R。</li><li>金属导体温度升高时电阻率通常增大，因此明显升温时不能机械套用阻值不变。</li><li>涉及切割、并联时，先分别求每一段的新电阻，再做串并联等效。</li></ul></div><div class="glass"><h2>拓展与模型</h2><ul class="extend-list"><li>长度和横截面积常同时变化，最稳的方法是联立 R=ρL/S 与体积约束。</li><li>同一根导线拉伸后再切割，等效电阻可能出现反直觉结果，必须按步骤处理。</li><li>恒压时 P=U²/R，恒流时 P=I²R，结论方向相反。</li></ul><div class="trap"><b>易错提醒</b><br>只把长度乘上倍数，却忘了体积不变会导致横截面积同时改变。</div></div></div></div></section><section class="slide"><div class="slide-inner"><div class="headrow"><div class="section-chip">模块 03 · 精选训练</div><div class="page-badge">08/32</div></div><div class="titleblock"><h1>电阻定律与导体形变</h1><div class="subtitle">少而精：一道题覆盖本模块最关键的迁移能力</div></div><div class="content one-col"><div class="glass problem-box"><div class="problem-tag">高考中档 · 精选一题</div><div class="qtext">一根均匀金属导线原电阻为 R。将它均匀拉长到原来的 2 倍，认为体积和电阻率不变；随后从中点剪成两等段，再把两段并联。求最终等效电阻与原电阻的关系。</div><button class="answer-toggle" onclick="toggleAnswer(this)"><span class="arrow">▶</span><span>点击展开解析</span></button>
+<div class="answer-wrap"><div class="answer">拉长后 L&#x27;=2L、S&#x27;=S/2，因此整根电阻 R&#x27;=ρ(2L)/(S/2)=4R。剪成两等段后，每段电阻为 2R；两段并联，最终等效电阻为 R。</div></div><div class="solve-path"><span>解题关注：</span>先识别主模型，再锁定不变量或约束；实验题要把“接法—读数—误差方向”一起考虑。</div></div></div></div></section><section class="slide"><div class="slide-inner"><div class="headrow"><div class="section-chip">模块 04 · 知识精讲</div><div class="page-badge">09/32</div></div><div class="titleblock"><h1>电源、电动势与闭合电路</h1><div class="subtitle">概念 → 规律 → 模型 → 高频误区</div></div><div class="content two-col"><div class="glass"><h2>核心知识</h2><ul class="points"><li>电动势 E=W非/q，描述电源内部非静电力把其他形式能转化为电能的能力。</li><li>闭合电路欧姆定律 I=E/(R外+r)，其中 r 为电源内阻。</li><li>路端电压 U=E-Ir=IR外。放电时电流越大，内电压 Ir 越大，路端电压越小。</li><li>断路极限 I→0 时 U→E；短路时 R外≈0，短路电流 I短=E/r。</li><li>复杂外电路也遵循同一主线：先求外电路等效电阻，再求总电流，再回到支路。</li></ul></div><div class="glass"><h2>拓展与模型</h2><ul class="extend-list"><li>外电阻增大时，总电流减小，但路端电压通常增大，这是有内阻电源的典型特征。</li><li>电源内阻与外电阻在总电阻中地位相同，只是内阻上的功率属于电源内耗。</li><li>理想电流表电阻视为零，理想电压表电阻视为无穷大。</li></ul><div class="trap"><b>易错提醒</b><br>把路端电压始终当作电动势；忽略内阻后又分析有内阻电源的动态变化。</div></div></div></div></section><section class="slide"><div class="slide-inner"><div class="headrow"><div class="section-chip">模块 04 · 精选训练</div><div class="page-badge">10/32</div></div><div class="titleblock"><h1>电源、电动势与闭合电路</h1><div class="subtitle">少而精：一道题覆盖本模块最关键的迁移能力</div></div><div class="content one-col"><div class="glass problem-box"><div class="problem-tag">高考中档 · 精选一题</div><div class="qtext">电源电动势 E=12 V、内阻 r=2 Ω。外电路由 R1=4 Ω 与并联支路 R2=6 Ω、R3=3 Ω 串联组成。求总电流、路端电压以及流过 R2 的电流。</div><button class="answer-toggle" onclick="toggleAnswer(this)"><span class="arrow">▶</span><span>点击展开解析</span></button>
+<div class="answer-wrap"><div class="answer">并联部分等效电阻 R23=6×3/(6+3)=2 Ω，外电阻 R外=4+2=6 Ω。总电流 I=12/(6+2)=1.5 A；路端电压 U=E-Ir=12-1.5×2=9 V。R1 两端电压为 1.5×4=6 V，所以并联部分电压为 3 V，故 I2=3/6=0.50 A。</div></div><div class="solve-path"><span>解题关注：</span>先识别主模型，再锁定不变量或约束；实验题要把“接法—读数—误差方向”一起考虑。</div></div></div></div></section><section class="slide"><div class="slide-inner"><div class="headrow"><div class="section-chip">模块 05 · 知识精讲</div><div class="page-badge">11/32</div></div><div class="titleblock"><h1>路端电压—电流图像与工作点</h1><div class="subtitle">概念 → 规律 → 模型 → 高频误区</div></div><div class="content two-col"><div class="glass"><h2>核心知识</h2><ul class="points"><li>由 U=E-Ir 可知，电源的 U-I 图像是一条斜率为 -r 的直线。</li><li>纵轴截距是电动势 E；横轴截距是短路电流 E/r；斜率绝对值是内阻 r。</li><li>对定值负载有 U=IR，电源图线与负载图线的交点就是实际工作点。</li><li>非线性负载也可以用“工作点”思想处理：必须同时满足电源约束和负载伏安特性。</li><li>工作点可直接读出实际电流、路端电压，再进一步求输出功率、效率与内耗。</li></ul></div><div class="glass"><h2>拓展与模型</h2><ul class="extend-list"><li>同一电源的 U-I 直线不因外电路变化而改变，改变负载只是在这条直线上移动工作点。</li><li>图像交点法本质是联立方程，尤其适合无法直接用 U=IR 描述的非线性元件。</li><li>电源效率 η=U/E，可由工作点的路端电压与纵轴截距直接比较。</li></ul><div class="trap"><b>易错提醒</b><br>把 U-I 图像斜率写成 +r；或者把横轴截距当成正常工作电流。</div></div></div></div></section><section class="slide"><div class="slide-inner"><div class="headrow"><div class="section-chip">模块 05 · 精选训练</div><div class="page-badge">12/32</div></div><div class="titleblock"><h1>路端电压—电流图像与工作点</h1><div class="subtitle">少而精：一道题覆盖本模块最关键的迁移能力</div></div><div class="content one-col"><div class="glass problem-box"><div class="problem-tag">高考中档 · 精选一题</div><div class="qtext">某电源的 U-I 图像经过两点 (I=0,U=9 V) 与 (I=3 A,U=3 V)。某非线性用电器的一个工作点为 (I=1.5 A,U=6.0 V)。判断把该用电器接到该电源上后能否稳定在该点，并求此时电源效率与内耗功率。</div><button class="answer-toggle" onclick="toggleAnswer(this)"><span class="arrow">▶</span><span>点击展开解析</span></button>
+<div class="answer-wrap"><div class="answer">由图得内阻 r=(9-3)/3=2 Ω，电源关系为 U=9-2I。代入 I=1.5 A 得 U=6.0 V，与用电器工作点一致，因此可以稳定在该点。效率 η=U/E=6/9=2/3；内耗功率 P内=I²r=1.5²×2=4.5 W。</div></div><div class="solve-path"><span>解题关注：</span>先识别主模型，再锁定不变量或约束；实验题要把“接法—读数—误差方向”一起考虑。</div></div></div></div></section><section class="slide"><div class="slide-inner"><div class="headrow"><div class="section-chip">模块 06 · 知识精讲</div><div class="page-badge">13/32</div></div><div class="titleblock"><h1>含电容器的直流稳态电路</h1><div class="subtitle">概念 → 规律 → 模型 → 高频误区</div></div><div class="content two-col"><div class="glass"><h2>核心知识</h2><ul class="points"><li>电容器接入直流电路并达到稳态后，电容支路没有持续电流，可把该支路视为断路。</li><li>虽然稳态支路无电流，但电容器两端仍有电压；其电压由所连接两个节点的电势差决定。</li><li>求稳态电容器电荷量时，先去掉电容支路求节点电势，再用 Q=CU。</li><li>开关切换题应分别求切换前后的稳态电压，再用 ΔQ=CΔU 求电荷量变化。</li><li>若要判断某段导线实际通过的电荷量，还需结合极板正负与电荷流向。</li></ul></div><div class="glass"><h2>拓展与模型</h2><ul class="extend-list"><li>稳态“断路”只针对持续电流，不代表电容器不存在或其两端电压为零。</li><li>电容器可以跨接在不相邻节点之间，画出节点电势关系比机械识别串并联更可靠。</li><li>含电容器的开关题往往是两个稳态电路之间的比较题。</li></ul><div class="trap"><b>易错提醒</b><br>看到电容器就把整条电路断开；或者把电容器电压误认为一定等于电源电动势。</div></div></div></div></section><section class="slide"><div class="slide-inner"><div class="headrow"><div class="section-chip">模块 06 · 精选训练</div><div class="page-badge">14/32</div></div><div class="titleblock"><h1>含电容器的直流稳态电路</h1><div class="subtitle">少而精：一道题覆盖本模块最关键的迁移能力</div></div><div class="content one-col"><div class="glass problem-box"><div class="problem-tag">高考中档 · 精选一题</div><div class="qtext">理想电源 E=12 V，R1=4 Ω、R2=8 Ω 串联。电容器 C=3 μF 先并联在 R2 两端，稳定后切换为并联在 R1 两端。求切换前后电容器电荷量大小以及变化量大小。</div><button class="answer-toggle" onclick="toggleAnswer(this)"><span class="arrow">▶</span><span>点击展开解析</span></button>
+<div class="answer-wrap"><div class="answer">串联电流 I=12/(4+8)=1 A。R2 两端电压为 8 V，因此初始电荷量 Q1=CU=3 μF×8 V=24 μC；切换后并联在 R1 两端，电压为 4 V，因此 Q2=12 μC。电荷量变化量大小 |ΔQ|=12 μC。</div></div><div class="solve-path"><span>解题关注：</span>先识别主模型，再锁定不变量或约束；实验题要把“接法—读数—误差方向”一起考虑。</div></div></div></div></section><section class="slide"><div class="slide-inner"><div class="headrow"><div class="section-chip">模块 07 · 知识精讲</div><div class="page-badge">15/32</div></div><div class="titleblock"><h1>电路动态分析与串并联功率</h1><div class="subtitle">概念 → 规律 → 模型 → 高频误区</div></div><div class="content two-col"><div class="glass"><h2>核心知识</h2><ul class="points"><li>动态电路分析的第一步是判断外电路等效电阻如何变化，再判断总电流与路端电压。</li><li>对有内阻电源：R外增大 → I总减小 → 内电压 Ir减小 → 路端电压 U增大。</li><li>局部支路电流必须结合该支路两端电压和支路电阻判断，不能只跟随总电流变化。</li><li>功率常用 P=UI=I²R=U²/R；串联同电流时功率与 R 成正比，并联同电压时功率与 1/R 成正比。</li><li>灯泡亮度比较最终要落到实际功率，而不是只看电流表或电压表某一个读数。</li></ul></div><div class="glass"><h2>拓展与模型</h2><ul class="extend-list"><li>“串反并同”可以作为快速提示，但不能代替完整的电路结构判断。</li><li>某一并联支路电阻增大时，另一支路两端电压可能上升，因此其电流反而可能增大。</li><li>功率变化有时与电流变化方向不同，因为 P 同时受 U 和 I 影响。</li></ul><div class="trap"><b>易错提醒</b><br>看到总电流减小，就直接断言所有支路电流都减小。</div></div></div></div></section><section class="slide"><div class="slide-inner"><div class="headrow"><div class="section-chip">模块 07 · 精选训练</div><div class="page-badge">16/32</div></div><div class="titleblock"><h1>电路动态分析与串并联功率</h1><div class="subtitle">少而精：一道题覆盖本模块最关键的迁移能力</div></div><div class="content one-col"><div class="glass problem-box"><div class="problem-tag">高考中档 · 精选一题</div><div class="qtext">电源 E=12 V、r=1 Ω，R1=3 Ω 与并联支路 R2=6 Ω、Rx 串联。Rx 从 6 Ω 调到 3 Ω。比较调节前后 R2 的功率大小。</div><button class="answer-toggle" onclick="toggleAnswer(this)"><span class="arrow">▶</span><span>点击展开解析</span></button>
+<div class="answer-wrap"><div class="answer">当 Rx=6 Ω 时，并联部分等效为 3 Ω，外电阻为 6 Ω，总电流 I1=12/7 A，并联部分电压 U1=(12/7)×3=36/7 V，故 P2₁=(36/7)²/6=216/49≈4.41 W。 当 Rx=3 Ω 时，并联部分等效为 2 Ω，外电阻为 5 Ω，总电流 I2=2 A，并联部分电压 U2=4 V，故 P2₂=4²/6=8/3≈2.67 W。因此调节后 R2 的功率减小。</div></div><div class="solve-path"><span>解题关注：</span>先识别主模型，再锁定不变量或约束；实验题要把“接法—读数—误差方向”一起考虑。</div></div></div></div></section><section class="slide"><div class="slide-inner"><div class="headrow"><div class="section-chip">模块 08 · 知识精讲</div><div class="page-badge">17/32</div></div><div class="titleblock"><h1>电动机与非纯电阻电路</h1><div class="subtitle">概念 → 规律 → 模型 → 高频误区</div></div><div class="content two-col"><div class="glass"><h2>核心知识</h2><ul class="points"><li>电动机正常工作时是非纯电阻用电器，不能直接写 I=U/r；线圈电阻 r 只对应焦耳热部分。</li><li>输入电功率 P入=UI；线圈热功率 P热=I²r；机械输出功率 P机=UI-I²r。</li><li>若用反电动势描述，则 U=E反+Ir，机械功率可写为 P机=E反I。</li><li>正常转动时存在反电动势，使工作电流显著小于 U/r。</li><li>堵转时反电动势近似为零，电流接近 U/r，容易产生很大的热功率。</li></ul></div><div class="glass"><h2>拓展与模型</h2><ul class="extend-list"><li>若忽略其他机械损耗，电动机效率 η=P机/P入。</li><li>提升重物、牵引车辆等题目，可把机械输出功率与 mgv、Fv 联立。</li><li>“正常工作电流”和“堵转电流”的明显差异是非纯电阻模型的核心。</li></ul><div class="trap"><b>易错提醒</b><br>把电动机线圈电阻直接代入 I=U/r 去求正常工作电流。</div></div></div></div></section><section class="slide"><div class="slide-inner"><div class="headrow"><div class="section-chip">模块 08 · 精选训练</div><div class="page-badge">18/32</div></div><div class="titleblock"><h1>电动机与非纯电阻电路</h1><div class="subtitle">少而精：一道题覆盖本模块最关键的迁移能力</div></div><div class="content one-col"><div class="glass problem-box"><div class="problem-tag">高考中档 · 精选一题</div><div class="qtext">一台直流电动机正常工作时两端电压 U=24 V、电流 I=4.0 A，线圈电阻 r=2.0 Ω。若机械损耗忽略，用它匀速提升质量 4.0 kg 的重物，取 g=10 m/s²，求提升速度。若电动机突然堵转，估算堵转电流和线圈发热功率。</div><button class="answer-toggle" onclick="toggleAnswer(this)"><span class="arrow">▶</span><span>点击展开解析</span></button>
+<div class="answer-wrap"><div class="answer">正常工作时输入功率 P入=UI=96 W，热功率 P热=I²r=32 W，所以机械功率 P机=64 W。匀速提升时有 P机=mgv，故 v=64/(4×10)=1.6 m/s。堵转时反电动势近似为零，电流 I堵≈U/r=12 A，对应发热功率 P热=I²r=288 W。</div></div><div class="solve-path"><span>解题关注：</span>先识别主模型，再锁定不变量或约束；实验题要把“接法—读数—误差方向”一起考虑。</div></div></div></div></section><section class="slide"><div class="slide-inner"><div class="headrow"><div class="section-chip">模块 09 · 知识精讲</div><div class="page-badge">19/32</div></div><div class="titleblock"><h1>电源的功率、内耗与效率</h1><div class="subtitle">概念 → 规律 → 模型 → 高频误区</div></div><div class="content two-col"><div class="glass"><h2>核心知识</h2><ul class="points"><li>电源总功率 P总=EI，表示电源把其他形式能转化为电能的速率。</li><li>内耗功率 P内=I²r；输出功率 P出=UI=I²R外。</li><li>能量关系为 P总=P出+P内。</li><li>电源效率 η=P出/P总=U/E=R/(R+r)。</li><li>随着外电阻 R 增大，效率单调增大，但输出功率并不单调增大。</li></ul></div><div class="glass"><h2>拓展与模型</h2><ul class="extend-list"><li>效率高不等于输出功率大；当 R≫r 时效率接近 100%，但电流很小，输出功率反而趋近于 0。</li><li>R=r 时输出功率最大，但此时效率恰为 50%。</li><li>题目问“效率最优”和问“向负载输送最大功率”是两类不同优化目标。</li></ul><div class="trap"><b>易错提醒</b><br>把“效率最大”和“输出功率最大”误认为同一个条件。</div></div></div></div></section><section class="slide"><div class="slide-inner"><div class="headrow"><div class="section-chip">模块 09 · 精选训练</div><div class="page-badge">20/32</div></div><div class="titleblock"><h1>电源的功率、内耗与效率</h1><div class="subtitle">少而精：一道题覆盖本模块最关键的迁移能力</div></div><div class="content one-col"><div class="glass problem-box"><div class="problem-tag">高考中档 · 精选一题</div><div class="qtext">电源 E=12 V、r=2 Ω，接可变电阻 R。当电源效率为 75% 时，求 R、输出功率，并与该电源能够提供的最大输出功率比较。</div><button class="answer-toggle" onclick="toggleAnswer(this)"><span class="arrow">▶</span><span>点击展开解析</span></button>
+<div class="answer-wrap"><div class="answer">由 η=R/(R+r)=0.75 可得 R=6 Ω。总电流 I=E/(R+r)=12/8=1.5 A，输出功率 P出=I²R=13.5 W。最大输出功率 Pmax=E²/(4r)=144/8=18 W，因此此时输出功率为最大输出功率的 75%。</div></div><div class="solve-path"><span>解题关注：</span>先识别主模型，再锁定不变量或约束；实验题要把“接法—读数—误差方向”一起考虑。</div></div></div></div></section><section class="slide"><div class="slide-inner"><div class="headrow"><div class="section-chip">模块 10 · 知识精讲</div><div class="page-badge">21/32</div></div><div class="titleblock"><h1>最大输出功率与同功率双解</h1><div class="subtitle">概念 → 规律 → 模型 → 高频误区</div></div><div class="content two-col"><div class="glass"><h2>核心知识</h2><ul class="points"><li>电源向纯电阻负载输出功率 P=E²R/(R+r)²。</li><li>当 R=r 时输出功率最大，Pmax=E²/(4r)。</li><li>P-R 图像在 R=r 左右往往存在同一功率对应两个不同负载的情况。</li><li>若 R1、R2 对应相同输出功率，则常有 R1R2=r²。</li><li>同功率的两个工作状态效率一般不同：R 较大的那一个效率更高、电流更小。</li></ul></div><div class="glass"><h2>拓展与模型</h2><ul class="extend-list"><li>可以用配方法、均值不等式或函数思想得到 R=r 的极值结论。</li><li>同功率双解题常与效率、路端电压、电流比较结合。</li><li>最大功率结论的前提是电源 E、r 不变且外电路可等效为可调纯电阻。</li></ul><div class="trap"><b>易错提醒</b><br>看到“最大”就直接写 R=r，却没有确认题目最大的是输出功率，而不是效率或某个局部电阻功率。</div></div></div></div></section><section class="slide"><div class="slide-inner"><div class="headrow"><div class="section-chip">模块 10 · 精选训练</div><div class="page-badge">22/32</div></div><div class="titleblock"><h1>最大输出功率与同功率双解</h1><div class="subtitle">少而精：一道题覆盖本模块最关键的迁移能力</div></div><div class="content one-col"><div class="glass problem-box"><div class="problem-tag">高考中档 · 精选一题</div><div class="qtext">某电源 E=12 V、r=2 Ω，外接纯电阻 R。若电源对外输出功率为 16 W，求 R 的所有可能值，并分别求两种情况下的电源效率。</div><button class="answer-toggle" onclick="toggleAnswer(this)"><span class="arrow">▶</span><span>点击展开解析</span></button>
+<div class="answer-wrap"><div class="answer">由 16=E²R/(R+r)²=144R/(R+2)²，整理得 9R=(R+2)²，即 R²-5R+4=0，所以 R=1 Ω 或 4 Ω。效率 η=R/(R+r)，故两种情况下分别为 1/3 与 2/3。</div></div><div class="solve-path"><span>解题关注：</span>先识别主模型，再锁定不变量或约束；实验题要把“接法—读数—误差方向”一起考虑。</div></div></div></div></section><section class="slide"><div class="slide-inner"><div class="headrow"><div class="section-chip">模块 11 · 知识精讲</div><div class="page-badge">23/32</div></div><div class="titleblock"><h1>电学实验基础与实物连接</h1><div class="subtitle">概念 → 规律 → 模型 → 高频误区</div></div><div class="content two-col"><div class="glass"><h2>核心知识</h2><ul class="points"><li>电学实验首先看清三类元件：电源、保护元件（如滑动变阻器）、测量元件（电流表、电压表）。</li><li>连接原则：电流表串联接入、电压表并联接入，且必须让电流从表头正接线柱流入。</li><li>闭合开关前应使滑动变阻器处于保护状态：限流式取最大阻值，分压式取使待测部分电压最小的一端。</li><li>实物图连线时可先抓主回路，再接表头支路，最后检查短路与断路。</li><li>实验读数、量程、分度值与有效数字同样属于考点，不能只会套公式。</li></ul></div><div class="glass"><h2>拓展与模型</h2><ul class="extend-list"><li>“先主后支、先串后并、先保护后测量”是实物连线最稳定的操作顺序。</li><li>若存在滑动变阻器，必须明确它在电路中的任务：保护、调节还是获得尽可能宽的测量范围。</li><li>实验题常把实物连接、错误改正、读数和原理判断综合在同一题目中。</li></ul><div class="trap"><b>易错提醒</b><br>电流表并联、电压表串联；或闭合开关前未把滑动变阻器调到保护位置。</div></div></div></div></section><section class="slide"><div class="slide-inner"><div class="headrow"><div class="section-chip">模块 11 · 精选训练</div><div class="page-badge">24/32</div></div><div class="titleblock"><h1>电学实验基础与实物连接</h1><div class="subtitle">少而精：一道题覆盖本模块最关键的迁移能力</div></div><div class="content one-col"><div class="glass problem-box"><div class="problem-tag">高考中档 · 精选一题</div><div class="qtext">用伏安法测某电阻，器材有电源、待测电阻、开关、电流表、电压表和滑动变阻器。若要求闭合开关瞬间电路中电流最小，且实验中能连续调节待测电阻两端电压，判断滑动变阻器应采用哪种接法，并说明闭合前滑片应放在哪一端。</div><button class="answer-toggle" onclick="toggleAnswer(this)"><span class="arrow">▶</span><span>点击展开解析</span></button>
+<div class="answer-wrap"><div class="answer">若既要开关闭合瞬间电流最小，又要能连续调节待测电阻两端电压，通常应采用分压式接法；闭合前应让待测电阻两端起始电压最小，因此滑片应置于使待测支路几乎不分得电压的一端。</div></div><div class="solve-path"><span>解题关注：</span>先识别主模型，再锁定不变量或约束；实验题要把“接法—读数—误差方向”一起考虑。</div></div></div></div></section><section class="slide"><div class="slide-inner"><div class="headrow"><div class="section-chip">模块 12 · 知识精讲</div><div class="page-badge">25/32</div></div><div class="titleblock"><h1>电表改装：量程扩展与原理</h1><div class="subtitle">概念 → 规律 → 模型 → 高频误区</div></div><div class="content two-col"><div class="glass"><h2>核心知识</h2><ul class="points"><li>表头本质是小量程电流表，其满偏电流记为 Ig，内阻记为 Rg。</li><li>把表头改装成电压表时，应串联分压电阻 R串，使总量程满足 U=Ig(Rg+R串)。</li><li>把表头改装成大量程电流表时，应并联分流电阻 R并，使额定总电流 I 满足 IgRg=(I-Ig)R并。</li><li>改装的核心思想是：表头永远只允许通过满偏电流 Ig。</li><li>若题目给出表头偏转到某一刻度位置，通常意味着通过表头的电流与偏角成正比。</li></ul></div><div class="glass"><h2>拓展与模型</h2><ul class="extend-list"><li>改装后新表的内阻会发生显著变化：电压表内阻变大，电流表内阻变小。</li><li>同一表头既可改为电流表又可改为电压表，关键在于附加电阻是串联还是并联。</li><li>高考题常把表头改装与电路动态、量程选择、校准误差放在一起综合考查。</li></ul><div class="trap"><b>易错提醒</b><br>改装电压表时误把附加电阻并联；改装电流表时误把分流电阻串联。</div></div></div></div></section><section class="slide"><div class="slide-inner"><div class="headrow"><div class="section-chip">模块 12 · 精选训练</div><div class="page-badge">26/32</div></div><div class="titleblock"><h1>电表改装：量程扩展与原理</h1><div class="subtitle">少而精：一道题覆盖本模块最关键的迁移能力</div></div><div class="content one-col"><div class="glass problem-box"><div class="problem-tag">高考中档 · 精选一题</div><div class="qtext">某表头满偏电流 Ig=1.0 mA，内阻 Rg=100 Ω。现把它改装成量程为 3.0 V 的电压表，再改装成量程为 0.30 A 的电流表，分别求所需串联电阻与并联电阻。</div><button class="answer-toggle" onclick="toggleAnswer(this)"><span class="arrow">▶</span><span>点击展开解析</span></button>
+<div class="answer-wrap"><div class="answer">改装成 3.0 V 电压表：R串=U/Ig-Rg=3.0/0.001-100=2900 Ω。改装成 0.30 A 电流表：表头两端电压为 IgRg=0.001×100=0.10 V，分流支路电流为 0.299 A，所以 R并=0.10/0.299≈0.334 Ω。</div></div><div class="solve-path"><span>解题关注：</span>先识别主模型，再锁定不变量或约束；实验题要把“接法—读数—误差方向”一起考虑。</div></div></div></div></section><section class="slide"><div class="slide-inner"><div class="headrow"><div class="section-chip">模块 13 · 知识精讲</div><div class="page-badge">27/32</div></div><div class="titleblock"><h1>偏角、量程与校准误差</h1><div class="subtitle">概念 → 规律 → 模型 → 高频误区</div></div><div class="content two-col"><div class="glass"><h2>核心知识</h2><ul class="points"><li>理想表头中，偏角与通过表头的电流成正比，因此偏角本质上反映了表头电流大小。</li><li>改装表如果附加电阻取值不准、导线接触不良或表头内阻变化，都会引起量程误差和读数误差。</li><li>校准问题常通过“实际满偏值”和“刻度标称值”的比较来判断偏大偏小。</li><li>若并联分流电阻偏大，则分流减弱，表头电流偏大，实际量程往往偏小；串联分压电阻偏大，则实际量程偏大。</li><li>分析量程和偏角问题时，最稳的方法仍然是列出表头支路与附加电阻支路的电流电压关系。</li></ul></div><div class="glass"><h2>拓展与模型</h2><ul class="extend-list"><li>“刻度盘不改、只改电路”的本质是让原来的刻度位置对应新的被测物理量。</li><li>误差分析一般先判断某个附加电阻变化后，表头在同一被测量下偏转变大还是变小，再判断读数偏大偏小。</li><li>很多偏角问题都可化归为“同一偏角对应的表头电流是否仍是设计值”。</li></ul><div class="trap"><b>易错提醒</b><br>把“实际量程偏大/偏小”和“读数偏大/偏小”混为一谈。</div></div></div></div></section><section class="slide"><div class="slide-inner"><div class="headrow"><div class="section-chip">模块 13 · 精选训练</div><div class="page-badge">28/32</div></div><div class="titleblock"><h1>偏角、量程与校准误差</h1><div class="subtitle">少而精：一道题覆盖本模块最关键的迁移能力</div></div><div class="content one-col"><div class="glass problem-box"><div class="problem-tag">高考中档 · 精选一题</div><div class="qtext">某表头按设计应并联一分流电阻改装为大量程电流表。若实际接入的分流电阻比设计值偏大，则对于同一真实电流，表头偏角如何变化？该改装电流表读数偏大还是偏小？</div><button class="answer-toggle" onclick="toggleAnswer(this)"><span class="arrow">▶</span><span>点击展开解析</span></button>
+<div class="answer-wrap"><div class="answer">分流电阻偏大意味着分流作用减弱，因此在同一真实总电流下流经表头的电流增大，偏角变大。使用原有刻度读数时，会把较大的偏角当作更大的总电流，因此读数偏大；等价地说，实际量程偏小。</div></div><div class="solve-path"><span>解题关注：</span>先识别主模型，再锁定不变量或约束；实验题要把“接法—读数—误差方向”一起考虑。</div></div></div></div></section><section class="slide"><div class="slide-inner"><div class="headrow"><div class="section-chip">模块 14 · 知识精讲</div><div class="page-badge">29/32</div></div><div class="titleblock"><h1>伏安法测电阻：内外接与误差分析</h1><div class="subtitle">概念 → 规律 → 模型 → 高频误区</div></div><div class="content two-col"><div class="glass"><h2>核心知识</h2><ul class="points"><li>伏安法测电阻有电流表内接与外接两种基本接法。</li><li>内接法中，电压表测得的是待测电阻与电流表的总电压，测得电阻偏大，适合测大电阻。</li><li>外接法中，电流表测得的是待测电阻与电压表支路总电流，测得电阻偏小，适合测小电阻。</li><li>口诀“内大外小”本质来自系统误差方向：内接偏大、外接偏小。</li><li>选择内外接时，可通过比较待测电阻与电流表内阻、电压表内阻的数量级，或用临界公式判断。</li></ul></div><div class="glass"><h2>拓展与模型</h2><ul class="extend-list"><li>高考中更重要的是会说明误差来源：到底是哪只表把“不该测的量”一并测进去了。</li><li>若题目给的是图像法求电阻，内外接误差会体现在斜率上。</li><li>测小电阻更怕电流表分压影响，测大电阻更怕电压表分流影响。</li></ul><div class="trap"><b>易错提醒</b><br>只会背“内大外小”，却说不清误差来源，也不会根据阻值范围选择接法。</div></div></div></div></section><section class="slide"><div class="slide-inner"><div class="headrow"><div class="section-chip">模块 14 · 精选训练</div><div class="page-badge">30/32</div></div><div class="titleblock"><h1>伏安法测电阻：内外接与误差分析</h1><div class="subtitle">少而精：一道题覆盖本模块最关键的迁移能力</div></div><div class="content one-col"><div class="glass problem-box"><div class="problem-tag">高考中档 · 精选一题</div><div class="qtext">用伏安法测一待测电阻 Rx。已知电流表内阻约为 1 Ω，电压表内阻约为 3 kΩ。若待测电阻约为 200 Ω，应优先采用电流表内接还是外接？并判断测量结果偏大还是偏小。</div><button class="answer-toggle" onclick="toggleAnswer(this)"><span class="arrow">▶</span><span>点击展开解析</span></button>
+<div class="answer-wrap"><div class="answer">待测电阻 200 Ω 相对电流表内阻 1 Ω 来说较大，而相对电压表内阻 3 kΩ 来说并不算特别接近无穷大，因此更需要抑制电压表分流带来的影响，应优先采用电流表内接。内接法测得的是 Rx 与电流表内阻的总电压除以支路电流，所以测得电阻偏大。</div></div><div class="solve-path"><span>解题关注：</span>先识别主模型，再锁定不变量或约束；实验题要把“接法—读数—误差方向”一起考虑。</div></div></div></div></section><section class="slide"><div class="slide-inner"><div class="headrow"><div class="section-chip">模块 15 · 知识精讲</div><div class="page-badge">31/32</div></div><div class="titleblock"><h1>滑动变阻器：限流式与分压式</h1><div class="subtitle">概念 → 规律 → 模型 → 高频误区</div></div><div class="content two-col"><div class="glass"><h2>核心知识</h2><ul class="points"><li>滑动变阻器有两类常用接法：限流式和分压式。</li><li>限流式结构简单、耗能较小，适用于只需小范围调节电流且保护要求不高的情形。</li><li>分压式能使待测部分电压从几乎 0 到接近电源电压连续变化，适合小阻值元件或要求测量范围尽量大时使用。</li><li>当待测电阻较小、实验要求从 0 附近开始调节或要求获得较多测量点时，通常优先选择分压式。</li><li>确定滑片初始位置时，要先满足保护要求，再考虑调节范围。</li></ul></div><div class="glass"><h2>拓展与模型</h2><ul class="extend-list"><li>限流式本质上是滑动变阻器串联在主回路中；分压式本质上是把滑动变阻器作为可变电势分配器。</li><li>选择接法时要同时看：待测电阻大小、滑动变阻器总阻值、是否要求电压从零可调、是否强调保护仪器。</li><li>在描绘小灯泡伏安特性曲线等实验中，分压式几乎是默认优选。</li></ul><div class="trap"><b>易错提醒</b><br>只凭器材表机械判断接法，而不结合实验目的；或者把闭合开关前的滑片位置放反。</div></div></div></div></section><section class="slide"><div class="slide-inner"><div class="headrow"><div class="section-chip">模块 15 · 精选训练</div><div class="page-badge">32/32</div></div><div class="titleblock"><h1>滑动变阻器：限流式与分压式</h1><div class="subtitle">少而精：一道题覆盖本模块最关键的迁移能力</div></div><div class="content one-col"><div class="glass problem-box"><div class="problem-tag">高考中档 · 精选一题</div><div class="qtext">用电源、滑动变阻器、待测小电阻、小灯泡、电流表和电压表描绘小灯泡伏安特性曲线。若希望小灯泡两端电压能从 0 附近开始连续变化并尽量覆盖较大范围，应选限流式还是分压式？说明理由。</div><button class="answer-toggle" onclick="toggleAnswer(this)"><span class="arrow">▶</span><span>点击展开解析</span></button>
+<div class="answer-wrap"><div class="answer">应选分压式。因为描绘伏安特性曲线需要获得较宽范围内的多组 U-I 数据，而且小灯泡在低电压区也需要取点；分压式能使小灯泡两端电压从接近 0 连续变化到接近电源电压，更符合实验目的。</div></div><div class="solve-path"><span>解题关注：</span>先识别主模型，再锁定不变量或约束；实验题要把“接法—读数—误差方向”一起考虑。</div></div></div></div></section></main><div class="nav"><button id="prevBtn">上一页</button><button id="nextBtn">下一页</button><div id="count"></div><div class="track"><div id="prog"></div></div><button id="fullBtn">全屏</button><div class="hint">方向键 / 空格翻页 · F 全屏</div></div></div><script>
+const slides=[...document.querySelectorAll('.slide')];
+let current=0;
+function render(){
+  slides.forEach((s,i)=>s.classList.toggle('active',i===current));
+  document.getElementById('count').textContent=`第 ${current+1} / ${slides.length} 页`;
+  document.getElementById('prog').style.width=`${current/(slides.length-1)*100}%`;
+}
+function next(){if(current<slides.length-1){current++;render();}}
+function prev(){if(current>0){current--;render();}}
+document.getElementById('nextBtn').onclick=next;
+document.getElementById('prevBtn').onclick=prev;
+document.getElementById('fullBtn').onclick=()=>{if(!document.fullscreenElement)document.documentElement.requestFullscreen();else document.exitFullscreen();};
+document.addEventListener('keydown',e=>{
+  if(['ArrowRight',' ','PageDown'].includes(e.key)){e.preventDefault();next();}
+  if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();prev();}
+  if(e.key.toLowerCase()==='f')document.getElementById('fullBtn').click();
+});
+function toggleAnswer(btn){
+  const wrap=btn.nextElementSibling;
+  const open=wrap.classList.toggle('open');
+  btn.classList.toggle('open',open);
+  btn.querySelector('span:last-child').textContent=open?'点击收起解析':'点击展开解析';
+}
+window.toggleAnswer=toggleAnswer;
+render();
+let sec=0;
+setInterval(()=>{
+  sec++;
+  document.getElementById('timer').textContent=`${String(Math.floor(sec/60)).padStart(2,'0')}:${String(sec%60).padStart(2,'0')}`;
+},1000);
+
+// 青色荧光游鱼：圆环 / 圆弧式不规则运动
+const canvas=document.getElementById('fishCanvas');
+const ctx=canvas.getContext('2d');
+let W=0,H=0,DPR=1;
+let fishes=[], clickFishes=[], bubbles=[], plankton=[], halos=[];
+function rnd(a,b){return a+Math.random()*(b-a)}
+function clamp(v,a,b){return Math.max(a,Math.min(b,v))}
+function makeFish(x=null,y=null,purple=false){
+  const angle=rnd(0,Math.PI*2);
+  const speed=rnd(.32,.92);
+  return {
+    x:x===null?rnd(-W*.08,W*1.08):x,
+    y:y===null?rnd(-H*.08,H*1.08):y,
+    vx:Math.cos(angle)*speed,
+    vy:Math.sin(angle)*speed,
+    targetX:rnd(-W*.12,W*1.12),
+    targetY:rnd(-H*.12,H*1.12),
+    nextTarget:rnd(650,2400),
+    targetAge:rnd(0,1600),
+    turnNoise:rnd(-1,1),
+    turnPhase:rnd(0,6.28),
+    speed:rnd(.32,.92),
+    size:purple?rnd(23,43):rnd(13,37),
+    depth:purple?rnd(.75,1.05):rnd(.36,1),
+    alpha:purple?rnd(.62,.9):rnd(.12,.34),
+    phase:rnd(0,6.28),
+    wobble:rnd(.65,1.55),
+    purple,
+    born:purple?performance.now():0,
+    life:purple?rnd(12000,18500):Infinity
+  };
+}
+function resetBg(){
+  DPR=window.devicePixelRatio||1;
+  W=window.innerWidth; H=window.innerHeight;
+  canvas.width=Math.floor(W*DPR); canvas.height=Math.floor(H*DPR);
+  canvas.style.width=W+'px'; canvas.style.height=H+'px';
+  ctx.setTransform(DPR,0,0,DPR,0,0);
+
+  fishes=[];
+  const n=Math.max(22,Math.floor(W/68));
+  for(let i=0;i<n;i++) fishes.push(makeFish());
+  bubbles=Array.from({length:46},()=>({x:rnd(0,W),y:rnd(0,H),r:rnd(1.4,5.8),vy:rnd(-.12,-.03),a:rnd(.06,.22),p:rnd(0,6.28)}));
+  plankton=Array.from({length:125},()=>({x:rnd(0,W),y:rnd(0,H),r:rnd(.5,1.9),a:rnd(.04,.18),p:rnd(0,6.28)}));
+  halos=Array.from({length:10},()=>({x:rnd(0,W),y:rnd(0,H),r:rnd(90,250),a:rnd(.018,.052),p:rnd(0,6.28)}));
+}
+function updateFish(f,dt,t){
+  f.targetAge+=dt;
+  if(f.targetAge>=f.nextTarget || Math.hypot(f.targetX-f.x,f.targetY-f.y)<55){
+    // 每次目标点横跨更大范围，使轨迹不再局限于小圆环。
+    f.targetX=rnd(-W*.16,W*1.16);
+    f.targetY=rnd(-H*.16,H*1.16);
+    f.targetAge=0;
+    f.nextTarget=rnd(700,2800);
+    f.speed=rnd(f.purple?.52:.28,f.purple?1.18:1.0);
+    f.turnNoise=rnd(-1,1);
+  }
+
+  const dx=f.targetX-f.x, dy=f.targetY-f.y;
+  const d=Math.max(1,Math.hypot(dx,dy));
+  const desiredX=dx/d*f.speed;
+  const desiredY=dy/d*f.speed;
+  const swirl=Math.sin(t*.00115*f.wobble+f.turnPhase)*(.19+.16*f.depth);
+  const nx=-dy/d, ny=dx/d;
+  const steering=f.purple?.026:.019;
+  f.vx+=(desiredX+nx*swirl*f.turnNoise-f.vx)*steering*dt/16.67;
+  f.vy+=(desiredY+ny*swirl*f.turnNoise-f.vy)*steering*dt/16.67;
+
+  // 轻微连续随机扰动，形成不规则但平滑的曲线。
+  f.vx+=Math.sin(t*.00073+f.phase*2.1)*.0045*dt/16.67;
+  f.vy+=Math.cos(t*.00061+f.phase*1.7)*.0040*dt/16.67;
+  const maxV=f.purple?1.42:1.13;
+  const v=Math.hypot(f.vx,f.vy);
+  if(v>maxV){f.vx=f.vx/v*maxV;f.vy=f.vy/v*maxV;}
+  f.x+=f.vx*dt/16.67;
+  f.y+=f.vy*dt/16.67;
+
+  // 允许鱼游出画面再从远端回到大范围，轨迹覆盖整张页面。
+  const mx=150,my=115;
+  if(f.x<-mx){f.x=W+mx;f.targetX=rnd(W*.15,W*.92)}
+  else if(f.x>W+mx){f.x=-mx;f.targetX=rnd(W*.08,W*.85)}
+  if(f.y<-my){f.y=H+my;f.targetY=rnd(H*.2,H*.88)}
+  else if(f.y>H+my){f.y=-my;f.targetY=rnd(H*.12,H*.82)}
+}
+function drawFish(f,t,fade=1){
+  const heading=Math.atan2(f.vy,f.vx);
+  const s=f.size*f.depth;
+  const pulse=.72+.28*Math.sin(t*.00125+f.phase);
+  const tailSwing=Math.sin(t*.0062*f.wobble+f.phase)*.38;
+  ctx.save();
+  ctx.translate(f.x,f.y);
+  ctx.rotate(heading);
+  ctx.globalAlpha=f.alpha*pulse*fade;
+  if(f.purple){
+    ctx.shadowColor='rgba(201,88,255,.98)';
+    ctx.shadowBlur=24+14*f.depth;
+  }else{
+    ctx.shadowColor='rgba(74,255,239,.95)';
+    ctx.shadowBlur=13+12*f.depth;
+  }
+  const grad=ctx.createLinearGradient(-s,0,s,0);
+  if(f.purple){
+    grad.addColorStop(0,'rgba(116,33,170,.36)');
+    grad.addColorStop(.48,'rgba(225,137,255,.92)');
+    grad.addColorStop(.75,'rgba(172,67,245,.80)');
+    grad.addColorStop(1,'rgba(102,31,170,.25)');
+  }else{
+    grad.addColorStop(0,'rgba(40,192,191,.25)');
+    grad.addColorStop(.55,'rgba(132,255,246,.86)');
+    grad.addColorStop(1,'rgba(53,221,215,.18)');
+  }
+  ctx.fillStyle=grad;
+  ctx.beginPath();ctx.ellipse(0,0,s*1.18,s*.47,0,0,Math.PI*2);ctx.fill();
+
+  ctx.save();
+  ctx.translate(-s*1.11,0);ctx.rotate(tailSwing);
+  ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(-s*.80,-s*.56);ctx.lineTo(-s*.55,0);ctx.lineTo(-s*.80,s*.56);ctx.closePath();ctx.fill();
+  ctx.restore();
+
+  ctx.globalAlpha*=.72;
+  ctx.beginPath();ctx.moveTo(-s*.03,-s*.11);ctx.lineTo(s*.09,-s*.64);ctx.lineTo(s*.43,-s*.11);ctx.closePath();ctx.fill();
+
+  // 下鳍，增强游动姿态
+  ctx.beginPath();ctx.moveTo(-s*.12,s*.12);ctx.lineTo(s*.03,s*.56);ctx.lineTo(s*.30,s*.13);ctx.closePath();ctx.fill();
+
+  ctx.globalAlpha=Math.min(1,f.alpha*3.3*fade);
+  ctx.fillStyle=f.purple?'rgba(255,231,255,.98)':'rgba(228,255,253,.95)';
+  ctx.shadowBlur=f.purple?13:8;
+  ctx.beginPath();ctx.arc(s*.64,-s*.065,Math.max(1.25,s*.06),0,Math.PI*2);ctx.fill();
+  ctx.restore();
+}
+function spawnPurpleFish(x,y){
+  const f=makeFish(x,y,true);
+  // 点击后先朝随机方向游离鼠标位置，避免“停在点击点”。
+  const a=rnd(0,Math.PI*2);
+  f.vx=Math.cos(a)*rnd(.68,1.15);
+  f.vy=Math.sin(a)*rnd(.68,1.15);
+  f.targetX=clamp(x+Math.cos(a)*rnd(W*.24,W*.72),-W*.12,W*1.12);
+  f.targetY=clamp(y+Math.sin(a)*rnd(H*.22,H*.70),-H*.12,H*1.12);
+  clickFishes.push(f);
+  if(clickFishes.length>16) clickFishes.shift();
+}
+let lastT=performance.now();
+function draw(t){
+  const dt=Math.min(34,Math.max(8,t-lastT||16.67));
+  lastT=t;
+  ctx.clearRect(0,0,W,H);
+  const bg=ctx.createLinearGradient(0,0,0,H);
+  bg.addColorStop(0,'#04252a');
+  bg.addColorStop(.38,'#03181d');
+  bg.addColorStop(1,'#01090d');
+  ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
+
+  halos.forEach(h=>{
+    const x=h.x+Math.sin(t*.00012+h.p)*28;
+    const y=h.y+Math.cos(t*.00009+h.p)*22;
+    const rg=ctx.createRadialGradient(x,y,0,x,y,h.r);
+    rg.addColorStop(0,`rgba(117,255,247,${h.a*1.6})`);
+    rg.addColorStop(.45,`rgba(59,214,208,${h.a})`);
+    rg.addColorStop(1,'rgba(40,180,174,0)');
+    ctx.fillStyle=rg;ctx.beginPath();ctx.arc(x,y,h.r,0,Math.PI*2);ctx.fill();
+  });
+
+  // 水中柔和长弧线
+  ctx.save();ctx.strokeStyle='rgba(88,255,243,0.045)';ctx.lineWidth=1;
+  for(let i=0;i<8;i++){
+    const cx=W*(0.08+i*.13)+Math.sin(t*.00013+i)*46;
+    const cy=H*(0.12+(i%4)*.22);
+    const r=95+i*21+Math.sin(t*.00028+i)*18;
+    ctx.beginPath();ctx.arc(cx,cy,r,Math.PI*.08,Math.PI*1.7);ctx.stroke();
+  }
+  ctx.restore();
+
+  plankton.forEach(p=>{
+    const a=p.a*(.55+.45*Math.sin(t*.001+p.p));
+    ctx.fillStyle=`rgba(127,255,247,${a})`;
+    ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();
+  });
+
+  fishes.forEach(f=>{updateFish(f,dt,t);drawFish(f,t,1)});
+  clickFishes=clickFishes.filter(f=>{
+    const age=t-f.born;
+    if(age>f.life)return false;
+    updateFish(f,dt,t);
+    const fadeIn=Math.min(1,age/350);
+    const fadeOut=age>f.life-2600?Math.max(0,(f.life-age)/2600):1;
+    drawFish(f,t,fadeIn*fadeOut);
+    return true;
+  });
+
+  bubbles.forEach(b=>{
+    b.y+=b.vy*dt/16.67;b.x+=Math.sin(t*.0007+b.p)*.03*dt/16.67;
+    if(b.y<-10){b.y=H+10;b.x=rnd(0,W)}
+    ctx.save();ctx.globalAlpha=b.a;ctx.strokeStyle='rgba(161,255,248,.78)';ctx.shadowColor='rgba(83,255,240,.65)';ctx.shadowBlur=7;
+    ctx.beginPath();ctx.arc(b.x,b.y,b.r,0,Math.PI*2);ctx.stroke();ctx.restore();
+  });
+  requestAnimationFrame(draw);
+}
+window.addEventListener('resize',resetBg);
+document.addEventListener('click',e=>{
+  // 导航、答案按钮等控件仍正常工作；点击其余页面区域生成一条紫色荧光鱼。
+  if(e.target.closest('button')) return;
+  spawnPurpleFish(e.clientX,e.clientY);
+});
+resetBg();
+requestAnimationFrame(draw);
+</script><script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"45c2bf8136a245cd97f1c2e9a96c0730"}' crossorigin="anonymous"></script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"45c2bf8136a245cd97f1c2e9a96c0730"}' crossorigin="anonymous"></script>
+</body></html>
