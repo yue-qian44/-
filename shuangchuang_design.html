@@ -502,7 +502,51 @@ details p{padding:0 0 20px 46px;margin:0;color:#7d8a91;font-size:11px;line-heigh
   .hero-main{padding-top:8vh}
   .hero-line{font-size:clamp(72px,21vw,96px)}
   .hero-line.line2{margin-top:18px;margin-left:.50em}
-  .hero-art{height:218px}
+
+  /* Mobile hero-code layout: reserve a clean middle band for animation */
+  .hero-art{
+    height:236px;
+    margin-top:32px;
+  }
+  .hero-art::before{
+    left:4%;
+    right:4%;
+    top:50%;
+    width:auto;
+    height:50%;
+    transform:translateY(-50%);
+  }
+  .hero-art .axis-x{
+    left:4%;
+    right:4%;
+    top:52%;
+  }
+  .hero-art .axis-y{
+    top:25%;
+    bottom:25%;
+    left:50%;
+  }
+  .hero-art .code{
+    font-size:6px;
+    line-height:1.45;
+    letter-spacing:.10em;
+  }
+  .hero-art .code.a{
+    top:14px;
+    left:0;
+  }
+  .hero-art .code.c{
+    top:auto;
+    left:0;
+    bottom:17px;
+    transform:none;
+    max-width:54%;
+  }
+  .hero-art .code.b{
+    right:0;
+    bottom:17px;
+    max-width:42%;
+  }
   .fact-grid{grid-template-columns:1fr}
   .fact{min-height:124px}
   .org-centers{grid-template-columns:1fr 1fr}
@@ -993,9 +1037,10 @@ details p{padding:0 0 20px 46px;margin:0;color:#7d8a91;font-size:11px;line-heigh
   }
 
   function fitCodeFont(text, maxWidth){
-    let size = heroW < 520 ? 18 : 22;
+    let size = heroW < 520 ? 16 : 22;
+    const minSize = heroW < 520 ? 9.5 : 12;
     heroCtx.font = `700 ${size}px SFMono-Regular, Consolas, monospace`;
-    while(heroCtx.measureText(text).width > maxWidth && size > 12){
+    while(heroCtx.measureText(text).width > maxWidth && size > minSize){
       size -= 0.5;
       heroCtx.font = `700 ${size}px SFMono-Regular, Consolas, monospace`;
     }
@@ -1003,11 +1048,12 @@ details p{padding:0 0 20px 46px;margin:0;color:#7d8a91;font-size:11px;line-heigh
   }
 
   function getCodeMetrics(text){
-    const zoneLeft = heroW * 0.52;
-    const zoneRight = heroW * 0.95;
+    const isMobile = heroW < 520;
+    const zoneLeft = heroW * (isMobile ? 0.07 : 0.52);
+    const zoneRight = heroW * (isMobile ? 0.93 : 0.95);
     const centerX = (zoneLeft + zoneRight) / 2;
-    const centerY = heroH * 0.50;
-    const fontSize = fitCodeFont(text, (zoneRight - zoneLeft) * 0.94);
+    const centerY = heroH * (isMobile ? 0.50 : 0.50);
+    const fontSize = fitCodeFont(text, (zoneRight - zoneLeft) * (isMobile ? 0.92 : 0.94));
     const width = heroCtx.measureText(text).width;
     return { zoneLeft, zoneRight, centerX, centerY, fontSize, width };
   }
@@ -1058,8 +1104,9 @@ details p{padding:0 0 20px 46px;margin:0;color:#7d8a91;font-size:11px;line-heigh
   function drawHeroParticles(progress, ts){
     for(const p of heroParticles){
       const e = easeInOut(progress);
-      const wobbleX = Math.sin(ts * 0.004 + p.offset) * 5 * (1 - progress);
-      const wobbleY = Math.cos(ts * 0.0048 + p.offset) * 4 * (1 - progress);
+      const mobileScale = heroW < 520 ? 0.55 : 1;
+      const wobbleX = Math.sin(ts * 0.004 + p.offset) * 5 * mobileScale * (1 - progress);
+      const wobbleY = Math.cos(ts * 0.0048 + p.offset) * 4 * mobileScale * (1 - progress);
       p.x = p.sx + (p.ex - p.sx) * e + wobbleX;
       p.y = p.sy + (p.ey - p.sy) * e + wobbleY;
 
@@ -1096,7 +1143,11 @@ details p{padding:0 0 20px 46px;margin:0;color:#7d8a91;font-size:11px;line-heigh
     heroCtx.save();
     heroCtx.strokeStyle = 'rgba(226,193,138,.05)';
     heroCtx.lineWidth = 1;
-    heroCtx.strokeRect(heroW * 0.52, heroH * 0.18, heroW * 0.41, heroH * 0.50);
+    if(heroW < 520){
+      heroCtx.strokeRect(heroW * 0.06, heroH * 0.30, heroW * 0.88, heroH * 0.40);
+    } else {
+      heroCtx.strokeRect(heroW * 0.52, heroH * 0.18, heroW * 0.41, heroH * 0.50);
+    }
     heroCtx.restore();
 
     if(heroPhase === 'hold'){
@@ -1129,6 +1180,7 @@ details p{padding:0 0 20px 46px;margin:0;color:#7d8a91;font-size:11px;line-heigh
   addEventListener('resize', setupHeroCode, { passive:true });
 })();
 </script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v31edd6df95cf4e85bb4c19e7a9bdbcba1788362987495" integrity="sha512-iIg7k2xntmwu6/uSb5tpc/hySgZc4eoL31yB29W6tJFo2akwjPWcEqnCEdJvGexCL0KEQwVYv5BlowfhVz26hg==" data-cf-beacon='{"version":"2024.11.0","token":"45c2bf8136a245cd97f1c2e9a96c0730","spa":2}' crossorigin="anonymous"></script>
 <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v31edd6df95cf4e85bb4c19e7a9bdbcba1788362987495" integrity="sha512-iIg7k2xntmwu6/uSb5tpc/hySgZc4eoL31yB29W6tJFo2akwjPWcEqnCEdJvGexCL0KEQwVYv5BlowfhVz26hg==" data-cf-beacon='{"version":"2024.11.0","token":"45c2bf8136a245cd97f1c2e9a96c0730","spa":2}' crossorigin="anonymous"></script>
 </body>
 </html>
