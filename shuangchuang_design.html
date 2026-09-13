@@ -502,51 +502,7 @@ details p{padding:0 0 20px 46px;margin:0;color:#7d8a91;font-size:11px;line-heigh
   .hero-main{padding-top:8vh}
   .hero-line{font-size:clamp(72px,21vw,96px)}
   .hero-line.line2{margin-top:18px;margin-left:.50em}
-
-  /* Mobile hero-code layout: reserve a clean middle band for animation */
-  .hero-art{
-    height:236px;
-    margin-top:32px;
-  }
-  .hero-art::before{
-    left:4%;
-    right:4%;
-    top:50%;
-    width:auto;
-    height:50%;
-    transform:translateY(-50%);
-  }
-  .hero-art .axis-x{
-    left:4%;
-    right:4%;
-    top:52%;
-  }
-  .hero-art .axis-y{
-    top:25%;
-    bottom:25%;
-    left:50%;
-  }
-  .hero-art .code{
-    font-size:6px;
-    line-height:1.45;
-    letter-spacing:.10em;
-  }
-  .hero-art .code.a{
-    top:14px;
-    left:0;
-  }
-  .hero-art .code.c{
-    top:auto;
-    left:0;
-    bottom:17px;
-    transform:none;
-    max-width:54%;
-  }
-  .hero-art .code.b{
-    right:0;
-    bottom:17px;
-    max-width:42%;
-  }
+  .hero-art{height:218px}
   .fact-grid{grid-template-columns:1fr}
   .fact{min-height:124px}
   .org-centers{grid-template-columns:1fr 1fr}
@@ -632,8 +588,8 @@ details p{padding:0 0 20px 46px;margin:0;color:#7d8a91;font-size:11px;line-heigh
         <span class="axis-x"></span><span class="axis-y"></span>
         <canvas id="heroCodeCanvas" class="hero-code-canvas"></canvas>
         <span class="code a">PYTHON CODE / SEQUENTIAL TRANSITIONS<br>30+ SNIPPETS · PARTICLE MORPH</span>
-        <span class="code b">CONSISTENT TYPE / GILDED GOLD<br>SOFT PARTICLES BETWEEN STATES</span>
-        <span class="code c">DIFFERENT PYTHON SNIPPETS APPEAR,<br>THEN TRANSFORM THROUGH GOLD PARTICLES.</span>
+        <span class="code b">CONSISTENT TYPE / JADE CYAN<br>SOFT PARTICLES BETWEEN STATES</span>
+        <span class="code c">DIFFERENT PYTHON SNIPPETS APPEAR,<br>THEN TRANSFORM THROUGH JADE PARTICLES.</span>
       </div>
 
       <div class="hero-tags reveal">
@@ -1037,10 +993,9 @@ details p{padding:0 0 20px 46px;margin:0;color:#7d8a91;font-size:11px;line-heigh
   }
 
   function fitCodeFont(text, maxWidth){
-    let size = heroW < 520 ? 16 : 22;
-    const minSize = heroW < 520 ? 9.5 : 12;
+    let size = heroW < 520 ? 18 : 22;
     heroCtx.font = `700 ${size}px SFMono-Regular, Consolas, monospace`;
-    while(heroCtx.measureText(text).width > maxWidth && size > minSize){
+    while(heroCtx.measureText(text).width > maxWidth && size > 12){
       size -= 0.5;
       heroCtx.font = `700 ${size}px SFMono-Regular, Consolas, monospace`;
     }
@@ -1048,12 +1003,11 @@ details p{padding:0 0 20px 46px;margin:0;color:#7d8a91;font-size:11px;line-heigh
   }
 
   function getCodeMetrics(text){
-    const isMobile = heroW < 520;
-    const zoneLeft = heroW * (isMobile ? 0.07 : 0.52);
-    const zoneRight = heroW * (isMobile ? 0.93 : 0.95);
+    const zoneLeft = heroW * 0.52;
+    const zoneRight = heroW * 0.95;
     const centerX = (zoneLeft + zoneRight) / 2;
-    const centerY = heroH * (isMobile ? 0.50 : 0.50);
-    const fontSize = fitCodeFont(text, (zoneRight - zoneLeft) * (isMobile ? 0.92 : 0.94));
+    const centerY = heroH * 0.50;
+    const fontSize = fitCodeFont(text, (zoneRight - zoneLeft) * 0.94);
     const width = heroCtx.measureText(text).width;
     return { zoneLeft, zoneRight, centerX, centerY, fontSize, width };
   }
@@ -1092,9 +1046,9 @@ details p{padding:0 0 20px 46px;margin:0;color:#7d8a91;font-size:11px;line-heigh
     heroCtx.font = `700 ${m.fontSize}px SFMono-Regular, Consolas, monospace`;
     heroCtx.textAlign = 'center';
     heroCtx.textBaseline = 'middle';
-    heroCtx.fillStyle = '#e2c18a';
+    heroCtx.fillStyle = '#9debd6';
     if(blurGlow > 0){
-      heroCtx.shadowColor = 'rgba(226,193,138,.20)';
+      heroCtx.shadowColor = 'rgba(157,235,214,.18)';
       heroCtx.shadowBlur = blurGlow;
     }
     heroCtx.fillText(text, m.centerX + shiftX, m.centerY);
@@ -1104,15 +1058,14 @@ details p{padding:0 0 20px 46px;margin:0;color:#7d8a91;font-size:11px;line-heigh
   function drawHeroParticles(progress, ts){
     for(const p of heroParticles){
       const e = easeInOut(progress);
-      const mobileScale = heroW < 520 ? 0.55 : 1;
-      const wobbleX = Math.sin(ts * 0.004 + p.offset) * 5 * mobileScale * (1 - progress);
-      const wobbleY = Math.cos(ts * 0.0048 + p.offset) * 4 * mobileScale * (1 - progress);
+      const wobbleX = Math.sin(ts * 0.004 + p.offset) * 5 * (1 - progress);
+      const wobbleY = Math.cos(ts * 0.0048 + p.offset) * 4 * (1 - progress);
       p.x = p.sx + (p.ex - p.sx) * e + wobbleX;
       p.y = p.sy + (p.ey - p.sy) * e + wobbleY;
 
       heroCtx.beginPath();
       heroCtx.globalAlpha = p.alpha * (0.95 - Math.abs(progress - 0.5));
-      heroCtx.fillStyle = '#e2c18a';
+      heroCtx.fillStyle = '#9debd6';
       heroCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
       heroCtx.fill();
     }
@@ -1143,11 +1096,7 @@ details p{padding:0 0 20px 46px;margin:0;color:#7d8a91;font-size:11px;line-heigh
     heroCtx.save();
     heroCtx.strokeStyle = 'rgba(226,193,138,.05)';
     heroCtx.lineWidth = 1;
-    if(heroW < 520){
-      heroCtx.strokeRect(heroW * 0.06, heroH * 0.30, heroW * 0.88, heroH * 0.40);
-    } else {
-      heroCtx.strokeRect(heroW * 0.52, heroH * 0.18, heroW * 0.41, heroH * 0.50);
-    }
+    heroCtx.strokeRect(heroW * 0.52, heroH * 0.18, heroW * 0.41, heroH * 0.50);
     heroCtx.restore();
 
     if(heroPhase === 'hold'){
