@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>昆冈众创工作室｜破冰游戏大作战</title>
+<style>
+:root{
+  --ink:#202033; --paper:#fffdf7; --pink:#ff6fae; --blue:#6fc9ff;
+  --yellow:#ffe56b; --mint:#9ce8cf; --lav:#c9b8ff; --red:#ff5964;
+  --shadow:6px 6px 0 var(--ink);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;color:var(--ink);
+  font-family:"PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+  line-height:1.75;
+  background-color:#f8f6ff;
+  background-image:
+    radial-gradient(circle at 15px 15px,rgba(111,201,255,.16) 1.5px,transparent 1.7px),
+    radial-gradient(circle at 38px 38px,rgba(255,111,174,.12) 1.5px,transparent 1.7px);
+  background-size:48px 48px;
+}
+.wrap{max-width:1100px;margin:auto;padding:26px 18px 70px}
+.hero{
+  position:relative;overflow:hidden;background:var(--paper);
+  border:3px solid var(--ink);border-radius:26px;padding:38px 38px 32px;
+  box-shadow:10px 10px 0 var(--ink);margin-bottom:34px
+}
+.hero:before{
+  content:"";position:absolute;right:-65px;top:-85px;width:300px;height:300px;border-radius:50%;
+  background:repeating-conic-gradient(from 0deg,rgba(255,111,174,.18) 0 5deg,transparent 5deg 11deg)
+}
+.kicker,.badge{
+  display:inline-block;border:2px solid var(--ink);border-radius:999px;padding:4px 12px;
+  background:var(--yellow);font-weight:900;font-size:13px;letter-spacing:.05em
+}
+.hero h1{font-size:clamp(36px,7vw,72px);line-height:1.05;margin:14px 0 12px;letter-spacing:-.04em}
+.hero h1 em{font-style:normal;color:var(--pink);text-shadow:3px 3px 0 #ffd3e5}
+.hero p{max-width:760px;margin:0;font-size:16px}
+.meta{display:flex;flex-wrap:wrap;gap:9px;margin-top:20px}
+.meta span{border:2px solid var(--ink);border-radius:9px;padding:5px 10px;background:#fff;font-weight:800;font-size:13px}
+nav{
+  display:flex;flex-wrap:wrap;gap:8px;background:#fff;border:2px solid var(--ink);
+  border-radius:16px;padding:10px;margin:0 0 30px;box-shadow:4px 4px 0 var(--ink)
+}
+nav a{color:var(--ink);text-decoration:none;font-weight:800;padding:5px 9px;border-radius:8px}
+nav a:hover{background:var(--yellow)}
+.section-title{display:flex;align-items:center;gap:12px;margin:38px 0 18px}
+.section-title .no{
+  min-width:50px;height:50px;border:3px solid var(--ink);border-radius:50%;display:grid;place-items:center;
+  font-size:20px;font-weight:1000;background:var(--yellow);box-shadow:3px 3px 0 var(--ink)
+}
+.section-title h2{margin:0;font-size:28px;line-height:1.15}
+.section-title small{display:block;color:#777;font-size:12px;letter-spacing:.12em;margin-top:4px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.card,.panel{
+  background:var(--paper);border:2.5px solid var(--ink);border-radius:18px;padding:22px;
+  box-shadow:var(--shadow);position:relative
+}
+.card h3,.panel h3{margin:0 0 10px;font-size:21px}
+.card .num{position:absolute;right:16px;top:8px;font:900 38px Georgia;color:#ece9f5}
+.tag{display:inline-block;padding:2px 8px;border:1.5px solid var(--ink);border-radius:999px;background:#fff;font-size:12px;font-weight:800;margin:2px}
+.pink{background:#ffe2ef}.blue{background:#dff4ff}.mint{background:#dcf8ee}.yellow{background:#fff5b8}.lav{background:#eee7ff}
+.callout{
+  border:2px dashed var(--ink);background:#fff8cf;border-radius:14px;padding:14px 16px;margin:14px 0
+}
+ul,ol{padding-left:1.25em;margin:8px 0}
+li{margin:4px 0}
+table{width:100%;border-collapse:separate;border-spacing:0;background:#fff;border:2px solid var(--ink);border-radius:14px;overflow:hidden}
+th,td{padding:11px 12px;border-right:1px solid #bbb;border-bottom:1px solid #bbb;text-align:left;vertical-align:top}
+th:last-child,td:last-child{border-right:0} tr:last-child td{border-bottom:0}
+th{background:#fff1a8;font-weight:900}
+.timeline{display:grid;gap:12px}
+.step{display:grid;grid-template-columns:105px 1fr;gap:14px;align-items:start}
+.time{background:var(--ink);color:white;border-radius:999px;text-align:center;padding:5px 8px;font-weight:900}
+.stepbox{background:#fff;border:2px solid var(--ink);border-radius:13px;padding:12px 15px}
+.game{
+  background:#fff;border:2.5px solid var(--ink);border-radius:20px;padding:24px;margin:20px 0;box-shadow:6px 6px 0 var(--ink)
+}
+.gamehead{display:flex;gap:14px;align-items:center;border-bottom:2px dashed #aaa;padding-bottom:12px;margin-bottom:14px}
+.gameicon{width:54px;height:54px;flex:0 0 54px;border:2px solid var(--ink);border-radius:15px;display:grid;place-items:center;font-size:28px;background:var(--yellow);transform:rotate(-2deg)}
+.game h3{font-size:24px;margin:0}.game .sub{font-size:13px;color:#777}
+.gamegrid{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.mini{background:#faf9ff;border:1.5px solid #bdb9c9;border-radius:12px;padding:12px 14px}
+.mini b{display:block;margin-bottom:4px}
+.score{font-weight:900;color:#c51d63}
+.special{border-color:#d02b72;background:linear-gradient(135deg,#fff,#fff1f7)}
+.special .gameicon{background:#ffb7d5}
+.finalboss{border:4px solid var(--ink);background:linear-gradient(135deg,#fff7cf,#ffe5f0);box-shadow:9px 9px 0 var(--ink)}
+.finalboss .gameicon{background:var(--pink)}
+.warn{background:#fff0f0;border-left:5px solid var(--red);padding:11px 14px;border-radius:8px;margin:12px 0}
+.ok{background:#e9fff6;border-left:5px solid #29a97b;padding:11px 14px;border-radius:8px;margin:12px 0}
+.reward-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.reward{border:2px solid var(--ink);border-radius:13px;padding:14px;background:#fff;text-align:center}
+.reward strong{font-size:20px;display:block}
+.checklist{columns:2;column-gap:30px}
+.checklist li{break-inside:avoid}
+.script{font-family:inherit;background:#232333;color:#fff;border-radius:14px;padding:16px 18px}
+.footer{text-align:center;margin-top:40px;color:#666;font-size:13px}
+.stamp{display:inline-block;border:3px double var(--red);color:var(--red);padding:5px 12px;font-weight:1000;transform:rotate(-3deg);margin-top:10px}
+@media(max-width:760px){
+ .grid,.gamegrid,.reward-grid{grid-template-columns:1fr}
+ .step{grid-template-columns:82px 1fr}
+ .checklist{columns:1}.hero{padding:28px 22px}
+}
+@media print{
+ body{background:#fff}.wrap{max-width:none}.hero,.card,.panel,.game{box-shadow:none;break-inside:avoid}nav{display:none}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <span class="kicker">ICE BREAKER · GAME BOOK</span>
+  <h1>昆冈众创<br><em>破冰游戏大作战！</em></h1>
+  <p>面向约 40–50 人的新成员破冰活动。以“小组积分赛”为主线，用低门槛、高互动、快节奏的小游戏让大家记住名字、开口交流、形成团队默契；“气球盲盒”负责制造每回合的随机节目效果，“悬赏令”则从开局持续到结束，让所有人始终有事可玩。</p>
+  <div class="meta">
+    <span>👥 40–50 人</span><span>🎴 建议 8 组 × 5–6 人</span><span>⏱ 推荐 90–110 分钟</span>
+    <span>🏆 小组积分制</span><span>🎈 回合惩罚</span><span>🎯 全场悬赏任务</span>
+  </div>
+</header>
+
+<nav>
+  <a href="#overview">总览</a><a href="#prep">准备</a><a href="#flow">流程</a><a href="#games">游戏规则</a>
+  <a href="#balloon">气球盲盒</a><a href="#wanted">悬赏令</a><a href="#backup">备选</a><a href="#score">积分奖励</a><a href="#staff">执行清单</a>
+</nav>
+
+<section id="overview">
+  <div class="section-title"><span class="no">01</span><div><h2>活动框架</h2><small>MISSION OVERVIEW</small></div></div>
+  <div class="grid">
+    <div class="card"><span class="num">01</span><h3>核心目标</h3>
+      <p>让陌生的新成员在短时间内完成<strong>记名字 → 主动开口 → 跨组互动 → 团队协作</strong>。不追求复杂竞技，重点是让绝大多数人都有参与感。</p>
+      <span class="tag pink">破冰</span><span class="tag blue">记忆</span><span class="tag mint">协作</span>
+    </div>
+    <div class="card"><span class="num">02</span><h3>分组方式</h3>
+      <p>40–50 人建议分成 <strong>8 组，每组 5–6 人</strong>。签到时随机抽取颜色/动漫符号组卡，避免熟人全部抱团。每组选队名，并推选一名记分联络员。</p>
+      <span class="tag yellow">随机组队</span><span class="tag lav">5–6 人/组</span>
+    </div>
+    <div class="card"><span class="num">03</span><h3>积分主线</h3>
+      <p>常规游戏按名次或胜负获得小组积分；每轮结束后触发一次<strong>气球盲盒</strong>；与此同时，全员可在活动全过程完成<strong>悬赏令特殊任务</strong>换取“悬赏币/特殊奖励”，不计入常规小组积分。</p>
+    </div>
+    <div class="card"><span class="num">04</span><h3>节奏原则</h3>
+      <p>单轮控制在 8–12 分钟；规则解释不超过 2 分钟；尽量让多人同时进行。淘汰类游戏采用“快速复活/转观察员”，避免有人长时间坐冷板凳。</p>
+    </div>
+  </div>
+</section>
+
+<section id="prep">
+  <div class="section-title"><span class="no">02</span><div><h2>前期准备</h2><small>BEFORE THE GAME</small></div></div>
+  <div class="panel">
+    <h3>🎒 物资清单</h3>
+    <ul class="checklist">
+      <li>分组卡 50 张（8 种颜色/图案）</li>
+      <li>昵称贴/胸牌 50–60 张 + 粗头笔</li>
+      <li>A4/A3 小组计分板 8 份</li>
+      <li>总积分板 1 份或投影计分页</li>
+      <li>气球 12–16 个 + 备用气球</li>
+      <li>惩罚任务卡 20–30 张</li>
+      <li>悬赏令任务卡 25–40 张</li>
+      <li>悬赏币/印章/贴纸若干</li>
+      <li>“谁是卧底”词卡若干组</li>
+      <li>“额头猜身份”身份卡 50 张</li>
+      <li>“害你在心口难开”禁词卡 50 张</li>
+      <li>计时器、铃/哨、胶带、马克笔</li>
+      <li>小奖品、终局奖品、参与奖</li>
+      <li>音箱 + 热场 BGM</li>
+      <li>垃圾袋、纸巾、饮用水</li>
+    </ul>
+    <div class="ok"><b>建议：</b>气球提前充好但不要充得过满；若场地不适合爆破、有人怕巨响或存在乳胶过敏情况，可改为“不透明抽签袋”，规则完全不变。</div>
+  </div>
+</section>
+
+<section id="flow">
+  <div class="section-title"><span class="no">03</span><div><h2>推荐完整流程</h2><small>90–110 MIN · 可按现场压缩</small></div></div>
+  <div class="timeline">
+    <div class="step"><div class="time">0–10 min</div><div class="stepbox"><b>签到 & 随机分组</b>：抽组卡、写昵称贴、进入对应小组。主持人提醒大家尽量使用本场昵称互相称呼。</div></div>
+    <div class="step"><div class="time">10–15 min</div><div class="stepbox"><b>规则发布</b>：讲解积分、气球盲盒和悬赏令。此刻正式开启“悬赏令”，直到终局结算前均可完成。</div></div>
+    <div class="step"><div class="time">15–25 min</div><div class="stepbox"><b>ROUND 1｜过名字</b>：先把全场最重要的“叫得出名字”解决。结束后触发气球盲盒。</div></div>
+    <div class="step"><div class="time">25–37 min</div><div class="stepbox"><b>ROUND 2｜害你在心口难开</b>：进入主动聊天阶段。结束后触发气球盲盒。</div></div>
+    <div class="step"><div class="time">37–49 min</div><div class="stepbox"><b>ROUND 3｜答非所问</b>：快速反应、制造笑点。结束后触发气球盲盒。</div></div>
+    <div class="step"><div class="time">49–61 min</div><div class="stepbox"><b>ROUND 4｜加字游戏</b>：小组协作与临场创造。结束后触发气球盲盒。</div></div>
+    <div class="step"><div class="time">61–75 min</div><div class="stepbox"><b>ROUND 5｜谁是卧底</b>：推理与表达，建议各组同步开局。结束后触发气球盲盒。</div></div>
+    <div class="step"><div class="time">75–87 min</div><div class="stepbox"><b>ROUND 6｜额头猜身份</b>：轻推理 + 交流。可作为最后一轮常规积分赛。</div></div>
+    <div class="step"><div class="time">87–97 min</div><div class="stepbox"><b>FINAL｜悬赏令集中冲刺</b>：开放最后 5–10 分钟自由走动，完成尚未完成的悬赏；随后截止兑换。</div></div>
+    <div class="step"><div class="time">97–105 min</div><div class="stepbox"><b>结算 & 颁奖 & 合影</b>：公布小组积分冠军、悬赏达人、趣味奖项；所有人领取参与奖励。</div></div>
+  </div>
+  <div class="callout"><b>时间不足时：</b>优先保留“过名字 → 害你在心口难开 → 答非所问/加字游戏二选一 → 谁是卧底 → 悬赏令结算”。“确认过眼神”和“胡辣汤”仅用于补时或替换冷场环节。</div>
+</section>
+
+<section id="games">
+  <div class="section-title"><span class="no">04</span><div><h2>正式游戏规则</h2><small>MAIN GAME CARDS</small></div></div>
+
+  <article class="game">
+    <div class="gamehead"><div class="gameicon">💗</div><div><h3>害你在心口难开</h3><div class="sub">关键词：观察 × 诱导 × 交流｜建议 10–12 分钟</div></div></div>
+    <div class="gamegrid">
+      <div class="mini"><b>怎么玩</b>每人抽取一张自己不能说、不能做的“禁词/禁动作”卡，并将卡片贴在额头或背后，自己不能看。所有人通过正常聊天诱导别人触发他的禁令。</div>
+      <div class="mini"><b>判定方式</b>一旦有人明确说出禁词或做出禁动作，发现者立即指出并交给裁判确认。被击中的成员本轮记 1 次“中招”，随后可换一张新卡继续玩，不长期淘汰。</div>
+      <div class="mini"><b>推荐禁令</b>“说‘我’”“说‘可以’”“点头”“摸头发”“说‘不知道’”“叫出某人的昵称”“问别人来自哪里”等。避免隐私、身体评价或令人尴尬的内容。</div>
+      <div class="mini"><b>积分建议</b><span class="score">每成功诱导 1 人 +1 分；全组累计上限 8 分。</span> 若要控制节奏，可限定每人最多计 2 次。</div>
+    </div>
+    <div class="callout"><b>主持提示：</b>这个游戏可以在一个正式回合里集中玩，也可以把禁令卡延续 20 分钟，让成员在其他游戏间隙继续互坑，破冰效果更强。</div>
+  </article>
+
+  <article class="game">
+    <div class="gamehead"><div class="gameicon">🕵️</div><div><h3>谁是卧底</h3><div class="sub">关键词：推理 × 描述 × 表达｜建议 12–14 分钟</div></div></div>
+    <div class="gamegrid">
+      <div class="mini"><b>准备</b>每组 5–6 人一套词卡。多数人为同一词语，1 人拿到相近但不同的“卧底词”。例：奶茶/咖啡、图书馆/自习室。词语要相近但可描述。</div>
+      <div class="mini"><b>流程</b>依次用一句话描述自己的词，不能直接说出词本身。每轮描述后全员投票，得票最高者出局；平票则平票者各补一句描述再投。</div>
+      <div class="mini"><b>胜负</b>若卧底被找出，平民胜；若卧底存活至只剩 2–3 人（按人数提前规定），卧底胜。出局者不透露自己的词。</div>
+      <div class="mini"><b>积分建议</b><span class="score">平民胜：存活平民所在小组 +5；卧底胜：卧底所在小组 +7。</span> 同组同步玩时，可按每桌胜方统一计分。</div>
+    </div>
+  </article>
+
+  <article class="game">
+    <div class="gamehead"><div class="gameicon">❓</div><div><h3>答非所问</h3><div class="sub">关键词：反套路 × 反应力｜建议 8–10 分钟</div></div></div>
+    <div class="gamegrid">
+      <div class="mini"><b>核心规则</b>主持人或上一位玩家向下一位提出一个问题。回答者必须在 3 秒内作答，但答案必须与问题明显无关。</div>
+      <div class="mini"><b>失败条件</b>回答与问题逻辑相关、重复前面出现过的答案、停顿超过 3 秒，或不小心直接回答了问题，都算失败。</div>
+      <div class="mini"><b>示例</b>问：“你今天吃什么？”答：“我的拖鞋会唱歌。” ✓　答：“吃面。” ✗</div>
+      <div class="mini"><b>积分建议</b>每组派 3 人进行接龙。<span class="score">连续成功 5 次 +3 分，10 次 +6 分；失败则该段重新计数。</span></div>
+    </div>
+  </article>
+
+  <article class="game">
+    <div class="gamehead"><div class="gameicon">✚</div><div><h3>加字游戏</h3><div class="sub">关键词：文字 × 创意 × 接龙｜建议 8–10 分钟</div></div></div>
+    <div class="gamegrid">
+      <div class="mini"><b>核心规则</b>主持人给出一个起始短句，如“我去上课”。玩家依次在原句中增加<strong>一个词或短语</strong>，且新句必须语法基本成立、意思可理解。</div>
+      <div class="mini"><b>示例</b>“我去上课” → “我明天去上课” → “我明天骑车去上课” → “我明天骑共享单车去上课”……</div>
+      <div class="mini"><b>失败条件</b>5 秒内接不上、删除/改变前面已有内容、重复添加、导致句子明显不成立，则该成员本轮失败。</div>
+      <div class="mini"><b>积分建议</b><span class="score">每组完成 8 层接龙 +4 分；完成 12 层 +7 分；全场最长且句意成立额外 +2 分。</span></div>
+    </div>
+  </article>
+
+  <article class="game">
+    <div class="gamehead"><div class="gameicon">🍥</div><div><h3>过名字</h3><div class="sub">关键词：记忆 × 认识彼此｜建议 8–10 分钟</div></div></div>
+    <div class="gamegrid">
+      <div class="mini"><b>第一步</b>每个人先用 10 秒介绍自己的昵称，并配一个简单动作/关键词。例如：“我是小树，我喜欢摄影”，同时做拍照动作。</div>
+      <div class="mini"><b>接龙</b>第一人只介绍自己；第二人先复述第一人的昵称+动作，再介绍自己；第三人依次复述前两人，再介绍自己，以此类推。</div>
+      <div class="mini"><b>大组优化</b>每组 5–6 人同时进行，不做 50 人大接龙。组内完成后，随机抽 1–2 人挑战说出本组所有成员昵称。</div>
+      <div class="mini"><b>积分建议</b><span class="score">全组顺利完成 +5 分；抽查者完整说对全组昵称再 +2 分。</span> 这是第一轮，积分不宜拉开太大。</div>
+    </div>
+  </article>
+
+  <article class="game">
+    <div class="gamehead"><div class="gameicon">🎭</div><div><h3>额头猜身份</h3><div class="sub">关键词：交流 × 推理｜建议 10–12 分钟</div></div></div>
+    <div class="gamegrid">
+      <div class="mini"><b>准备</b>每人抽一张身份卡贴在额头，自己不能看。身份尽量选大众熟悉的人物、职业、动物或物品，避免过于冷门。</div>
+      <div class="mini"><b>提问</b>玩家轮流向其他人提一个只能用“是 / 不是 / 不确定”回答的问题，例如“我是现实中的人物吗？”“我会飞吗？”</div>
+      <div class="mini"><b>猜测</b>每轮提问后可选择猜一次身份。猜错不淘汰，但下一轮失去一次提问机会；猜对即完成任务并可帮助观察同组。</div>
+      <div class="mini"><b>积分建议</b><span class="score">限时 6 分钟，每猜中 1 人 +1 分；全组全部猜中额外 +3 分。</span></div>
+    </div>
+  </article>
+</section>
+
+<section id="balloon">
+  <div class="section-title"><span class="no">05</span><div><h2>每回合惩罚｜气球盲盒</h2><small>PENALTY GACHA</small></div></div>
+  <article class="game special">
+    <div class="gamehead"><div class="gameicon">🎈</div><div><h3>气球盲盒</h3><div class="sub">每个正式回合结束触发一次 · 不计额外积分</div></div></div>
+    <p>活动开始前，把<strong>惩罚任务卡卷好塞入气球</strong>并编号。每轮常规游戏结束后，本轮积分最低的小组抽一个气球，由组内自行决定一名成员或全组共同完成其中任务。若并列最低，则通过猜拳/抽签决定抽取顺序，也可两组各抽一个。</p>
+    <div class="gamegrid">
+      <div class="mini"><b>执行流程</b>① 公布本轮积分 → ② 最低组派代表选气球 → ③ 安全弄破/拆开 → ④ 主持人朗读任务 → ⑤ 30–60 秒内完成 → ⑥ 全场鼓掌过关。</div>
+      <div class="mini"><b>设计原则</b>惩罚要“好笑但不羞辱”。禁止涉及身体评价、隐私、危险动作、强迫肢体接触、感情起哄、饮酒或食用刺激物。</div>
+    </div>
+    <h3>推荐惩罚任务卡（可直接打印）</h3>
+    <div class="grid">
+      <div class="mini">🎤 全组用“新闻联播腔”介绍自己的队名 20 秒。</div>
+      <div class="mini">🕺 全组同步做一个自创动作，连续成功 3 次。</div>
+      <div class="mini">🎬 任选 3 人演一段“第一次加入神秘组织”的无实物小剧场。</div>
+      <div class="mini">😺 全组用一种指定情绪说：“昆冈众创，我们来啦！”</div>
+      <div class="mini">📸 摆出一个“最像动漫主角团”的合影姿势，坚持 5 秒。</div>
+      <div class="mini">🎵 全组用同一旋律把自己的队名唱出来。</div>
+      <div class="mini">🤖 派一人模仿 AI 机器人，其余人向他发出 3 条奇怪指令。</div>
+      <div class="mini">💬 30 秒内全组共同想出一句夸奖另一组的话。</div>
+      <div class="mini">🧊 全组保持同一夸张表情 10 秒，任何人笑场则重来。</div>
+      <div class="mini">🎨 用身体共同摆出一个字母或简单图形，由其他组猜。</div>
+      <div class="mini">⚡ 5 秒内依次喊出自己的昵称，不能重叠、不能停顿。</div>
+      <div class="mini">🎁 幸运卡：本轮免罚，全组获得一次“指定别组表演同款动作”的娱乐权（对方可拒绝）。</div>
+    </div>
+  </article>
+</section>
+
+<section id="wanted">
+  <div class="section-title"><span class="no">06</span><div><h2>终极贯穿游戏｜悬赏令</h2><small>WANTED · OPEN FROM START TO FINISH</small></div></div>
+  <article class="game finalboss">
+    <div class="gamehead"><div class="gameicon">🎯</div><div><h3>悬赏令</h3><div class="sub">从主持人宣布开局起持续至终局结算前 · 独立奖励体系</div></div></div>
+    <p><strong>核心定位：</strong>悬赏令不是普通回合，也<strong>不增加小组常规积分</strong>。它是一条贯穿全场的隐藏支线：参与者在自由交流、游戏间隙或规定的“悬赏冲刺时间”内完成任务，获得<strong>悬赏币/印章</strong>，再用悬赏币兑换特殊奖励。</p>
+    <div class="gamegrid">
+      <div class="mini"><b>任务领取</b>入口处设置“悬赏板”。任务分为普通、进阶、稀有三档。每人同时最多持有 2 张任务，完成后找“赏金官”验证并盖章，再领取新任务。</div>
+      <div class="mini"><b>防止刷分</b>同一任务每人只能完成一次；需要互动的任务尽量不能连续找同一个人；涉及“找到某类人”的任务必须由目标本人确认。</div>
+      <div class="mini"><b>奖励货币</b>普通任务 1 枚悬赏币；进阶任务 2 枚；稀有任务 3 枚。悬赏币只用于个人特殊奖励，不改变小组排名。</div>
+      <div class="mini"><b>终局</b>常规赛结束后开放 5–10 分钟“悬赏冲刺”。时间到立即封板，统计悬赏币并开放奖励兑换。</div>
+    </div>
+    <h3>悬赏任务示例</h3>
+    <table>
+      <tr><th>等级</th><th>任务</th><th>奖励</th></tr>
+      <tr><td>普通</td><td>找到一位和你同月生日的人，并互相记住昵称。</td><td>1 币</td></tr>
+      <tr><td>普通</td><td>找到一位来自不同学院/专业方向的人，互相介绍自己。</td><td>1 币</td></tr>
+      <tr><td>普通</td><td>找到昵称中与你有同一个字/同音字的人。</td><td>1 币</td></tr>
+      <tr><td>普通</td><td>认识一位此前完全不认识的人，并让对方在任务卡上签昵称。</td><td>1 币</td></tr>
+      <tr><td>进阶</td><td>集齐来自 3 个不同小组成员的昵称签名。</td><td>2 币</td></tr>
+      <tr><td>进阶</td><td>和另一组 3 名成员共同完成一个统一姿势，由赏金官现场确认。</td><td>2 币</td></tr>
+      <tr><td>进阶</td><td>在不查看胸牌的情况下，连续正确叫出 4 位新认识成员的昵称。</td><td>2 币</td></tr>
+      <tr><td>稀有</td><td>召集 4 个不同小组各 1 人，在 30 秒内共同想出一句“昆冈众创”宣传语。</td><td>3 币</td></tr>
+      <tr><td>稀有</td><td>找到 5 位此前不认识的人，组成临时小队并给小队取名，由全员向赏金官报到。</td><td>3 币</td></tr>
+    </table>
+    <div class="callout"><b>关键设计：</b>悬赏任务尽量围绕“认识更多人”而不是“做尴尬动作”。这样即使有人不擅长竞技，也能通过主动社交获得自己的成就感。</div>
+  </article>
+</section>
+
+<section id="backup">
+  <div class="section-title"><span class="no">07</span><div><h2>备选游戏</h2><small>BACKUP MISSIONS</small></div></div>
+
+  <article class="game">
+    <div class="gamehead"><div class="gameicon">👀</div><div><h3>确认过眼神</h3><div class="sub">昵称记忆 × 反应｜建议 6–10 分钟</div></div></div>
+    <p><strong>游戏开始前每个人先确定一个昵称，并确保大家有短时间互相认识昵称。</strong>所有参与者围成一圈或分组围圈，全程先低头。主持人口令“抬头”后，每个人立刻选择一名玩家看过去。</p>
+    <ol>
+      <li>若两人没有互相对视，则等待主持人下一轮“低头”。</li>
+      <li>若两人恰好对上眼神，两人必须立刻喊出<strong>对方的昵称</strong>。</li>
+      <li>喊错、明显更慢或超过约 2 秒者本轮淘汰；若无法判断先后，可两人都留下重赛，避免争议。</li>
+      <li>继续“低头 → 抬头 → 对视 → 喊昵称”，直到最终留下 1 人。</li>
+    </ol>
+    <div class="callout"><b>40–50 人优化：</b>先在 8 个小组内各决出 1 名“眼神王”，再由 8 人进行总决赛。这样节奏快，也避免大圈里大量玩家一直对不上眼。</div>
+    <p class="score">积分建议（若临时替换为正式赛）：组内冠军 +2 分；总冠军所在组再 +4 分。</p>
+  </article>
+
+  <article class="game">
+    <div class="gamehead"><div class="gameicon">🌶️</div><div><h3>胡辣汤</h3><div class="sub">描述 × 猜词｜备用热场</div></div></div>
+    <p>选定一个大家都熟悉的词作为“胡辣汤”。轮流用<strong>不能直接出现答案关键词</strong>的方式描述它，其他成员根据描述猜词。可将“胡辣汤”作为固定口令，也可准备一组日常物品、校园地点、网络热词等题库。</p>
+    <div class="gamegrid">
+      <div class="mini"><b>建议玩法</b>每组派 1 人描述，组员抢答；每题限时 30 秒。描述者不能说出词中任何字、谐音或直接翻译。</div>
+      <div class="mini"><b>适用场景</b>某个正式游戏提前结束、设备/场地出现等待、需要快速填补 5–8 分钟时直接启用。</div>
+    </div>
+  </article>
+</section>
+
+<section id="score">
+  <div class="section-title"><span class="no">08</span><div><h2>积分与奖励</h2><small>SCORE & REWARD</small></div></div>
+  <div class="grid">
+    <div class="panel">
+      <h3>🏆 小组积分</h3>
+      <p>常规游戏产生团队积分。建议主持人在每轮结束后立即更新总榜，但<strong>不公布过细个人表现</strong>，避免压力过大。</p>
+      <table>
+        <tr><th>项目</th><th>说明</th></tr>
+        <tr><td>常规游戏</td><td>按各游戏规则累计，单轮尽量控制在 3–8 分区间。</td></tr>
+        <tr><td>气球盲盒</td><td>不扣分、不加分，仅作为本轮最低组的趣味惩罚。</td></tr>
+        <tr><td>悬赏令</td><td>完全独立，不加入团队总分。</td></tr>
+      </table>
+    </div>
+    <div class="panel">
+      <h3>🎁 奖励设计</h3>
+      <div class="reward-grid">
+        <div class="reward"><strong>🥇</strong>总积分冠军<br><small>小礼物/零食包</small></div>
+        <div class="reward"><strong>🎯</strong>悬赏达人<br><small>限定小奖品</small></div>
+        <div class="reward"><strong>✨</strong>最佳队名/默契<br><small>趣味奖</small></div>
+      </div>
+      <p>悬赏币可设置阶梯兑换：<strong>2 币</strong>抽一次小奖；<strong>4 币</strong>兑换中档奖；<strong>6 币</strong>进入“稀有奖励池”。奖品以文创、零食、小挂件、贴纸等轻量物品为宜。</p>
+    </div>
+  </div>
+</section>
+
+<section id="staff">
+  <div class="section-title"><span class="no">09</span><div><h2>人员分工与现场执行</h2><small>STAFF CHECKLIST</small></div></div>
+  <div class="panel">
+    <table>
+      <tr><th>岗位</th><th>建议人数</th><th>职责</th></tr>
+      <tr><td>总主持</td><td>1</td><td>控场、讲规则、倒计时、宣布积分和转场。</td></tr>
+      <tr><td>总控/计分</td><td>1–2</td><td>维护总积分榜，记录每轮结果，提醒时间。</td></tr>
+      <tr><td>巡场裁判</td><td>4</td><td>每人负责约 2 组，解决规则争议、确认胜负。</td></tr>
+      <tr><td>赏金官</td><td>2</td><td>负责悬赏令领取、验收、盖章/发币，防止重复完成。</td></tr>
+      <tr><td>物资/摄影</td><td>1–2</td><td>气球盲盒、卡牌补给、奖品、现场照片与合影。</td></tr>
+    </table>
+
+    <h3 style="margin-top:22px">主持人开场话术（可直接使用）</h3>
+    <div class="script">
+      “欢迎进入昆冈众创破冰大作战！今天大家不是来参加考试的，而是来认识一群以后可能一起做项目、一起熬夜、一起整活的人。全场分为 8 支队伍，通过小游戏获得团队积分。每轮积分最低的队伍会开启一次——气球盲盒！另外，从现在开始，悬赏令正式生效。你们可以在整个活动过程中完成特殊任务，获得悬赏币兑换隐藏奖励。记住：今天最值钱的不是分数，是你离开的时候能多叫出几个新朋友的名字。准备好了吗？”
+    </div>
+
+    <h3 style="margin-top:22px">现场控制原则</h3>
+    <ul>
+      <li><b>规则先演示再开局：</b>复杂规则不要只念文字，主持人与工作人员示范 20–30 秒。</li>
+      <li><b>争议快速处理：</b>无法明确判断时直接重赛，不长时间争论。</li>
+      <li><b>没人长期淘汰：</b>淘汰者可担任观察员、提示记录员或下一轮优先出场。</li>
+      <li><b>不强迫社交：</b>参与者可跳过任何让自己明显不适的惩罚/悬赏任务，并免费换卡。</li>
+      <li><b>保护个人边界：</b>禁止要求公开联系方式、感情状态、家庭情况等私人信息。</li>
+      <li><b>节奏优先：</b>主持人提前 1 分钟预告收尾；一轮拖时就减少下一轮题数，不挤压最终悬赏结算和合影。</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <div class="section-title"><span class="no">10</span><div><h2>活动前最终检查</h2><small>T−15 MIN CHECK</small></div></div>
+  <div class="panel">
+    <ul class="checklist">
+      <li>□ 分组卡是否足够且数量均衡</li>
+      <li>□ 昵称贴与马克笔是否放在签到处</li>
+      <li>□ 8 个小组区域是否明确</li>
+      <li>□ 游戏卡是否按轮次分袋</li>
+      <li>□ 气球盲盒是否全部装卡</li>
+      <li>□ 悬赏令是否分等级摆放</li>
+      <li>□ 悬赏币/印章是否由专人保管</li>
+      <li>□ 总积分表是否清零</li>
+      <li>□ 奖品是否按档位分类</li>
+      <li>□ 音箱、计时器是否正常</li>
+      <li>□ 工作人员是否知道自己负责哪两组</li>
+      <li>□ 主持人是否掌握“超时删减方案”</li>
+    </ul>
+    <div class="stamp">READY TO PLAY!</div>
+  </div>
+</section>
+
+<div class="footer">
+  福大昆冈众创工作室 · 破冰活动策划案<br>
+  <small>版本：提交版｜适用规模：40–50 人｜建议根据实际场地与活动时长微调</small>
+</div>
+
+</div>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v31edd6df95cf4e85bb4c19e7a9bdbcba1788362987495" integrity="sha512-iIg7k2xntmwu6/uSb5tpc/hySgZc4eoL31yB29W6tJFo2akwjPWcEqnCEdJvGexCL0KEQwVYv5BlowfhVz26hg==" data-cf-beacon='{"version":"2024.11.0","token":"45c2bf8136a245cd97f1c2e9a96c0730","spa":2}' crossorigin="anonymous"></script>
+</body>
+</html>
